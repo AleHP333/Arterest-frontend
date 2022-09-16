@@ -1,6 +1,7 @@
 const initialState = {
     products: [],
-    allProducts:[]
+    allProducts:[],
+    seachedProducts: []
 }
 
 export default function testReducer(state = initialState, action) {
@@ -11,6 +12,12 @@ export default function testReducer(state = initialState, action) {
                 products: action.payload,
                 allProducts:[ ...action.payload]
             }
+        case 'GET_PRODUCT_SEARCHBAR':
+                return {
+                    ...state,
+                    products: action.payload,
+                    allProducts: action.payload
+                }
         default: return state
     }
 }

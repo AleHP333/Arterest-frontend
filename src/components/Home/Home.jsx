@@ -17,7 +17,7 @@ export const Home = () => {
 
   return (
     <div>
-        {/* <NavBar /> */}
+        <NavBar />
         <div className='pin_container' >
                 {allPaints.length ? allPaints?.map((e, index) => {
                     return (

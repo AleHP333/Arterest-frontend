@@ -1,30 +1,21 @@
-// import React from "react";
-// import { Link } from "react-router-dom";
-// import { useDispatch } from 'react-redux'
+import React from "react";
+import { Link } from "react-router-dom";
+import Searchbar from "../Searchbar/Searchbar";
 
-// export default function NavBar(){
-//     const [input, setInput] = useState({search: ''})
-//     const dispatch = useDispatch()
 
-//     function handleStateChanges(e){
-//         setInput({[e.target.name]: e.target.value});
-//     }
-
-//     function handleSubmit(e){
-//         e.preventDefault();
-//         dispatch(getArtByName(input.search));
-//     }
-    
-//     return(
-//         <nav>
-//             <Link to='/home'>
-//                 <h1>Home</h1>
-//             </Link>
-//             <form onSubmit={(e) => handleSubmit(e)}>
-//                 <input type="text" name="search" value={input} 
-//                 placeholder="Artwork..." onChange={handleStateChanges} required/>
-//                 <button type="submit">Search</button>
-//             </form>
-//         </nav>
-//     )
-// }
+export default function NavBar(){
+    return(
+        <nav class='flex w-full justify-between mb-10 pb-5 border-b border-gray-300 fixed top-0 z-10 bg-gray-100'>
+            <Link to='/home'>
+                <h1>Home</h1>
+            </Link>
+            <Searchbar />
+            <Link to='/login'>
+                <h1>Log In</h1>
+            </Link>
+            <Link to='/signup'>
+                <h1>Sign Up</h1>
+            </Link>
+        </nav>
+    )
+}
