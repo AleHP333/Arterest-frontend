@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { getAllProducts } from '../../redux/actions/productActionsTest';
 import  Card  from '../Card/Card';
 import NavBar from '../NavBar/NavBar';
+import Footer from '../../pages/Footer/Footer.jsx';
 import './home.css'
 
 export const Home = () => {
@@ -38,6 +39,7 @@ export const Home = () => {
 
                 }
             </div>
+            <Footer className="foo"/>
     </div>
   )
 }
