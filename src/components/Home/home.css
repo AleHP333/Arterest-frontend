@@ -1,6 +1,7 @@
 body {
 background-color: white;
 margin: 1em;
+text-decoration: none;
 }
 .img{
     max-width: 100%;
@@ -11,4 +12,8 @@ margin: 1em;
     columns: 5 320px;
     column-gap: 1.5em;
 
+}
+.foo{
+    margin: 0%;
+    text-decoration: none;
 }
