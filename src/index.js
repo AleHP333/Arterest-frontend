@@ -8,8 +8,8 @@ import store from './redux/store';
 //import dotenv from 'dotenv';
 //import axios from 'axios';
 
-// import { authCredentials } from './auth0';
-// import  {Auth0Provider} from '@auth0/auth0-react'
+import { authCredentials } from './auth0';
+import  {Auth0Provider} from '@auth0/auth0-react'
 //dotenv.config();
 
 //axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:3001";
@@ -17,9 +17,9 @@ import store from './redux/store';
 ReactDOM.render(
   <Provider store= {store}>
   <React.StrictMode>
-  {/* <Auth0Provider domain={authCredentials.domain} clientId={authCredentials.clientId} audience={authCredentials.audience} redirectUri={window.location.origin}> */}
+  <Auth0Provider domain={authCredentials.domain} clientId={authCredentials.clientId} audience={authCredentials.audience} redirectUri={window.location.origin}>
     <App />
-  {/* </Auth0Provider> */}
+  </Auth0Provider>
   </React.StrictMode>
   </Provider>,
   document.getElementById('root')
