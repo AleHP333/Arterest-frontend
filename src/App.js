@@ -6,6 +6,7 @@ import Faq from './pages/FAQ/Faq';
 import Terms from './pages/Terms/Terms';
 import AboutUs from './pages/AboutUs/AboutUs';
 import ContactUs from './pages/ContactUs/ContactUs';
+import ArtistProfile from './pages/ArtistProfile/ArtistProfile';
 
 import { Home } from './components/Home/Home';
 
@@ -24,6 +25,7 @@ function App() {
           <Route  path="/faq" element={<Faq/>}/>
           <Route  path="/about" element={<AboutUs/>}/>
           <Route  path="/contact" element={<ContactUs/>}/>
+          <Route  path="/artistprofile/:userName" element={<ArtistProfile/>}/>
         
         
 
