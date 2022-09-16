@@ -1,6 +1,6 @@
 import React from 'react';
 import { Accordion } from 'react-bootstrap';
-import { TermsContainer } from './Terms.module.css';
+import TermsContainer from './Terms.module.css';
 
 
 
