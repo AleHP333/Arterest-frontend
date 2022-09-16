@@ -30,7 +30,7 @@ export default function ContactUs() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    dispatch(createContact(input))
+    //dispatch(createContact(input))
     setInput({
       subject: "",
       name: "",

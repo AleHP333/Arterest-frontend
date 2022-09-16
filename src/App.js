@@ -6,7 +6,9 @@ import Faq from './pages/FAQ/Faq';
 import Terms from './pages/Terms/Terms';
 import AboutUs from './pages/AboutUs/AboutUs';
 import ContactUs from './pages/ContactUs/ContactUs';
+
 import { Home } from './components/Home/Home';
+
 
 
 
@@ -15,7 +17,6 @@ function App() {
     <>
       <Router>
         <Routes>
-
           <Route exact path="/" element={<LandingPage/>}/>
           <Route exact path="/creation" element={<PostProduct />} />
           <Route  path="/home" element={<Home/>}/>

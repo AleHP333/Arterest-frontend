@@ -10,3 +10,17 @@ export function getAllProducts(){
             payload: res.data
         })
     }}
+
+export function artFilterByBack(payload) {
+    return async function (dispatch) {
+        const response = await axios.get(`http://localhost:3001/searchFilters?${payload}`)
+        dispatch({
+            type: "ART_FILTER",
+            payload: response.data
+        });
+    };
+};
+
+export function activeLoading(){
+    return {type: "ACTIVE_LOADING"}
+}
