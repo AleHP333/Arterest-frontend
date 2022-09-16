@@ -1,0 +1,38 @@
+.footer {
+   width: cover;
+   margin-top: 20px;
+    padding: 1.4rem !important;
+    display: flex !important;
+    justify-content: space-around !important;
+    background-color: #e90606;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.89), 0 6px 20px 0 rgba(236, 9, 9, 0.767);
+    text-decoration: none;
+}
+.title{
+    font-size: 1.2rem !important;
+    color: white !important;;
+    font-weight: bold,
+}
+
+.terms {
+    font-size: 1rem !important;
+    color: white !important;
+    font-weight: bold;
+    text-decoration: none;
+}
+.footerContact{
+    font-size: 1.2rem !important;
+    margin: 10px;
+    color: white !important;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.footerContact:hover {
+    color: #0a0a0a;
+}
+
+.contact {
+    display: flex;
+    gap: 1em;
+}

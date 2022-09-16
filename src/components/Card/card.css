@@ -38,7 +38,7 @@
 }
 
 .container:hover>.img-container>img {
-  opacity: 0.5;
+  opacity: 0.3;
 }
 
 .social-media {
@@ -58,15 +58,17 @@
 
 .social-media>li>a {
   display: block;
-  height: 50px;
-  width: 50px;
-  background-color: #FFF;
+  height: 60px;
+  width: 60px;
+  background-color: transparent;
   text-align: center;
-  color: #262626;
-  margin: 0 5px;
-  border-radius: 50%;
+  padding-left: 0;
+  padding-right: 40px;
+  color: #ffffff;
+  margin: 0 20px;
+  border-radius:50%;
   opacity: 0;
-  transform: translateY(200px);
+  transform: translateY(300px);
   transition: all 0.3s ease-out;
 }
 
@@ -75,15 +77,12 @@
   opacity: 1;
 }
 
-.social-media>li>a>.gr {
-  font-size: 24px;
-  line-height: 50px;
+.social-media>li>a> .gr {
+  font-size: 40px;
+  line-height: 40px;
   transition: transform 0.3s ease-out;
 }
 
-.social-media>li>a:hover>.gr {
-  transform: rotateY(360deg);
-}
 
 .container:hover .social-media li:nth-child(1) a {
   transition-delay: 0s;
@@ -109,6 +108,33 @@
   margin: 10px 0;
   font-size: 1.2rem;
 }
+
+.user-info>button {
+  position: absolute;
+  display: flex;
+  padding: 0;
+  margin: 10px 0;
+  font-size: 1.3rem;
+  
+}
+.heart{
+  position: absolute;
+  display: flex;
+  padding: 0;
+  margin: 10px 0;
+  font-size: 1.3rem;
+  }
+  .heart:hover{
+       color: rgba(192, 39, 39, 0.553);
+   }
+   .user-info>button active {
+   color: red
+  }
+.user-info>h1 {
+  padding: 0;
+  margin: 10px 0;
+  
+}
 .user-info>h5 {
   padding: 0;
   margin: 10px 0;
@@ -117,9 +143,15 @@
   padding: 0;
   margin: 10px 0;
   font-size: medium;
-
 }
-
+.user-info>h6 {
+  position: absolute;
+  display: flex;
+  left: 40px;
+  padding: 0;
+  margin: 10px 0;
+  font-size: medium;
+}
 .user-info>img {
   position: absolute;
   display: flex;

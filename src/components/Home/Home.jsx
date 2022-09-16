@@ -6,6 +6,7 @@ import { activeLoading, artFilterByBack, getAllProducts } from '../../redux/acti
 import  Card  from '../Card/Card';
 import FilterBar from '../FilterBar/FilterBar';
 import NavBar from '../NavBar/NavBar';
+import Footer from '../../pages/Footer/Footer.jsx';
 import './home.css'
 
 //MUI COMPONENTS
@@ -54,7 +55,7 @@ export const Home = () => {
                 <FilterBar></FilterBar>
                 {filters.length ? searchName && filters.length === 1 ?
                 null :
-                <div class="w-full bg-slate-500 flex-initial">
+                <div className="w-full bg-slate-500 flex-initial">
                 {
                     filters.map(filter => {
                     return filter[0] === 'name' ?
@@ -92,6 +93,7 @@ export const Home = () => {
                 }
             </div>
         </div>
+            <Footer className="foo"/>
     </div>
   )
 }
