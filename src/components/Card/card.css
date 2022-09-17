@@ -99,7 +99,7 @@
   height: auto;
   width: 100%;
   box-sizing: border-box;
-  padding: 10px;
+  padding: 30px;
   text-align: center
 }
 
@@ -113,6 +113,8 @@
   position: absolute;
   display: flex;
   padding: 0;
+  left: 10px;
+  top: 0;
   margin: 10px 0;
   font-size: 1.3rem;
   
@@ -120,11 +122,13 @@
 .heart{
   position: absolute;
   display: flex;
+  left: 57px;
+  top: 10px;
   padding: 0;
   margin: 10px 0;
   font-size: 1.3rem;
   }
-  .heart:hover{
+  .button:hover{
        color: rgba(192, 39, 39, 0.553);
    }
    .user-info>button active {
@@ -148,9 +152,10 @@
   position: absolute;
   display: flex;
   left: 40px;
+  top: -2px;
   padding: 0;
   margin: 10px 0;
-  font-size: medium;
+  font-size: 1.2rem;
 }
 .user-info>img {
   position: absolute;
