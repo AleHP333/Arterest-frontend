@@ -5,6 +5,7 @@ import { AiFillShopping } from 'react-icons/ai'
 import { AiFillPushpin } from 'react-icons/ai';
 import { addToFav, addToCart } from './FavAndCart';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 
 
@@ -25,8 +26,10 @@ function Card({ userName, userImage, title, img, _id, price, rating, handleAdded
           </button>
           <h6>{likes}</h6>
           <h2 >{title}</h2>
-          <img src={userImage} alt="" />
+          <img src={userImage} alt='' />
+          <Link to= {'/artistprofile/' + userName} >
           <h5 >{userName}</h5>
+          </Link>
           <span>{price}</span>
         </div>
       </div>
