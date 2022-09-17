@@ -25,6 +25,12 @@ export default function testReducer(state = initialState, action) {
                 ...state,
                 isLoading: true
             }
+        case 'GET_PRODUCT_SEARCHBAR':
+                return {
+                    ...state,
+                    products: action.payload,
+                    allProducts: action.payload
+                }
         case "GET_AN_ARTIST":
             return {
                 ...state,

@@ -49,7 +49,7 @@ export const Home = () => {
 
   return (
     <div>
-        {/* <NavBar /> */}
+        <NavBar />
         <div>
             <div className='w-full bg-red-300 mb-5 shadow-md'>
                 <FilterBar></FilterBar>
