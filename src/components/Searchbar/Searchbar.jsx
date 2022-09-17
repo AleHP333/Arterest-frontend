@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getProductSearchbar } from "../../redux/actions/productActionsTest";
+import { AiOutlineSearch} from 'react-icons/ai'
 
 export default function Searchbar() {
     const [input, setInput] = useState('')
@@ -28,10 +29,10 @@ export default function Searchbar() {
     // }
     
     return (
-        <form onSubmit={(e) => handleSubmit(e)}>
-                <input type="text" name="search" value={input} 
-                placeholder="Search..." onChange={handleStateChanges} required/>
-                <button type="submit">Search</button>
+        <form onSubmit={(e) => handleSubmit(e)} class='flex justify-center h-full'>
+                <input class='rounded-l w-1/2' type="text" name="search" value={input} 
+                placeholder="  Search..." onChange={handleStateChanges} required/>
+                <button class='rounded-r bg-white text-2xl' type="submit"><AiOutlineSearch /></button>
         </form>
     )
 }

@@ -6,7 +6,11 @@ module.exports = {
     "./src/**/*.{js,jsx, html, tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors : {
+        'rojo': '#e90606'
+      }
+    },
   },
   plugins: [require('tw-elements/dist/plugin')],
 }

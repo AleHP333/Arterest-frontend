@@ -1,23 +1,34 @@
-import {React} from "react";
+import { React } from "react";
 import { Link } from "react-router-dom";
+import Footer from "../../pages/Footer/Footer";
+import NavBar from "../NavBar/NavBar";
 import Slider from "./slider";
 
-
 export default function LandingPage() {
-    return(
-        <div class='w-full min-h-screen flex flex-col bg-gray-900'>
-            <main class='flex-1 text-center'>
-                <p class='text-gray-100'>holasdasdads</p>
-                <Slider/>   
-            </main>
-            <footer class='flex flex-col md:flex-row justify-between mb-4 mt-4 sticky'>
-                <button class='bg-red-800  rounded-full text-2xl py-4 px-6 md:px-10 lg:py-6 lg:px-12 font-bold uppercase cursor-pointer hover:opacity-75 duration-150 text-gray-900'>sign up</button>
-                <button class='bg-red-800  rounded-full text-2xl py-4 px-6 md:px-10 lg:py-6 lg:px-12 font-bold uppercase cursor-pointer hover:opacity-75 duration-150 text-gray-900'>log in</button>
-                <button class='bg-red-800  rounded-full text-2xl py-4 px-6 md:px-10 lg:py-6 lg:px-12 font-bold uppercase cursor-pointer hover:opacity-75 duration-150 text-gray-900'><Link to='/home'>
-                     enter as guest
-                    </Link>
-                     </button>
-            </footer>
+  return (
+    <div class="h-full flex flex-col bg-gray-100">
+      <NavBar />
+      <div class="flex flex-row w-full h-3/5 pt-10">
+        <div class="w-2/4 flex justify-center align-middle mt-auto mb-auto px-20">
+          <p class="w-1/2">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit
+            expedita, corrupti error in beatae culpa quisquam totam, fugit,
+            asperiores tempora labore ut libero cum voluptatum et. Corrupti
+            eaque natus veritatis.
+          </p>
         </div>
-    )
+        <div class="w-2/4 flex justify-center align-middle mt-auto mb-auto">
+          <Slider />
+        </div>
+      </div>
+      <div class="w-full  flex justify-center mt-4">
+        <button className="rounded-full px-5 py-5 bg-rojo text-white hover:bg-black">
+          <Link to="/home" class='font-bold'>DISCOVER</Link>
+        </button>
+      </div>
+      <div class="w-full">
+        <Footer class="pt-0" />
+      </div>
+    </div>
+  );
 }
