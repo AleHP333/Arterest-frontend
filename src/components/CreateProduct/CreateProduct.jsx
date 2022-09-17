@@ -1,137 +1,230 @@
-import React from 'react';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import axios from 'axios';
-import PreviewImage from './ReusableFunctions/PreviewImage';
-import { productPost } from '../../redux/actions/productActionsTest';
-
+import React from "react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import axios from "axios";
+import PreviewImage from "./ReusableFunctions/PreviewImage";
+import { productPost } from "../../redux/actions/adminActions";
 
 
 const CreateProduct = () => {
   const formik = useFormik({
     initialValues: {
-        name: '',
-        price: 1,
-        image: "",
-        description: "", 
-        category: "",
+      userName: "",
+      title: "",
+      description: "",
+      img: "",
+      technique: "",
+      releaseDate: "",
+      price: "",
+      tags: "",
     },
     validationSchema: Yup.object({
-          name: Yup.string()
-            .max(15, 'Must be 15 characters or less')
-            .required('Required'),
-          price: Yup.number()
-            .max(20, 'Must be 20 or less')
-            .required('Required'),
-          image: Yup.mixed()
-          .required("required!")
-          .test(
+      userName: Yup.string()
+        .max(15, "Must be 15 characters or less")
+        .required("Required"),
+      title: Yup.string()
+        .max(15, "Must be 15 characters or less")
+        .required("Required"),
+      description: Yup.string().required("Required"),
+
+      img: Yup.mixed()
+        .required("required!")
+        .test(
           "FILE_SIZE",
           "Too big",
           (value) => value && value.size < 1000024 * 10024
-          )
-          .test(
+        )
+        .test(
           "FILE_TYPE",
           "Select png or jpeg only",
           (value) => value && ["image/png", "image/jpeg"].includes(value.type)
-          ),
-          description: Yup.string()
-            .required('Required'),
-          category: Yup.string()
-            .oneOf(
-              ['other'],
-              'Invalid Category'
-            )
-            .required('Required'),
-        }),
+        ),
+      technique: Yup.string()
+        .max(15, "Must be 15 characters or less")
+        .required("Required"),
+      releaseDate: Yup.string()
+        .max(15, "Must be 15 characters or less")
+        .required("Required"),
+      price: Yup.number().max(20, "Must be 20 or less").required("Required"),
+      tags: Yup.string()
+        .oneOf(["other"], "Invalid Category")
+        .required("Required"),
+    }),
     onSubmit: async (values) => {
-      const { image } = formik.values;
+      const { img } = formik.values;
 
       const formData = new FormData();
 
       try {
-        formData.append("file", image);
-        
+        formData.append("file", img);
+
         formData.append("upload_preset", "images");
-        const response = await axios.post(
-          "https://api.cloudinary.com/v1_1/onlypan/upload",
-          formData
-        )
-        .then(resAxios => {
-          values.image = resAxios.data.secure_url
-          productPost(values)
-          console.log(values, "values luego del post");
-          })
+        const response = await axios
+          .post("https://api.cloudinary.com/v1_1/onlypan/upload", formData)
+          .then((resAxios) => {
+            values.img = resAxios.data.secure_url;
+            productPost(values);
+            console.log(values, "values luego del post");
+          });
         // console.log(formData, "formData");
         // console.log(response.data, "response.data");
         // console.log(response.data.secure_url);
       } catch (error) {
         console.log(error);
       }
-      formik.handleReset()
-    }
+      formik.handleReset();
+    },
   });
-    return (
-      <div>
-    <form onSubmit={formik.handleSubmit}>
-      <label htmlFor="name">Name</label>
-      <input
-        id="name"
-        name="name"
-        type="text"
-        onChange={formik.handleChange}
-        value={formik.values.name}
-      />
-      {formik.errors.name && <p>{formik.errors.name}</p>}
-      
-      <label htmlFor="price">Price</label>
-      <input
-        id="price"
-        name="price"
-        type="text"
-        onChange={formik.handleChange}
-        value={formik.values.price}
-      />
-      {formik.errors.price && <p>{formik.errors.price}</p>}
-      
-      <label htmlFor="image">Image</label>
-        <input
-        id="image"
-        name="image"
-        type="file"
-        onChange={(e) => {
-            console.log("formik", formik);
-            formik.setFieldValue("image", e.target.files[0])}}
-        // value={formik.values.image}
-        />
-        {formik.errors.image && <p>{formik.errors.image}</p>}
-        
-        <label htmlFor="description">Description</label>
-        <input
-        id="description"
-        name="description"
-        type="text"
-        onChange={formik.handleChange}
-        value={formik.values.description}
-        />
-        {formik.errors.description && <p>{formik.errors.description}</p>}
-        
-        <label htmlFor="category">Category</label>
-        <input
-        id="category"
-        name="category"
-        type="text"
-        onChange={formik.handleChange}
-        value={formik.values.category}
-        />
-        {formik.errors.category && <p>{formik.errors.category}</p>}
-        
-      <button type="Submit">Submit</button>
-      <button type="button" onClick={formik.handleReset}>Clear form</button>
-    </form>
-    {formik.values.image && <PreviewImage file={formik.values.image} />}
+  return (
+    <div className="bg-gray-100 rounded-xl flex w-full min-h-screen justify-center items-center">
+      <div className="flex justify-between flex-col">
+        <form
+          onSubmit={formik.handleSubmit}
+          className="flex justify-between flex-col px-4 my-32 max-w-3xl mx-auto space-y-3"
+        >
+          <h1 className="text-4xl font-semibold text-gray-600">Crea un producto</h1>
+          <div className="">
+            <label htmlFor="userName">Name</label>
+            <input
+              className="border border-gray-400 block py-2 w-full rounded focus:outline-none focus:border-teal-500"
+              id="userName"
+              name="userName"
+              type="text"
+              onChange={formik.handleChange}
+              value={formik.values.userName}
+            />
+            {formik.errors.name && (
+              <p className="text-sm text-red-500">{formik.errors.name}</p>
+            )}
+          </div>
+          
+          <div className="w-1/4">
+            <label htmlFor="price">Price</label>
+            <input
+              className="border border-gray-400 block py-2 w-full rounded focus:outline-none focus:border-teal-500"
+              id="price"
+              name="price"
+              type="text"
+              onChange={formik.handleChange}
+              value={formik.values.price}
+            />
+            {formik.errors.price && (
+              <p className="text-sm text-red-500">{formik.errors.price}</p>
+            )}
+          </div>
+          <div className="flex space-x-4">
+            <div>
+              <label htmlFor="img">Image</label>
+              <input
+                className="border border-gray-400 block py-2 w-full rounded focus:outline-none focus:border-teal-500"
+                id="img"
+                name="img"
+                type="file"
+                onChange={(e) => {
+                  console.log("formik", formik);
+                  formik.setFieldValue("img", e.target.files[0]);
+                }}
+                // value={formik.values.image}
+              />
+              {formik.errors.img && (
+                <p className="text-sm text-red-500">{formik.errors.img}</p>
+              )}
+            </div>
+            <div>
+              {formik.values.img && <PreviewImage file={formik.values.img} />}
+            </div>
+          </div>
+
+          <div>
+            <label htmlFor="description">Description</label>
+            <input
+              className="border border-gray-400 block py-2 w-full rounded focus:outline-none focus:border-teal-500"
+              id="description"
+              name="description"
+              type="text"
+              onChange={formik.handleChange}
+              value={formik.values.description}
+            />
+            {formik.errors.description && (
+              <p className="text-sm text-red-500">
+                {formik.errors.description}
+              </p>
+            )}
+          </div>
+
+          <div>
+            <label htmlFor="tags">Tags</label>
+            <input
+              className="border border-gray-400 block py-2 w-full rounded focus:outline-none focus:border-teal-500"
+              id="tags"
+              name="tags"
+              type="text"
+              onChange={formik.handleChange}
+              value={formik.values.tags}
+            />
+            {formik.errors.tags && (
+              <p className="text-sm text-red-500">{formik.errors.tags}</p>
+            )}
+          </div>
+          <div>
+            <label htmlFor="title">Title</label>
+            <input
+              className="border border-gray-400 block py-2 w-full rounded focus:outline-none focus:border-teal-500"
+              id="title"
+              name="title"
+              type="text"
+              onChange={formik.handleChange}
+              value={formik.values.title}
+            />
+            {formik.errors.title && (
+              <p className="text-sm text-red-500">{formik.errors.title}</p>
+            )}
+          </div>
+          <div>
+            <label htmlFor="technique">Technique</label>
+            <input
+              className="border border-gray-400 block py-2 w-full rounded focus:outline-none focus:border-teal-500"
+              id="technique"
+              name="technique"
+              type="text"
+              onChange={formik.handleChange}
+              value={formik.values.technique}
+            />
+            {formik.errors.technique && (
+              <p className="text-sm text-red-500">{formik.errors.technique}</p>
+            )}
+          </div>
+          <div>
+            <label htmlFor="releaseDate">Release Date</label>
+            <input
+              className="border border-gray-400 block py-2 w-full rounded focus:outline-none focus:border-teal-500"
+              id="releaseDate"
+              name="releaseDate"
+              type="text"
+              onChange={formik.handleChange}
+              value={formik.values.releaseDate}
+            />
+            {formik.errors.releaseDate && (
+              <p className="text-sm text-red-500">
+                {formik.errors.releaseDate}
+              </p>
+            )}
+          </div>
+          <button type="Submit" className="rounded-full py-2 px3 uppercase text-xs font-bold tracking-wider bg-rose-600 text-gray-100">
+            Submit
+          </button>
+          <button
+            type="button"
+            onClick={formik.handleReset}
+            className="rounded-full py-2 px3 uppercase text-xs font-bold tracking-wider bg-orange-100"
+          >
+            Clear form
+          </button>
+        </form>
+      </div>
+      {/* {formik.values.img && <PreviewImage file={formik.values.img} />} */}
     </div>
   );
 };
 
-export default CreateProduct
+export default CreateProduct;
