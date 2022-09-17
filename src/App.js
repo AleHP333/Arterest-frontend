@@ -10,12 +10,14 @@ import DetailProduct from './components/DetailProduct/DetailProduct';
 import ArtistProfile from './pages/ArtistProfile/ArtistProfile';
 
 import { Home } from './components/Home/Home';
+import NavBar from './components/NavBar/NavBar';
 
 
 function App() {
   return (
     <>
       <Router>
+        <NavBar />
         <Routes>
           <Route exact path="/" element={<LandingPage/>}/>
           <Route exact path="/creation" element={<PostProduct />} />
@@ -26,7 +28,6 @@ function App() {
           <Route  path="/contact" element={<ContactUs/>}/>
           <Route exact path ="/detail/:id" element={<DetailProduct/>} />
           <Route  path="/artistprofile/:userName" element={<ArtistProfile/>}/>
-        
 
         
         </Routes>

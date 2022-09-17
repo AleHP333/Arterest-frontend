@@ -2,12 +2,10 @@ import { React } from "react";
 import { Link } from "react-router-dom";
 import Footer from "../../pages/Footer/Footer";
 import NavBar from "../NavBar/NavBar";
-import Slider from "./slider";
 
 export default function LandingPage() {
   return (
     <div class="h-full flex flex-col bg-gray-100">
-      <NavBar />
       <div class="flex flex-row w-full h-3/5 pt-10">
         <div class="w-2/4 flex justify-center align-middle mt-auto mb-auto px-20">
           <p class="w-1/2">
@@ -17,13 +15,13 @@ export default function LandingPage() {
             eaque natus veritatis.
           </p>
         </div>
-        <div class="w-2/4 flex justify-center align-middle mt-auto mb-auto">
-          <Slider />
-        </div>
+        <div class="w-2/4 flex justify-center align-middle mt-auto mb-auto">aca va una imagen o algo</div>
       </div>
       <div class="w-full  flex justify-center mt-4">
         <button className="rounded-full px-5 py-5 bg-rojo text-white hover:bg-black">
-          <Link to="/home" class='font-bold'>DISCOVER</Link>
+          <Link to="/home" class="font-bold">
+            DISCOVER
+          </Link>
         </button>
       </div>
       <div class="w-full">
