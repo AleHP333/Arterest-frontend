@@ -6,10 +6,10 @@ import Faq from './pages/FAQ/Faq';
 import Terms from './pages/Terms/Terms';
 import AboutUs from './pages/AboutUs/AboutUs';
 import ContactUs from './pages/ContactUs/ContactUs';
+import DetailProduct from './components/DetailProduct/DetailProduct';
+import ArtistProfile from './pages/ArtistProfile/ArtistProfile';
 
 import { Home } from './components/Home/Home';
-
-
 
 
 function App() {
@@ -24,9 +24,11 @@ function App() {
           <Route  path="/faq" element={<Faq/>}/>
           <Route  path="/about" element={<AboutUs/>}/>
           <Route  path="/contact" element={<ContactUs/>}/>
-        
+          <Route exact path ="/detail/:id" element={<DetailProduct/>} />
+          <Route  path="/artistprofile/:userName" element={<ArtistProfile/>}/>
         
 
+        
         </Routes>
       </Router>
     </>

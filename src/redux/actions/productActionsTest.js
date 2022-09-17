@@ -36,4 +36,14 @@ export function artFilterByBack(payload) {
 
 export function activeLoading(){
     return {type: "ACTIVE_LOADING"}
-}
+};
+
+export function getAnArtist(userName){
+    return async function(dispatch){
+        const res = await axios.get(`http://localhost:3001/paints/allpaints?art=${userName}`)
+        console.log(res.data, 'SOY EL USERNAME');
+        dispatch({
+            type: 'GET_AN_ARTIST',
+            payload: res.data
+        })
+    }}
