@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { handleErrors } from './errorHandler';
-import { productPost } from '../../redux/actions/adminActions';
+// import { productPost } from '../../redux/actions/adminActions';
 import "./PostProduct.css"
 
 //MATERIAL UI IMPORTS
@@ -68,16 +68,16 @@ export default function PostProduct() {
     }
 
 
-    function handleSubmit(e){
-        e.preventDefault()
+    // function handleSubmit(e){
+    //     e.preventDefault()
 
-        setErrors(handleErrors({...formData}))
-        if(Object.keys(errors).length > 0){
-            alert("Fix all the input errors before upload");
-        } else {
-            dispatch(productPost(formData))
-        }
-    }
+    //     setErrors(handleErrors({...formData}))
+    //     if(Object.keys(errors).length > 0){
+    //         alert("Fix all the input errors before upload");
+    //     } else {
+    //         dispatch(productPost(formData))
+    //     }
+    // }
 
 
     console.log(errors)
