@@ -11,16 +11,16 @@ import Logo from '../../pages/Assets/ArterestRed.png'
 
 export default function LandingPage() {
   return (
-    <div>
-      <div className="p-16">
-        <div className="p-8 bg-transparent shadow hover:shadow-lg mt-1">
+    <div className='items-center justify-center' >
+      <div className="p-2">
+        <div className="p-2 bg-transparent shadow hover:shadow-lg">
           <div className="grid text-center order-last md:order-first mt-10 md:mt-0">
-            <img className="w-{50%} h-{50%} mx-auto  relative inset-x-0 top-0 pb-5 rounded flex items-center justify-center " src={Logo} alt="arterest" />
+            <img className="object-fill h-20 w-33 mx-auto  relative inset-x-0 top-0 pb-5 rounded flex items-center justify-center " src={Logo} alt="arterest" />
             <div className="grid  md:grid-cols-1">
               <div className="grid pb-4 pt-0
-                text-center order-last md:order-first mt-20 md:mt-0">
-                <p className="grid pb-4 pt-0
-                text-center order-last md:order-first mt-20 md:mt-0">
+                text-center order-last md:order-first mt-5 md:mt-0">
+                <p className=" font-bold grid pb-4 pt-0
+                text-center order-last md:order-first mt-5 md:mt-0">
                   Art made social.
                   Whether art is your passion or profession, you've come to the right place.
                 </p>
@@ -28,34 +28,35 @@ export default function LandingPage() {
               <div>
               </div>
             </div>
-            <div className="p-16">
-              <Carousel autoPlay className="grid text-center order-last md:order-first mt-20 md:mt-0" >
-                <div className="w-3/4 h-3/4 mx-auto shadow-2xl relative inset-x-0 top-0 rounded flex items-center justify-center pb-3">
-                  <img alt="" src={i1} />
-
-                </div>
-                <div className="w-3/4 h-3/4 mx-auto shadow-2xl relative inset-x-0 top-0 rounded flex items-center justify-center pb-3">
-                  <img alt="" src={i2} />
-
-                </div>
-                <div className="w-3/4 h-3/4 mx-auto shadow-2xl relative inset-x-0 top-0 rounded flex items-center justify-center pb-3">
-                  <img alt="" src={i3} />
-
-                </div>
-              </Carousel>
-            </div>
-          </div>
-
-        </div>
-      </div>
-      <div class="w-full  flex justify-center mt-4">
-        <button className="rounded-full px-5 py-5 bg-rojo text-white hover:bg-black">
+            <div class="w-full  flex justify-center mt-4 mb-4">
+        <button className="rounded-full px-5 py-5 bg-black text-white hover:bg-rojo">
           <Link to="/home" class="font-bold">
             DISCOVER
           </Link>
         </button>
       </div>
-      <div class="w-full">
+      {/* <div> */}
+            <div className="p-2 object-scale-down h-2/4 w-2/4  justify-center pb-3 mx-auto shadow-2xl relative inset-x-0 mt-30 rounded ">
+              <Carousel autoPlay className="grid text-center " >
+                <div >
+                  <img alt="" src={i1} />
+
+                </div>
+                <div >
+                  <img alt="" src={i2} />
+
+                </div>
+                <div >
+                  <img alt="" src={i3} />
+
+                </div>
+              </Carousel>
+            </div>
+          {/* </div> */}
+
+        </div>
+      </div>
+      
         <Footer class="pt-0" />
       </div>
     </div>
