@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
+
+.sticky-top {
+    margin-bottom: .5em !important;
+}
+.box{
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.89), 0 6px 20px 0 rgba(236, 9, 9, 0.767);
+}
+.navbar-brand {
+    color: #ff0000 !important;
+    font-family: 'Satisfy', cursive !important;
+    font-size: 20px !important;
+    font-weight: 600 !important;
+    text-transform: none !important;
+    margin-left :18px;
+    
+}
+.navbarLogo{
+    margin-left :25px;
+}
+.navbar {
+    text-transform: none !important;
+}
+
+.nav-link {
+    color: rgb(2, 2, 2) !important;
+    margin:10px;
+    font-size: 1.2rem;
+    font-weight: 900 !important;
+}
+
+.nav-link:hover {
+    color: #f7f7f7 !important;
+}
+
+.btn-outline-success {
+    color: #f50101 !important;
+    border-color: #ffffff !important;
+    font-weight: 900 !important;
+    text-transform: none !important;
+    font-size: 1rem;
+    padding: 0.6em .8em !important;
+    margin-right: 20px !important;
+    margin: 20px;
+}
+
+.btn-outline-success:hover {
+    color: white !important;
+    background-color: #ff0909 !important;
+    margin-right: 20px !important;
+    border-radius: 4px;
+    margin: 20px;
+}
+
+.btn-outline-success:focus {
+    box-shadow: none !important;
+    background-color: #fa0202 !important;
+    color: white !important;
+    margin: 20px;
+}
+.btn-outline-secondary{
+    color: #f50101 !important;
+    border-color: #ffffff !important;
+    font-weight: 900 !important;
+    text-transform: none !important;
+    font-size: 1rem;
+    padding: 0.6em .8em !important;
+    margin-right: 20px !important;
+    margin: 20px;
+    
+}
+.btn-outline-secondary{
+    box-shadow: none !important;
+    background-color: #ff0000 !important;
+    color: white !important;
+    border-radius: 4px;
+    margin: 20px;
+    
+}
+.btn-outline-success:hover {
+    color: white !important;
+    background-color: #ff0909 !important;
+    margin-right: 20px !important;
+    border-radius: 4px;
+    margin: 20px;
+}
+
+
+.ProfileImg {
+    height: 50px;
+    border-radius: 50%;
+    margin: 10px;
+    margin-left:25px;
+}
+
+.Loading {
+    color: red;
+}
+
+
+
+.sellStyle{
+    cursor: pointer;
+    font-weight: 900 !important;
+    font-size: 1.4rem !important;
+    color: #169E85 !important;
+    transition: all 0.3s !important;
+    stroke: #0f7461 !important;
+}
+
+.dropDown{
+    font-size: 1.2rem;
+    font-weight: 900;
+}

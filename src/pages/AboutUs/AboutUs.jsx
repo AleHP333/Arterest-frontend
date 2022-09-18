@@ -6,44 +6,48 @@ import style from './aboutUs.module.css'
 export default function AboutUs() {
 
   return (
-   <div className='containerAboutUs'>
-       <div className={style.container}>
-      <h1>About Us</h1>
-      <div className={style.containerData}>
-        <span className={style.imageContainer}>
-          <img
-            className={style.image}
-            src='https://res.cloudinary.com/deqxuoyrc/image/upload/v1663251660/logoArterest_fotatr.png'
-            alt='Arterest'
-          />
-        </span>
-        <div>
-          <h3 className={style.titleDescription}>
-            Your place of interest in digital art
-          </h3>
-          <p>
-            We are an ecommerce dedicated to offer you all the authors and their incredible talent, 
-            in this growing world of digital art. 
-            We want to bring you the best titles, so that you have a wide range of choice of the works 
-            that move and inspire us.
-          </p>
-          <p>
-          In Arterest you can find a wide gallery of images, their detail and the artist's detail, 
-          leave opinions, reviews, give like to the artworks, create  personalized lists with your 
-          preferences, buy and be part of a great community of people who are passionate 
-          about digital art... passionate about digital art... just like us!
-          </p>
-          <p>
-          Don't be left out, the digital art revolution is coming.
-          </p>
+    <div className='containerAboutUs'>
+      <div className={style.container}>
+        <h1>About Us</h1>
+        <div className={style.containerData}>
+
+          <div className="relative flex mt-20">
+            <div className="w-60 h-60 bg-indigo-100 mx-auto rounded-full shadow-2xl relative inset-x-0 top-0 -mt-24 flex items-center justify-center">
+              <img src='https://res.cloudinary.com/deqxuoyrc/image/upload/v1663251660/logoArterest_fotatr.png'
+                className="rounded-full"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                alt='Arterest'>
+              </img>
+            </div>
+          </div>
+          <div>
+            <h3 className={style.titleDescription}>
+              Your place of interest in digital art
+            </h3>
+            <p>
+              We are an ecommerce dedicated to offer you all the authors and their incredible talent,
+              in this growing world of digital art.
+              We want to bring you the best titles, so that you have a wide range of choice of the works
+              that move and inspire us.
+            </p>
+            <p>
+              In Arterest you can find a wide gallery of images, their detail and the artist's detail,
+              leave opinions, reviews, give like to the artworks, create  personalized lists with your
+              preferences, buy and be part of a great community of people who are passionate
+              about digital art... passionate about digital art... just like us!
+            </p>
+            <p>
+              Don't be left out, the digital art revolution is coming.
+            </p>
+          </div>
         </div>
       </div>
-    </div>
 
       <h1 className='PageTitle'>OUR STAFF</h1>
       <hr className='dividerAboutUs' />
       <span className='textAboutUs'>We are a team of web developers that wants to make your dreams come true.</span>
-      <div className="TeamDiv">
+      <div className="grid  md:grid-cols-2">
         <div className='TeamCard'>
           <img className='imageAboutUs' src="https://avatars.githubusercontent.com/u/100927307?v=4" alt="Mariana Stocco" />
           <p>Mariana Stocco</p>
@@ -116,7 +120,7 @@ export default function AboutUs() {
             </a>
           </div>
         </div>
-      
+
       </div>
     </div>
   )
