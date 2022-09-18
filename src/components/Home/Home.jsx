@@ -5,14 +5,15 @@ import { Link, useSearchParams, useLocation, useNavigate } from 'react-router-do
 import { activeLoading, artFilterByBack, getAllProducts } from '../../redux/actions/productActionsTest';
 import  Card  from '../Card/Card';
 import FilterBar from '../FilterBar/FilterBar';
-import NavBar from '../NavBar/NavBar';
 import Footer from '../../pages/Footer/Footer.jsx';
 import './home.css'
 
 //MUI COMPONENTS
 import Chip from "@mui/material/Chip"
-import CircularProgress from '@mui/material/CircularProgress';
-import Box from '@mui/material/Box';
+
+function tagPrice(tagPrices){
+    return tagPrices.split("/").map(tag => "$" + tag).join("/")
+}
 
 export const Home = () => {
 
@@ -21,9 +22,7 @@ export const Home = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const loading = useSelector((state) => state.testReducer.isLoading)
     const allPaints = useSelector((state) => state.testReducer.allProducts);
-    console.log("totalPinturas:", allPaints);
     //SEARCH PARAMS
     const [searchParams] = useSearchParams();
     const searchName = searchParams.get('name');
@@ -37,16 +36,18 @@ export const Home = () => {
             } else {
                 dispatch(getAllProducts());
             }
-        //dispatch(activeLoading());
+        dispatch(activeLoading());
     }, [dispatch, searchParams])
     //Clear filters
     function clearFilter(filter) {
-        console.log(filter);
+        if(filter === "price"){
+            dispatch(activeLoading)
+        }
         searchParams.delete(filter);
         location.search = `?${searchParams.toString()}`;
         navigate(location);
     }
-    console.log(filters)
+
 
     //Paginate functions---------------------------------------------------------------------------------------
     const itemsToRender = () => {
@@ -83,27 +84,27 @@ export const Home = () => {
     
   return (
     <div>
-        {/* <NavBar /> */}
         <div>
             <div className='w-full bg-white mb-5 shadow-md'>
                 <FilterBar></FilterBar>
+                <div className="w-full h-10 bg-red-200 flex flex-initial items-center ">
                 {filters.length ? searchName && filters.length === 1 ?
                 null :
-                <div className="w-full bg-slate-500 flex-initial">
+                <>
                 {
                     filters.map(filter => {
-                    return filter[0] === 'name' ?
+                        return filter[0] === 'name' ?
                         null :
                         (
-                        <div key={filter[0]} >
-                            {filter[0] === 'price' ? `Price range ${filter[1]}` : null}
-                            <Chip label={filter && filter[1]} variant="outlined" onDelete={() => {clearFilter(filter[0])}} />
+                        <div className='inline-block ml-2' key={filter[0]} >
+                            <Chip label={filter && (filter[0] === "price" ? tagPrice(filter[1]) : filter[1])} onDelete={() => {clearFilter(filter[0])}} />
                         </div>
                         )
                     })
                 }
-                </div>
+                </>
                 : null}
+                </div>
             </div>
             {/* CARLOS-------------------------------------------------------------------------------------------- */}
             
