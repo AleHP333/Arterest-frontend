@@ -33,10 +33,9 @@ export default function PostProduct() {
 
     console.log(formData)
     const [errors, setErrors] = useState({})
-    const [autocompleteInput, setAutocompleteInput] = useState({})
-    const dispatch = useDispatch()
+    //const [autocompleteInput, setAutocompleteInput] = useState({})
+    //const dispatch = useDispatch()
     
-
 
     //FUNCTIONS
 
@@ -49,14 +48,14 @@ export default function PostProduct() {
         setErrors(handleErrors({...formData, [e.target.name]: e.target.value}))
     }
     
-    function handleSelect(e){
-        console.log(e)
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.textContent
-        })
-        setErrors(handleErrors({...formData, [e.target.name]: e.target.value}))
-    }
+    // function handleSelect(e){
+    //     console.log(e)
+    //     setFormData({
+    //         ...formData,
+    //         [e.target.name]: e.target.textContent
+    //     })
+    //     setErrors(handleErrors({...formData, [e.target.name]: e.target.value}))
+    // }
 
     function handleAutocompleteSelect(e){
         console.log(e)

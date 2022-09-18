@@ -1,7 +1,6 @@
 import "./app.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LandingPage from "./components/LandingPage/LandingPage";
-import PostProduct from "./pages/postProduct/PostProduct";
 import Faq from "./pages/FAQ/Faq";
 import Terms from "./pages/Terms/Terms";
 import AboutUs from "./pages/AboutUs/AboutUs";
