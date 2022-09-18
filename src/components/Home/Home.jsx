@@ -1,60 +1,53 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  Link,
-  useSearchParams,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
-import {
-  activeLoading,
-  artFilterByBack,
-  getAllProducts,
-} from "../../redux/actions/productActionsTest";
-import Card from "../Card/Card";
-import FilterBar from "../FilterBar/FilterBar";
-import NavBar from "../NavBar/NavBar";
-import Footer from "../../pages/Footer/Footer.jsx";
-import "./home.css";
+import React from 'react'
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useSearchParams, useLocation, useNavigate } from 'react-router-dom';
+import { activeLoading, artFilterByBack, getAllProducts } from '../../redux/actions/productActionsTest';
+import  Card  from '../Card/Card';
+import FilterBar from '../FilterBar/FilterBar';
+import Footer from '../../pages/Footer/Footer.jsx';
+import './home.css'
 
 //MUI COMPONENTS
-import Chip from "@mui/material/Chip";
-import CircularProgress from "@mui/material/CircularProgress";
-import Box from "@mui/material/Box";
+import Chip from "@mui/material/Chip"
+
+function tagPrice(tagPrices){
+    return tagPrices.split("/").map(tag => "$" + tag).join("/")
+}
 
 export const Home = ({ handleAdded, handleNotAdded }) => {
-  //HOOKS
-  const [currentPage, setCurrentPage] = useState(1);
-  const location = useLocation();
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const loading = useSelector((state) => state.testReducer.isLoading);
-  const allPaints = useSelector((state) => state.testReducer.allProducts);
-  console.log("totalPinturas:", allPaints);
-  //SEARCH PARAMS
-  const [searchParams] = useSearchParams();
-  const searchName = searchParams.get("name");
-  const filters = [];
-  searchParams.forEach((value, key) => {
-    filters.push([key, value]);
-  });
-  useEffect(() => {
-    if (searchParams.toString()) {
-      dispatch(artFilterByBack(searchParams.toString()));
-    } else {
-      dispatch(getAllProducts());
+
+    //HOOKS
+    const [currentPage, setCurrentPage] = useState(1)
+    const location = useLocation();
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const allPaints = useSelector((state) => state.testReducer.allProducts);
+    //SEARCH PARAMS
+    const [searchParams] = useSearchParams();
+    const searchName = searchParams.get('name');
+    const filters = []
+    searchParams.forEach((value, key) => {
+        filters.push([key, value]);
+    });
+    useEffect(() =>{
+        if (searchParams.toString()) {
+                dispatch(artFilterByBack(searchParams.toString()));
+            } else {
+                dispatch(getAllProducts());
+            }
+        dispatch(activeLoading());
+    }, [dispatch, searchParams])
+    //Clear filters
+    function clearFilter(filter) {
+        if(filter === "price"){
+            dispatch(activeLoading)
+        }
+        searchParams.delete(filter);
+        location.search = `?${searchParams.toString()}`;
+        navigate(location);
     }
-    //dispatch(activeLoading());
-  }, [dispatch, searchParams]);
-  //Clear filters
-  function clearFilter(filter) {
-    console.log(filter);
-    searchParams.delete(filter);
-    location.search = `?${searchParams.toString()}`;
-    navigate(location);
-  }
-  console.log(filters);
+
 
   //Paginate functions---------------------------------------------------------------------------------------
   const itemsToRender = () => {
@@ -91,57 +84,45 @@ export const Home = ({ handleAdded, handleNotAdded }) => {
 
   return (
     <div>
-      {/* <NavBar /> */}
-      <div>
-        <div className="w-full bg-red-300 mb-5 shadow-md">
-          <FilterBar></FilterBar>
-          {filters.length ? (
-            searchName && filters.length === 1 ? null : (
-              <div className="w-full bg-slate-500 flex-initial">
-                {filters.map((filter) => {
-                  return filter[0] === "name" ? null : (
-                    <div key={filter[0]}>
-                      {filter[0] === "price"
-                        ? `Price range ${filter[1]}`
-                        : null}
-                      <Chip
-                        label={filter && filter[1]}
-                        variant="outlined"
-                        onDelete={() => {
-                          clearFilter(filter[0]);
-                        }}
-                      />
-                    </div>
-                  );
-                })}
-              </div>
-            )
-          ) : null}
-        </div>
+        <div>
+            <div className='w-full bg-red-300 mb-5 shadow-md'>
+                <FilterBar></FilterBar>
+                <div className="w-full h-10 bg-red-200 flex flex-initial items-center ">
+                {filters.length ? searchName && filters.length === 1 ?
+                null :
+                <>
+                {
+                    filters.map(filter => {
+                        return filter[0] === 'name' ?
+                        null :
+                        (
+                        <div className='inline-block ml-2' key={filter[0]} >
+                            <Chip label={filter && (filter[0] === "price" ? tagPrice(filter[1]) : filter[1])} onDelete={() => {clearFilter(filter[0])}} />
+                        </div>
+                        )
+                    })
+                }
+                </>
+                : null}
+                </div>
+            </div>
         {/* CARLOS-------------------------------------------------------------------------------------------- */}
-
+            
         <div className="flex justify-center my-3">
-          <div>
+        <div>
             <button
-              onClick={prevPage}
-              className="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
+                onClick={prevPage}
+                className="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
             >
-              <span>&laquo;</span>
+                <span>&laquo;</span>
             </button>
-          </div>
-          {listOfNumbers().map((number, i) => {
+        </div>
+        {listOfNumbers().map((number, i) => {
             return (
-              <button
-                id={i}
-                value={number}
-                onClick={(e) => changePage(e)}
-                className={`page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-100 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none ${
-                  currentPage === number ? "bg-yellow-600" : ""
-                }`}
-              >
+            <button id={i} value={number} onClick={(e) => changePage(e)} className={`page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-100 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none ${currentPage===number? "bg-yellow-600": ""}`}>
                 {number}
-              </button>
-            );
+            </button>
+        );
           })}
           <div>
             <button

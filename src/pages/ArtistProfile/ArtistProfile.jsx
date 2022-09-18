@@ -1,35 +1,23 @@
-import { Box, CircularProgress } from "@mui/material";
 import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import Card from "../../components/Card/Card";
 import { getAnArtist } from "../../redux/actions/productActionsTest";
+import Card from "../../components/Card/Card";
 import Footer from "../Footer/Footer";
-
-
-
-
+import { Box, CircularProgress } from "@mui/material";
 
 export default function Profile() {
   const dispatch = useDispatch()
   const allPaints = useSelector((state) => state.testReducer.getAnArtist);
   const { userName } = useParams()
-  const artist = allPaints[0]
-  // const imageArtist = artist.userImage
-  // const nameArtist = artist.userName
-
-  // console.log(artist.userImage)
-  console.log(artist, 'ARTIST')
 
   useEffect(() => {
     dispatch(getAnArtist(userName))
-    // dispatch(getAnArtist(userImage))
   }, [dispatch, userName])
 
   return (
     <>
-      
       { Object.keys(allPaints).length != 0 ? 
       <div className="p-16">
         <div className="p-8 bg-white shadow mt-24">

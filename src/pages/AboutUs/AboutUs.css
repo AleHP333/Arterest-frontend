@@ -54,7 +54,7 @@
 
 .CardIcon:hover {
   transform: scale(1.1);
-  color: #198754;
+  color: #ff0000;
 }
 
 .IconsDiv {
@@ -73,7 +73,7 @@
 }
 
 body.Dark .TeamCard {
-  background: #125548;
+  background: #ff0000;
   color: white;
 }
 
