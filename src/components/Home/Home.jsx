@@ -21,6 +21,7 @@ function tagPrice(tagPrices){
 export const Home = () => {
 
     //HOOKS
+    const [currentPage, setCurrentPage] = useState(1)
     const location = useLocation();
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -53,6 +54,39 @@ export const Home = () => {
     }
 
 
+    //Paginate functions---------------------------------------------------------------------------------------
+    const itemsToRender = () => {
+    const start = currentPage * 12 - 12;
+    let end = start + 12;
+    if (start + 12 > allPaints.length) end = allPaints.length;
+    return allPaints.slice(start, end);
+  };
+  const listOfNumbers = () => {
+    let list = [];
+    let done = Math.ceil(allPaints.length / 12);
+    for (let i = 0; i < done; i++) {
+      list.push(i + 1);
+    }
+    return list;
+  };
+  
+    function nextPage() {
+        if (
+        listOfNumbers().length !== currentPage &&
+        listOfNumbers().length > currentPage
+        ) {
+        setCurrentPage(currentPage + 1);
+    }
+    }
+    function prevPage() {
+        if (currentPage !== 1 && currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    }
+    const changePage = (e) => {
+        setCurrentPage(Number(e.target.value));
+    };
+    
   return (
     <div>
         {/* <NavBar /> */}
@@ -78,11 +112,52 @@ export const Home = () => {
                 : null}
                 </div>
             </div>
-            <div className='pin_container' >
+            {/* CARLOS-------------------------------------------------------------------------------------------- */}
+            
+            <div className="flex justify-center my-3">
+                <div>
+                    <button
+                        onClick={prevPage}
+                        className="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
+                    >
+                        <span>&laquo;</span>
+                    </button>
+                </div>
+                {listOfNumbers().map((number, i) => {
+                    return (
+                    <button id={i} value={number} onClick={(e) => changePage(e)} className={`page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-100 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none ${currentPage===number? "bg-yellow-600": ""}`}>
+                        {number}
+                    </button>
+                );
+                })}
+                <div>
+                    <button onClick={nextPage} className="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none">
+                        <span>&raquo;</span>
+                    </button>
+                </div>
+            </div>
+            <div className='pin_container'>
+                {typeof itemsToRender()[0]==="string"? <div >ERROR</div>:
+                itemsToRender().map((e) => {
+                return (
+                <div key={e.id}>
+                    <Card  className='img'
+                        img={e.img}
+                        userName={e.userName}
+                        userImage={e.userImage}
+                        title={e.title}
+                        price={e.price}
+                        key={e._id}>
+                    </Card>
+                </div>
+                );
+                })}
+            </div>
+            {/* <div className='pin_container' >
                 {allPaints.length ? allPaints?.map((e, index) => {
                     return (
                         <div  key={index}>
-                            {/* <Link> */}
+                            
                                 <Card  className='img'
                                     img={e.img}
                                     userName={e.userName}
@@ -91,14 +166,14 @@ export const Home = () => {
                                     price={e.price}
                                     key={e._id}>
                                 </Card>
-                            {/* </Link> */}
+                            
                         </div>
                     );
                 }) : <Box sx={{ display: 'flex' }}>
                         <CircularProgress />
                     </Box>
                 }
-            </div>
+            </div> */}
         </div>
             <Footer className="foo"/>
     </div>

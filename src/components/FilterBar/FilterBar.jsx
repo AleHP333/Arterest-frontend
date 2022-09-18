@@ -120,7 +120,7 @@ export default function FilterBar() {
             {
             <>
                 <FormControl className='colorFilter'>
-                    <InputLabel id="selectCountries">Countrie</InputLabel>
+                    <InputLabel id="selectCountries">Country</InputLabel>
                     <Select
                         id="selectCountries"
                         sx={{ width: 150, mr: "2rem" }}
