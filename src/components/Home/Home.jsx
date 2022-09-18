@@ -85,7 +85,7 @@ export const Home = () => {
     <div>
         {/* <NavBar /> */}
         <div>
-            <div className='w-full bg-red-300 mb-5 shadow-md'>
+            <div className='w-full bg-white mb-5 shadow-md'>
                 <FilterBar></FilterBar>
                 {filters.length ? searchName && filters.length === 1 ?
                 null :
@@ -111,20 +111,20 @@ export const Home = () => {
                 <div>
                     <button
                         onClick={prevPage}
-                        className="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
+                        className="page-link relative block py-1.5 px-3  border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
                     >
                         <span>&laquo;</span>
                     </button>
                 </div>
                 {listOfNumbers().map((number, i) => {
                     return (
-                    <button id={i} value={number} onClick={(e) => changePage(e)} className={`page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-100 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none ${currentPage===number? "bg-yellow-600": ""}`}>
+                    <button id={i} value={number} onClick={(e) => changePage(e)} className={`page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-100  text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none ${currentPage===number? 'bg-red-600' : ""}`}>
                         {number}
                     </button>
                 );
                 })}
                 <div>
-                    <button onClick={nextPage} className="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none">
+                    <button onClick={nextPage} className="page-link relative block py-1.5 px-3  border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none">
                         <span>&raquo;</span>
                     </button>
                 </div>

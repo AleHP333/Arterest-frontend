@@ -1,11 +1,13 @@
 import React from 'react'
 import './card.css'
-import { GrFavorite } from 'react-icons/gr'
+import { AiOutlineHeart } from 'react-icons/ai'
+import { AiFillHeart } from 'react-icons/ai'
 import { AiFillShopping } from 'react-icons/ai'
 import { AiFillPushpin } from 'react-icons/ai';
 import { addToFav, addToCart } from './FavAndCart';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+
 
 
 
@@ -19,9 +21,10 @@ function Card({ userName, userImage, title, img, _id, price, rating, handleAdded
         <img src={img} alt="" />
         <div className='user-info'>
           <button onClick={() => setLikes(likes + 1)}   >
-            <GrFavorite
+            <AiOutlineHeart
               onClick={() => { setLikeActive(true) }}
-              color={likeActive === true ? '#F44336' : 'rgb(50, 50, 50)'}
+              fill=
+              {likeActive === true ? 'red' : ''}
             />
           </button>
           <h6>{likes}</h6>
