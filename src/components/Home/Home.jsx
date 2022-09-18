@@ -5,14 +5,11 @@ import { Link, useSearchParams, useLocation, useNavigate } from 'react-router-do
 import { activeLoading, artFilterByBack, getAllProducts } from '../../redux/actions/productActionsTest';
 import  Card  from '../Card/Card';
 import FilterBar from '../FilterBar/FilterBar';
-import NavBar from '../NavBar/NavBar';
 import Footer from '../../pages/Footer/Footer.jsx';
 import './home.css'
 
 //MUI COMPONENTS
 import Chip from "@mui/material/Chip"
-import CircularProgress from '@mui/material/CircularProgress';
-import Box from '@mui/material/Box';
 
 function tagPrice(tagPrices){
     return tagPrices.split("/").map(tag => "$" + tag).join("/")
@@ -25,8 +22,6 @@ export const Home = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const loading = useSelector((state) => state.testReducer.isLoading)
-    const [reload, setReload] = useState(false)
     const allPaints = useSelector((state) => state.testReducer.allProducts);
     //SEARCH PARAMS
     const [searchParams] = useSearchParams();
@@ -89,7 +84,6 @@ export const Home = () => {
     
   return (
     <div>
-        {/* <NavBar /> */}
         <div>
             <div className='w-full bg-red-300 mb-5 shadow-md'>
                 <FilterBar></FilterBar>

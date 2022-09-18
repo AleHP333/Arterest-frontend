@@ -23,7 +23,6 @@ export default function FilterBar() {
     const loading = useSelector((state) => state.testReducer.isLoading)
     const productsAll = useSelector((state) => state.testReducer.allProducts);
     const [searchParams, setSearchParams] = useSearchParams()
-    const price = searchParams.get('price');
     const colors = searchParams.get('colors');
     const countries = searchParams.get('origin');
     const styles = searchParams.get("style")
