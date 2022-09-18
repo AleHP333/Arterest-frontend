@@ -21,17 +21,17 @@ export default function NavBar() {
   
   return (
     <nav className=" box flex flex-row justify-between w-full py-3 bg-gray-300">
-       <div className="d-flex me-5">
+       <div className="d-flex flex-row me-5">
                         <img className="navbarLogo" src={art_logo} alt="Arterest" width="45" height='45' />
                         <Link className="navbar-brand" to="/">
                             Arterest
                         </Link>
                     </div>
       <div class="flex w-1/3 justify-start">
-        <Link to="/home" class="ml-10 text-2xl">
+        <Link to="/home" class="ml-10 text-4xl">
           <AiFillHome />
         </Link>
-        <Link to="/favorites" class="ml-20 text-2xl">
+        <Link to="/favorites" class="ml-20 text-4xl">
           <AiFillPushpin />
         </Link>
       </div>
@@ -39,10 +39,10 @@ export default function NavBar() {
         <Searchbar />
       </div>
       <div class="flex w-1/3 justify-end">
-        <Link to="/login" class="mr-20 text-2xl">
+        <Link to="/login" class="mr-20 text-4xl">
           <AiOutlineUser />
         </Link>
-        <Link to="/cart" class="mr-5 text-2xl">
+        <Link to="/cart" class="mr-5 text-4xl">
           <AiFillShopping />
         </Link>
 
