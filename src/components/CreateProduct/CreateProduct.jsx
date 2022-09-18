@@ -45,7 +45,7 @@ const CreateProduct = () => {
       releaseDate: Yup.string()
         .max(15, "Must be 15 characters or less")
         .required("Required"),
-      price: Yup.number().max(20, "Must be 20 or less").required("Required"),
+      price: Yup.number().min(1, "Must be more than 1").required("Required"),
       tags: Yup.string()
         .oneOf(["other"], "Invalid Category")
         .required("Required"),
@@ -76,17 +76,17 @@ const CreateProduct = () => {
     },
   });
   return (
-    <div className="bg-gray-100 rounded-xl flex w-full min-h-screen justify-center items-center">
-      <div className="flex justify-between flex-col">
+    <div className="flex w-full min-h-screen justify-center items-center shadow-lg p-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
+      <div className="flex justify-between flex-col shadow-lg bg-gray-100 rounded-xl my-1">
         <form
           onSubmit={formik.handleSubmit}
           className="flex justify-between flex-col px-4 my-32 max-w-3xl mx-auto space-y-3"
         >
-          <h1 className="text-4xl font-semibold text-gray-600">Crea un producto</h1>
+          <h1 className="text-4xl font-bold text-gray-800">Crea un producto</h1>
           <div className="">
-            <label htmlFor="userName">Name</label>
+            <label htmlFor="userName" className="text-gray-500">Name</label>
             <input
-              className="border border-gray-400 block py-2 w-full rounded focus:outline-none focus:border-teal-500"
+              className="border border-gray-400 block py-2 w-full rounded outline hover:outline-white"
               id="userName"
               name="userName"
               type="text"
@@ -98,10 +98,10 @@ const CreateProduct = () => {
             )}
           </div>
           
-          <div className="w-1/4">
+          <div className="w-1/4 text-gray-500">
             <label htmlFor="price">Price</label>
             <input
-              className="border border-gray-400 block py-2 w-full rounded focus:outline-none focus:border-teal-500"
+              className="border border-gray-400 block py-2 w-full rounded  focus:border-teal-500"
               id="price"
               name="price"
               type="text"
@@ -112,11 +112,11 @@ const CreateProduct = () => {
               <p className="text-sm text-red-500">{formik.errors.price}</p>
             )}
           </div>
-          <div className="flex space-x-4">
+          <div className="flex space-x-4 text-gray-500">
             <div>
               <label htmlFor="img">Image</label>
               <input
-                className="border border-gray-400 block py-2 w-full rounded focus:outline-none focus:border-teal-500"
+                className="border border-gray-400 block py-2 w-full rounded focus:border-teal-500"
                 id="img"
                 name="img"
                 type="file"
@@ -135,10 +135,10 @@ const CreateProduct = () => {
             </div>
           </div>
 
-          <div>
+          <div className="text-gray-500">
             <label htmlFor="description">Description</label>
             <input
-              className="border border-gray-400 block py-2 w-full rounded focus:outline-none focus:border-teal-500"
+              className="border border-gray-400 block py-2 w-full rounded focus:border-teal-500"
               id="description"
               name="description"
               type="text"
@@ -152,10 +152,10 @@ const CreateProduct = () => {
             )}
           </div>
 
-          <div>
+          <div className="text-gray-500">
             <label htmlFor="tags">Tags</label>
             <input
-              className="border border-gray-400 block py-2 w-full rounded focus:outline-none focus:border-teal-500"
+              className="border border-gray-400 block py-2 w-full rounded focus:border-teal-500"
               id="tags"
               name="tags"
               type="text"
@@ -166,10 +166,10 @@ const CreateProduct = () => {
               <p className="text-sm text-red-500">{formik.errors.tags}</p>
             )}
           </div>
-          <div>
+          <div className="text-gray-500">
             <label htmlFor="title">Title</label>
             <input
-              className="border border-gray-400 block py-2 w-full rounded focus:outline-none focus:border-teal-500"
+              className="border border-gray-400 block py-2 w-full rounded focus:border-teal-500"
               id="title"
               name="title"
               type="text"
@@ -180,10 +180,10 @@ const CreateProduct = () => {
               <p className="text-sm text-red-500">{formik.errors.title}</p>
             )}
           </div>
-          <div>
+          <div className="text-gray-500">
             <label htmlFor="technique">Technique</label>
             <input
-              className="border border-gray-400 block py-2 w-full rounded focus:outline-none focus:border-teal-500"
+              className="border border-gray-400 block py-2 w-full rounded focus:border-teal-500"
               id="technique"
               name="technique"
               type="text"
@@ -194,10 +194,10 @@ const CreateProduct = () => {
               <p className="text-sm text-red-500">{formik.errors.technique}</p>
             )}
           </div>
-          <div>
+          <div className="text-gray-500">
             <label htmlFor="releaseDate">Release Date</label>
             <input
-              className="border border-gray-400 block py-2 w-full rounded focus:outline-none focus:border-teal-500"
+              className="border border-gray-400 block py-2 w-full rounded focus:border-teal-500"
               id="releaseDate"
               name="releaseDate"
               type="text"
@@ -210,13 +210,13 @@ const CreateProduct = () => {
               </p>
             )}
           </div>
-          <button type="Submit" className="rounded-full py-2 px3 uppercase text-xs font-bold tracking-wider bg-rose-600 text-gray-100">
+          <button type="Submit" className="rounded-full py-2 px3 uppercase text-xs font-bold tracking-wider bg-pink-700 text-gray-100">
             Submit
           </button>
           <button
             type="button"
             onClick={formik.handleReset}
-            className="rounded-full py-2 px3 uppercase text-xs font-bold tracking-wider bg-orange-100"
+            className="rounded-full py-2 px3 uppercase text-xs font-bold tracking-wider bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-gray-100"
           >
             Clear form
           </button>
