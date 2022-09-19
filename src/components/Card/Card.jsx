@@ -1,6 +1,6 @@
 import React from "react";
 import "./card.css";
-import { GrFavorite } from "react-icons/gr";
+import { AiOutlineHeart } from "react-icons/ai";
 import { AiFillShopping } from "react-icons/ai";
 import { AiFillPushpin } from "react-icons/ai";
 import { addToFav, addToCart } from "./FavAndCart";
