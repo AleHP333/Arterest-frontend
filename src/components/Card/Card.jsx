@@ -57,7 +57,7 @@ export default function Card({
                         userImage,
                         title,
                         img,
-                        id,
+                        _id,
                         price,
                         handleAdded,
                         handleNotAdded,
@@ -79,7 +79,7 @@ export default function Card({
                         userImage,
                         title,
                         img,
-                        id,
+                        _id,
                         price,
                         handleAdded,
                         handleNotAdded
