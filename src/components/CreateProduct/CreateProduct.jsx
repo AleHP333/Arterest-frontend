@@ -10,7 +10,6 @@ const CreateProduct = () => {
   const formik = useFormik({
     initialValues: {
       userName: "",
-      userImage: "",
       title: "",
       description: "",
       img: "",
@@ -26,18 +25,6 @@ const CreateProduct = () => {
       userName: Yup.string()
         .max(15, "Must be 15 characters or less")
         .required("Required"),
-      userImage: Yup.mixed()
-        .required("required!")
-        .test(
-          "FILE_SIZE",
-          "Too big",
-          (value) => value && value.size < 1000024 * 10024
-        )
-        .test(
-          "FILE_TYPE",
-          "Select png or jpeg only",
-          (value) => value && ["image/png", "image/jpeg"].includes(value.type)
-        ),
       title: Yup.string()
         .max(15, "Must be 15 characters or less")
         .required("Required"),
@@ -68,15 +55,18 @@ const CreateProduct = () => {
         .max(15, "Must be 15 characters or less")
         .required("Required"),
       releaseDate: Yup.number()
-        .max(2022, "Escoge un año real pendejo")
+        .max(2022, "Choose the creation year")
         .required("Required"),
       price: Yup.number().min(1, "Must be more than 1").required("Required"),
       tags: Yup.string()
-        .oneOf(["other"], "Invalid Category")
+        .max(15, "Must be 15 characters or less")
         .required("Required"),
+      // tags: Yup.string()
+      //   .oneOf(["other"], "Invalid Category")
+      //   .required("Required"),
     }),
     onSubmit: async (values) => {
-      const { img, userImage } = formik.values;
+      const { img } = formik.values;
 
       const formData = new FormData();
       
@@ -88,29 +78,13 @@ const CreateProduct = () => {
           .post("https://api.cloudinary.com/v1_1/onlypan/upload", formData)
           .then((resAxios) => {
             values.img = resAxios.data.secure_url;
-            // productPost(values);
+            productPost(values);
           })
         .catch(error=>console.log(error))
       } catch (error) {
         console.log(error);
       }
       // postCLoud del userProfile---------------------------------------------------------
-      try {
-        const formUserImage = new FormData();
-        formUserImage.append("file", userImage);
-
-        formUserImage.append("upload_preset", "images");
-        axios
-          .post("https://api.cloudinary.com/v1_1/onlypan/upload", formUserImage)
-          .then((resAxios) => {
-            values.userImage = resAxios.data.secure_url;
-          productPost(values)
-            console.log(values, "values luego del userImage post");
-          })
-          .catch(error => console.log(error))
-      } catch (error) {
-        console.log(error);
-      }
       formik.handleReset();
     },
   });
@@ -121,9 +95,9 @@ const CreateProduct = () => {
           onSubmit={formik.handleSubmit}
           className="flex justify-between flex-col px-4 my-32 max-w-3xl mx-auto space-y-3"
         >
-          <h1 className="text-4xl font-bold text-gray-800">Crea un producto</h1>
+          <h1 className="text-4xl font-bold text-gray-800">Post an artwork</h1>
           <div className="">
-            <label htmlFor="userName" className="text-gray-500">Name</label>
+            <label htmlFor="userName" className="text-gray-500">Artist</label>
             <input
               className="border border-gray-400 block py-2 w-full rounded outline hover:outline-white"
               id="userName"
@@ -138,30 +112,11 @@ const CreateProduct = () => {
           </div>
           
           <div className="flex space-x-4 text-gray-500">
-            <div>
-              <label htmlFor="userImage">User Profile</label>
-              <input
-                className="border border-gray-400 block py-2 w-full rounded focus:border-teal-500"
-                id="userImage"
-                name="userImage"
-                type="file"
-                onChange={(e) => {
-                  
-                  formik.setFieldValue("userImage", e.target.files[0]);
-                }}
-                // value={formik.values.image}
-              />
-              {formik.errors.userImage && (
-                <p className="text-sm text-red-500">{formik.errors.userImage}</p>
-              )}
-            </div>
-            <div>
-              {formik.values.userImage && <PreviewImage file={formik.values.userImage} />}
-            </div>
+            
           </div>
 
           <div className="text-gray-500">
-            <label htmlFor="title">Title</label>
+            <label htmlFor="title">Artwork name</label>
             <input
               className="border border-gray-400 block py-2 w-full rounded focus:border-teal-500"
               id="title"
@@ -176,7 +131,7 @@ const CreateProduct = () => {
           </div>
 
           <div className="w-1/4 text-gray-500">
-            <label htmlFor="price">Price</label>
+            <label htmlFor="price">Price</label> <span>USD</span>
             <input
               className="border border-gray-400 block py-2 w-full rounded  focus:border-teal-500"
               id="price"
@@ -184,7 +139,7 @@ const CreateProduct = () => {
               type="text"
               onChange={formik.handleChange}
               value={formik.values.price}
-            />
+            /> 
             {formik.errors.price && (
               <p className="text-sm text-red-500">{formik.errors.price}</p>
             )}
@@ -221,7 +176,7 @@ const CreateProduct = () => {
           </div>
 
           <div className="text-gray-500">
-            <label htmlFor="colors">Colors</label>
+            <label htmlFor="colors">Main color</label>
             <input
               className="colors border-gray-400 block py-2 w-full rounded focus:border-teal-500"
               id="colors"
@@ -237,7 +192,7 @@ const CreateProduct = () => {
 
           <div className="flex space-x-4 text-gray-500">
             <div>
-              <label htmlFor="img">Image</label>
+              <label htmlFor="img">Artwork image</label>
               <input
                 className="border border-gray-400 block py-2 w-full rounded focus:border-teal-500"
                 id="img"
@@ -305,7 +260,7 @@ const CreateProduct = () => {
             )}
           </div>
           <div className="text-gray-500">
-            <label htmlFor="releaseDate">Release Date</label>
+            <label htmlFor="releaseDate">Release Year</label>
             <input
               className="border border-gray-400 block py-2 w-full rounded focus:border-teal-500"
               id="releaseDate"

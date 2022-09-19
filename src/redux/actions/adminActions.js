@@ -8,8 +8,7 @@ export function productPost(formData) {
       const post = await axios
         .post("http://localhost:3001/paints/createProducts", formData)
         .then((response) => response.data)
-        .catch();
-      return dispatch({ type: "POST_ACTIVITY", payload: post });
+        .catch((error) => console.log(error));
     }
 
     return a();
