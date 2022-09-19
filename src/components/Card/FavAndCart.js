@@ -1,4 +1,4 @@
-const addToFav = (userName, userImage, title, img, _id, price, handleAdded, handleNotAdded, e, setFavProducts) => {
+export const addToFav = (userName, userImage, title, img, _id, price, handleAdded, handleNotAdded, e, setFavProducts) => {
     e.preventDefault()
     let favs = JSON.parse(localStorage.getItem('favList'))
     console.log('favs', favs)
@@ -34,7 +34,7 @@ const addToFav = (userName, userImage, title, img, _id, price, handleAdded, hand
     // handleAdded()
 }
 
-const addToCart = (userName, userImage, title, img, _id, price, color, handleAdded, handleNotAdded) => {
+export const addToCart = (userName, userImage, title, img, _id, price, color, handleAdded, handleNotAdded) => {
     let cart = JSON.parse(localStorage.getItem('cartList'))
     if (cart) {
         if (cart.length >= 30) {
@@ -51,7 +51,7 @@ const addToCart = (userName, userImage, title, img, _id, price, color, handleAdd
     handleAdded()
 }
 
-const getPrice = () => {
+export const getPrice = () => {
     let total = 0
     JSON.parse(localStorage.getItem('cartList')).forEach(e => {
         total += e.price * e.quantity
@@ -59,9 +59,3 @@ const getPrice = () => {
     return total.toFixed(2)
 }
 
-
-module.exports = {
-    addToFav,
-    addToCart,
-    getPrice
-}
