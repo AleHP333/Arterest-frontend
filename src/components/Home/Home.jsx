@@ -15,7 +15,7 @@ function tagPrice(tagPrices){
     return tagPrices.split("/").map(tag => "$" + tag).join("/")
 }
 
-export const Home = () => {
+export const Home = ({ handleAdded, handleNotAdded }) => {
 
     //HOOKS
     const [currentPage, setCurrentPage] = useState(1)
@@ -49,8 +49,8 @@ export const Home = () => {
     }
 
 
-    //Paginate functions---------------------------------------------------------------------------------------
-    const itemsToRender = () => {
+  //Paginate functions---------------------------------------------------------------------------------------
+  const itemsToRender = () => {
     const start = currentPage * 12 - 12;
     let end = start + 12;
     if (start + 12 > allPaints.length) end = allPaints.length;
@@ -64,24 +64,24 @@ export const Home = () => {
     }
     return list;
   };
-  
-    function nextPage() {
-        if (
-        listOfNumbers().length !== currentPage &&
-        listOfNumbers().length > currentPage
-        ) {
-        setCurrentPage(currentPage + 1);
+
+  function nextPage() {
+    if (
+      listOfNumbers().length !== currentPage &&
+      listOfNumbers().length > currentPage
+    ) {
+      setCurrentPage(currentPage + 1);
     }
+  }
+  function prevPage() {
+    if (currentPage !== 1 && currentPage > 1) {
+      setCurrentPage(currentPage - 1);
     }
-    function prevPage() {
-        if (currentPage !== 1 && currentPage > 1) {
-            setCurrentPage(currentPage - 1);
-        }
-    }
-    const changePage = (e) => {
-        setCurrentPage(Number(e.target.value));
-    };
-    
+  }
+  const changePage = (e) => {
+    setCurrentPage(Number(e.target.value));
+  };
+
   return (
     <div>
         <div>
@@ -106,7 +106,7 @@ export const Home = () => {
                 : null}
                 </div>
             </div>
-            {/* CARLOS-------------------------------------------------------------------------------------------- */}
+        {/* CARLOS-------------------------------------------------------------------------------------------- */}
             
             <div className="flex justify-center my-3">
                 <div>
@@ -168,9 +168,8 @@ export const Home = () => {
                     </Box>
                 }
             </div> */}
-        </div>
-            <Footer className="foo"/>
+      </div>
+      <Footer className="foo" />
     </div>
-  )
-}
-
+  );
+};

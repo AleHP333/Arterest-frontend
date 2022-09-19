@@ -29,7 +29,7 @@ export default function NavBar() {
       </div>
 
       <div class="flex w-1/3 justify-start">
-        <Link to="/home" class="ml-10 text-2xl">
+        <Link to="/home" class="ml-10 text-4xl">
           <AiFillHome />
         </Link>
       </div>

@@ -14,6 +14,10 @@ export default function Profile() {
 
   useEffect(() => {
     dispatch(getAnArtist(userName))
+    // dispatch(getAnArtist(userImage))
+    return () => {
+      dispatch({type:"REMOVE_ARTIST_SELECTED"})
+    }
   }, [dispatch, userName])
 
   return (
