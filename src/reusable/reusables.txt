@@ -1,0 +1,4 @@
+Acá solo van a ir los archivos que no funcionaron, o que tienen algo creado, pero no se van a utilizar.
+
+Nos puede servir como alternativa por si queremos crear algo nuevo pero a lo mejor, algo de lo que esté guardado aqui
+se pueda volver a reutilizar. Ya sea un botón, una funcion, o algun estilo.

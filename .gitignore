@@ -4,7 +4,6 @@
 node_modules/
 jspm_packages/
 /frontend/node_modules
-/backend/mode_modules
 /.pnp
 .pnp.js
 
