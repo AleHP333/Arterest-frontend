@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { artFilter } from '../../redux/actions/productActionsTest';
 
 //MUI COMPONENTS
 import MenuItem from '@mui/material/MenuItem';
@@ -14,15 +15,18 @@ import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
 import Fade from '@mui/material/Fade';
 import Zoom from '@mui/material/Zoom';
+import ClearIcon from '@mui/icons-material/Clear';
 
 export default function FilterBar() {
 
     //Hooks
     const location = useLocation();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const loading = useSelector((state) => state.testReducer.isLoading)
     const productsAll = useSelector((state) => state.testReducer.allProducts);
     const [searchParams, setSearchParams] = useSearchParams()
+    const [filterPrice, setFilterPrice] = useState("none");
     const colors = searchParams.get('colors');
     const countries = searchParams.get('origin');
     const styles = searchParams.get("style")
@@ -81,9 +85,16 @@ export default function FilterBar() {
         prices.target.value = priceSlide;
         handlerSubmit(prices)
     }
+    // Set Filters
+    
     useEffect(() => {
         setPriceSlide([Math.floor(Math.min(...pricesAll)), Math.ceil(Math.max(...pricesAll))])
     }, [loading])
+    useEffect(() => {
+        if(filterPrice){
+            dispatch(artFilter(filterPrice))
+        }
+    }, [filterPrice])
 
     return (
         <div className="py-4 px-3 flex">
@@ -150,8 +161,8 @@ export default function FilterBar() {
                 <FormControl className='colorFilter'>
                     <InputLabel id="selectStyles">Styles</InputLabel>
                     <Select
-                        id="selectCountries"
-                        sx={{ width: 150, mr: "2rem" }}
+                        id="selectStyles"
+                        sx={{ width: 150, mr: "3rem" }}
                         name="style"
                         variant="filled"
                         value={styles ? styles : ""}
@@ -192,7 +203,7 @@ export default function FilterBar() {
                     </FormControl>
                 </Fade>
                     <Zoom in={true}>
-                    <IconButton sx={{ width: 40, height: 40, }} onClick={() => handlerRangeSubmit()} aria-label="send">
+                    <IconButton sx={{ width: 40, height: 40, mr: "2rem" }} onClick={() => handlerRangeSubmit()} aria-label="send">
                         <SendIcon/>
                     </IconButton>
                     </Zoom>
@@ -203,6 +214,29 @@ export default function FilterBar() {
                     <LinearProgress />
                 </Box>
             </div>
+            }
+            {
+            <>
+                <FormControl className='colorFilter'>
+                    <InputLabel id="selectSortPrice">Price</InputLabel>
+                    <Select
+                        id="selectSortPrice"
+                        sx={{ width: 150, mr: "0.5rem", }}
+                        name="filter"
+                        variant="filled"
+                        fullWidth
+                        value={filterPrice !== "none" ? filterPrice : ""}
+                        size='small'
+                        onChange={(e) => {setFilterPrice(e.target.value)}}
+                    >    
+                    <MenuItem value="maxValue">Max Value</MenuItem>     
+                    <MenuItem value="minValue">Min Value</MenuItem>     
+                    </Select>
+                </FormControl>
+                <IconButton sx={{ width: 40, height: 40,}} onClick={() => setFilterPrice("none")} aria-label="send">
+                    <ClearIcon/>
+                </IconButton>
+            </>
             }
         </div>
     )

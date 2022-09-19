@@ -23,6 +23,7 @@ export const Home = ({ handleAdded, handleNotAdded }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const allPaints = useSelector((state) => state.testReducer.allProducts);
+    console.log(allPaints)
     //SEARCH PARAMS
     const [searchParams] = useSearchParams();
     const searchName = searchParams.get('name');
@@ -134,14 +135,18 @@ export const Home = ({ handleAdded, handleNotAdded }) => {
                 {typeof itemsToRender()[0]==="string"? <div >ERROR</div>:
                 itemsToRender().map((e) => {
                 return (
-                <div key={e.id}>
+                <div key={e._id}>
                     <Card  className='img'
                         img={e.img}
                         userName={e.userName}
                         userImage={e.userImage}
                         title={e.title}
                         price={e.price}
-                        key={e._id}>
+                        _id={e._id}
+                        handleAdded={handleAdded}
+                        handleNotAdded={handleNotAdded}
+                        >
+                        
                     </Card>
                 </div>
                 );

@@ -32,7 +32,7 @@ export function artFilterByBack(payload) {
       `http://localhost:3001/searchFilters?${payload}`
     );
     dispatch({
-      type: "ART_FILTER",
+      type: "ART_FILTER_BY_BACK",
       payload: response.data,
     });
   };
@@ -53,4 +53,8 @@ export function getAnArtist(userName) {
       payload: res.data,
     });
   };
+}
+
+export function artFilter(price){
+  return {type: "ART_FILTER", payload: price}
 }
