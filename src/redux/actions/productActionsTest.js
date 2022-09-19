@@ -1,5 +1,7 @@
 import axios from "axios";
 
+export const GET_PAINT_BY_ID = "GET_PAINT_BY_ID";
+
 export function getAllProducts() {
   return async function (dispatch) {
     const res = await axios.get("http://localhost:3001/paints/allpaints");
@@ -8,6 +10,16 @@ export function getAllProducts() {
       payload: res.data,
     });
   };
+}
+
+export function getPaintById(id) {
+  return async function (dispatch) {
+    const res = await axios.get(`http://localhost:3001/paints/getOnePaint/${id}`);
+    dispatch({
+      type: GET_PAINT_BY_ID,
+      payload: res.data
+    })
+  }
 }
 
 export const getProductSearchbar = (input) => (dispatch) => {
