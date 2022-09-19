@@ -47,6 +47,7 @@ export const Home = ({ handleAdded, handleNotAdded }) => {
         }
         searchParams.delete(filter);
         location.search = `?${searchParams.toString()}`;
+        setCurrentPage(1)
         navigate(location);
     }
 
@@ -149,8 +150,7 @@ export const Home = ({ handleAdded, handleNotAdded }) => {
                         _id={e._id}
                         handleAdded={handleAdded}
                         handleNotAdded={handleNotAdded}
-                        >
-                        
+                        >                     
                     </Card>
                 </div>
                 );

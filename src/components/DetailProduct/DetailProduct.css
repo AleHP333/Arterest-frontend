@@ -1,0 +1,10 @@
+.containerDetail .MuiButton-contained {
+    width: 8em !important;
+    background-color: rgb(255, 0, 0, .8) !important;
+    color: rgb(0, 0, 0, .8) !important;
+    border-radius: 1em !important;
+}
+
+.containerDetail .MuiButton-contained:hover {
+    background-color: rgb(255, 0, 0) !important;
+}

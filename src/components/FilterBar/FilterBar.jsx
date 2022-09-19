@@ -211,7 +211,7 @@ export default function FilterBar({setCurrentPage}) {
                 </div>
             </> : 
             <div className='my-5'>
-                <Box sx={{ width: 190, height: 10, mr: "2rem" }}>
+                <Box sx={{ width: 190, height: 10, mr: "4rem" }}>
                     <LinearProgress />
                 </Box>
             </div>

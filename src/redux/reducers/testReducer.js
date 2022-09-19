@@ -1,9 +1,12 @@
+const { GET_PAINT_BY_ID } = require('../actions/productActionsTest');
+
 const initialState = {
-  products: [],
-  allProducts: [],
-  isLoading: true,
-  getAnArtist: [],
-};
+    products: [],
+    allProducts: [],
+    isLoading: true,
+    paintDetail: [],
+    getAnArtist: []
+}
 
 export default function testReducer(state = initialState, action) {
   switch (action.type) {
@@ -60,6 +63,11 @@ export default function testReducer(state = initialState, action) {
         ...state,
         getAnArtist: [],
       };
+    case GET_PAINT_BY_ID:
+      return {
+          ...state,
+          paintDetail: action.payload,
+      }
     default:
       return state;
   }
