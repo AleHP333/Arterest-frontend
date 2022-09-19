@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 import Card from "../Card/Card";
 import "./fav.css";
 
-export default function Favorites({ setFavProduct }) {
+export default function Favorites() {
   const [favProducts, setFavProducts] = useState(
     JSON.parse(localStorage.getItem("favList"))
   );
 
-  useEffect(() => {}, [favProducts, setFavProduct]);
+  useEffect(() => {}, [favProducts, setFavProducts]);
 
   console.log(favProducts);
   const renderProducts = () => {

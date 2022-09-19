@@ -2,14 +2,14 @@ const addToFav = (userName, userImage, title, img, _id, price, handleAdded, hand
     e.preventDefault()
     let favs = JSON.parse(localStorage.getItem('favList'))
     console.log('favs', favs)
-    if(!favs.length){
+    console.log("id", _id)
+    if(favs === null || !favs.length){
         localStorage.setItem("favList", JSON.stringify([{ userName, userImage, title, img, _id, price}]))
         setFavProducts(JSON.parse(localStorage.getItem("favList")))
     } else {
         let finded = favs.find(item => item._id === _id)
         if(finded){
             let removed = favs.filter(item => item !== finded)
-            localStorage.removeItem("favList")
             localStorage.setItem("favList", JSON.stringify([...removed]))
             setFavProducts(JSON.parse(localStorage.getItem("favList")))
         } else {
