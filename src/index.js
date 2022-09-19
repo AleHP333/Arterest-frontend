@@ -5,14 +5,14 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {Provider} from 'react-redux'
 import store from './redux/store';
-//import dotenv from 'dotenv';
-//import axios from 'axios';
+import dotenv from 'dotenv';
+import axios from 'axios';
 
 import { authCredentials } from './auth0';
 import  {Auth0Provider} from '@auth0/auth0-react'
-//dotenv.config();
+dotenv.config();
 
-//axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:3001";
+axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:3001";
 
 ReactDOM.render(
   <Provider store= {store}>
