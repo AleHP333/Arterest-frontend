@@ -5,25 +5,24 @@ import { Link, useSearchParams, useLocation, useNavigate } from 'react-router-do
 import { activeLoading, artFilterByBack, getAllProducts } from '../../redux/actions/productActionsTest';
 import  Card  from '../Card/Card';
 import FilterBar from '../FilterBar/FilterBar';
-import NavBar from '../NavBar/NavBar';
 import Footer from '../../pages/Footer/Footer.jsx';
 import './home.css'
 
 //MUI COMPONENTS
 import Chip from "@mui/material/Chip"
-import CircularProgress from '@mui/material/CircularProgress';
-import Box from '@mui/material/Box';
 
-export const Home = () => {
+function tagPrice(tagPrices){
+    return tagPrices.split("/").map(tag => "$" + tag).join("/")
+}
+
+export const Home = ({ handleAdded, handleNotAdded }) => {
 
     //HOOKS
     const [currentPage, setCurrentPage] = useState(1)
     const location = useLocation();
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const loading = useSelector((state) => state.testReducer.isLoading)
     const allPaints = useSelector((state) => state.testReducer.allProducts);
-    console.log("totalPinturas:", allPaints);
     //SEARCH PARAMS
     const [searchParams] = useSearchParams();
     const searchName = searchParams.get('name');
@@ -37,19 +36,21 @@ export const Home = () => {
             } else {
                 dispatch(getAllProducts());
             }
-        //dispatch(activeLoading());
+        dispatch(activeLoading());
     }, [dispatch, searchParams])
     //Clear filters
     function clearFilter(filter) {
-        console.log(filter);
+        if(filter === "price"){
+            dispatch(activeLoading)
+        }
         searchParams.delete(filter);
         location.search = `?${searchParams.toString()}`;
         navigate(location);
     }
-    console.log(filters)
 
-    //Paginate functions---------------------------------------------------------------------------------------
-    const itemsToRender = () => {
+
+  //Paginate functions---------------------------------------------------------------------------------------
+  const itemsToRender = () => {
     const start = currentPage * 12 - 12;
     let end = start + 12;
     if (start + 12 > allPaints.length) end = allPaints.length;
@@ -63,68 +64,68 @@ export const Home = () => {
     }
     return list;
   };
-  
-    function nextPage() {
-        if (
-        listOfNumbers().length !== currentPage &&
-        listOfNumbers().length > currentPage
-        ) {
-        setCurrentPage(currentPage + 1);
+
+  function nextPage() {
+    if (
+      listOfNumbers().length !== currentPage &&
+      listOfNumbers().length > currentPage
+    ) {
+      setCurrentPage(currentPage + 1);
     }
+  }
+  function prevPage() {
+    if (currentPage !== 1 && currentPage > 1) {
+      setCurrentPage(currentPage - 1);
     }
-    function prevPage() {
-        if (currentPage !== 1 && currentPage > 1) {
-            setCurrentPage(currentPage - 1);
-        }
-    }
-    const changePage = (e) => {
-        setCurrentPage(Number(e.target.value));
-    };
-    
+  }
+  const changePage = (e) => {
+    setCurrentPage(Number(e.target.value));
+  };
+
   return (
     <div>
-        {/* <NavBar /> */}
         <div>
-            <div className='w-full bg-red-300 mb-5 shadow-md'>
+            <div className='w-full bg-white mb-5 shadow-md'>
                 <FilterBar></FilterBar>
+                <div className="w-full h-10 bg-red-200 flex flex-initial items-center ">
                 {filters.length ? searchName && filters.length === 1 ?
                 null :
-                <div className="w-full bg-slate-500 flex-initial">
+                <>
                 {
                     filters.map(filter => {
-                    return filter[0] === 'name' ?
+                        return filter[0] === 'name' ?
                         null :
                         (
-                        <div key={filter[0]} >
-                            {filter[0] === 'price' ? `Price range ${filter[1]}` : null}
-                            <Chip label={filter && filter[1]} variant="outlined" onDelete={() => {clearFilter(filter[0])}} />
+                        <div className='inline-block ml-2' key={filter[0]} >
+                            <Chip label={filter && (filter[0] === "price" ? tagPrice(filter[1]) : filter[1])} onDelete={() => {clearFilter(filter[0])}} />
                         </div>
                         )
                     })
                 }
-                </div>
+                </>
                 : null}
+                </div>
             </div>
-            {/* CARLOS-------------------------------------------------------------------------------------------- */}
+        {/* CARLOS-------------------------------------------------------------------------------------------- */}
             
             <div className="flex justify-center my-3">
                 <div>
                     <button
                         onClick={prevPage}
-                        className="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
+                        className="page-link relative block py-1.5 px-3  border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
                     >
                         <span>&laquo;</span>
                     </button>
                 </div>
                 {listOfNumbers().map((number, i) => {
                     return (
-                    <button id={i} value={number} onClick={(e) => changePage(e)} className={`page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-100 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none ${currentPage===number? "bg-yellow-600": ""}`}>
+                    <button id={i} value={number} onClick={(e) => changePage(e)} className={`page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-100  text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none ${currentPage===number? 'bg-red-600' : ""}`}>
                         {number}
                     </button>
                 );
                 })}
                 <div>
-                    <button onClick={nextPage} className="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none">
+                    <button onClick={nextPage} className="page-link relative block py-1.5 px-3  border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none">
                         <span>&raquo;</span>
                     </button>
                 </div>
@@ -169,9 +170,8 @@ export const Home = () => {
                     </Box>
                 }
             </div> */}
-        </div>
-            <Footer className="foo"/>
+      </div>
+      <Footer className="foo" />
     </div>
-  )
-}
-
+  );
+};

@@ -1,18 +1,21 @@
-@import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
 
 .sticky-top {
     margin-bottom: .5em !important;
 }
-.box{
+/* .box{
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.89), 0 6px 20px 0 rgba(236, 9, 9, 0.767);
-}
+} */
 .navbar-brand {
-    color: #ff0000 !important;
-    font-family: 'Satisfy', cursive !important;
+    color: #000000 !important;
+    font-family: 'Lobster'!important;
     font-size: 20px !important;
-    font-weight: 600 !important;
+    font-weight: 400 !important;
     text-transform: none !important;
-    margin-left :18px;
+    margin-left :0;
+    margin-top: 3px;
     
 }
 .navbarLogo{

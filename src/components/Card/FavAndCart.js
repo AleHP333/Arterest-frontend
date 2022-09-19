@@ -1,18 +1,37 @@
-const addToFav = (userName, userImage, title, img, _id, price, handleAdded, handleNotAdded) => {
+const addToFav = (userName, userImage, title, img, _id, price, handleAdded, handleNotAdded, e, setFavProducts) => {
+    e.preventDefault()
     let favs = JSON.parse(localStorage.getItem('favList'))
-    if (favs) {
-        if (favs.length >= 30) {
-            handleNotAdded()
-            return
-        }
-        if (!favs.some(item => item.id === _id)) {
-            favs.push({ userName, userImage, title, img, _id, price, quantity: 1 })
-        }
+    console.log('favs', favs)
+    if(!favs.length){
+        localStorage.setItem("favList", JSON.stringify([{ userName, userImage, title, img, _id, price}]))
+        setFavProducts(JSON.parse(localStorage.getItem("favList")))
     } else {
-        favs = [{ userName, userImage, title, img, _id, price, quantity: 1 }]
+        let finded = favs.find(item => item._id === _id)
+        if(finded){
+            let removed = favs.filter(item => item !== finded)
+            localStorage.removeItem("favList")
+            localStorage.setItem("favList", JSON.stringify([...removed]))
+            setFavProducts(JSON.parse(localStorage.getItem("favList")))
+        } else {
+            localStorage.setItem("favList", JSON.stringify([...favs,{ userName, userImage, title, img, _id, price}]))
+            setFavProducts(JSON.parse(localStorage.getItem("favList")))
+        }
     }
-    localStorage.setItem('favList', JSON.stringify(favs))
-    handleAdded()
+    // let favs = JSON.parse(localStorage.getItem('favList'))
+    // console.log('favs', favs)
+    // if (favs) {
+    //     if (favs.length >= 30) {
+    //         handleNotAdded()
+    //         return
+    //     }
+    //     if (!favs.some(item => item.id === _id)) {
+    //         favs.concat(...{ userName, userImage, title, img, _id, price})
+    //     }
+    // } else {
+    //     favs = [{ userName, userImage, title, img, _id, price}]
+    // }
+    // localStorage.setItem('favList', JSON.stringify(favs))
+    // handleAdded()
 }
 
 const addToCart = (userName, userImage, title, img, _id, price, color, handleAdded, handleNotAdded) => {
