@@ -10,10 +10,14 @@ const CreateProduct = () => {
   const formik = useFormik({
     initialValues: {
       userName: "",
+      userImage: "",
       title: "",
       description: "",
       img: "",
+      origin: "",
       technique: "",
+      style: "",
+      colors: "",
       releaseDate: "",
       price: "",
       tags: "",
@@ -22,6 +26,18 @@ const CreateProduct = () => {
       userName: Yup.string()
         .max(15, "Must be 15 characters or less")
         .required("Required"),
+      userImage: Yup.mixed()
+        .required("required!")
+        .test(
+          "FILE_SIZE",
+          "Too big",
+          (value) => value && value.size < 1000024 * 10024
+        )
+        .test(
+          "FILE_TYPE",
+          "Select png or jpeg only",
+          (value) => value && ["image/png", "image/jpeg"].includes(value.type)
+        ),
       title: Yup.string()
         .max(15, "Must be 15 characters or less")
         .required("Required"),
@@ -39,11 +55,20 @@ const CreateProduct = () => {
           "Select png or jpeg only",
           (value) => value && ["image/png", "image/jpeg"].includes(value.type)
         ),
+      origin: Yup.string()
+        .max(15, "Must be 15 characters or less")
+        .required("Required"),
       technique: Yup.string()
         .max(15, "Must be 15 characters or less")
         .required("Required"),
-      releaseDate: Yup.string()
+      style: Yup.string()
         .max(15, "Must be 15 characters or less")
+        .required("Required"),
+      colors: Yup.string()
+        .max(15, "Must be 15 characters or less")
+        .required("Required"),
+      releaseDate: Yup.number()
+        .max(2022, "Escoge un año real pendejo")
         .required("Required"),
       price: Yup.number().min(1, "Must be more than 1").required("Required"),
       tags: Yup.string()
@@ -51,24 +76,38 @@ const CreateProduct = () => {
         .required("Required"),
     }),
     onSubmit: async (values) => {
-      const { img } = formik.values;
+      const { img, userImage } = formik.values;
 
       const formData = new FormData();
-
+      
       try {
         formData.append("file", img);
 
         formData.append("upload_preset", "images");
-        const response = await axios
+        axios
           .post("https://api.cloudinary.com/v1_1/onlypan/upload", formData)
           .then((resAxios) => {
             values.img = resAxios.data.secure_url;
-            productPost(values);
-            console.log(values, "values luego del post");
-          });
-        // console.log(formData, "formData");
-        // console.log(response.data, "response.data");
-        // console.log(response.data.secure_url);
+            // productPost(values);
+          })
+        .catch(error=>console.log(error))
+      } catch (error) {
+        console.log(error);
+      }
+      // postCLoud del userProfile---------------------------------------------------------
+      try {
+        const formUserImage = new FormData();
+        formUserImage.append("file", userImage);
+
+        formUserImage.append("upload_preset", "images");
+        axios
+          .post("https://api.cloudinary.com/v1_1/onlypan/upload", formUserImage)
+          .then((resAxios) => {
+            values.userImage = resAxios.data.secure_url;
+          productPost(values)
+            console.log(values, "values luego del userImage post");
+          })
+          .catch(error => console.log(error))
       } catch (error) {
         console.log(error);
       }
@@ -98,6 +137,44 @@ const CreateProduct = () => {
             )}
           </div>
           
+          <div className="flex space-x-4 text-gray-500">
+            <div>
+              <label htmlFor="userImage">User Profile</label>
+              <input
+                className="border border-gray-400 block py-2 w-full rounded focus:border-teal-500"
+                id="userImage"
+                name="userImage"
+                type="file"
+                onChange={(e) => {
+                  
+                  formik.setFieldValue("userImage", e.target.files[0]);
+                }}
+                // value={formik.values.image}
+              />
+              {formik.errors.userImage && (
+                <p className="text-sm text-red-500">{formik.errors.userImage}</p>
+              )}
+            </div>
+            <div>
+              {formik.values.userImage && <PreviewImage file={formik.values.userImage} />}
+            </div>
+          </div>
+
+          <div className="text-gray-500">
+            <label htmlFor="title">Title</label>
+            <input
+              className="border border-gray-400 block py-2 w-full rounded focus:border-teal-500"
+              id="title"
+              name="title"
+              type="text"
+              onChange={formik.handleChange}
+              value={formik.values.title}
+            />
+            {formik.errors.title && (
+              <p className="text-sm text-red-500">{formik.errors.title}</p>
+            )}
+          </div>
+
           <div className="w-1/4 text-gray-500">
             <label htmlFor="price">Price</label>
             <input
@@ -112,6 +189,52 @@ const CreateProduct = () => {
               <p className="text-sm text-red-500">{formik.errors.price}</p>
             )}
           </div>
+
+          <div className="text-gray-500">
+            <label htmlFor="origin">Origin Country</label>
+            <input
+              className="border border-gray-400 block py-2 w-full rounded focus:border-teal-500"
+              id="origin"
+              name="origin"
+              type="text"
+              onChange={formik.handleChange}
+              value={formik.values.origin}
+            />
+            {formik.errors.origin && (
+              <p className="text-sm text-red-500">{formik.errors.origin}</p>
+            )}
+          </div>
+          
+          <div className="text-gray-500">
+            <label htmlFor="style">Style</label>
+            <input
+              className="border border-gray-400 block py-2 w-full rounded focus:border-teal-500"
+              id="style"
+              name="style"
+              type="text"
+              onChange={formik.handleChange}
+              value={formik.values.style}
+            />
+            {formik.errors.style && (
+              <p className="text-sm text-red-500">{formik.errors.style}</p>
+            )}
+          </div>
+
+          <div className="text-gray-500">
+            <label htmlFor="colors">Colors</label>
+            <input
+              className="colors border-gray-400 block py-2 w-full rounded focus:border-teal-500"
+              id="colors"
+              name="colors"
+              type="text"
+              onChange={formik.handleChange}
+              value={formik.values.colors}
+            />
+            {formik.errors.colors && (
+              <p className="text-sm text-red-500">{formik.errors.colors}</p>
+            )}
+          </div>
+
           <div className="flex space-x-4 text-gray-500">
             <div>
               <label htmlFor="img">Image</label>
@@ -166,20 +289,7 @@ const CreateProduct = () => {
               <p className="text-sm text-red-500">{formik.errors.tags}</p>
             )}
           </div>
-          <div className="text-gray-500">
-            <label htmlFor="title">Title</label>
-            <input
-              className="border border-gray-400 block py-2 w-full rounded focus:border-teal-500"
-              id="title"
-              name="title"
-              type="text"
-              onChange={formik.handleChange}
-              value={formik.values.title}
-            />
-            {formik.errors.title && (
-              <p className="text-sm text-red-500">{formik.errors.title}</p>
-            )}
-          </div>
+          
           <div className="text-gray-500">
             <label htmlFor="technique">Technique</label>
             <input
