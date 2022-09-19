@@ -17,7 +17,7 @@ import Fade from '@mui/material/Fade';
 import Zoom from '@mui/material/Zoom';
 import ClearIcon from '@mui/icons-material/Clear';
 
-export default function FilterBar() {
+export default function FilterBar({setCurrentPage}) {
 
     //Hooks
     const location = useLocation();
@@ -94,6 +94,7 @@ export default function FilterBar() {
         if(filterPrice){
             dispatch(artFilter(filterPrice))
         }
+        setCurrentPage(1)
     }, [filterPrice])
 
     return (

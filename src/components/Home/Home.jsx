@@ -34,6 +34,7 @@ export const Home = ({ handleAdded, handleNotAdded }) => {
     useEffect(() =>{
         if (searchParams.toString()) {
                 dispatch(artFilterByBack(searchParams.toString()));
+                setCurrentPage(1)
             } else {
                 dispatch(getAllProducts());
             }
@@ -73,21 +74,24 @@ export const Home = ({ handleAdded, handleNotAdded }) => {
     ) {
       setCurrentPage(currentPage + 1);
     }
+    window.scrollTo(0, 0);
   }
   function prevPage() {
     if (currentPage !== 1 && currentPage > 1) {
       setCurrentPage(currentPage - 1);
+      window.scrollTo(0, 0);
     }
   }
   const changePage = (e) => {
     setCurrentPage(Number(e.target.value));
+    window.scrollTo(0, 0);
   };
 
   return (
     <div>
         <div>
             <div className='w-full bg-white mb-5 shadow-md'>
-                <FilterBar></FilterBar>
+                <FilterBar setCurrentPage={setCurrentPage}></FilterBar>
                 <div className="w-full h-10 bg-red-200 flex flex-initial items-center ">
                 {filters.length ? searchName && filters.length === 1 ?
                 null :
@@ -151,6 +155,28 @@ export const Home = ({ handleAdded, handleNotAdded }) => {
                 </div>
                 );
                 })}
+            </div>
+            <div className="flex justify-center my-3">
+                <div>
+                    <button
+                        onClick={prevPage}
+                        className="page-link relative block py-1.5 px-3  border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
+                    >
+                        <span>&laquo;</span>
+                    </button>
+                </div>
+                {listOfNumbers().map((number, i) => {
+                    return (
+                    <button id={i} value={number} onClick={(e) => changePage(e)} className={`page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-100  text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none ${currentPage===number? 'bg-red-600' : ""}`}>
+                        {number}
+                    </button>
+                );
+                })}
+                <div>
+                    <button onClick={nextPage} className="page-link relative block py-1.5 px-3  border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none">
+                        <span>&raquo;</span>
+                    </button>
+                </div>
             </div>
             {/* <div className='pin_container' >
                 {allPaints.length ? allPaints?.map((e, index) => {
