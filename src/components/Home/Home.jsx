@@ -140,7 +140,9 @@ export const Home = () => {
                         userImage={e.userImage}
                         title={e.title}
                         price={e.price}
-                        key={e._id}>
+                        key={e._id}
+                        id={e._id}
+                        >
                     </Card>
                 </div>
                 );

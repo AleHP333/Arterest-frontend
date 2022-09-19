@@ -9,14 +9,17 @@ import { Link } from 'react-router-dom';
 
 
 
-function Card({ userName, userImage, title, img, _id, price, rating, handleAdded, handleNotAdded }) {
+function Card({ userName, userImage, title, img, id, price, rating, handleAdded, handleNotAdded }) {
   const [likes, setLikes] = useState(0)
   const [likeActive, setLikeActive] = useState(false)
 
+  console.log(id);
   return (
-    <div className='container' key={_id}>
+    <div className='container' key={id}>
       <div className='img-container' >
-        <img src={img} alt="" />
+        <Link to={`/detail/${id}`}>
+          <img src={img} alt="" />
+        </Link>
         <div className='user-info'>
           <button onClick={() => setLikes(likes + 1)}   >
             <GrFavorite
@@ -34,8 +37,8 @@ function Card({ userName, userImage, title, img, _id, price, rating, handleAdded
         </div>
       </div>
       <ul className='social-media'>
-        <li><a href="#"><i className="gr gr-pin" ><AiFillPushpin onClick={() => addToFav(userName, userImage, title, img, _id, price, handleAdded, handleNotAdded)} /></i></a></li>
-        <li><a href="#"><i className="gr gr-bag"><AiFillShopping onClick={() => addToCart(userName, userImage, title, img, _id, price, handleAdded, handleNotAdded)} /></i></a></li>
+        <li><a href="#"><i className="gr gr-pin" ><AiFillPushpin onClick={() => addToFav(userName, userImage, title, img, id, price, handleAdded, handleNotAdded)} /></i></a></li>
+        <li><a href="#"><i className="gr gr-bag"><AiFillShopping onClick={() => addToCart(userName, userImage, title, img, id, price, handleAdded, handleNotAdded)} /></i></a></li>
       </ul>
       <div>
       </div>
