@@ -26,13 +26,12 @@ function Card({
     <div className="container" key={_id}>
       <div className="img-container">
         <img src={img} alt="" />
-        <div className="user-info">
-          <button onClick={() => setLikes(likes + 1)}>
-            <GrFavorite
-              onClick={() => {
-                setLikeActive(true);
-              }}
-              color={likeActive === true ? "#F44336" : "rgb(50, 50, 50)"}
+        <div className='user-info'>
+          <button onClick={() => setLikes(likes + 1)}   >
+            <AiOutlineHeart
+              onClick={() => { setLikeActive(true) }}
+              fill=
+              {likeActive === true ? 'red' : ''}
             />
           </button>
           <h6>{likes}</h6>
