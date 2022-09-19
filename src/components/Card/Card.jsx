@@ -12,7 +12,7 @@ export default function Card({
     userImage,
     title,
     img,
-    id,
+    _id,
     price,
     rating,
     handleAdded,
@@ -24,9 +24,9 @@ export default function Card({
     const [likeActive, setLikeActive] = useState(false);
 
     return (
-        <div className="container" key={id}>
+        <div className="container" key={_id}>
         <div className="img-container">
-            <Link to={`/detail/${id}`}>
+            <Link to={`/detail/${_id}`}>
                 <img src={img} alt="" />
             </Link>
             <div className='user-info'>
