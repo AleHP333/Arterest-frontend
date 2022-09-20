@@ -1,8 +1,7 @@
 import axios from "axios";
 
-const url = "https://arterest-back.herokuapp.com"
+const url = "https://arterest-back.herokuapp.com" || "http://localhost:3001"
 
-const local = "http://localhost:3001"
 
 export const GET_PAINT_BY_ID = "GET_PAINT_BY_ID";
 
