@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = "https://arterest-back.herokuapp.com"
+const url = "https://arterest-back.herokuapp.com" || "http://localhost:3001"
 
 export function productPost(formData) {
   console.log(formData, "form en el action");
