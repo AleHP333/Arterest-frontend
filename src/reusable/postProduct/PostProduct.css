@@ -1,0 +1,19 @@
+
+
+.postCreatorForm {
+    /* background-color: rgb(237, 237, 237); */
+    border-radius: 5px;
+    width: 80%;
+    height: 80vh;
+    padding: 2.5%;
+}
+
+.label100 {
+    font-size: 0.9rem;
+}
+
+.fieldError {
+    font-size: 0.8rem;
+    color: rgb(251, 92, 64);
+    margin: 0px;
+}
