@@ -12,6 +12,9 @@ import { Home } from "./components/Home/Home";
 import NavBar from "./components/NavBar/NavBar";
 import CreateProduct from "./components/CreateProduct/CreateProduct";
 import { useState } from 'react'
+import Dashboard from "./pages/Admin/views/Dashboard";
+import AllArtWork from "./pages/Admin/views/AllArtWork";
+
 
 function App() {
   const [added, setAdded] = useState(false);
@@ -46,6 +49,8 @@ function App() {
           <Route path="/contact" element={<ContactUs />} />
           <Route exact path="/detail/:id" element={<DetailProduct />} />
           <Route path="/artistprofile/:userName" element={<ArtistProfile />} />
+          <Route path="/admin" element={<Dashboard />} />
+          <Route path="/admin/artworks" element={<AllArtWork />} />
         </Routes>
       </Router>
     </>

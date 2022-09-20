@@ -1,11 +1,13 @@
 const { GET_PAINT_BY_ID } = require('../actions/productActionsTest');
 
 const initialState = {
-    products: [],
-    allProducts: [],
-    isLoading: true,
-    paintDetail: [],
-    getAnArtist: []
+  products: [],
+  allProducts: [],
+  isLoading: true,
+  paintDetail: [],
+  getAnArtist: [],
+  getUser: [],
+  allUsers: []
 }
 
 export default function testReducer(state = initialState, action) {
@@ -25,14 +27,14 @@ export default function testReducer(state = initialState, action) {
         isLoading: false,
       };
     case "ART_FILTER":
-      function filterPaints(state, action){
+      function filterPaints(state, action) {
         console.log(action.payload)
         console.log(state.allProducts)
         let paints = [...state.products]
-        if(action.payload === "minValue"){
+        if (action.payload === "minValue") {
           paints = paints.sort((a, b) => a.price - b.price)
         }
-        if(action.payload === "maxValue"){
+        if (action.payload === "maxValue") {
           paints = paints.sort((a, b) => a.price - b.price).reverse()
         }
         return paints
@@ -65,9 +67,20 @@ export default function testReducer(state = initialState, action) {
       };
     case GET_PAINT_BY_ID:
       return {
-          ...state,
-          paintDetail: action.payload,
+        ...state,
+        paintDetail: action.payload,
       }
+    case 'GET_USER_BY_ID':
+      return {
+        ...state,
+        getUser: action.payload,
+      }
+      case 'GET_ALL_USERS':
+        return {
+          ...state,
+          allUsers: action.payload,
+        }
+
     default:
       return state;
   }

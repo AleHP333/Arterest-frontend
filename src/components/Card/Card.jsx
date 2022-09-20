@@ -26,7 +26,7 @@ export default function Card({
     return (
         <div className="container" key={_id}>
         <div className="img-container">
-            <Link to={`/detail/${_id}`}>
+            <Link className="img-container" to={`/detail/${_id}`}>
                 <img src={img} alt="" />
             </Link>
             <div className='user-info'>
