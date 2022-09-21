@@ -5,6 +5,8 @@ import React from 'react'
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import TextField from '@mui/material/TextField';
+import SendIcon from '@mui/icons-material/Send';
+import { IconButton } from '@mui/material';
 
 export default function CommentsBox() {
   return (
@@ -28,7 +30,11 @@ export default function CommentsBox() {
                             rows={2}
                             defaultValue=""
                             size="small"
-                            />
+                        />
+                        <IconButton sx={{ width: 60, height: 60, mr: "2rem" }} aria-label="send">
+                            <SendIcon/>
+                        </IconButton>
+                            
                     </div>
                 </div>
             </div>
