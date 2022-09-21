@@ -14,6 +14,7 @@ import CreateProduct from "./components/CreateProduct/CreateProduct";
 import { useState } from 'react'
 import Dashboard from "./pages/Admin/views/Dashboard";
 import AllArtWork from "./pages/Admin/views/AllArtWork";
+import AllUsers from "./pages/Admin/views/AllUsers";
 
 
 function App() {
@@ -49,8 +50,9 @@ function App() {
           <Route path="/contact" element={<ContactUs />} />
           <Route exact path="/detail/:id" element={<DetailProduct />} />
           <Route path="/artistprofile/:userName" element={<ArtistProfile />} />
-          <Route path="/admin" element={<Dashboard />} />
-          <Route path="/admin/artworks" element={<AllArtWork />} />
+          <Route exact path="/admin" element={<Dashboard />} />
+          <Route path="admin/artworks" element={<AllArtWork />} />
+          <Route path="admin/users" element={<AllUsers />} />
         </Routes>
       </Router>
     </>

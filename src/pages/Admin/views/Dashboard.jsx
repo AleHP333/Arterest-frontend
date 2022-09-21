@@ -1,19 +1,20 @@
-import React from "react";
-
+import React, { useState } from "react";
 import Navbar from "../components/Navbar";
-import Sidebar from "../components/Sidebar.js";
+import Sidebar from "../components/Sidebar";
 // import LineChart from "../components/LineChart.js";
 // import BarChart from "../components/BarChart.js";
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllProducts, getAllUsers } from "../../../redux/actions/productActionsTest";
 import {BsFillPencilFill} from 'react-icons/bs'
-import {FaTrashAlt} from 'react-icons/fa'
+import { Link } from "react-router-dom";
+
 
 export default function Dashboard() {
 const dispatch = useDispatch()
 const users = useSelector((state) => state.testReducer.allUsers )
 const artwork = useSelector((state) => state.testReducer.allProducts )
+const [reload, setReload] = useState(false)
 
 useEffect(() =>{
   dispatch(getAllUsers());
@@ -21,9 +22,11 @@ useEffect(() =>{
 }, [dispatch])
 
 function bannUser(){
+  setReload(!reload)
   if(users.isBloked === false){
     return users.isBloked === true
   } 
+  console.log('entré')
 }
 const getPrice = () => {
   let total = 0
@@ -167,6 +170,7 @@ const getPrice = () => {
                       </h3>
                     </div>
                     <div className="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
+                      <Link to='/users'>
                       <button
                         className="bg-red-500 text-white active:bg-red-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1"
                         type="button"
@@ -174,6 +178,7 @@ const getPrice = () => {
                       >
                         See all
                       </button>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -204,7 +209,7 @@ const getPrice = () => {
                           {user.isBloked === false ? 'NO': 'YES'}
                         </td>
                         <td className="flex border-t-0 px-6 ml-4 text-xs whitespace-nowrap p-4 cursor-pointer">
-                          <BsFillPencilFill onClick={bannUser}/>
+                          <BsFillPencilFill onClick={()=>bannUser()}/>
                           {/* <FaTrashAlt/> */}
                         </td>
                       </tr>

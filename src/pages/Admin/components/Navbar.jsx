@@ -1,6 +1,6 @@
 import React from "react";
 
-import UserDropdown from "./UserDropdown.js";
+import UserDropdown from "./UserDropdown.jsx";
 
 export default function Navbar() {
   return (
