@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 
 //MUI IMPORTS
@@ -6,10 +6,15 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import TextField from '@mui/material/TextField';
 import SendIcon from '@mui/icons-material/Send';
+import CheckIcon from '@mui/icons-material/Check';
 import { IconButton } from '@mui/material';
+import { lightGreen } from '@mui/material/colors';
 
 export default function CommentsBox() {
-  return (
+    
+    const [editable, setEditable] = useState(false)
+
+    return (
     <div>
         <div className="w-full">
             <h2 className="pb-8 shadow-md text-5xl text-center font-bold">Comments</h2>
@@ -52,15 +57,31 @@ export default function CommentsBox() {
                                 <div className="flex items-center flex-1 px-4 font-bold leading-tight">Anonymous
                                     <span className="ml-2 text-xs font-normal text-gray-500">3 days ago</span>
                                 </div>
-                                <div className="flex-1 px-2 ml-2 text-sm font-medium leading-loose text-gray-600">Very cool! I'll have
+                                {editable === false ? <div className="flex-1 px-2 ml-2 text-sm font-medium leading-loose text-gray-600" contentEditable={editable}>Very cool! I'll have
                                     to learn more about Tailwind.
-                                </div>
-                                <button className="inline-flex items-center mx-4 px-1 ml-1 flex-column rounded-full hover:bg-gray-400">
+                                </div> :
+                                <TextField
+                                sx={{ mx: 2, width: "60vh"}}
+                                id="outlined-multiline-static"
+                                multiline
+                                rows={2}
+                                defaultValue="Very cool!"
+                                size="small"
+                                />
+                                }
+                                {editable === false ? 
+                                <button onClick={() => {setEditable(true)}} className="inline-flex items-center mx-4 px-1 ml-1 flex-column rounded-full hover:bg-gray-400">
                                     <EditIcon />
-                                </button>
-                                <button className="inline-flex items-center px-1 -ml-1 flex-column rounded-full hover:bg-gray-400">
+                                </button> :
+                                <IconButton onClick={() => {setEditable(false)}} sx={{ width: 60, height: 60, mr: "2rem", bgcolor: lightGreen[300], ":hover": { bgcolor: lightGreen[500] } }} aria-label="send">
+                                    <CheckIcon sx={{ width: 40, height: 40}}/>
+                                </IconButton>
+                                }
+                                {editable === false ? <button className="inline-flex items-center px-1 ml-1 flex-column rounded-full hover:bg-gray-400">
                                     <DeleteIcon />
-                                </button>
+                                </button> :
+                                null
+                                }
                             </div>
                         </div>
                     </div>
