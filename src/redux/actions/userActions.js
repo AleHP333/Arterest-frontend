@@ -4,7 +4,9 @@ const url = "http://localhost:3001"
 
 export function addComment(paintId, comment){
     const token = localStorage.getItem("token")
+    console.log(paintId, comment)
     return async function(dispatch){
+        console.log(paintId, comment)
         if(comment !== ""){
             const res = await axios.post(`${url}/likeComments/addComment`, {paintId: paintId, comment: comment}, {
                 headers: {

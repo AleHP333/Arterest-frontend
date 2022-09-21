@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-
+import { useDispatch, useSelector } from 'react-redux';
 
 //MUI IMPORTS
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -9,10 +9,26 @@ import SendIcon from '@mui/icons-material/Send';
 import CheckIcon from '@mui/icons-material/Check';
 import { IconButton } from '@mui/material';
 import { lightGreen } from '@mui/material/colors';
+import { addComment } from '../../redux/actions/userActions';
 
-export default function CommentsBox() {
+export default function CommentsBox({paintId, comments}) {
     
+    const dispatch = useDispatch()
     const [editable, setEditable] = useState(false)
+    const [modifyComment, setModifyComment] = useState("Hola que tal");
+    const [newComment, setNewComment] = useState("")
+    console.log(newComment)
+    function handleEdit(){
+        setEditable(false)
+
+        dispatch()
+    }
+
+    function handleComment(e){
+        dispatch(addComment(paintId, newComment))
+
+        setNewComment("")
+    }
 
     return (
     <div>
@@ -33,10 +49,11 @@ export default function CommentsBox() {
                             id="outlined-multiline-static"
                             multiline
                             rows={2}
-                            defaultValue=""
+                            value={newComment}
                             size="small"
+                            onChange={(e) => setNewComment(e.target.value)}
                         />
-                        <IconButton sx={{ width: 60, height: 60, mr: "2rem" }} aria-label="send">
+                        <IconButton onClick={() => handleComment()} sx={{ width: 60, height: 60, mr: "2rem" }} aria-label="send">
                             <SendIcon/>
                         </IconButton>
                             
@@ -57,23 +74,25 @@ export default function CommentsBox() {
                                 <div className="flex items-center flex-1 px-4 font-bold leading-tight">Anonymous
                                     <span className="ml-2 text-xs font-normal text-gray-500">3 days ago</span>
                                 </div>
-                                {editable === false ? <div className="flex-1 px-2 ml-2 text-sm font-medium leading-loose text-gray-600" contentEditable={editable}>Very cool! I'll have
-                                    to learn more about Tailwind.
+                                {editable === false ? <div className="flex-1 px-2 ml-2 text-sm font-medium leading-loose text-gray-600" contentEditable={editable}>
+                                    HOLA CAPO, ME ENCANTO LA PINTURA
                                 </div> :
                                 <TextField
                                 sx={{ mx: 2, width: "60vh"}}
                                 id="outlined-multiline-static"
                                 multiline
                                 rows={2}
-                                defaultValue="Very cool!"
+                                defaultValue=""
                                 size="small"
+                                value={modifyComment}
+                                onChange={(e) => {setModifyComment(e.target.value)}}
                                 />
                                 }
                                 {editable === false ? 
-                                <button onClick={() => {setEditable(true)}} className="inline-flex items-center mx-4 px-1 ml-1 flex-column rounded-full hover:bg-gray-400">
+                                <button onClick={() => {setEditable(true); setModifyComment("FAGHADFGHÑADHFJ")}} className="inline-flex items-center mx-4 px-1 ml-1 flex-column rounded-full hover:bg-gray-400">
                                     <EditIcon />
                                 </button> :
-                                <IconButton onClick={() => {setEditable(false)}} sx={{ width: 60, height: 60, mr: "2rem", bgcolor: lightGreen[300], ":hover": { bgcolor: lightGreen[500] } }} aria-label="send">
+                                <IconButton onClick={() => {handleEdit(false)}} sx={{ width: 60, height: 60, mr: "2rem", bgcolor: lightGreen[300], ":hover": { bgcolor: lightGreen[500] } }} aria-label="send">
                                     <CheckIcon sx={{ width: 40, height: 40}}/>
                                 </IconButton>
                                 }

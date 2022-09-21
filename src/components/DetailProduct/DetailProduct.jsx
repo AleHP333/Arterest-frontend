@@ -83,7 +83,7 @@ export default function DetailProduct () {
                     </div>
                 </div>
             </div>
-                <CommentsBox></CommentsBox>
+                <CommentsBox paintId={paint._id}></CommentsBox>
         </div>                            
     )
 }
