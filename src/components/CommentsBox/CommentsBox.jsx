@@ -9,7 +9,7 @@ import SendIcon from '@mui/icons-material/Send';
 import CheckIcon from '@mui/icons-material/Check';
 import { IconButton } from '@mui/material';
 import { lightGreen } from '@mui/material/colors';
-import { addComment } from '../../redux/actions/userActions';
+import { addComment, deleteComment } from '../../redux/actions/userActions';
 import SmsIcon from '@mui/icons-material/Sms';
 import Button from '@mui/material/Button';
 //ALERT
@@ -27,6 +27,7 @@ export default function CommentsBox({paintId, comments}) {
     const [modifyComment, setModifyComment] = useState("Hola que tal");
     const [newComment, setNewComment] = useState("")
     const [loggedUser, setLoggedUser] = useState(true)
+    const [commentIdToDelete, setCommentIdToDelete] = useState("")
 
     const [loggedUserData, setLoggedUserData] = useState({name: "Pedro", userImage: "https://fcb-abj-pre.s3.amazonaws.com/img/jugadors/660_pedro.jpg"})
 
@@ -42,6 +43,7 @@ export default function CommentsBox({paintId, comments}) {
     }
 
     const handleCloseAgree = () => {
+        handleDelete()
         setOpen(false);
     };
 
@@ -99,8 +101,10 @@ export default function CommentsBox({paintId, comments}) {
 
     }
 
-    function handleDelete(commentId){
-        dispatch()
+    function handleDelete(){
+        const filter = comment.filter(comm => comm._id !== commentIdToDelete)
+        setComment(filter)
+        // dispatch(deleteComment(commentId))
     }
 
     return (
@@ -202,7 +206,7 @@ export default function CommentsBox({paintId, comments}) {
                                     <EditIcon />
                                 </button>
                                 }
-                                {editable === false ? <button onClick={() => handleClickOpen()} className="inline-flex items-center px-1 ml-1 flex-column rounded-full hover:bg-gray-400">
+                                {editable === false ? <button onClick={() => {handleClickOpen(); setCommentIdToDelete(comment._id)}} className="inline-flex items-center px-1 ml-1 flex-column rounded-full hover:bg-gray-400">
                                     <DeleteIcon />
                                 </button> :
                                 null
