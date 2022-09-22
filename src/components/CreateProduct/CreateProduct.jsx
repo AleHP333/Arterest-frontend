@@ -106,8 +106,8 @@ const CreateProduct = () => {
               onChange={formik.handleChange}
               value={formik.values.userName}
             />
-            {formik.errors.name && (
-              <p className="text-sm text-red-500">{formik.errors.name}</p>
+            {formik.errors.userName && (
+              <p className="text-sm text-red-500">{formik.errors.userName}</p>
             )}
           </div>
           
