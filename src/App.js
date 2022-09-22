@@ -12,6 +12,7 @@ import { Home } from "./components/Home/Home";
 import NavBar from "./components/NavBar/NavBar";
 import CreateProduct from "./components/CreateProduct/CreateProduct";
 import { useState } from 'react'
+import Cart from "./components/Cart/Cart";
 
 function App() {
   const [added, setAdded] = useState(false);
@@ -46,6 +47,7 @@ function App() {
           <Route path="/contact" element={<ContactUs />} />
           <Route exact path="/detail/:id" element={<DetailProduct />} />
           <Route path="/artistprofile/:userName" element={<ArtistProfile />} />
+          <Route path="/cart" element={<Cart />} />
         </Routes>
       </Router>
     </>
