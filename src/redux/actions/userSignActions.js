@@ -1,10 +1,12 @@
 
 import axios from "axios";
 
+
+
 export function signIn(emailAndPass){
     return async function(dispatch){
         console.log(emailAndPass)
-        const response = await axios.post("http://localhost:3001/signIn", emailAndPass)
+        const response = await axios.post("http://localhost:3001/userSign/signIn", emailAndPass)
         if(response.status === 200){
             localStorage.setItem("token", response.data.token);
 
@@ -18,7 +20,7 @@ export function signIn(emailAndPass){
 
 export function verifyToken(token){
     return async function(dispatch){
-        const response = await axios.post("http://localhost:3001/signInToken", {
+        const response = await axios.post("http://localhost:3001/userSign/signInToken", {
             headers: { Authorization: "Bearer " + token }
         });
         if(response.status === 200){
@@ -34,7 +36,7 @@ export function verifyToken(token){
 
 export function verifyEmail(id){
     return async function(dispatch){
-        const response = await axios.get(`http://localhost:3001/verifyEmail/${id}`)
+        const response = await axios.get(`http://localhost:3001/userSign/verifyEmail/${id}`)
 
         if(response.status === 201){
             dispatch({type: "MESSAGE", payload: { msgData: { msg: response.data.msg, success: "success"}}})
@@ -44,9 +46,10 @@ export function verifyEmail(id){
     }
 }
 
+//password, email, userName
 export function singUp(userData){
     return async function(dispatch){
-        const response = await axios.post("http://localhost:3001/signUp", userData);
+        const response = await axios.post("http://localhost:3001/userSign/signUp", userData);
         if(response.status === 201){
             dispatch({type: "MESSAGE", payload: { msgData: { msg: "User created", success: "success" }}})
         } else {
