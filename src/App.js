@@ -17,6 +17,7 @@ import SignIn from "./components/SignIn/SignIn";
 import { useDispatch } from "react-redux";
 import { verifyToken } from "./redux/actions/userSignActions";
 import VerifyEmail from "./components/VerifyEmail/VerifyEmail";
+import Cart from "./components/Cart/Cart";
 
 function App() {
   const [added, setAdded] = useState(false);
