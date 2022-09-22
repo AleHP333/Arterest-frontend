@@ -52,9 +52,9 @@ function App() {
           <Route exact path="/detail/:id" element={<DetailProduct />} />
           <Route path="/artistprofile/:userName" element={<ArtistProfile />} />
           <Route exact path="/admin" element={<Dashboard />} />
-          <Route path="admin/artworks" element={<AllArtWork />} />
-          <Route path="admin/users" element={<AllUsers />} />
-          <Route path="admin/editproduct/:id" element={<EditProduct />} />
+          <Route exact path="/admin/artworks" element={<AllArtWork />} />
+          <Route exact path="/admin/users" element={<AllUsers />} />
+          <Route exact path="/admin/editproduct/:id" element={<EditProduct />} />
         </Routes>
       </Router>
     </>
