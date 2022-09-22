@@ -12,6 +12,7 @@ import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import './DetailProduct.css'
+import CommentsBox from '../CommentsBox/CommentsBox';
 
 export default function DetailProduct () {
 
@@ -82,6 +83,7 @@ export default function DetailProduct () {
                     </div>
                 </div>
             </div>
+                <CommentsBox paintId={paint._id}></CommentsBox>
         </div>                            
     )
 }
