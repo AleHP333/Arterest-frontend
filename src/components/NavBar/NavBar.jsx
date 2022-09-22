@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuth0 } from '@auth0/auth0-react';
 import Searchbar from "../Searchbar/Searchbar";
@@ -10,15 +10,22 @@ import art_logo from '../../pages/Assets/logoArterest.png'
 import Login from "../Login/Login";
 import Logout from "../Logout/Logout";
 import './NavBar.css';
+import { useSelector } from "react-redux";
+import AccountMenu from "../AccountMenu/AccountMenu";
 
 
 
 
 
 export default function NavBar() {
-  const { user, isAuthenticated, isLoading } = useAuth0()
+  
+  const loggedUser = useSelector((state) => state.userSignReducer.userData)
 
+  useEffect(() => {
 
+  }, [loggedUser])
+
+  console.log("EL LOGGED", loggedUser)
   return (
     <nav className=" box flex flex-row justify-between w-full py-3 bg-white">
       <div className="flex flex-row">
@@ -52,16 +59,13 @@ export default function NavBar() {
           <AiFillShopping />
         </Link>
 
-        {isAuthenticated ?
+        { loggedUser ?
           <>
-            <img className="ProfileImg" src={user.picture} alt="user" referrerPolicy="no-referrer" />
-            <NavDropdown title={user.nickname} id="navbarScrollingDropdown">
-              {/* <NavDropdown.Item href='/profile/data' className="dropDown" >Personal Data</NavDropdown.Item>
-                            <NavDropdown.Item href='/profile/my-products' className="dropDown" >My Products</NavDropdown.Item> */}
-            </NavDropdown>
-            <Logout />
+            <AccountMenu img={loggedUser.userImage} userName={loggedUser.userName}/>
           </>
-          : (!isLoading && <Login />)}
+          : null
+          // (!isLoading && <Login />)
+          }
       </div>
     </nav>
   );
