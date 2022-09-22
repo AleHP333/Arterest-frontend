@@ -1,5 +1,10 @@
 import "./app.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useState, useEffect } from 'react'
+import { verifyToken } from "./redux/actions/userSignActions";
+import { useSelector, useDispatch } from "react-redux";
+
+//COMPONENTS//PAGES
 import LandingPage from "./components/LandingPage/LandingPage";
 import Faq from "./pages/FAQ/Faq";
 import Terms from "./pages/Terms/Terms";
@@ -11,11 +16,20 @@ import Favorites from "./components/Favorites/Favorites";
 import { Home } from "./components/Home/Home";
 import NavBar from "./components/NavBar/NavBar";
 import CreateProduct from "./components/CreateProduct/CreateProduct";
-import { useState } from 'react'
 
 function App() {
   const [added, setAdded] = useState(false);
   const [notAdded, setNotAdded] = useState(false);
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (localStorage.getItem("token") !== null) {
+      const token = localStorage.getItem("token");
+      dispatch(verifyToken(token));
+    }
+  }, []);
+
+  const loggedUser = useSelector((store) => store.userSignReducer.loggedUser);
 
   const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
