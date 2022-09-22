@@ -9,7 +9,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import IconButton from '@mui/material/IconButton';
-import SendIcon from '@mui/icons-material/Send';
+import SearchIcon from '@mui/icons-material/Search';
 import Slider from '@mui/material/Slider';
 import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
@@ -205,7 +205,7 @@ export default function FilterBar({setCurrentPage}) {
                 </Fade>
                     <Zoom in={true}>
                     <IconButton sx={{ width: 40, height: 40, mr: "2rem" }} onClick={() => handlerRangeSubmit()} aria-label="send">
-                        <SendIcon/>
+                        <SearchIcon/>
                     </IconButton>
                     </Zoom>
                 </div>
