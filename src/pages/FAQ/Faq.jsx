@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import styles from './FAQ.module.css'
+import Footer from "../Footer/Footer";
+
 import {
   Accordion,
   AccordionDetails,
@@ -19,6 +21,9 @@ export default function FAQ() {
   }
 
   return (
+    <div className ="cont">
+
+   
     <Stack alignItems='center' p={2}>
       <Box width={{ xs: '100%', md: '50%' }}>
         <Typography variant='h4' fontWeight={'bold'}>
@@ -152,5 +157,10 @@ export default function FAQ() {
         </div>
       </Box>
     </Stack>
+    <div className= "distance">
+      <Footer/>
+    </div>
+    </div>
+
   )
 }
