@@ -4,15 +4,16 @@ import { useParams, Link } from 'react-router-dom';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 // Actions
 import { getPaintById } from '../../redux/actions/productActionsTest';
+// Components
+import CommentsBox from '../CommentsBox/CommentsBox';
 // Styles
-import CircularProgress from '@mui/material/CircularProgress';
+import './DetailProduct.css'
+//Material UI
 import Button from '@mui/material/Button';
 import ShareIcon from '@mui/icons-material/Share';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import './DetailProduct.css'
-import CommentsBox from '../CommentsBox/CommentsBox';
 
 export default function DetailProduct () {
 
@@ -59,8 +60,10 @@ export default function DetailProduct () {
     function handleMouseEnter() {
         const { ejeX, ejeY } = findAxis();
         setStyleResult({
+            ...styleResult,
             backgroundImage: "url('" + imgRef.current.currentSrc + "')",
-            backgroundSize: `${imgRef.current.clientWidth * ejeX}px ${imgRef.current.clientHeight * ejeY}px`
+            backgroundSize: `${imgRef.current.clientWidth * ejeX}px ${imgRef.current.clientHeight * ejeY}px`,
+            left: `${imgRef.current.clientWidth + 16}px`
         })
         setOpenZoom(true);
     }
@@ -70,25 +73,25 @@ export default function DetailProduct () {
     }
 
     function findAxis() {
-        const ejeX = (resultRef.current.clientWidth + 2) / (lensRef.current.clientWidth + 2);
-        const ejeY = (resultRef.current.clientHeight + 2) / (lensRef.current.clientHeight + 2);
+        const ejeX = (resultRef.current.clientWidth) / (lensRef.current.clientWidth);
+        const ejeY = (resultRef.current.clientHeight) / (lensRef.current.clientHeight);
         return {ejeX, ejeY}
     }
 
     function handlerMouseMove(e) {
         e.preventDefault();
         const position = getCursorPos(e);
-        let posX = position.coorX - ((lensRef.current.clientWidth + 2) / 2);
-        let posY = position.coorY - ((lensRef.current.clientHeight + 2) / 2);
+        let posX = position.coorX - ((lensRef.current.clientWidth) / 2);
+        let posY = position.coorY - ((lensRef.current.clientHeight) / 2);
 
-        if (posX > ((imgRef.current.clientWidth) - (lensRef.current.clientWidth + 2))) {
-            posX = imgRef.current.clientWidth - (lensRef.current.clientWidth + 2);
+        if (posX > ((imgRef.current.clientWidth) - (lensRef.current.clientWidth))) {
+            posX = imgRef.current.clientWidth - (lensRef.current.clientWidth);
         }
         if (posX < 0 ) {
             posX = 0;
         }
-        if (posY > ((imgRef.current.clientHeight) - (lensRef.current.clientHeight + 2))) {
-            posY = imgRef.current.clientHeight - (lensRef.current.clientHeight + 2);
+        if (posY > ((imgRef.current.clientHeight) - (lensRef.current.clientHeight))) {
+            posY = imgRef.current.clientHeight - (lensRef.current.clientHeight);
         }
         if (posY < 0 ) {
             posY = 0;
@@ -120,19 +123,11 @@ export default function DetailProduct () {
     }
 
     return (
-        !paint || id !== paint._id ? <CircularProgress /> :
+        !paint || id !== paint._id ? 
+        <div data-placeholder class="h-52 w-full overflow-hidden relative bg-gray-200"></div> :
         <div className="containerDetail bg-white">  
             <div className="p-8 text-gray-600 md:px-12 xl:px-8">
                 <div className="md:flex md:gap-6 lg:justify-center lg:gap-12">
-                    {/* <div className="md:w-6/12 lg:w-4/12">
-                        <img alt="" src={paint.img} loading="lazy"/>
-                    </div> */}
-                    <div 
-                        style={styleResult}
-                        ref={resultRef} 
-                        id="myresult"
-                        className={`${openZoom ? "zoom" : ""} img-zoom-result`}
-                    ></div>
                     <div className="md:w-6/12 lg:w-4/12  img-zoom-container">
                         <div 
                             onMouseEnter={() => handleMouseEnter()} 
@@ -152,6 +147,12 @@ export default function DetailProduct () {
                                 alt=""
                                 loading="lazy"
                             />
+                            <div 
+                                style={styleResult}
+                                ref={resultRef} 
+                                id="myresult"
+                                className={`${openZoom ? "zoom" : ""} img-zoom-result`}
+                            ></div>
                         </div> 
                     </div>
                     <div className="mt-2 lg:flex lg:flex-col md:7/12 lg:w-6/12">
