@@ -1,175 +1,375 @@
-import React from 'react';
-import { Accordion } from 'react-bootstrap';
-import TermsContainer from './Terms.module.css';
+import React, { useState } from 'react'
+import Footer from "../Footer/Footer";
+import styles from './Terms.module.css';
 
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Box,
+  Stack,
+  Typography,
+} from '@mui/material'
 
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 
-function Terms() {
+export default function Terms() {
+  const [expanded, setExpanded] = useState(false)
+
+  const handleChange = (panel) => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : false)
+  }
   
-
+  
   return (
     <div>
-      <div>
-        <title> Arterest Terminos y Condiciones</title>
-      </div>
-      <div className={TermsContainer}>
-        
-        <Accordion defaultActiveKey={['0']} alwaysOpen>
-          <Accordion.Item eventKey="0">
-            <Accordion.Header> Términos y Condiciones </Accordion.Header>
-            <Accordion.Body>
-              Estos términos y condiciones y los anexos que explican los
-              servicios del ecommerce Arterest (de ahora en más: “Términos y
-              Condiciones”) regulan la relación entre Arterest y
-              las personas que usan sus servicios (“Personas Usuarias”). <br />
+    <Stack alignItems='center' p={2}>
+      <Box width={{ xs: '100%', md: '50%' }}>
+        <Typography variant='h4' fontWeight={'bold'}>
+        Arterest Terms & Conditions
+        </Typography>
+        <p className={styles.subtitle}>
+          <strong>Any doubt consult the list below</strong>
+        </p>
+        <div>
+          <Accordion 
+            expanded={expanded === 'panel1'}
+            onChange={handleChange('panel1')}
+          >
+            <AccordionSummary
+              aria-controls='panel1bh-content'
+              id='panel1bh-header'
+              expandIcon={
+                <ExpandMoreIcon
+                  sx={{
+                    color: 'white',
+                  }}
+                />
+              }
+              sx={{
+                backgroundColor: '#e90606',
+                color: 'white',
+              }}
+            >
+              <Typography fontWeight={'bold'}>
+              Terms and Conditions
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography>
+              These terms and conditions and the annexes explaining Arterest ecommerce services
+             (hereinafter: "Terms and Conditions") govern the relationship between Arterest and
+              the persons who use its services ("User Persons"). <br />
               <br />
-              Las Personas Usuarias aceptan estos Términos y Condiciones desde
-              el momento en que se registran en el Sitio y participan del mismo.
-               Cuando debamos hacer cambios importantes en nuestros
-              servicios, publicaremos las modificaciones con 10 días corridos de
-              anticipación para que las Personas Usuarias puedan revisarlas y
-              seguir usando la pagina sin problemas. En ningún caso afectarán las
-              operaciones que ya hayan finalizado.
-              <br />
-              <br />
-              Las Personas Usuarias que no tengan obligaciones pendientes con
-              Arterest o con otras Personas Usuarias, podrán
-              finalizar la relación cancelando su
-              cuenta.
-              <br />
-              <br />
-            </Accordion.Body>
-          </Accordion.Item>
-          <Accordion.Item eventKey="1">
-            <Accordion.Header>Capacidad</Accordion.Header>
-            <Accordion.Body>
-              Podrán usar nuestros servicios las personas mayores de edad que
-              tengan capacidad legal para contratar. Los menores de edad, a
-              partir de los 13 años, sólo podrán utilizar su cuenta con
-              autorización del representante legal, quien responderá por todas
-              las acciones y obligaciones que se deriven de la utilización de
-              esa cuenta y quien deberá velar por el uso responsable y adecuado
-              de ella en atención a la madurez del menor de edad que autorice.
-              <br /> <br />
-            
-            </Accordion.Body>
-          </Accordion.Item>
-          <Accordion.Item eventKey="2">
-            <Accordion.Header> Registro y Cuenta</Accordion.Header>
-            <Accordion.Body>
-              Quien quiera usar nuestros servicios, deberá completar el
-              formulario de registro con los datos que le sean requeridos. Al
-              completarlo, se compromete a hacerlo de manera exacta, precisa y
-              verdadera y a mantener sus datos siempre actualizados. La Persona
-              Usuaria será la única responsable de la certeza de sus datos de
-              registro. Sin perjuicio de la información brindada en el
-              formulario, podremos solicitar y/o consultar información adicional
-              para corroborar la identidad de la Persona Usuaria.
-              <br /> <br />
-              La cuenta es personal, única e intransferible, es decir que bajo
-              ningún concepto se podrá vender o ceder a otra persona. Se accede
-              a ella con la clave personal de seguridad que haya elegido y que
-              deberá mantener bajo estricta confidencialidad. Por eso, la
-              Persona Usuaria será la única responsable por las operaciones que
-              se realicen en su cuenta. En caso de detectar un uso no autorizado
-              de su cuenta,deberá notificar de forma inmediata y fehaciente a
-              el administrador de Arterest.
-            </Accordion.Body>
-          </Accordion.Item>
-          <Accordion.Item eventKey="3">
-            <Accordion.Header>Privacidad de datos</Accordion.Header>
-            <Accordion.Body>
-              En Arterest hacemos un uso responsable de la
-              información personal, protegiendo la privacidad de las Personas
-              Usuarias que nos confiaron sus datos y tomando las medidas
-              necesarias para garantizar la seguridad.
-            </Accordion.Body>
-          </Accordion.Item>
-          <Accordion.Item eventKey="4">
-            <Accordion.Header>Sanciones</Accordion.Header>
-            <Accordion.Body>
-              En caso que la Persona Usuaria incumpliera una ley o los Términos
-              y Condiciones, podremos advertir, suspender, restringir o
-              inhabilitar temporal o definitivamente su cuenta, sin perjuicio de
-              otras sanciones que se establezcan en las reglas de uso
-              particulares de los servicios de Arterest.
-            </Accordion.Body>
-          </Accordion.Item>
-          <Accordion.Item eventKey="5">
-            <Accordion.Header>Responsabilidad</Accordion.Header>
-            <Accordion.Body>
-              Arterest será responsable por cualquier defecto en la
-              prestación de su servicio, en la medida en que le sea imputable y
-              con el alcance previsto en las leyes vigentes.
-            </Accordion.Body>
-          </Accordion.Item>
-          <Accordion.Item eventKey="6">
-            <Accordion.Header> Tarifas</Accordion.Header>
-            <Accordion.Body>
-              Arterest podrá cobrar por sus servicios y la Persona
-              Usuaria se compromete a pagarlos a tiempo.
+              Users accept these Terms and Conditions from the moment they register on the Site
+               and participate in it. When we have to make important changes in our services, we
+                will publish the modifications 10 days in advance so that the Users can review them
+                 and continue using the page without problems. In no case will they affect those that have
+                  already been finalized.
               <br />
               <br />
-              Podremos modificar o eliminar las tarifas en cualquier momento con
-              el debido preaviso establecido en la cláusula 2 de estos Términos
-              y Condiciones. De la misma manera, podremos modificar las tarifas
-              temporalmente por promociones en favor de las Personas Usuarias.
+              Users who have no outstanding obligations with Arterest or with other Users may terminate
+               the relationship by cancelling their account.
               <br />
               <br />
-              La Persona Usuaria autoriza a Arterest a retener y/o
-              debitar los fondos existentes y/o futuros de su cuenta y/o de las
-              cuentas bancarias que haya registrado en ella, para saldar las
-              tarifas impagas o cualquier otra deuda que pudiera tener.
+              </Typography>
+            </AccordionDetails>
+          </Accordion>
+          
+          <Accordion 
+            expanded={expanded === 'panel2'}
+            onChange={handleChange('panel2')}
+          >
+            <AccordionSummary
+              expandIcon={
+                <ExpandMoreIcon
+                  sx={{
+                    color: 'white',
+                  }}
+                />
+              }
+              aria-controls='panel2bh-content'
+              id='panel2bh-header'
+              sx={{
+                backgroundColor: '#e90606',
+                color: 'white',
+              }}
+            >
+              <Typography fontWeight={'bold'}>
+              Capability
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography>
+              Our services may be used by persons of legal age who have the legal capacity to contract.
+               Minors, from 13 years of age, may only use their account with the authorization of the legal
+                representative, who will be responsible for all actions and obligations arising from the use
+                 of that account and who must ensure the responsible and appropriate use of it in attention to
+                  the maturity of the minor who authorizes.
+              </Typography>
+            </AccordionDetails>
+          </Accordion>
+          
+          <Accordion 
+            expanded={expanded === 'panel3'}
+            onChange={handleChange('panel3')}
+          >
+            <AccordionSummary
+              expandIcon={
+                <ExpandMoreIcon
+                  sx={{
+                    color: 'white',
+                  }}
+                />
+              }
+              aria-controls='panel3bh-content'
+              id='panel3bh-header'
+              sx={{
+                backgroundColor: '#e90606',
+                color: 'white',
+              }}
+            >
+              <Typography fontWeight={'bold'}>
+              Registration and Account
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography>
+              Anyone wishing to use our services must complete the registration form with the required data.
+              By completing it, he/she undertakes to do so in an accurate, precise and true manner and to keep his/her data
+               always up to date. The User shall be solely responsible for the accuracy of his/her registration data. Without
+               prejudice to the information provided in the form, we may request and/or consult additional information to
+               corroborate the identity of the User.
+             <br /> <br />
+              The account is personal, unique and non-transferable, which means that under no circumstances may
+              it be sold or transferred to another person. It is accessed with the personal security password chosen by the User,
+              which must be kept strictly confidential. Therefore, the User shall be solely responsible for the operations carried
+              out on his/her account. In case of detecting an unauthorized use of your account, you must immediately and reliably
+              notify the administrator of Arterest. 
+              </Typography>
+            </AccordionDetails>
+          </Accordion>
+         
+          <Accordion 
+            expanded={expanded === 'panel4'}
+            onChange={handleChange('panel4')}
+          >
+            <AccordionSummary
+              expandIcon={
+                <ExpandMoreIcon
+                  sx={{
+                    color: 'white',
+                  }}
+                />
+              }
+              aria-controls='panel4bh-content'
+              id='panel4bh-header'
+              sx={{
+                backgroundColor: '#e90606',
+                color: 'white',
+              }}
+            >
+              <Typography fontWeight={'bold'}>
+              Privacy Policy
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography>
+              In Arterest we make a responsible use of personal information, protecting the privacy
+               of the Users who entrusted us with their data and taking the necessary measures to ensure security.
+              </Typography>
+            </AccordionDetails>
+          </Accordion> 
+          
+          <Accordion //5
+            expanded={expanded === 'panel5'}
+            onChange={handleChange('panel5')}
+          >
+            <AccordionSummary
+              expandIcon={
+                <ExpandMoreIcon
+                  sx={{
+                    color: 'white',
+                  }}
+                />
+              }
+              aria-controls='panel5bh-content'
+              id='panel5bh-header'
+              sx={{
+                backgroundColor: '#e90606',
+                color: 'white',
+              }}
+            >
+              <Typography fontWeight={'bold'}>
+              Penalties
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography>
+              In the event that the User breaches a law or the Terms and Conditions, we may warn, suspend,
+               restrict or disable temporarily or permanently your account, without prejudice to other sanctions
+                set out in the rules of use particular to the services of Arterest.
+              </Typography>
+            </AccordionDetails>
+          </Accordion> 
+          
+          <Accordion 
+            expanded={expanded === 'panel6'}
+            onChange={handleChange('panel6')}
+          >
+            <AccordionSummary
+              expandIcon={
+                <ExpandMoreIcon
+                  sx={{
+                    color: 'white',
+                  }}
+                />
+              }
+              aria-controls='panel6bh-content'
+              id='panel6bh-header'
+              sx={{
+                backgroundColor: '#e90606',
+                color: 'white',
+              }}
+            >
+              <Typography fontWeight={'bold'}>
+              Disclaimer
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography>
+              Arterest shall be liable for any defect in the provision of its service, to the extent
+               attributable to it and to the extent provided for in the laws in force.
+              </Typography>
+            </AccordionDetails>
+          </Accordion> 
+          
+          <Accordion 
+            expanded={expanded === 'panel7'}
+            onChange={handleChange('panel7')}
+          >
+            <AccordionSummary
+              expandIcon={
+                <ExpandMoreIcon
+                  sx={{
+                    color: 'white',
+                  }}
+                />
+              }
+              aria-controls='panel7bh-content'
+              id='panel7bh-header'
+              sx={{
+                backgroundColor: '#e90606',
+                color: 'white',
+              }}
+            >
+              <Typography fontWeight={'bold'}>
+              Fees
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography>
+              Arterest may charge for its services and the User agrees to pay for them on time.
               <br />
               <br />
-              Para conocer el detalle de las tarifas de cada servicio, las
-              Personas Usuarias deberán consultar los términos y condiciones
-              correspondientes.
+              We may modify or eliminate the rates at any time with the due notice established in clause
+               2 of these Terms and Conditions. In the same way, we may modify the rates temporarily for promotions
+                in favor of the Users.
               <br />
               <br />
-              En todos los casos se emitirá la factura de conformidad con los
-              datos fiscales que las personas tengan cargados en su cuenta.
-            </Accordion.Body>
-          </Accordion.Item>
-          <Accordion.Item eventKey="7">
-            <Accordion.Header> Propiedad Intelectual</Accordion.Header>
-            <Accordion.Body>
-              Arterest y/o sus sociedades relacionadas son
-              propietarias de todos los derechos de propiedad intelectual sobre
-              sus sitios, todo su contenido, servicios, productos, marcas,
-              nombres comerciales, logos, diseños, imágenes, frases
-              publicitarias, derechos de autor, dominios, programas de
-              computación, códigos, desarrollos, software, bases de datos,
-              información, tecnología, patentes y modelos de utilidad, diseños y
-              modelos industriales, secretos comerciales, entre otros
-              (“Propiedad Intelectual”) y se encuentran protegidos por leyes
-              nacionales e internacionales.
+              The User authorizes Arterest to withhold and/or debit existing and/or future funds from his/her account
+               and/or the bank accounts he/she has registered therein, to settle unpaid fees or any other debt
+                he/she may have.
               <br />
               <br />
-              Aunque Arterest otorga permiso para usar sus
-              productos y servicios conforme a lo previsto en los Términos y
-              Condiciones, esto no implica una autorización para usar su
-              Propiedad Intelectual, excepto consentimiento previo y expreso de
-              Arterest y/o sus sociedades vinculadas. 
-            </Accordion.Body>
-          </Accordion.Item>
-          <Accordion.Item eventKey="8">
-            <Accordion.Header>Jurisdicción y Ley Aplicable</Accordion.Header>
-            <Accordion.Body>
-              Estos Términos y Condiciones se rigen por la ley argentina. Toda
-              controversia derivada de su aplicación, interpretación, ejecución
-              o validez será resuelta por los tribunales nacionales ordinarios
-              competentes, con asiento en la Ciudad de Buenos Aires, salvo
-              disposición específica de normas de orden público, como por
-              ejemplo, legislación relativa al Consumidor. Para todos los
-              efectos relacionados con estos Términos y Condiciones y con el uso
-              del sitio, Arterest.
-            </Accordion.Body>
-          </Accordion.Item>
-        </Accordion>
+              For details of the rates for each service, Users should consult the corresponding terms and conditions.
+              <br />
+              <br />
+              In all cases, the invoice will be issued in accordance with the fiscal data that the individuals
+               have charged to their account.           
+              </Typography>
+            </AccordionDetails>
+          </Accordion> 
+          
+          <Accordion 
+            expanded={expanded === 'panel8'}
+            onChange={handleChange('panel8')}
+          >
+            <AccordionSummary
+              expandIcon={
+                <ExpandMoreIcon
+                  sx={{
+                    color: 'white',
+                  }}
+                />
+              }
+              aria-controls='panel8bh-content'
+              id='panel8bh-header'
+              sx={{
+                backgroundColor: '#e90606',
+                color: 'white',
+              }}
+            >
+              <Typography fontWeight={'bold'}>
+              Intellectual Property
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography>
+              Arterest and/or its related companies own all intellectual property rights over their sites, all content,
+               services, products, trademarks, trade names, logos, designs, images, advertising phrases, copyrights, domains,
+                computer programs, codes, developments, software, databases, information, technology, patents and utility models,
+                 industrial designs and models, trade secrets, among others ("Intellectual Property") and are protected by national
+                  and international laws.
+              <br />
+              <br />
+              Although Arterest grants permission to use its products and services as provided in the Terms and Conditions,
+               this does not imply an authorization to use its Intellectual Property, except with the express prior consent
+                of Arterest and/or its related companies.
+              </Typography>
+            </AccordionDetails>
+          </Accordion> 
+          
+          <Accordion //9
+            expanded={expanded === 'panel9'}
+            onChange={handleChange('panel9')}
+          >
+            <AccordionSummary
+              expandIcon={
+                <ExpandMoreIcon
+                  sx={{
+                    color: 'white',
+                  }}
+                />
+              }
+              aria-controls='panel9bh-content'
+              id='panel9bh-header'
+              sx={{
+                backgroundColor: '#e90606',
+                color: 'white',
+              }}
+            >
+              <Typography fontWeight={'bold'}>
+              Jurisdiction and Applicable Law
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography>
+              These Terms and Conditions are governed by Argentine law. Any dispute arising from their application,
+               interpretation, execution or validity shall be resolved by the competent ordinary national courts,
+                located in the City of Buenos Aires, except as specifically provided by public policy rules, such as,
+                 for example, legislation relating to the Consumer. For all purposes related to these
+                  Terms and Conditions and the use of the site, Arterest.
+              </Typography>
+            </AccordionDetails>
+          </Accordion> 
+        </div>
+      </Box>
+    </Stack>
+    
+       <div>
+      <Footer class="pt-0" />
       </div>
     </div>
-  );
+  )
 }
-
-export default Terms;

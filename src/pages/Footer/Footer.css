@@ -4,38 +4,17 @@
     padding: 1.4rem !important;
     display: flex !important;
     justify-content: space-around !important;
-    background-color: transparent;
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.89), 0 6px 20px 0 rgba(236, 9, 9, 0.767);
-    text-decoration: none;
-    border-radius: 12px;
+    
+   
+}
+.container{
+    box-shadow: #808080 !important ;
 }
 
-.title {
-    font-size: 1.5rem !important;
-    color: #808080 !important;
-    font-weight: bold;
-}
 
-.terms {
-    font-size: 1rem !important;
-    color: grey !important;
-    font-weight: bold;
-    text-decoration: none;
-}
 
-.footerContact {
-    font-size: 1.2rem !important;
-    margin: 10px;
-    color: grey !important;
-    font-weight: bold;
-    text-decoration: none;
-}
 
-.footerContact:hover {
-    color: #0a0a0a;
-}
-
-.contact {
-    display: flex;
-    gap: 1em;
+.pepe:hover{
+  font-size: 17px;
+  color: #808080;
 }
