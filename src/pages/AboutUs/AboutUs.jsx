@@ -1,5 +1,6 @@
 import React from 'react'
 import { BsGithub, BsLinkedin } from 'react-icons/bs';
+import Footer from '../Footer/Footer';
 import './AboutUs.css'
 import style from './aboutUs.module.css'
 
@@ -122,6 +123,7 @@ export default function AboutUs() {
         </div>
 
       </div>
+      <Footer/>
     </div>
   )
 }
