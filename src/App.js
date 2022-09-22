@@ -15,6 +15,7 @@ import { useState } from 'react'
 import Dashboard from "./pages/Admin/views/Dashboard";
 import AllArtWork from "./pages/Admin/views/AllArtWork";
 import AllUsers from "./pages/Admin/views/AllUsers";
+import EditProduct from "./pages/Admin/components/EditProduct";
 
 
 function App() {
@@ -53,6 +54,7 @@ function App() {
           <Route exact path="/admin" element={<Dashboard />} />
           <Route path="admin/artworks" element={<AllArtWork />} />
           <Route path="admin/users" element={<AllUsers />} />
+          <Route path="admin/editproduct/:id" element={<EditProduct />} />
         </Routes>
       </Router>
     </>

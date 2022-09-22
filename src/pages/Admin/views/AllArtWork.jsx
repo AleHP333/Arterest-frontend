@@ -3,12 +3,13 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from '../../../redux/actions/productActionsTest';
 import Popper from '../views/Popper'
-import { Link } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 
 
 
 const AllArtWork = () => {
   const dispatch = useDispatch()
+
   const artwork = useSelector((state) => state.testReducer.allProducts)
 
   function deleteArtwork() {
@@ -16,6 +17,7 @@ const AllArtWork = () => {
     //   return users.isBloked === true
     // } 
   }
+
 
   useEffect(() => {
     dispatch(getAllProducts(dispatch));
@@ -80,6 +82,10 @@ const AllArtWork = () => {
                         <tr>
                           <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
                             {art.title}
+                          </th>
+
+                          <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
+                            {art._id}
                           </th>
 
                           <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">

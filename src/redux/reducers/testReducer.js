@@ -80,7 +80,19 @@ export default function testReducer(state = initialState, action) {
           ...state,
           allUsers: action.payload,
         }
+        case 'UPDATE_PRODUCT':
+          const allArtworkUpdated = state.allProducts.map(item =>
+              item._id === action.payload._id ? action.payload : item);
 
+          const artworkUpdated = state.products.map(item =>
+              item._id === action.payload._id ? action.payload : item);
+
+          return {
+              ...state,
+              allProducts: allArtworkUpdated,
+              products: artworkUpdated,
+              paintDetail: action.payload
+          }
     default:
       return state;
   }
