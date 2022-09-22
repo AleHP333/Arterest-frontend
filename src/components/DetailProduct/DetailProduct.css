@@ -8,3 +8,33 @@
 .containerDetail .MuiButton-contained:hover {
     background-color: rgb(255, 0, 0) !important;
 }
+
+.img-zoom-container {
+    position: relative;
+}
+
+#container {
+    display: flex;
+}
+
+.img-zoom-lens {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    visibility: hidden;
+    cursor: zoom-in;
+    background-color: rgb(0, 0, 0, .5);
+}
+
+.img-zoom-result {
+    width: 500px;
+    height: 440px;
+    visibility: hidden;
+    position: absolute;
+    z-index: 100;
+    top: 1em;
+}
+
+.zoom {
+    visibility: visible;
+}

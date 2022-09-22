@@ -61,7 +61,9 @@ export default function NavBar() {
             </NavDropdown>
             <Logout />
           </>
-          : (!isLoading && <Login />)}
+          : null
+          // (!isLoading && <Login />)
+          }
       </div>
     </nav>
   );
