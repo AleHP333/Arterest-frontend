@@ -2,26 +2,45 @@ import React from 'react'
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from '../../../redux/actions/productActionsTest';
-import Popper from '../views/Popper'
-import { Link} from 'react-router-dom';
+// import Popper from '../views/Popper'
+import { useNavigate, Link, useParams } from 'react-router-dom';
+import Box from '@mui/material/Box';
+import Popper from '@mui/material/Popper';
+import Fade from '@mui/material/Fade';
+import { BsFillPencilFill } from 'react-icons/bs'
 
 
 
 const AllArtWork = () => {
   const dispatch = useDispatch()
-
   const artwork = useSelector((state) => state.testReducer.allProducts)
-
-  function deleteArtwork() {
-    // if(users.isBloked === false){
-    //   return users.isBloked === true
-    // } 
-  }
+  const [open, setOpen] = React.useState(false);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const navigate = useNavigate()
+  const { _id } = useParams()
+  const canBeOpen = open && Boolean(anchorEl);
+  const id = canBeOpen ? 'transition-popper' : undefined;
 
 
   useEffect(() => {
     dispatch(getAllProducts(dispatch));
   }, [dispatch]);
+
+
+  function handleEdit(_id) {
+    navigate(`/admin/editproduct/${_id}`);
+  }
+  
+  function handleDelete() {
+
+  }
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+    setOpen((previousOpen) => !previousOpen);
+  };
+
+
 
 
   return (
@@ -97,7 +116,31 @@ const AllArtWork = () => {
                           </td>
 
                           <td className="flex border-t-0 px-6 ml-4 text-xs whitespace-nowrap p-4 cursor-pointer">
-                          <Popper/>
+                            <div>
+                              <button aria-describedby={id} type="button" onClick={handleClick}>
+                                <BsFillPencilFill />
+                              </button>
+
+                              <Popper id={id} open={open} anchorEl={anchorEl} transition>
+                                {({ TransitionProps }) => (
+                                  <Fade {...TransitionProps} timeout={350}>
+                                    <Box sx={{ border: 1, p: 1, bgcolor: 'background.paper' }}>
+                                      <button
+                                        type='button'
+                                        onClick={() => handleEdit(art._id)}
+                                      >Edit
+                                      </button>
+                                      <button
+                                        type='button'
+                                        onClick={() => handleDelete()}
+                                      >Delete
+                                      </button>
+                                    </Box>
+                                  </Fade>
+                                )}
+                              </Popper>
+
+                            </div>
                           </td>
 
                         </tr>

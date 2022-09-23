@@ -9,98 +9,85 @@ const EditProduct = () => {
     const dispatch = useDispatch()
     const { id } = useParams();
     const artDetail = useSelector((state) => state.testReducer.paintDetail)
-    const [thisArt, setThisArt] = useState({})
+  
+    console.log(artDetail, 'OBRAAA');
+
 
     useEffect(() => {
-      if (!artDetail) {
+      if(!artDetail.userName){
         dispatch(getPaintById(id))
       }
-      setThisArt(!artDetail ?  {}: artDetail )
+      setInput({
+        ...input,
+      userName: artDetail.userName,
+      userImage: artDetail.userImage,
+      title: artDetail.title,
+      description: artDetail.description,
+      img: artDetail.img,
+      origin: artDetail.origin,
+      technique: artDetail.technique,
+      style: artDetail.style,
+      colors: artDetail.colors,
+      releaseDate: artDetail.releaseDate,
+      price: artDetail.price,
+      tags: artDetail.tags
+      })
     }, [artDetail])
     
-    console.log(artDetail, 'OBRA');
-  
-    const [inputForm, setInputForm] = useState({
-      userName: thisArt.userName,
-      userImage: thisArt.userImage,
-      title: thisArt.title,
-      description: thisArt.description,
-      img: thisArt.img,
-      origin: thisArt.origin,
-      technique: thisArt.technique,
-      style: thisArt.style,
-      colors: thisArt.colors,
-      releaseDate: thisArt.releaseDate,
-      price: thisArt.price,
-      tags: thisArt.tags,
+    const [input, setInput] = useState({
+      userName: '',
+      userImage: '',
+      title: '',
+      description: '',
+      img: '',
+      origin: '',
+      technique:'',
+      style:'',
+      colors: '',
+      releaseDate:'',
+      price: '',
+      tags:''
+
     })
-    console.log(inputForm, 'input');
-
-    // const [warning, setWarning] = useState(true);
-    const [success, setSuccess] = useState(false);
-    const [fail, setFail] = useState(false);
-
-    function handleChange(e) {
-        setInputForm({
-            ...inputForm,
-            [e.target.name]: e.target.value
-        })
-    }
-
-    const uploadImage = async (e) => {
-        const files = e.target.files;
-        const data = new FormData();
-        data.append("file", files[0]);
-        data.append("upload_preset", "vmbr1os6");
-        const res = await fetch(
-          "https://api.cloudinary.com/v1_1/onlypan/upload",
-            {
-                method: "POST",
-                body: data,
-            }
-        );
-        const file = await res.json();
-        const aux = file.secure_url;
-        setInputForm({
-            ...inputForm,
-            image: aux,
-        });
-        console.log("cloudinary")
-    }
-
-    const updatePro = async () => {
-        return await axios.put(`http://localhost:3001/paints/allpaints?art=${artDetail._id}`, {...inputForm })
-    }
-
-
-    const handleSubmit = async (e) => {
-      console.log('HOLA entré al handle');
-        e.preventDefault();
-          const response = updatePro()
-          await response.status === 200 ? setSuccess(true) :  setFail(true)
-          // setInputForm({
-          //   userName: '',
-          //   userImage: '',
-          //   title: '',
-          //   description: '',
-          //   img: '',
-          //   origin: '',
-          //   technique:[],
-          //   style: [],
-          //   colors: [],
-          //   releaseDate: '',
-          //   price: '',
-          //   tags: [],
-          // })
-            return
-    }
-
-    //   useEffect(() => {
-    //     dispatch(getPaintById(id))
-    // }, [inputForm ])
-
-
     
+    async function handleSubmit(e) {
+      e.preventDefault();
+      dispatch(updateProduct(id, input));
+      // navigate(`/profile/admin/usercontrol/userdetail/${thisUser.email}`)
+      dispatch(getPaintById())
+    }
+    
+    function handleChange(e) {
+      setInput({
+        ...input,
+        [e.target.name]: e.target.value,
+      })
+    }
+    if(!artDetail){
+      return 'Loading...'
+  }
+
+    // const uploadImage = async (e) => {
+    //     const files = e.target.files;
+    //     const data = new FormData();
+    //     data.append("file", files[0]);
+    //     data.append("upload_preset", "vmbr1os6");
+    //     const res = await fetch(
+    //       "https://api.cloudinary.com/v1_1/onlypan/upload",
+    //         {
+    //             method: "POST",
+    //             body: data,
+    //         }
+    //     );
+    //     const file = await res.json();
+    //     const aux = file.secure_url;
+    //     setInputForm({
+    //         ...inputForm,
+    //         image: aux,
+    //     });
+    //     console.log("cloudinary")
+    // }
+ 
   return (
         <div className="flex w-full min-h-screen justify-center items-center shadow-lg p-2 bg-transparent"> 
         <div className="flex justify-between flex-col shadow-lg bg-gray-100 rounded-xl my-1">
@@ -126,7 +113,7 @@ const EditProduct = () => {
                 <div className="text-4xl font-bold text-gray-800" >
                     <h1>Edit Product</h1>
                 </div>
-                <form className="flex justify-between flex-col px-4 my-32 max-w-3xl mx-auto space-y-3" onSubmit={(e) => { handleSubmit(e) }}>
+                <form onSubmit={(e) => handleSubmit(e)} className="flex justify-between flex-col px-4 my-32 max-w-3xl mx-auto space-y-3" >
                     <div>
                         <div id='input-name' >
                             <label htmlFor="userName" className="text-gray-500">* Artist Name:</label>
@@ -134,29 +121,32 @@ const EditProduct = () => {
                                 className="border border-gray-400 block py-2 w-full rounded outline hover:outline-white"
                                 id="userName"
                                 type='text'
-                                value={inputForm.userName === undefined ? artDetail.userName : ''}
+                               value={input.userName}
                                 name='userName'
-                                onChange={(e) => { handleChange(e) }} />
+                                onChange={(e) => handleChange(e)}
+                                 />
                         </div>
 
-                        <div className="flex space-x-4 text-gray-500" id='userImage' >
+                        {/* <div className="flex space-x-4 text-gray-500" id='userImage' >
                             <label htmlFor="userImage" className="text-gray-500">* Artist photo:</label>
                             <input
                                 className="border border-gray-400 block py-2 w-full rounded focus:border-teal-500"
                                 type='file'
                                 name='userImage'
                                 id="userImage"
-                                onChange={(e) => { handleChange(e) }} />
-                        </div>
+                                value={input.userImage}
+                                 />
+                        </div> */}
                         
                         <div className="text-gray-500" id='title' >
                             <label htmlFor="title" className="text-gray-500">Title:</label>
                             <input
                                 className="border border-gray-400 block py-2 w-full rounded focus:border-teal-500"
                                 type='text'
-                                value={inputForm.title}
                                 name='title'
-                                onChange={(e) => { handleChange(e) }} />
+                                value={input.title}
+                                onChange={(e) => handleChange(e)}
+                                 />
                         </div>
 
                         <div className="text-gray-500" id='Price' >
@@ -164,9 +154,10 @@ const EditProduct = () => {
                             <input
                                 className="border border-gray-400 block py-2 w-full rounded  focus:border-teal-500"
                                 type='text'
-                                value={inputForm.price}
                                 name='price'
-                                onChange={(e) => { handleChange(e) }} />
+                                value={input.price}
+                                onChange={(e) => handleChange(e)}
+                                />
                         </div>
 
                         <div className="text-gray-500" id='origin' >
@@ -174,9 +165,10 @@ const EditProduct = () => {
                             <input
                                 className="border border-gray-400 block py-2 w-full rounded  focus:border-teal-500"
                                 type='text'
-                                value={inputForm.origin}
                                 name='origin'
-                                onChange={(e) => { handleChange(e) }} />
+                                value={input.origin}
+                                onChange={(e) => handleChange(e)}
+                                 />
                         </div>
 
                         <div className="text-gray-500" id='style' >
@@ -184,9 +176,10 @@ const EditProduct = () => {
                             <input
                                 className="border border-gray-400 block py-2 w-full rounded  focus:border-teal-500"
                                 type='text'
-                                value={inputForm.style}
                                 name='style'
-                                onChange={(e) => { handleChange(e) }} />
+                                value={input.style}
+                                onChange={(e) => handleChange(e)}
+                                 />
                         </div>
 
                         <div className="text-gray-500" id='colors' >
@@ -194,29 +187,32 @@ const EditProduct = () => {
                             <input
                                 className="border border-gray-400 block py-2 w-full rounded  focus:border-teal-500"
                                 type='text'
-                                value={inputForm.colors}
+                                value={input.colors}
                                 name='colors'
-                                onChange={(e) => { handleChange(e) }} />
+                                onChange={(e) => handleChange(e)}
+                                 />
                         </div>
 
-                        <div className="flex space-x-4 text-gray-500">
+                        {/* <div className="flex space-x-4 text-gray-500">
                             <label htmlFor="img">Artwork Image</label>
                             <input
                                 className="border border-gray-400 block py-2 w-full rounded focus:border-teal-500"
                                 id="img"
                                 name="img"
                                 type="file"
-                                onChange={uploadImage}/>
-                         </div>
+                                value={input.title}
+                                />
+                         </div> */}
 
                          <div className="text-gray-500" id='description' >
                             <label htmlFor="description" className="text-gray-500">Description:</label>
                             <input
                                 className="border border-gray-400 block py-2 w-full rounded  focus:border-teal-500"
                                 type='text'
-                                value={inputForm.description}
                                 name='description'
-                                onChange={(e) => { handleChange(e) }} />
+                                value={input.description}
+                                onChange={(e) => handleChange(e)}
+                                 />
                         </div>
 
                         <div className="text-gray-500" id='tags' >
@@ -224,9 +220,10 @@ const EditProduct = () => {
                             <input
                                 className="border border-gray-400 block py-2 w-full rounded  focus:border-teal-500"
                                 type='text'
-                                value={inputForm.tags}
+                                value={input.tags}
                                 name='tags'
-                                onChange={(e) => { handleChange(e) }} />
+                                onChange={(e) => handleChange(e)}
+                                 />
                          </div>
 
                         <div className="text-gray-500" id='technique' >
@@ -234,23 +231,26 @@ const EditProduct = () => {
                             <input
                                 className="border border-gray-400 block py-2 w-full rounded  focus:border-teal-500"
                                 type='text'
-                                value={inputForm.technique}
                                 name='technique'
-                                onChange={(e) => { handleChange(e) }} />
+                                value={input.technique}
+                                onChange={(e) => handleChange(e)}
+                                 />
                         </div>
 
                         <div className="text-gray-500" id='releaseDate' >
                             <label htmlFor="releaseDate" className="text-gray-500">Release Year:</label>
                             <input
                                 className="border border-gray-400 block py-2 w-full rounded  focus:border-teal-500"
-                                type='file'
-                                value={inputForm.releaseDate}
+                                type='text'
                                 name='releaseDate'
-                                onChange={(e) => { handleChange(e) }} />
+                                value={input.releaseDate}
+                                onChange={(e) => handleChange(e)}
+                                 />
                         </div>
              
                         
                             <button 
+                            onClick={handleSubmit}
                             type="Submit"
                             className="rounded-full py-2 px3 uppercase text-xs font-bold tracking-wider bg-pink-700 text-gray-100">
                               Update Product</button>

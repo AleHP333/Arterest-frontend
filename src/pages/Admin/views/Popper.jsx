@@ -3,16 +3,17 @@ import Box from '@mui/material/Box';
 import Popper from '@mui/material/Popper';
 import Fade from '@mui/material/Fade';
 import { BsFillPencilFill } from 'react-icons/bs'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 
 export default function TransitionsPopper() {
   const [open, setOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const navigate = useNavigate()
+  const {_id} = useParams()
 
-  function handleEdit() {
-    navigate(`admin/editproduct/${id}`);
+  function handleEdit(_id) {
+    navigate(`/admin/editproduct/${_id}`);
   }
   function handleDelete() {
 
@@ -38,7 +39,7 @@ export default function TransitionsPopper() {
             <Box sx={{ border: 1, p: 1, bgcolor: 'background.paper' }}>
               <button
                 type='button'
-                onClick={() => handleEdit()}
+                onClick={() => handleEdit(_id)}
               >Edit
               </button>
               <button

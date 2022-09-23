@@ -95,6 +95,7 @@ export const updateProduct = (artwork) => {
   return async function (dispatch) {
       const response = await axios.put(`http://localhost:3001/paints/allpaints?art=${artwork._id}`,
           artwork);
+          console.log(response)
       return dispatch({
           type: 'UPDATE_PRODUCT',
           payload: response.data
