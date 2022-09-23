@@ -81,3 +81,35 @@ export function getComments(paintId){
 export function artFilter(price){
   return {type: "ART_FILTER", payload: price}
 }
+
+export function getUserById(id) {
+  return async function (dispatch) {
+    const res = await axios.get(`http://localhost:3001/user/${id}`);
+    dispatch({
+      type: 'GET_USER_BY_ID',
+      payload: res.data
+    })
+  }
+}
+
+export function getAllUsers(id) {
+  return async function (dispatch) {
+    const res = await axios.get(`http://localhost:3001/user/`);
+    dispatch({
+      type: 'GET_ALL_USERS',
+      payload: res.data
+    })
+  }
+}
+
+export const updateProduct = (artwork) => {
+  return async function (dispatch) {
+      const response = await axios.put(`http://localhost:3001/paints/allpaints?art=${artwork._id}`,
+          artwork);
+          console.log(response)
+      return dispatch({
+          type: 'UPDATE_PRODUCT',
+          payload: response.data
+      });
+  };
+};
