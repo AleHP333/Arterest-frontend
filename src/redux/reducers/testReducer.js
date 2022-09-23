@@ -7,7 +7,8 @@ const initialState = {
   paintDetail: [],
   getAnArtist: [],
   getUser: [],
-  allUsers: []
+  allUsers: [],
+  paintComments: []
 }
 
 export default function testReducer(state = initialState, action) {
@@ -93,6 +94,11 @@ export default function testReducer(state = initialState, action) {
               products: artworkUpdated,
               paintDetail: action.payload
           }
+    case "GET_COMMENTS":
+      return {
+        ...state,
+        paintComments: action.payload
+      }
     default:
       return state;
   }
