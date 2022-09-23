@@ -1,22 +1,20 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ClearFromCart, DeleteFromCart, IncreaseCart, DecreaseCart, AddToCart } from '../../redux/actions/CartActions';
-import { CartDiv,ItemsContainer,ItemsContainer_SingleItem,ItemsInCart,Cart_Checkout,Checkout_total, EmptyCartContainer,Buttons,EliminarItem, FavDiv, AddCartFav, container} from './Cart.module.css';
+//import { CartDiv,ItemsContainer,ItemsContainer_SingleItem,ItemsInCart,Cart_Checkout,Checkout_total, EmptyCartContainer,Buttons,EliminarItem, container} from '../Cart/Cart.module.css';
 import { useNavigate } from 'react-router-dom';
-import EmptyCart from '../../assets/img/emptycart.png';
+// import EmptyCart from '../../assets/img/emptycart.png';
 import {ToastContainer, toast} from 'react-toastify'
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
-import { useAuth0 } from '@auth0/auth0-react';
 
 function Cart() {
   const [count,setcount] = useState(1)
   const dispatch = useDispatch();
   let navigate = useNavigate();
   const state = useSelector((state) => state.CartReducer.cart.cartItem);
-  const FavState = useSelector((state)=> state.FavReducer.Favs)
   const userState = useSelector((state) => state.userReducer.user)
-  const {isAuthenticated} = useAuth0();
+
   JSON.parse(localStorage.getItem('cartList'));
 
   useEffect(() => {
@@ -64,7 +62,7 @@ function Cart() {
          draggable: true,
          progress: undefined,
        })
-       dispatch(AddToCart(id, count))
+       dispatch(AddToCart( count))
      }
   }
   else {
@@ -106,23 +104,23 @@ function Cart() {
     }
   }
   
-  const PrecioTotal = JSON.stringify(state.reduce((prev, next)=> prev + next.price*next.quantity, 0))
+  const totalPrice = JSON.stringify(state.reduce((prev, next)=> prev + next.price*next.quantity, 0))
   return (
-    <div className={container}>
-      <div className={CartDiv}>
+    <div >
+      <div >
         <h1>Tu carrito de compras</h1>
         <hr />
         <div>
           {state.length > 0 ? (
-            <div className={ItemsContainer}>
-              <div className={ItemsInCart}>
+            <div >
+              <div >
               <h3>Productos</h3>
               {state.map((e, i) => (
-                <div className={ItemsContainer_SingleItem} key={i}>
-                  <img src={e.thumbnail}/>
+                <div  key={i}>
+                  <img src={e.img}/>
                   <h1>{e.title}</h1>
                   <h2>Total: US$ {Math.round(e.price*e.quantity)}</h2>
-                  <div className={Buttons}>
+                  <div>
                     <button onClick={() =>{
                       if(e.quantity>1){
                         dispatch(DecreaseCart(e.product))
@@ -140,25 +138,20 @@ function Cart() {
                       }}
                       }>+</button>
                   </div>
-                  <button className={EliminarItem} onClick={() => 
+                  <button  onClick={() => 
                     handleDelete(e.product)}>
                     Eliminar
                   </button>
                 </div>
               ))}
               </div>
-              <div className={Cart_Checkout}>
-                <div className={Checkout_total}>
-                <h1>Total:US$ {Math.ceil(PrecioTotal)}</h1>
+              <div>
+                <div>
+                <h1>Total:US$ {Math.ceil(totalPrice)}</h1>
               </div>
               {
-                userState?.email_verified === true ?
-                null
-                :
-                <p>Para completar la compra verifica tu correo o inicia sesion</p>
-              }
-              {
-                 userState?.email_verified === true ? 
+                
+                 userState ? 
                  <button onClick={()=>navigate('/shipping')}>Checkout</button>
                 :
                 <Button variant="secondary" disabled>Checkout</Button>
@@ -167,8 +160,7 @@ function Cart() {
              </div> 
             </div>
           ) : (
-            <div className={EmptyCartContainer}>
-              <img src={EmptyCart} alt="emptyCart" />
+            <div>
               <h1>Tu carrito está vacío!</h1>
               <a onClick={()=> navigate("/")}>
                 <h2>Regresar a la tienda</h2>
