@@ -5,7 +5,8 @@ const initialState = {
     allProducts: [],
     isLoading: true,
     paintDetail: [],
-    getAnArtist: []
+    getAnArtist: [],
+    paintComments: []
 }
 
 export default function testReducer(state = initialState, action) {
@@ -67,6 +68,11 @@ export default function testReducer(state = initialState, action) {
       return {
           ...state,
           paintDetail: action.payload,
+      }
+    case "GET_COMMENTS":
+      return {
+        ...state,
+        paintComments: action.payload
       }
     default:
       return state;

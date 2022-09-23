@@ -1,5 +1,10 @@
 import "./app.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useState, useEffect } from 'react'
+import { unLog, verifyToken } from "./redux/actions/userSignActions";
+import { useSelector, useDispatch } from "react-redux";
+
+//COMPONENTS//PAGES
 import LandingPage from "./components/LandingPage/LandingPage";
 import Faq from "./pages/FAQ/Faq";
 import Terms from "./pages/Terms/Terms";
@@ -11,26 +16,27 @@ import Favorites from "./components/Favorites/Favorites";
 import { Home } from "./components/Home/Home";
 import NavBar from "./components/NavBar/NavBar";
 import CreateProduct from "./components/CreateProduct/CreateProduct";
-import { useEffect, useState } from "react";
 import SignUp from "./components/SignUp/SignUp";
 import SignIn from "./components/SignIn/SignIn";
-import { useDispatch } from "react-redux";
-import { verifyToken } from "./redux/actions/userSignActions";
 import VerifyEmail from "./components/VerifyEmail/VerifyEmail";
 import Cart from "./components/Cart/Cart";
+
 
 function App() {
   const [added, setAdded] = useState(false);
   const [notAdded, setNotAdded] = useState(false);
-
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   useEffect(() => {
     if (localStorage.getItem("token") !== null) {
       const token = localStorage.getItem("token");
       dispatch(verifyToken(token));
+    } else {
+      dispatch(unLog())
     }
   }, []);
+
+  const loggedUser = useSelector((store) => store.userSignReducer.userData);
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {

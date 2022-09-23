@@ -1,15 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signIn } from "../../redux/actions/userSignActions";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 export default function SignIn() {
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const loggedUser = useSelector((state) => state.userSignReducer.userData)
+
+
+
+    useEffect(() => {
+        if(loggedUser){
+            navigate("/home")
+        }
+    }, [loggedUser])
+
     const signForm = useFormik({
         initialValues: {
             email: "",

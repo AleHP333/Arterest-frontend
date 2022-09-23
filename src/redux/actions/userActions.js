@@ -2,6 +2,7 @@ import axios from "axios";
 
 const url = "http://localhost:3001"
 
+
 export function addComment(paintId, comment){
     const token = localStorage.getItem("token")
     console.log(paintId, comment)
@@ -14,6 +15,8 @@ export function addComment(paintId, comment){
                 }
             })
             dispatch({type: "MESSAGE" , payload: res.data })
+
+            return res.data.response.comments.reverse()
         } else {
             dispatch({type: "MESSAGE" , payload: {msg: "Please write a message", success: "error"} })
         }
@@ -29,21 +32,19 @@ export function modifyComment(commentId, comment){
             }
         })
         dispatch({type: "MESSAGE", payload: res.data})
-        //Con esto se va a poder manipular la respuesta forma inmediana
-        return res
+
+        return res.data.response.comments.reverse()
     }
 }
 
-export function deleteComment(){
+export function deleteComment(id){
     const token = localStorage.getItem("token")
     return async function(dispatch){
-        const res = await axios.delete(`${url}/likeComments/deleteComment`, {}, {
+        const res = await axios.put(`${url}/likeComments/deleteComment`, {commentId: id}, {
             headers: {
                 "Authorization": `Bearer ${token}`
             }
         })
         dispatch({type: "MESSAGE", payload: res.data})
-
-        return res
     }
 }
