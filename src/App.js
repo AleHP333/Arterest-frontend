@@ -20,6 +20,7 @@ import SignUp from "./components/SignUp/SignUp";
 import SignIn from "./components/SignIn/SignIn";
 import VerifyEmail from "./components/VerifyEmail/VerifyEmail";
 import Cart from "./components/Cart/Cart";
+import Buy from "./components/Buy/Buy";
 
 
 function App() {
@@ -76,6 +77,7 @@ function App() {
           <Route path="/signUp" element={<SignUp />} />
           <Route path="/signIn" element={<SignIn />} />
           <Route path="/verifyEmail/:id" element={<VerifyEmail />} />
+          <Route path="/buy" element={<Buy/>} />
         </Routes>
       </Router>
     </>
