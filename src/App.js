@@ -16,7 +16,6 @@ import Favorites from "./components/Favorites/Favorites";
 import { Home } from "./components/Home/Home";
 import NavBar from "./components/NavBar/NavBar";
 import CreateProduct from "./components/CreateProduct/CreateProduct";
-import { useState } from 'react'
 import Dashboard from "./pages/Admin/views/Dashboard";
 import AllArtWork from "./pages/Admin/views/AllArtWork";
 import AllUsers from "./pages/Admin/views/AllUsers";
@@ -25,6 +24,8 @@ import SignUp from "./components/SignUp/SignUp";
 import SignIn from "./components/SignIn/SignIn";
 import VerifyEmail from "./components/VerifyEmail/VerifyEmail";
 import Cart from "./components/Cart/Cart";
+import ProductDetail from "./pages/Admin/components/ProductDetail";
+
 
 
 function App() {
@@ -85,6 +86,8 @@ function App() {
           <Route path="/signUp" element={<SignUp />} />
           <Route path="/signIn" element={<SignIn />} />
           <Route path="/verifyEmail/:id" element={<VerifyEmail />} />
+          <Route exact path="/admin/artworks/artworkDetail/:id" element={<ProductDetail />} />
+
         </Routes>
       </Router>
     </>

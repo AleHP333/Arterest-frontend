@@ -206,7 +206,7 @@ const getPrice = () => {
                           {user.username}
                         </th>
                         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                          {user.isBloked === false ? 'NO': 'YES'}
+                          {user.isBanned === false ? 'NO': 'YES'}
                         </td>
                         <td className="flex border-t-0 px-6 ml-4 text-xs whitespace-nowrap p-4 cursor-pointer">
                           <BsFillPencilFill onClick={()=>bannUser()}/>
