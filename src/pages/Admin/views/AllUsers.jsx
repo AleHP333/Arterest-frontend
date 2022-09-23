@@ -1,22 +1,32 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {BsFillPencilFill} from 'react-icons/bs'
 import { getAllUsers } from '../../../redux/actions/productActionsTest';
+import { banUser } from '../../../redux/actions/adminActions';
 
 
 const AllArtWork = () => {
   const dispatch = useDispatch()
-  const users = useSelector((state) => state.testReducer.allUsers )
+  const users = useSelector((state) => state.testReducer.allUsers)
+  const [reload, setReload] = useState(false)
 
   useEffect(() => {
     dispatch(getAllUsers());
-  }, [dispatch,]);
+  }, [dispatch, reload]);
 
-  function bannUser(){
-    if(users.isBloked === false){
-      return users.isBloked === true
-    } 
+  function bannUser(e) {
+    console.log(e._id, e.isBanned
+, "e");
+    // if(users.isBloked === false){
+    //   return users.isBloked === true
+    // } 
+    const user = {
+        _id: e._id, isBanned: !e.isBanned
+    }
+    
+    dispatch(banUser(user))
+    .then(res=>setReload(!reload))
   }
 
   return (
@@ -59,6 +69,9 @@ const AllArtWork = () => {
                         <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                           Modify
                         </th>
+                        <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                          Ban
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
@@ -69,10 +82,10 @@ const AllArtWork = () => {
                               {us.username}
                             </th>
                             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                            {us.isBloked === false ? 'NO': 'YES'}
+                            {us.isBanned === false ? 'NO': 'YES'}
                             </td>
                             <td className="flex border-t-0 px-6 ml-4 text-xs whitespace-nowrap p-4 cursor-pointer">
-                            <BsFillPencilFill onClick={bannUser}/>
+                            <BsFillPencilFill onClick={()=>bannUser(us)}/>
                             </td>
                           </tr>
                         )
