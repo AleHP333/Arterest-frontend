@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-
+import { Link } from 'react-router-dom';
 //MUI IMPORTS
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -9,7 +9,7 @@ import SendIcon from '@mui/icons-material/Send';
 import CheckIcon from '@mui/icons-material/Check';
 import { IconButton } from '@mui/material';
 import { lightGreen } from '@mui/material/colors';
-import { addComment, deleteComment } from '../../redux/actions/userActions';
+import { addComment, deleteComment, modifyComment } from '../../redux/actions/userActions';
 import SmsIcon from '@mui/icons-material/Sms';
 import Button from '@mui/material/Button';
 //ALERT
@@ -19,19 +19,21 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useEffect } from 'react';
+import { getComments } from '../../redux/actions/productActionsTest';
 
-export default function CommentsBox({paintId, comments}) {
+export default function CommentsBox({paintId}) {
+    
+    const loggedUser = useSelector((state) => state.userSignReducer.userData)
+
     //HOOKS
     const dispatch = useDispatch()
     const [editable, setEditable] = useState(false)
-    const [modifyComment, setModifyComment] = useState("Hola que tal");
+    const [modifiedComment, setModifiedComment] = useState("Hola que tal");
     const [newComment, setNewComment] = useState("")
-    const [loggedUser, setLoggedUser] = useState(true)
     const [commentIdToDelete, setCommentIdToDelete] = useState("")
-
-    const [loggedUserData, setLoggedUserData] = useState({name: "Pedro", userImage: "https://fcb-abj-pre.s3.amazonaws.com/img/jugadors/660_pedro.jpg"})
-
-    //ALERT
+    const [reload, setReload] = useState(false)
+    const [paintComments, setPaintComments] = useState()
+    //ALERT FUNCTIONS
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -47,65 +49,31 @@ export default function CommentsBox({paintId, comments}) {
         setOpen(false);
     };
 
-    //FAKE STATES
-
-    const array = [{_id: 1, comment: "buenardo", userId: 1, name: "Pedro", userImage: "https://fcb-abj-pre.s3.amazonaws.com/img/jugadors/660_pedro.jpg" },
-    {_id: 2, comment: "QUE BUENA PINTURA", userId: 2, name: "Jorge", userImage: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&faces=1&faceindex=1&facepad=2.5&w=500&h=500&q=80" },
-    {_id: 3, comment: "Na mentira xd", userId: 2, name: "Jorge", userImage: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&faces=1&faceindex=1&facepad=2.5&w=500&h=500&q=80" }]
-
-    const [comment, setComment] = useState([
-        {_id: 1, comment: "buenardo", userId: 1, name: "Pedro", userImage: "https://fcb-abj-pre.s3.amazonaws.com/img/jugadors/660_pedro.jpg" },
-        {_id: 2, comment: "QUE BUENA PINTURA", userId: 2, name: "Jorge", userImage: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&faces=1&faceindex=1&facepad=2.5&w=500&h=500&q=80" },
-        {_id: 3, comment: "Na mentira xd", userId: 2, name: "Jorge", userImage: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&faces=1&faceindex=1&facepad=2.5&w=500&h=500&q=80" },
-    ])
-    const [userId] = useState(1)
-
     //FUNCTIONS
-    function handleEdit(id){
-        console.log(id)
+    //EDIT COMMENT
+    function handleEdit(id, commentBefore){
+        if(modifiedComment !== commentBefore){
+            dispatch(modifyComment(id, modifiedComment)).then(response => setPaintComments(response))
+        } 
         setEditable(false)
-        const elcomment = comment.find(comment => comment._id === id )
-        const index = comment.indexOf(elcomment)
-        console.log(index)
-        const modify = {...elcomment, comment: modifyComment }
-        console.log("modificado", modify)
-        let modifiedComments = comment.map(comm => {
-            if(comm === comment[index]){
-                return modify
-            } else {
-                return comm
-            }
-        })
-        console.log("arraymod",modifiedComments)
-        setComment([...modifiedComments])
-        setModifyComment("")
-        // dispatch(modifyComment(id, modifyComment))
+        setModifiedComment("")
     }
 
-    useEffect(() => {
-
-    }, [comment])
-
+    //ADD COMMENT
     function handleComment(e){
-        // dispatch(addComment(paintId, newComment))
-        let randomId = Math.floor(Math.random() * 100)
-        console.log("numeber", randomId)
-        let newCommentToSend = {_id: randomId, comment: newComment,name: loggedUserData.name, userId: 1, userImage: loggedUserData.userImage}
-        console.log("newComment", newCommentToSend)
-        setComment([ newCommentToSend, ...comment])
+        dispatch(addComment(paintId, newComment)).then(response => setPaintComments(response))
         setNewComment("")
     }
-    console.log("nuevo coment", comment)
-
-    function conditionalAlert(){
-
+    //DELETE COMMENT
+    async function handleDelete(){
+        await dispatch(deleteComment(commentIdToDelete))
+        setReload(!reload)
     }
 
-    function handleDelete(){
-        const filter = comment.filter(comm => comm._id !== commentIdToDelete)
-        setComment(filter)
-        // dispatch(deleteComment(commentId))
-    }
+    //USE EFFECT
+    useEffect(() => {
+        dispatch(getComments(paintId)).then(response => setPaintComments(response))
+    }, [reload])
 
     return (
     <div>
@@ -132,8 +100,8 @@ export default function CommentsBox({paintId, comments}) {
                         Agree
                     </Button>
                 </DialogActions>
-            </Dialog>
-        </div>        
+                 </Dialog>
+            </div>        
         </>
         }
         <div className="w-full">
@@ -143,9 +111,9 @@ export default function CommentsBox({paintId, comments}) {
                 className="flex-col w-full py-4 my-4 mx-auto mt-3 bg-white border-b-2 border-r-2 border-gray-200 sm:px-4 sm:py-4 md:px-4 sm:rounded-lg sm:shadow-sm md:w-2/3">
                     <div className="flex flex-row md-10">
                         <img className="w-12 h-12 border-2 border-gray-300 rounded-full" alt="Anonymous's avatar"
-                            src={loggedUserData.userImage} />
+                            src={loggedUser.userImage} />
                         <div className="flex-col mt-1">
-                        <div className="flex items-center flex-1 px-4 font-bold leading-tight">{loggedUserData.name}
+                        <div className="flex items-center flex-1 px-4 font-bold leading-tight">{loggedUser.userName}
                             <span className="ml-2 text-xs font-normal text-gray-500">Write below</span>
                         </div>
                         <TextField
@@ -164,22 +132,24 @@ export default function CommentsBox({paintId, comments}) {
                 </div>
             </div> : 
             <div className="flex justify-center w-full py-4 my-4 mx-auto mt-3 bg-gray-300 border-b-2 border-r-2 border-gray-200 sm:px-4 sm:py-4 md:px-4 sm:rounded-lg sm:shadow-sm md:w-2/3">
-                <Button sx={{ fontWeight: 600, fontSize: '2.4rem', width: "2rem"}} disableElevation variant="contained" size="large">Loggin<SmsIcon /></Button>
+                <Link to={"/signIn"}>
+                    <Button sx={{ fontWeight: 600, fontSize: '2.4rem', width: "2rem"}} disableElevation variant="contained" size="large">Login<SmsIcon /></Button>
+                </Link>
             </div>
             }
         </div>
         <hr></hr>
         <div className="bg-gray-100 py-5">
-            {comment && comment?.map((comment) => {
+            {paintComments && paintComments?.map((comment) => {
                 return (
-                    comment.userId === userId ?
+                    loggedUser && comment.userId._id === loggedUser._id ?
                     <div
                         className="flex-col w-full py-4 my-4 mx-auto mt-3 bg-white border-b-2 border-r-2 border-gray-200 sm:px-4 sm:py-4 md:px-4 sm:rounded-lg sm:shadow-sm md:w-2/3">
                         <div className="flex flex-row md-10">
                             <img className="w-12 h-12 border-2 border-gray-300 rounded-full" alt="Anonymous's avatar"
-                                src={comment.userImage} />
+                                src={loggedUser.userImage ? loggedUser.userImage : "https://fcb-abj-pre.s3.amazonaws.com/img/jugadors/660_pedro.jpg"} />
                             <div className="flex-col mt-1">
-                                <div className="flex items-center flex-1 px-4 font-bold leading-tight">{comment.name}
+                                <div className="flex items-center flex-1 px-4 font-bold leading-tight">{loggedUser.userName}
                                     <span className="ml-2 text-xs font-normal text-gray-500">3 days ago</span>
                                 </div>
                                 { comment._id === editable ? 
@@ -190,19 +160,19 @@ export default function CommentsBox({paintId, comments}) {
                                 rows={2}
                                 defaultValue=""
                                 size="small"
-                                value={modifyComment}
-                                onChange={(e) => {setModifyComment(e.target.value)}}
+                                value={modifiedComment}
+                                onChange={(e) => {setModifiedComment(e.target.value)}}
                                 /> :
                                 <div className="flex-1 px-2 ml-2 text-sm font-medium leading-loose text-gray-600">
                                     {comment.comment}
                                 </div> 
                                 }
                                 { comment._id === editable ? 
-                                <IconButton onClick={() => {handleEdit(comment._id)}} sx={{ width: 60, height: 60, mr: "2rem", bgcolor: lightGreen[300], ":hover": { bgcolor: lightGreen[500] } }} aria-label="send">
+                                <IconButton onClick={(e) => {handleEdit(comment._id, comment.comment )}} sx={{ width: 60, height: 60, mr: "2rem", bgcolor: lightGreen[300], ":hover": { bgcolor: lightGreen[500] } }} aria-label="send">
                                 <CheckIcon sx={{ width: 40, height: 40}}/>
                                 </IconButton> :
                                 editable === false &&
-                                <button onClick={() => {setEditable(comment._id); setModifyComment(comment.comment)}} className="inline-flex items-center mx-4 px-1 ml-1 flex-column rounded-full hover:bg-gray-400">
+                                <button onClick={() => {setEditable(comment._id); setModifiedComment(comment.comment)}} className="inline-flex items-center mx-4 px-1 ml-1 flex-column rounded-full hover:bg-gray-400">
                                     <EditIcon />
                                 </button>
                                 }
@@ -217,9 +187,9 @@ export default function CommentsBox({paintId, comments}) {
                     <div className="flex-col w-full py-4 my-4 mx-auto mt-3 bg-white border-b-2 border-r-2 border-gray-200 sm:px-4 sm:py-4 md:px-4 sm:rounded-lg sm:shadow-sm md:w-2/3">
                         <div className="flex flex-row md-10">
                             <img className="w-12 h-12 border-2 border-gray-300 rounded-full" alt="Anonymous's avatar"
-                                src={comment.userImage} />
+                                src={comment.userId.userImage} />
                             <div className="flex-col mt-1">
-                                <div className="flex items-center flex-1 px-4 font-bold leading-tight">{comment.name}
+                                <div className="flex items-center flex-1 px-4 font-bold leading-tight">{comment.userId.userName}
                                     <span className="ml-2 text-xs font-normal text-gray-500">3 days ago</span>
                                 </div>
                                 <div className="flex-1 px-2 ml-2 text-sm font-medium leading-loose text-gray-600">

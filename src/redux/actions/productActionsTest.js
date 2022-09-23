@@ -70,6 +70,14 @@ export function getAnArtist(userName) {
   };
 }
 
+export function getComments(paintId){
+  return async function(dispatch){
+      const comments = await axios.get(`${url}/likeComments/getPaintComments/${paintId}`)
+      dispatch({type: "GET_COMMENTS", payload: comments.data.response.comments })
+      return comments.data.response.comments.reverse()
+  }
+}
+
 export function artFilter(price){
   return {type: "ART_FILTER", payload: price}
 }
