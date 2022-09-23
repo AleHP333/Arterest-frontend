@@ -103,10 +103,11 @@ export function getAllUsers(id) {
 }
 
 export const updateProduct = (artwork) => {
+  const token = localStorage.getItem('token')
   return async function (dispatch) {
-      const response = await axios.put(`http://localhost:3001/paints/allpaints?art=${artwork._id}`,
-          artwork);
-          console.log(response)
+      const response = await axios.put('http://localhost:3001/adminActions/modifyProduct/', artwork,  {
+        headers: { Authorization: "Bearer " + token }
+    });
       return dispatch({
           type: 'UPDATE_PRODUCT',
           payload: response.data
