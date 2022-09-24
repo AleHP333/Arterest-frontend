@@ -1,15 +1,35 @@
 import React from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import {  getUserById } from "../../redux/actions/productActionsTest";
+import Card from "../../components/Card/Card";
 import Footer from "../Footer/Footer";
+import { Box, CircularProgress } from "@mui/material";
 
 
 
 
 export default function Profile() {
+
+  const dispatch = useDispatch()
+  const user = useSelector((state) => state.testReducer.getUser);
+console.log(user, 'one user')
+
+  const { userName } = useParams()
+
+  useEffect(() => {
+    dispatch(getUserById(userName))
+    //  return () => {
+    //   dispatch({type:"REMOVE_ARTIST_SELECTED"})
+    // }
+  }, [dispatch, userName])
+
   return (
     <>
       {/* <Navbar transparent /> */}
       <main className="profile-page">
-        <section className="relative block" style={{ height: "500px" }}>
+        {/* <section className="relative block" style={{ height: "500px" }}>
           <div
             className="absolute top-0 w-full h-full bg-center bg-cover"
             style={{
@@ -41,7 +61,8 @@ export default function Profile() {
               ></polygon>
             </svg>
           </div>
-        </section>
+        </section> */}
+        { Object.keys(user).length !== 0 ? 
         <section className="relative py-16 bg-gray-300">
           <div className="container mx-auto px-4">
             <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg -mt-64">
@@ -51,7 +72,7 @@ export default function Profile() {
                     <div className="relative">
                       <img
                         alt="..."
-                        src={require("assets/img/team-2-800x800.jpg").default}
+                        src={user[0].userImage ? user[0].userImage : '.assets/NicePng_usuario-png_2022264.png' }
                         className="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16"
                         style={{ maxWidth: "150px" }}
                       />
@@ -93,7 +114,7 @@ export default function Profile() {
                 </div>
                 <div className="text-center mt-12">
                   <h3 className="text-4xl font-semibold leading-normal mb-2 text-gray-800">
-                    Jenna Stones
+                    {user[0].userName}
                   </h3>
                   <div className="text-sm leading-normal mt-0 mb-2 text-gray-500 font-bold uppercase">
                     <i className="fas fa-map-marker-alt mr-2 text-lg text-gray-500"></i>{" "}
@@ -131,7 +152,9 @@ export default function Profile() {
               </div>
             </div>
           </div>
-        </section>
+        </section> : <Box sx={{ display: 'flex' }}>
+                        <CircularProgress />
+                    </Box> }
       </main>
       <Footer />
     </>
