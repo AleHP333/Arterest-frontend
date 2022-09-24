@@ -3,10 +3,12 @@ import jwt_decode from "jwt-decode";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { singUp } from '../../redux/actions/userSignActions';
+//MUI
 
-export default function GoogleSignUp() {
+export default function GoogleSignUp({setOpen}) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
 
     async function handleResponse(response){
         let userObject = jwt_decode(response.credential);
@@ -17,9 +19,10 @@ export default function GoogleSignUp() {
             userImage: userObject.picture,
             from: "google"
         }))
-
-        if(res.data.msgData.success === "error"){
-
+        setOpen(true)
+        console.log(res.data)
+        if(res === "error"){
+            //EN TEORIA ESTO SIRVE PARA DEVOLVER UN MENSAJE XD
         } else {
             navigate("/signIn")
         }

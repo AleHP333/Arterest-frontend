@@ -5,6 +5,7 @@ const initialState = {
 
 
 const userSignReducer = (state = initialState, action) => {
+    console.log(action.payload)
     switch (action.type) {
         case "USER_STATUS":
             return {

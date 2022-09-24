@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { signIn } from '../../redux/actions/userSignActions';
 
-export default function GoogleSignIn() {
+export default function GoogleSignIn({setOpen}) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -15,9 +15,10 @@ export default function GoogleSignIn() {
             password: userObject.sub,
             from: "google"
         }))
-
-        if(res.data.msgData.success === "error"){
-
+        setOpen(true)
+        console.log(res.data)
+        if(res === "error"){
+            //EN TEORIA ESTO SIRVE PARA DEVOLVER UN MENSAJE XD
         } else {
             navigate("/signIn")
         }
