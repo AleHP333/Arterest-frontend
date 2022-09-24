@@ -5,6 +5,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { signIn } from "../../redux/actions/userSignActions";
 import { Link, useNavigate } from "react-router-dom";
+import GoogleSignIn from "../GoogleButtons/GoogleSignIn";
 
 
 export default function SignIn() {
@@ -12,8 +13,6 @@ export default function SignIn() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const loggedUser = useSelector((state) => state.userSignReducer.userData)
-
-
 
     useEffect(() => {
         if(loggedUser){
@@ -32,7 +31,7 @@ export default function SignIn() {
         }),
         onSubmit: async (values) => {
             console.log(values, "values");
-            dispatch(signIn(values))
+            dispatch(signIn({...values, from: "signIn"}))
             signForm.handleReset();
         },
     });
@@ -78,6 +77,7 @@ export default function SignIn() {
                     <div className="m-6 px-3"><button type="submit" className="rounded-lg py-4 px6 uppercase text-xs font-bold tracking-wider bg-gray-500">Sign Up</button></div>
                     <div>Not have an account yet? <Link to={"/signUp"}>Sign Up here</Link></div>
                 </form>
+                <GoogleSignIn />
             </div>
         </div>
     )

@@ -5,6 +5,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { singUp } from "../../redux/actions/userSignActions";
 import { Link } from "react-router-dom";
+import GoogleSignUp from "../GoogleButtons/GoogleSignUp";
 
 
 export default function SignUp() {
@@ -24,7 +25,7 @@ export default function SignUp() {
         }),
         onSubmit: async (values) => {
             console.log(values, "values");
-            dispatch(singUp(values))
+            dispatch(singUp({...values, from: "signUp"}))
             formik.handleReset();
         },
     });
@@ -87,6 +88,7 @@ export default function SignUp() {
                     <div className="m-6 px-3"><button type="submit" className="rounded-lg py-4 px6 uppercase text-xs font-bold tracking-wider bg-gray-500">Sign Up</button></div>
                     <div>Already have an account? <Link to={"/signIn"}>Login here</Link></div>
                 </form>
+                <GoogleSignUp />
             </div>
         </div>
     )
