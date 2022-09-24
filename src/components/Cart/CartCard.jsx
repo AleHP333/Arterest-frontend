@@ -51,33 +51,50 @@ export default function CartCard({
   };
 
   return (
-    <div className="flex flex-row w-full border-r-0 border-solid border-b-2 items-center gap-3">
-      <div className="h-40 w-1/6">
-        <img className="w-full h-40 object-contain" src={img} alt={title} />
-      </div>
-      <div className="w-2/3 flex flex-col gap-3">
-        <h3 className="ml-4">{title}</h3>
-        <p className="m-0">
-          <span className="ml-4">{parseInt(price).toFixed(2)}</span>
+    <div className="md:flex items-strech py-8 md:py-10 lg:py-8  hover:bg-gray-100">
+      <Link to={`/detail${_id}`} className="md:w-4/12 2xl:w-1/4 w-full ml-2">
+        <img
+          className="h-full object-center object-cover md:block hidden"
+          src={img}
+          alt={title}
+        />
+        <img
+          className="md:hidden w-full h-full object-center object-cover"
+          src={img}
+          alt={title}
+        />
+      </Link>
+      <div className="md:pl-3 md:w-8/12 2xl:w-3/4 flex flex-col justify-center">
+        <div className="flex items-center justify-between w-full pt-1">
+          <p className="text-base font-black leading-none ">
+            {title}
+          </p>
+          <div className="py-2 px-1 border-none border-gray-200 mr-6 focus:outline-none">
+            <button onClick={() => deleteItem(_id)}>
+              <DeleteIcon />
+            </button>
+          </div>
+        </div>
+        <p className="text-xs leading-3 text-gray-600 pt-2">
+          by {userName}
         </p>
-        <p className="m-0">
-          <span className="ml-4">{parseInt(qua * price).toFixed(2)}</span> (
-          {qua} Items)
+        <p className="text-xs leading-3 text-gray-600 py-4">
+          $ {parseInt(price).toFixed(2)}
         </p>
-      </div>
-      <div className="text-center h-full flex flex-col items-center w-1/6 gap-10 pl-4">
-        <div className="flex gap-3">
-          <button disabled={qua === 1} onClick={() => minus(_id)}>
+        <div className="flex items-center justify-between pt-5">
+        <div className="flex itemms-center">
+          <button className="mx-1" disabled={qua === 1} onClick={() => minus(_id)}>
             <RemoveCircleIcon />
           </button>
           <p>{parseInt(qua)}</p>
-          <button onClick={() => plus(_id)}>
+          <button className="mx-1" onClick={() => plus(_id)}>
             <AddCircleIcon />
           </button>
         </div>
-        <button onClick={() => deleteItem(_id)}>
-          <DeleteIcon />
-        </button>
+          <p className="text-base font-black leading-none mr-2">
+            {parseInt(qua * price).toFixed(2)} ({qua} Items)
+          </p>
+        </div>
       </div>
     </div>
   );
