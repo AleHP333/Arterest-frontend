@@ -1,21 +1,20 @@
+// React Utilities
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useAuth0 } from '@auth0/auth0-react';
+import { useSelector } from "react-redux";
+// Components
 import Searchbar from "../Searchbar/Searchbar";
+import Login from "../Login/Login";
+import Logout from "../Logout/Logout";
+import AccountMenu from "../AccountMenu/AccountMenu";
+// Icons
 import { AiFillShopping } from "react-icons/ai";
 import { AiFillPushpin } from "react-icons/ai";
 import { AiFillHome, AiOutlineUser } from "react-icons/ai";
-import { NavDropdown } from "react-bootstrap";
+// Arterest Logo
 import art_logo from '../../pages/Assets/logoArterest.png'
-import Login from "../Login/Login";
-import Logout from "../Logout/Logout";
+// Custom Styles
 import './NavBar.css';
-import { useSelector } from "react-redux";
-import AccountMenu from "../AccountMenu/AccountMenu";
-
-
-
-
 
 export default function NavBar() {
   
@@ -25,38 +24,32 @@ export default function NavBar() {
 
   }, [loggedUser])
 
-  console.log("EL LOGGED", loggedUser)
   return (
-    <nav className=" box flex flex-row justify-between w-full py-3 bg-white">
-      <div className="flex flex-row">
-        <img className="navbarLogo w-8 h-8 mx-auto relative inset-x-0 top-0 rounded-full" src={art_logo} alt="Arterest" />
-        <Link className="navbar-brand" to="/">
-          Arterest
+    <nav className="mb-3 flex flex-row items-center w-full py-2 bg-white">
+      <div className="flex flex-row items-center">
+        <Link to="/" className="flex flex-row navbar-brand mr-6">
+          <img className="navbarLogo w-8 h-8 mx-auto relative inset-x-0 top-0 rounded-full" src={art_logo} alt="Arterest" />
+          <span>Arterest</span>
         </Link>
-      </div>
 
-      <div class="flex w-1/3 justify-start">
-        <Link to="/home" class="ml-10 text-4xl">
+        <Link to="/home" className="text-2xl">
           <AiFillHome />
         </Link>
       </div>
 
-      <div class="w-1/3 h-full">
-        <Searchbar />
-      </div>
+      <Searchbar />
 
-      <div class="flex space-x-9 justify-end">
-
-        <Link to="/favorites" class="ml-20 text-2xl">
+      <div className="flex gap-8 ml-auto items-center mr-8">
+        <Link to="/favorites" className="text-2xl">
           <AiFillPushpin />
         </Link>
 
-        <Link to="/login" class="mr-20 text-2xl">
-          <AiOutlineUser />
+        <Link to="/cart" className="text-2xl">
+          <AiFillShopping />
         </Link>
 
-        <Link to="/cart" class="mr-5 text-2xl">
-          <AiFillShopping />
+        <Link to="/login" className="text-2xl">
+          <AiOutlineUser />
         </Link>
 
         { loggedUser ?
