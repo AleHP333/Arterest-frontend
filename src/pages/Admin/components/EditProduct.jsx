@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from 'react-router-dom';
-import axios from "axios";
+import { useParams, useNavigate } from 'react-router-dom';
 import { getPaintById, updateProduct } from "../../../redux/actions/productActionsTest";
 
 const EditProduct = () => {
 
     const dispatch = useDispatch()
     const { id } = useParams();
+    const navigate = useNavigate()
+
     const artDetail = useSelector((state) => state.testReducer.paintDetail)
   
     console.log(artDetail, 'OBRAAA');
@@ -30,7 +31,11 @@ const EditProduct = () => {
       colors: artDetail.colors,
       releaseDate: artDetail.releaseDate,
       price: artDetail.price,
-      tags: artDetail.tags
+      stock: artDetail.stock,
+      tags: artDetail.tags,
+      likes: artDetail.likes,
+      comments: artDetail.comments,
+
       })
     }, [artDetail])
     
@@ -46,14 +51,17 @@ const EditProduct = () => {
       colors: '',
       releaseDate:'',
       price: '',
-      tags:''
+      stock: '',
+      tags:'',
+      likes: '',
+      comments: ''
 
     })
     
     async function handleSubmit(e) {
       e.preventDefault();
-      dispatch(updateProduct(id, input));
-      // navigate(`/profile/admin/usercontrol/userdetail/${thisUser.email}`)
+      dispatch(updateProduct({_id: artDetail._id, ...input}));
+      navigate(`/admin/artworks/artworkDetail/${artDetail._id}`)
       dispatch(getPaintById())
     }
     
