@@ -16,7 +16,6 @@ export default function GoogleSignIn({setOpen}) {
             from: "google"
         }))
         setOpen(true)
-        console.log(res.data)
         if(res === "error"){
             //EN TEORIA ESTO SIRVE PARA DEVOLVER UN MENSAJE XD
         } else {

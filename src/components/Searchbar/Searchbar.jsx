@@ -1,8 +1,11 @@
+// From React
 import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+// Actions
 import { getProductSearchbar } from "../../redux/actions/productActionsTest";
+// Icons
 import { AiOutlineSearch} from 'react-icons/ai'
 
 export default function Searchbar() {
@@ -18,21 +21,17 @@ export default function Searchbar() {
     function handleSubmit(e) {
         e.preventDefault();
         if (input) {
-           dispatch(getProductSearchbar(input))
-           navigate(`/home?art=${input}`)
+            dispatch(getProductSearchbar(input))
+            navigate(`/home?art=${input}`)
         }
         setInput('');
     }
-    // function handleSubmit(e){
-    //     e.preventDefault();
-    //     dispatch(getProductSearchbar(input));
-    // }
     
     return (
-        <form onSubmit={(e) => handleSubmit(e)} class='flex justify-center h-full'>
-                <input class='rounded-l w-1/2' type="text" name="search" value={input} 
-                placeholder="  Search..." onChange={handleStateChanges} required/>
-                <button class='rounded-r bg-white text-2xl' type="submit"><AiOutlineSearch /></button>
+        <form onSubmit={(e) => handleSubmit(e)} className='rounded-lg items-center gap-2 px-2 mx-6 border flex justify-center'>
+                <button className='my-1 text-2xl' type="submit"><AiOutlineSearch /></button>
+                <input className='self-center focus:outline-none' type="text" name="search" value={input} 
+                placeholder="Search..." onChange={handleStateChanges} required/>
         </form>
     )
 }

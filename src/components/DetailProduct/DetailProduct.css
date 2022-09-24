@@ -1,12 +1,5 @@
-.containerDetail .MuiButton-contained {
-    width: 8em !important;
-    background-color: rgb(255, 0, 0, .8) !important;
-    color: rgb(0, 0, 0, .8) !important;
-    border-radius: 1em !important;
-}
-
-.containerDetail .MuiButton-contained:hover {
-    background-color: rgb(255, 0, 0) !important;
+.containerDetail .MuiIconButton-sizeMedium:hover{
+    background-color: rgba(0, 0, 0, .1) !important;
 }
 
 .img-zoom-container {
@@ -15,6 +8,11 @@
 
 #container {
     display: flex;
+}
+
+#myimage {
+    max-height: 85vh;
+    max-width: 35vw;
 }
 
 .img-zoom-lens {
@@ -27,7 +25,7 @@
 }
 
 .img-zoom-result {
-    width: 500px;
+    width: 440px;
     height: 440px;
     visibility: hidden;
     position: absolute;
@@ -37,4 +35,18 @@
 
 .zoom {
     visibility: visible;
+}
+
+.containerPrincipalData .css-1lauo1g-MuiRating-root {
+    color: rgba(255, 68, 68, 1);
+}
+
+.containerPrincipalData .MuiButton-contained {
+    background-color: rgba(255, 68, 68, 1);
+    margin-left: auto;
+    text-transform: none;
+}
+
+.containerPrincipalData .MuiButton-contained:hover {
+    background-color: rgba(255, 38, 38, 1);
 }
