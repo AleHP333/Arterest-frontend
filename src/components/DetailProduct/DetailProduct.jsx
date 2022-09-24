@@ -133,7 +133,7 @@ export default function DetailProduct () {
 
     return (
         !paint || id !== paint._id ? 
-        <div data-placeholder class="h-52 w-full overflow-hidden relative bg-gray-200"></div> :
+        <div data-placeholder className="h-52 w-full overflow-hidden relative bg-gray-200"></div> :
         <div className="containerDetail bg-white">  
             <div className="min-h-screen px-8 text-gray-600">
                 <div className="flex md:gap-6 lg:justify-center lg:gap-14">
@@ -253,7 +253,7 @@ export default function DetailProduct () {
                     </div>
                 </div>
             </div>
-                <CommentsBox paintId={paint._id}></CommentsBox>
+                {/* <CommentsBox paintId={paint._id}></CommentsBox> */}
         </div>                            
     )
 }

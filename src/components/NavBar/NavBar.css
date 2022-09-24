@@ -1,13 +1,10 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap'); */
 @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
 
-
 .sticky-top {
     margin-bottom: .5em !important;
 }
-/* .box{
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.89), 0 6px 20px 0 rgba(236, 9, 9, 0.767);
-} */
+
 .navbar-brand {
     color: #000000 !important;
     font-family: 'Lobster'!important;
@@ -15,12 +12,12 @@
     font-weight: 400 !important;
     text-transform: none !important;
     margin-left :0;
-    margin-top: 3px;
-    
 }
+
 .navbarLogo{
-    margin-left :25px;
+    margin-left :32px;
 }
+
 .navbar {
     text-transform: none !important;
 }
@@ -61,6 +58,7 @@
     color: white !important;
     margin: 20px;
 }
+
 .btn-outline-secondary{
     color: #f50101 !important;
     border-color: #ffffff !important;
@@ -72,6 +70,7 @@
     margin: 20px;
     
 }
+
 .btn-outline-secondary{
     box-shadow: none !important;
     background-color: #ff0000 !important;
@@ -80,6 +79,7 @@
     margin: 20px;
     
 }
+
 .btn-outline-success:hover {
     color: white !important;
     background-color: #ff0909 !important;
@@ -87,7 +87,6 @@
     border-radius: 4px;
     margin: 20px;
 }
-
 
 .ProfileImg {
     height: 50px;
@@ -99,8 +98,6 @@
 .Loading {
     color: red;
 }
-
-
 
 .sellStyle{
     cursor: pointer;
