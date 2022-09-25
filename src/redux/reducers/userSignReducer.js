@@ -21,7 +21,8 @@ const userSignReducer = (state = initialState, action) => {
         case "USER_UNLOG":
             return {
                 ...state,
-                userData: undefined
+                userData: undefined,
+                message: action.payload.msgData
             }
         default:
             return state

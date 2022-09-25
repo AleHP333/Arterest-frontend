@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { signIn } from '../../redux/actions/userSignActions';
 
-export default function GoogleSignIn({setOpen}) {
+export default function GoogleSignIn() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -15,7 +15,8 @@ export default function GoogleSignIn({setOpen}) {
             password: userObject.sub,
             from: "google"
         }))
-        setOpen(true)
+
+        
         if(res === "error"){
             //EN TEORIA ESTO SIRVE PARA DEVOLVER UN MENSAJE XD
         } else {
@@ -30,11 +31,11 @@ export default function GoogleSignIn({setOpen}) {
             callback: handleResponse,
         });
 
-        google.accounts.id.renderButton(document.getElementById("buttonDiv"), {theme: "outline", size: "medium", locale: "en"})
+        google.accounts.id.renderButton(document.getElementById("buttonDiv"), {theme: "outline", size: "medium", margin: 0, locale: "en"})
     }, [])
 
     return (
-        <div>
+        <div className="w-full">
             <div id="buttonDiv"></div>
         </div>
     )

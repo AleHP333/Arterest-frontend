@@ -26,7 +26,6 @@ export function verifyToken(token){
             headers: { Authorization: "Bearer " + token }
         });
         if(response.status === 200){
-
             dispatch({type: "USER_STATUS", payload: { userData: response.data.userData, msgData: response.data.msgData}});
         } else {
             localStorage.removeItem("token");
@@ -64,5 +63,5 @@ export function singUp(userData){
 
 export function unLog(){
     localStorage.removeItem("token")
-    return {type: "USER_UNLOG", payload: { userData: {}, msgData: { msg: "Unlogged successfully", status: "success"}} }
+    return {type: "USER_UNLOG", payload: { userData: {}, msgData: { msg: "Unlogged successfully", status: "info"}} }
 }

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { singUp } from '../../redux/actions/userSignActions';
 //MUI
 
-export default function GoogleSignUp({setOpen}) {
+export default function GoogleSignUp() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -19,11 +19,11 @@ export default function GoogleSignUp({setOpen}) {
             userImage: userObject.picture,
             from: "google"
         }))
-        setOpen(true)
-
+        
         if(res === "error"){
             //EN TEORIA ESTO SIRVE PARA DEVOLVER UN MENSAJE XD
         } else {
+            console.log("Acá no debe entrar")
             navigate("/signIn")
         }
     }
@@ -35,12 +35,12 @@ export default function GoogleSignUp({setOpen}) {
             callback: handleResponse,
         });
 
-        google.accounts.id.renderButton(document.getElementById("buttonDiv"), {theme: "outline", size: "medium", locale: "en"})
+        google.accounts.id.renderButton(document.getElementById("buttonDiv"), {theme: "outline", size: "large", locale: "en"})
     }, [])
 
     return (
         <div>
-            <div id="buttonDiv"></div>
+            <div style={{width: "100%", display: "inline-block"}} id="buttonDiv"></div>
         </div>
     )
 }
