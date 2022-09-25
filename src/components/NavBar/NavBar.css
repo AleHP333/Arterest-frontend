@@ -6,31 +6,10 @@
 }
 
 .navbar-brand {
-    color: #000000 !important;
     font-family: 'Lobster'!important;
-    font-size: 20px !important;
+    font-size: 24px !important;
     font-weight: 400 !important;
     text-transform: none !important;
-    margin-left :0;
-}
-
-.navbarLogo{
-    margin-left :32px;
-}
-
-.navbar {
-    text-transform: none !important;
-}
-
-.nav-link {
-    color: rgb(2, 2, 2) !important;
-    margin:10px;
-    font-size: 1.2rem;
-    font-weight: 900 !important;
-}
-
-.nav-link:hover {
-    color: #f7f7f7 !important;
 }
 
 .btn-outline-success {
