@@ -27,6 +27,7 @@ import Cart from "./components/Cart/Cart";
 import ProductDetail from "./pages/Admin/components/ProductDetail";
 import UserProfile from "./pages/UserProfile/UserProfile";
 
+import Alert from "./components/Alert/Alert";
 
 
 
@@ -92,6 +93,7 @@ function App() {
           <Route exact path="/profile" element={<UserProfile />} />
 
         </Routes>
+        <Alert></Alert>
       </Router>
     </>
   );
