@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from 'react-router-dom';
 import { getPaintById, updateProduct } from "../../../redux/actions/productActionsTest";
 
+
 const EditProduct = () => {
 
     const dispatch = useDispatch()
@@ -97,8 +98,10 @@ const EditProduct = () => {
     // }
  
   return (
-        <div className="flex w-full min-h-screen justify-center items-center shadow-lg p-2 bg-transparent"> 
+    <>
+        <div className="flex w-full min-h-screen justify-center items-center shadow-lg p-2 bg-white"> 
         <div className="flex justify-between flex-col shadow-lg bg-gray-100 rounded-xl my-1">
+        
             {/* <Snackbar elevation={6} open={warning} onClose={handleClose}>
                 <Alert onClose={handleClose} variant='filled' severity="error" sx={{ width: '100%' }}>
                     <AlertTitle><strong>Warning</strong></AlertTitle>
@@ -121,7 +124,7 @@ const EditProduct = () => {
                 <div className="text-4xl font-bold text-gray-800" >
                     <h1>Edit Product</h1>
                 </div>
-                <form onSubmit={(e) => handleSubmit(e)} className="flex justify-between flex-col px-4 my-32 max-w-3xl mx-auto space-y-3" >
+                <form onSubmit={(e) => handleSubmit(e)} className="flex justify-between flex-col px-4 max-w-3xl mx-auto space-y-3" >
                     <div>
                         <div id='input-name' >
                             <label htmlFor="userName" className="text-gray-500">* Artist Name:</label>
@@ -260,13 +263,14 @@ const EditProduct = () => {
                             <button 
                             onClick={handleSubmit}
                             type="Submit"
-                            className="rounded-full py-2 px3 uppercase text-xs font-bold tracking-wider bg-pink-700 text-gray-100">
+                            className="rounded py-2 px-3 uppercase text-xs font-bold tracking-wider bg-black text-gray-100">
                               Update Product</button>
                     </div>
                 </form>
             </div>
             </div>
         </div>
+        </>
     )
 };
   
