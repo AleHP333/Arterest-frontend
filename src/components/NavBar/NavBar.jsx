@@ -7,10 +7,13 @@ import Searchbar from "../Searchbar/Searchbar";
 import Login from "../Login/Login";
 import Logout from "../Logout/Logout";
 import AccountMenu from "../AccountMenu/AccountMenu";
+// Material UI
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
 // Icons
 import { AiFillShopping } from "react-icons/ai";
 import { AiFillPushpin } from "react-icons/ai";
-import { AiFillHome, AiOutlineUser } from "react-icons/ai";
+import HomeIcon from '@mui/icons-material/Home';
 // Arterest Logo
 import art_logo from '../../pages/Assets/logoArterest.png'
 // Custom Styles
@@ -25,40 +28,51 @@ export default function NavBar() {
   }, [loggedUser])
 
   return (
-    <nav className="mb-3 flex flex-row items-center w-full py-2 bg-white">
-      <div className="flex flex-row items-center">
-        <Link to="/" className="flex flex-row navbar-brand mr-6">
-          <img className="navbarLogo w-8 h-8 mx-auto relative inset-x-0 top-0 rounded-full" src={art_logo} alt="Arterest" />
-          <span>Arterest</span>
+    <nav className="flex flex-row items-center w-full py-3 bg-white">
+      <div className="flex flex-row items-center mr-auto">
+        <Link to="/" className="navbar-brand flex flex-row ml-8 gap-1 items-center">
+          <div className="flex w-8 h-8">
+            <img alt="" src={art_logo}/>
+          </div>
+          <span className="text-red-500">Arterest</span>
         </Link>
 
-        <Link to="/home" className="text-2xl">
-          <AiFillHome />
+        <Link to="/home" className="ml-6">
+          <Tooltip title="Home">
+            <IconButton>
+              <HomeIcon fontSize="large" className="text-black"/>
+            </IconButton>
+          </Tooltip>
         </Link>
       </div>
 
       <Searchbar />
 
       <div className="flex gap-8 ml-auto items-center mr-8">
-        <Link to="/favorites" className="text-2xl">
-          <AiFillPushpin />
+        <Link to="/favorites">
+          <Tooltip title="Pinned Favorites">
+            <IconButton>
+              <AiFillPushpin className="text-2xl text-black"/>
+            </IconButton>
+          </Tooltip>
         </Link>
 
-        <Link to="/cart" className="text-2xl">
-          <AiFillShopping />
+        <Link to="/cart">
+          <Tooltip title="Shopping Cart">
+            <IconButton>
+              <AiFillShopping className="text-2xl text-black"/>
+            </IconButton>
+          </Tooltip>
         </Link>
 
-        <Link to="/login" className="text-2xl">
-          <AiOutlineUser />
-        </Link>
+        { 
+          loggedUser ?
+          <AccountMenu img={loggedUser.userImage} userName={loggedUser.userName}/> : 
+          <Link to="/signIn">
+            <button type="button" className="text-white bg-red-500 hover:bg-red-600 focus:outline-none rounded-full text-center w-max px-4 py-2 font-bold">Log in</button>
+          </Link>
+        }
 
-        { loggedUser ?
-          <>
-            <AccountMenu img={loggedUser.userImage} userName={loggedUser.userName}/>
-          </>
-          : null
-          // (!isLoading && <Login />)
-          }
       </div>
     </nav>
   );
