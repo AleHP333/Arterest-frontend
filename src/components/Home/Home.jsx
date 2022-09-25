@@ -32,6 +32,10 @@ export const Home = ({ handleAdded, handleNotAdded }) => {
         filters.push([key, value]);
     });
     useEffect(() =>{
+        window.scrollTo({
+            top: 0, 
+            behavior: 'smooth'
+        });
         if (searchParams.toString()) {
                 dispatch(artFilterByBack(searchParams.toString()));
                 setCurrentPage(1)
@@ -93,24 +97,27 @@ export const Home = ({ handleAdded, handleNotAdded }) => {
         <div>
             <div className='w-full bg-white mb-5 shadow-md'>
                 <FilterBar setCurrentPage={setCurrentPage}></FilterBar>
-                <div className="w-full h-10 bg-red-200 flex flex-initial items-center ">
-                {filters.length ? searchName && filters.length === 1 ?
-                null :
-                <>
                 {
-                    filters.map(filter => {
-                        return filter[0] === 'name' ?
-                        null :
-                        (
-                        <div className='inline-block ml-2' key={filter[0]} >
-                            <Chip label={filter && (filter[0] === "price" ? tagPrice(filter[1]) : filter[1])} onDelete={() => {clearFilter(filter[0])}} />
-                        </div>
-                        )
-                    })
+                    filters.length ? searchName && filters.length === 1 ? null : 
+                    <div className="w-full h-10 bg-red-200 flex flex-initial items-center ">
+                        {
+                            filters.length ? searchName && filters.length === 1 ? null :
+                            <>
+                            {
+                                filters.map(filter => {
+                                    return filter[0] === 'name' ?
+                                    null :
+                                    (
+                                    <div className='inline-block ml-2' key={filter[0]} >
+                                        <Chip label={filter && (filter[0] === "price" ? tagPrice(filter[1]) : filter[1])} onDelete={() => {clearFilter(filter[0])}} />
+                                    </div>
+                                    )
+                                })
+                            }
+                            </>: null
+                        }
+                </div> : null
                 }
-                </>
-                : null}
-                </div>
             </div>
         {/* CARLOS-------------------------------------------------------------------------------------------- */}
             

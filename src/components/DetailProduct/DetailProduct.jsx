@@ -134,10 +134,10 @@ export default function DetailProduct () {
     return (
         !paint || id !== paint._id ? 
         <div data-placeholder className="h-52 w-full overflow-hidden relative bg-gray-200"></div> :
-        <div className="containerDetail bg-white">  
+        <div className="containerDetail mt-3 bg-white">  
             <div className="min-h-screen px-8 text-gray-600">
                 <div className="flex md:gap-6 lg:justify-center lg:gap-14">
-                    <div className="img-zoom-container self-center">
+                    <div className="img-zoom-container">
                         <div 
                             onMouseEnter={() => handleMouseEnter()} 
                             onMouseLeave={() => handlerMouseLeave()}
@@ -150,6 +150,7 @@ export default function DetailProduct () {
                                 style={styleLens}
                             ></div>
                             <img
+                                className='rounded-lg'
                                 ref={imgRef}
                                 id="myimage" 
                                 src={paint.img} 
@@ -161,7 +162,7 @@ export default function DetailProduct () {
                                 style={styleResult}
                                 ref={resultRef} 
                                 id="myresult"
-                                className={`${openZoom ? "zoom" : ""} img-zoom-result`}
+                                className={`${openZoom ? "zoom" : ""} img-zoom-result rounded-lg`}
                             ></div>
                         </div> 
                     </div>
@@ -253,7 +254,7 @@ export default function DetailProduct () {
                     </div>
                 </div>
             </div>
-                {/* <CommentsBox paintId={paint._id}></CommentsBox> */}
+                <CommentsBox paintId={paint._id}></CommentsBox>
         </div>                            
     )
 }
