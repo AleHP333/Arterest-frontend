@@ -5,6 +5,7 @@ const initialState = {
 
 
 const userSignReducer = (state = initialState, action) => {
+    console.log(action.payload)
     switch (action.type) {
         case "USER_STATUS":
             return {
@@ -20,7 +21,8 @@ const userSignReducer = (state = initialState, action) => {
         case "USER_UNLOG":
             return {
                 ...state,
-                userData: undefined
+                userData: undefined,
+                message: action.payload.msgData
             }
         default:
             return state
