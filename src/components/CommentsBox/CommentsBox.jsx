@@ -96,9 +96,9 @@ export default function CommentsBox({paintId}) {
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={() => handleCloseDisagree()}>Disagree</Button>
+                    <Button onClick={() => handleCloseDisagree()}>Cancel</Button>
                     <Button onClick={() => handleCloseAgree()} autoFocus>
-                        Agree
+                        Accept
                     </Button>
                 </DialogActions>
                  </Dialog>
