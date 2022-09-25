@@ -9,7 +9,7 @@ export const SET_PURCHASES = "SET_PURCHASES"
 
 export function setUser(data) {
     return async (dispatch) => {
-      return axios.get(`/user/${data.email}`)
+      return axios.get(`http//localhost:3001/user/${data.email}`)
       .then(res => {
         dispatch({type:SET_USER, payload: res.data.data})
       })

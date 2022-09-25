@@ -62,7 +62,7 @@ export default function AboutUs() {
           </div>
         </div>
         <div className='TeamCard'>
-          <img className='imageAboutUs' src="https://media-exp1.licdn.com/dms/image/D4E35AQESDPmUf9Yj_g/profile-framedphoto-shrink_800_800/0/1647449636471?e=1663934400&v=beta&t=3m4L7a2LX52DpKy8AohwBfs-5E4etnaIeJYnkr2Fql4" alt="Joaquín Angelino Corona" />
+          <img className='imageAboutUs' src="https://media-exp1.licdn.com/dms/image/D4E35AQESDPmUf9Yj_g/profile-framedphoto-shrink_800_800/0/1647449636471?e=1663934400&v=beta&t=3m4L7a2LX52DpKy8AohwBfs-5E4etnaIeJYnkr2Fql4" alt="Alejandro Héctor Palavecino" />
           <p>Alejandro Héctor Palavecino</p>
           <div className='IconDiv'>
             <a rel="noreferrer" target="_blank" href="https://github.com/AleHP333">

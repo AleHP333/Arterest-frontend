@@ -13,13 +13,13 @@ function Cart() {
   const dispatch = useDispatch();
   let navigate = useNavigate();
   const state = useSelector((state) => state.CartReducer.cart.cartItem);
-  const userState = useSelector((state) => state.userReducer.user)
+  const userState = useSelector((state) => state.userReducerPay.user)
 
-  JSON.parse(localStorage.getItem('cartList'));
+  
+  
+    JSON.parse(localStorage.getItem('cartList'));
+    
 
-  useEffect(() => {
-    localStorage.setItem('cartList', JSON.stringify(state));
-  }, [state]);
 
   function handleClear() {
     dispatch(ClearFromCart());

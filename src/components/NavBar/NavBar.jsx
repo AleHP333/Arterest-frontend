@@ -1,14 +1,10 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useAuth0 } from '@auth0/auth0-react';
 import Searchbar from "../Searchbar/Searchbar";
 import { AiFillShopping } from "react-icons/ai";
 import { AiFillPushpin } from "react-icons/ai";
 import { AiFillHome, AiOutlineUser } from "react-icons/ai";
-import { NavDropdown } from "react-bootstrap";
 import art_logo from '../../pages/Assets/logoArterest.png'
-import Login from "../Login/Login";
-import Logout from "../Logout/Logout";
 import './NavBar.css';
 import { useSelector } from "react-redux";
 import AccountMenu from "../AccountMenu/AccountMenu";

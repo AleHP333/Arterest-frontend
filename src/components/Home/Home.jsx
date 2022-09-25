@@ -89,7 +89,7 @@ export const Home = ({ handleAdded, handleNotAdded }) => {
   };
 
   return (
-    <div>
+      <div>
         <div>
             <div className='w-full bg-white mb-5 shadow-md'>
                 <FilterBar setCurrentPage={setCurrentPage}></FilterBar>
