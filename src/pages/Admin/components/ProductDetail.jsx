@@ -79,6 +79,13 @@ export default function ProductDetail() {
         dispatch(getPaintById())
     }
 
+    async function handleDelete(e) {
+        e.preventDefault();
+        // dispatch(deleteProduct())
+        navigate(`/admin/artworks`)
+
+    }
+
     function handleChange(e) {
         setInput({
             ...input,
@@ -215,18 +222,24 @@ export default function ProductDetail() {
                             </div>
                         </div>
                     </div>
-
-                    <div className='flex gap-6 mt-6 self-center'>
-                        {/* <Link to={`/admin/editproduct/${id}`}> */}
-                            <Button 
-                            onClick={handleSubmit}
-                            type="Submit"
-                            variant="contained">
+                    <div className='flex items-center justify-between'>
+                        <div className='flex gap-6 mt-6 '>
+                            <Button
+                                onClick={handleSubmit}
+                                type="Submit"
+                                variant="contained">
                                 Edit
                             </Button>
-                        {/* </Link> */}
+                        </div>
+                        <div className='flex gap-6 mt-6 '>
+                            <Button
+                                onClick={handleDelete}
+                                type="Submit"
+                                variant="contained">
+                                Delete
+                            </Button>
+                        </div>
                     </div>
-
 
                 </div>
 
