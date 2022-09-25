@@ -123,7 +123,7 @@ export default function Sidebar() {
                 <Link
                   className="text-blueGray-300 text-xs uppercase py-3 font-bold block"
                   to="/creation"
-                  onClick={e => e.preventDefault()}
+                  
                 >
                   <i className="fas fa-clipboard-list text-blueGray-300 mr-2 text-sm"></i> Create Artwork
                 </Link>
