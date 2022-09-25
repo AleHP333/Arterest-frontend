@@ -9,11 +9,16 @@ import CommentsBox from '../CommentsBox/CommentsBox';
 // Styles
 import './DetailProduct.css'
 //Material UI
-import Button from '@mui/material/Button';
 import ShareIcon from '@mui/icons-material/Share';
+import PushPinIcon from '@mui/icons-material/PushPin';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
+import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import Rating from '@mui/material/Rating';
 
 export default function DetailProduct () {
 
@@ -22,6 +27,10 @@ export default function DetailProduct () {
     const paint = useSelector((state) => state.testReducer.paintDetail);
 
     useEffect(() => {
+        window.scrollTo({
+            top: 0, 
+            behavior: 'smooth'
+        });
         if (!paint || id !== paint._id) {
             dispatch(getPaintById(id));
         }
@@ -124,11 +133,11 @@ export default function DetailProduct () {
 
     return (
         !paint || id !== paint._id ? 
-        <div data-placeholder class="h-52 w-full overflow-hidden relative bg-gray-200"></div> :
-        <div className="containerDetail bg-white">  
-            <div className="p-8 text-gray-600 md:px-12 xl:px-8">
-                <div className="md:flex md:gap-6 lg:justify-center lg:gap-12">
-                    <div className="md:w-6/12 lg:w-4/12  img-zoom-container">
+        <div data-placeholder className="h-52 w-full overflow-hidden relative bg-gray-200"></div> :
+        <div className="containerDetail mt-3 bg-white">  
+            <div className="min-h-screen px-8 text-gray-600">
+                <div className="flex md:gap-6 lg:justify-center lg:gap-14">
+                    <div className="img-zoom-container">
                         <div 
                             onMouseEnter={() => handleMouseEnter()} 
                             onMouseLeave={() => handlerMouseLeave()}
@@ -140,48 +149,107 @@ export default function DetailProduct () {
                                 className={`${openZoom ? "zoom" : ""} img-zoom-lens`}
                                 style={styleLens}
                             ></div>
-                            <img 
+                            <img
+                                className='rounded-lg'
                                 ref={imgRef}
                                 id="myimage" 
                                 src={paint.img} 
                                 alt=""
                                 loading="lazy"
                             />
-                            <div 
+                            <div
+                                onMouseEnter={() => handlerMouseLeave()}
                                 style={styleResult}
                                 ref={resultRef} 
                                 id="myresult"
-                                className={`${openZoom ? "zoom" : ""} img-zoom-result`}
+                                className={`${openZoom ? "zoom" : ""} img-zoom-result rounded-lg`}
                             ></div>
                         </div> 
                     </div>
-                    <div className="mt-2 lg:flex lg:flex-col md:7/12 lg:w-6/12">
-                        <h2 className="text-2xl text-gray-900 font-bold md:text-4xl">{paint.title}</h2>
-                        <p className="mt-6 text-gray-600">{paint.description}</p>
-                        <div className='flex mt-6 gap-3'>
-                            <img class="inline-block h-10 w-10 rounded-full ring-2 ring-white" src={`${paint.userImage}`} alt=""></img>
-                            <p className="self-center text-gray-400">By
-                            <Link 
-                                className="hover:text-gray-700"
-                                to={`/artistprofile/${paint.userName}`}
-                            > {paint.userName}
-                            </Link>
-                            </p>
-                        </div>
-                        <div className='flex gap-6 mt-6 self-center'>
+                    <div className="flex flex-col lg:w-6/12">
+                        <div className='flex mr-4 ml-auto gap-5'>
                             <CopyToClipboard text={window.location.href}>
-                                <Button onClick={handleClickShare} variant="contained" startIcon={<ShareIcon />}>
-                                        Share
-                                </Button>
+                                <Tooltip 
+                                    onClick={() => handleClickShare()} 
+                                    title="Share"
+                                >
+                                    <IconButton>
+                                        <ShareIcon className='text-black'/>
+                                    </IconButton>
+                                </Tooltip>
                             </CopyToClipboard>
-                            <Button variant="contained" startIcon={<FavoriteIcon />}>
-                                    Favorite
-                            </Button>
-                            <Snackbar open={open} autoHideDuration={4000} onClose={handleCloseSnackbar}>
-                                <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
+                            <Tooltip title="Pin to favorites">
+                                <IconButton>
+                                    <PushPinIcon className='text-black'/>
+                                </IconButton>
+                            </Tooltip>
+                        </div>
+                        <Snackbar open={open} autoHideDuration={4000} onClose={handleCloseSnackbar}>
+                            <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
                                 Link copied to clipboard 
-                                </Alert>
-                            </Snackbar>
+                            </Alert>
+                        </Snackbar>
+                        <div className="containerPrincipalData">
+                            <h1 
+                                className="text-gray-900 text-4xl font-medium title-font mb-2"
+                            >{paint.title}</h1>
+                            <div className="flex gap-1">
+                                <Rating
+                                    className='self-center'
+                                    value={3.5}
+                                    precision={0.5}
+                                    size="small"
+                                    readOnly 
+                                />
+                                {/* Aca deberia ir un conteo de las reviews que se han hecho */}
+                                <p className="text-2x1">4 Reviews</p>
+                            </div>
+                            <div className='flex m-2 gap-2'>
+                                <img 
+                                    className="inline-block h-8 w-8 rounded-full ring-2 ring-white" 
+                                    src={`${paint.userImage}`} 
+                                    alt=""
+                                />
+                                <Link 
+                                    className="self-center text-black-600 hover:text-black"
+                                    to={`/artistprofile/${paint.userName}`}
+                                > {paint.userName}</Link>
+                            </div>
+                            <p className="my-4 leading-relaxed">{paint.description}</p>
+                            <div className="border-b border-gray-200 mb-6 pb-0.5">
+                                <div className="flex flex-col w-full">
+                                    <div className="py-3 border-t border-gray-200 flex items-center justify-between">
+                                        <p className="text-base leading-4 text-gray-800">Colour/s</p>
+                                        <p className="items-center justify-center text-sm leading-none text-gray-600">{paint.colors}</p>
+                                    </div>
+                                    <div className="py-3 border-t border-gray-200 flex items-center justify-between">
+                                        <p className="text-base leading-4 text-gray-800">Style</p>
+                                        <p className="items-center justify-center text-sm leading-none text-gray-600">{paint.style[0].toUpperCase() + paint.style.substring(1)}</p>
+                                    </div>
+                                    <div className="py-3 border-t border-gray-200 flex items-center justify-between">
+                                        <p className="text-base leading-4 text-gray-800">Technique</p>
+                                        <p className="items-center justify-center text-sm leading-none text-gray-600">{paint.technique}</p>
+                                    </div>
+                                    <div className="py-3 border-t border-gray-200 flex items-center justify-between">
+                                        <p className="text-base leading-4 text-gray-800">Country of origin</p>
+                                        <p className="items-center justify-center text-sm leading-none text-gray-600">{paint.origin}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="flex gap-4">
+                                <span className="title-font font-medium text-2xl text-gray-900">${paint.price}</span>
+                                <Button
+                                    variant="contained" 
+                                    startIcon={<ShoppingCartOutlinedIcon />}
+                                    >Add to Cart
+                                </Button>
+                                <Tooltip title="Like">
+                                    <IconButton>
+                                        <FavoriteIcon className='text-red-500'/>
+                                    </IconButton>
+                                </Tooltip>
+                            </div>
                         </div>
                     </div>
                 </div>
