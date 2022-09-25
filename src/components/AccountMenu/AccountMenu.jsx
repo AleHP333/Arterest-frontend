@@ -31,12 +31,11 @@ export default function AccountMenu({img, userName}) {
           <IconButton
             onClick={handleClick}
             size="small"
-            sx={{ ml: 2 }}
             aria-controls={open ? 'account-menu' : undefined}
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
           >
-            { img ? <Avatar src={img} sx={{ width: 32, height: 32 }} /> : <Avatar sx={{ width: 32, height: 32 }}>{userName.substring(0, 1).toUpperCase()}</Avatar>}
+            { img ? <Avatar src={img} sx={{ width: 40, height: 40 }} /> : <Avatar sx={{ width: 40, height: 40 }}>{userName.substring(0, 1).toUpperCase()}</Avatar>}
           </IconButton>
         </Tooltip>
       <Menu

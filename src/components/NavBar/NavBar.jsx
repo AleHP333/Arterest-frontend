@@ -1,21 +1,23 @@
+// React Utilities
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useAuth0 } from '@auth0/auth0-react';
+import { useSelector } from "react-redux";
+// Components
 import Searchbar from "../Searchbar/Searchbar";
-import { AiFillShopping } from "react-icons/ai";
-import { AiFillPushpin } from "react-icons/ai";
-import { AiFillHome, AiOutlineUser } from "react-icons/ai";
-import { NavDropdown } from "react-bootstrap";
-import art_logo from '../../pages/Assets/logoArterest.png'
 import Login from "../Login/Login";
 import Logout from "../Logout/Logout";
-import './NavBar.css';
-import { useSelector } from "react-redux";
 import AccountMenu from "../AccountMenu/AccountMenu";
-
-
-
-
+// Material UI
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
+// Icons
+import { AiFillShopping } from "react-icons/ai";
+import { AiFillPushpin } from "react-icons/ai";
+import HomeIcon from '@mui/icons-material/Home';
+// Arterest Logo
+import art_logo from '../../pages/Assets/logoArterest.png'
+// Custom Styles
+import './NavBar.css';
 
 export default function NavBar() {
   
@@ -25,47 +27,52 @@ export default function NavBar() {
 
   }, [loggedUser])
 
-  console.log("EL LOGGED", loggedUser)
   return (
-    <nav className=" box flex flex-row justify-between w-full py-3 bg-white">
-      <div className="flex flex-row">
-        <img className="navbarLogo w-8 h-8 mx-auto relative inset-x-0 top-0 rounded-full" src={art_logo} alt="Arterest" />
-        <Link className="navbar-brand" to="/">
-          Arterest
+    <nav className="flex flex-row items-center w-full py-3 bg-white">
+      <div className="flex flex-row items-center mr-auto">
+        <Link to="/" className="navbar-brand flex flex-row ml-8 gap-1 items-center">
+          <div className="flex w-8 h-8">
+            <img alt="" src={art_logo}/>
+          </div>
+          <span className="text-red-500">Arterest</span>
+        </Link>
+
+        <Link to="/home" className="ml-6">
+          <Tooltip title="Home">
+            <IconButton>
+              <HomeIcon fontSize="large" className="text-black"/>
+            </IconButton>
+          </Tooltip>
         </Link>
       </div>
 
-      <div class="flex w-1/3 justify-start">
-        <Link to="/home" class="ml-10 text-4xl">
-          <AiFillHome />
-        </Link>
-      </div>
+      <Searchbar />
 
-      <div class="w-1/3 h-full">
-        <Searchbar />
-      </div>
-
-      <div class="flex space-x-9 justify-end">
-
-        <Link to="/favorites" class="ml-20 text-2xl">
-          <AiFillPushpin />
+      <div className="flex gap-8 ml-auto items-center mr-8">
+        <Link to="/favorites">
+          <Tooltip title="Pinned Favorites">
+            <IconButton>
+              <AiFillPushpin className="text-2xl text-black"/>
+            </IconButton>
+          </Tooltip>
         </Link>
 
-        <Link to="/login" class="mr-20 text-2xl">
-          <AiOutlineUser />
+        <Link to="/cart">
+          <Tooltip title="Shopping Cart">
+            <IconButton>
+              <AiFillShopping className="text-2xl text-black"/>
+            </IconButton>
+          </Tooltip>
         </Link>
 
-        <Link to="/cart" class="mr-5 text-2xl">
-          <AiFillShopping />
-        </Link>
+        { 
+          loggedUser ?
+          <AccountMenu img={loggedUser.userImage} userName={loggedUser.userName}/> : 
+          <Link to="/signIn">
+            <button type="button" className="text-white bg-red-500 hover:bg-red-600 focus:outline-none rounded-full text-center w-max px-4 py-2 font-bold">Log in</button>
+          </Link>
+        }
 
-        { loggedUser ?
-          <>
-            <AccountMenu img={loggedUser.userImage} userName={loggedUser.userName}/>
-          </>
-          : null
-          // (!isLoading && <Login />)
-          }
       </div>
     </nav>
   );
