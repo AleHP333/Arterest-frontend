@@ -81,6 +81,7 @@ export function artFilter(price) {
 }
 
 export function getUserById(id) {
+  console.log(id)
   return async function (dispatch) {
     const res = await axios.get(`http://localhost:3001/user/${id}`);
     dispatch({

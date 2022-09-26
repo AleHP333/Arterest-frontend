@@ -10,7 +10,6 @@ export default function ProductCard({ userName, title, img, _id }) {
                     <li >Artist Name : {userName}</li>
                     <img src={img} alt='' className='w-24 h-32 scale-x-150 scale-y-150'/>
                     <li >Artwork Title : {title}</li>
-                    <li >Artwork ID : {_id}</li>
                 </ul>
             </Link>
         </div>
