@@ -23,7 +23,6 @@ export default function GoogleSignUp() {
         if(res === "error"){
             //EN TEORIA ESTO SIRVE PARA DEVOLVER UN MENSAJE XD
         } else {
-            console.log("Acá no debe entrar")
             navigate("/signIn")
         }
     }
