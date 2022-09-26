@@ -1,190 +1,73 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { ClearFromCart, DeleteFromCart, IncreaseCart, DecreaseCart, AddToCart } from '../../redux/actions/CartActions';
-//import { CartDiv,ItemsContainer,ItemsContainer_SingleItem,ItemsInCart,Cart_Checkout,Checkout_total, EmptyCartContainer,Buttons,EliminarItem, container} from '../Cart/Cart.module.css';
-import { useNavigate } from 'react-router-dom';
-// import EmptyCart from '../../assets/img/emptycart.png';
-import {ToastContainer, toast} from 'react-toastify'
-import { useState } from 'react';
-import Button from 'react-bootstrap/Button';
+// React utilities
+import React, { useEffect, useState } from "react";
+// Actions
+import { getPrice } from "../Card/FavAndCart";
+// Components
+import CartCard from "./CartCard";
+// Styles
+import { Link } from "react-router-dom";
+export default function ShoppingCart() {
+  const [cartItem, setCartItem] = useState(
+    JSON.parse(localStorage.getItem("cartList"))
+  );
+  const [totalPrice, setTotalPrice] = useState(getPrice());
 
-function Cart() {
-  const [count,setcount] = useState(1)
-  const dispatch = useDispatch();
-  let navigate = useNavigate();
-  const state = useSelector((state) => state.CartReducer.cart.cartItem);
-  const userState = useSelector((state) => state.userReducerPay.user)
+  // useEffect(() => {
+  // }, [setCartItem])
 
-  
-  
-    JSON.parse(localStorage.getItem('cartList'));
-    
+  const deleteItem = (_id) => {
+    console.log(_id);
+    let arr = cartItem.filter((product) => product._id !== _id);
+    localStorage.setItem("cartList", JSON.stringify(arr));
+    setCartItem(arr);
+    setTotalPrice(getPrice());
+  };
 
+  const updateQuantity = () => {
+    setTotalPrice(getPrice());
+  };
+  // userName, title, _id, price, image, quantity, deleteItem, updateQuantity
 
-  function handleClear() {
-    dispatch(ClearFromCart());
-    toast.info('Carrito vacío', {
-      position: "top-right",
-      autoClose: 1000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      })
-      setTimeout(()=>{
-           navigate(-1);
-      },1300)
-  }
-
-  function handleAddtoCart(e){
-    const hasProduct = state.find(x => x.product === state?._id)
-    if(hasProduct){
-      if(hasProduct.quantity>=hasProduct?.stock.stockTotal || hasProduct.stock.stockTotal - hasProduct.quantity - count < 0){
-        toast.error('Se ha superado el limite de Stock disponible', {
-          position: 'top-right',
-          autoClose: 1000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-      return
-    }
-    else if(hasProduct.quantity>=hasProduct?.stock.stockTotal === false){
-       toast.warning(`Ya se encuentra en su carrito, se agrego la cantidad seleccionada: ${count}`, {
-         position: 'top-right',
-         autoClose: 1000,
-         hideProgressBar: false,
-         closeOnClick: true,
-         pauseOnHover: true,
-         draggable: true,
-         progress: undefined,
-       })
-       dispatch(AddToCart( count))
-     }
-  }
-  else {
-    toast.success('Item Agregado Correctamente', {
-      position: 'top-right',
-      autoClose: 1000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-    dispatch(AddToCart(e.product, count))}
-  }
-
-
-  function handleDelete(e){
-    dispatch(DeleteFromCart(e))
-    toast.error('Item borrado de su carrito', {
-      position: "top-right",
-      autoClose: 800,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      });
-
-    if(state.length === 1 || state.length === 0){
-      toast.info('Carrito vacío', {
-        position: "top-right",
-        autoClose: 1000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        })
-    }
-  }
-  
-  const totalPrice = JSON.stringify(state.reduce((prev, next)=> prev + next.price*next.quantity, 0))
   return (
-    <div >
-      <div >
-        <h1>Tu carrito de compras</h1>
-        <hr />
-        <div>
-          {state.length > 0 ? (
-            <div >
-              <div >
-              <h3>Productos</h3>
-              {state.map((e, i) => (
-                <div  key={i}>
-                  <img src={e.img}/>
-                  <h1>{e.title}</h1>
-                  <h2>Total: US$ {Math.round(e.price*e.quantity)}</h2>
-                  <div>
-                    <button onClick={() =>{
-                      if(e.quantity>1){
-                        dispatch(DecreaseCart(e.product))
-                      }
-                      else 
-                       handleDelete(e.product)}
-                       }>-</button>
-                    <h1>{e.quantity}</h1>
-                    <button onClick={() => {
-                      if(e.stock.stockTotal > e.quantity){
-                        dispatch(IncreaseCart(e.product))
-                      }
-                      else {
-                       return
-                      }}
-                      }>+</button>
-                  </div>
-                  <button  onClick={() => 
-                    handleDelete(e.product)}>
-                    Eliminar
-                  </button>
-                </div>
-              ))}
-              </div>
-              <div>
-                <div>
-                <h1>Total:US$ {Math.ceil(totalPrice)}</h1>
-              </div>
-              {
-                
-                 userState ? 
-                 <button onClick={()=>navigate('/shipping')}>Checkout</button>
-                :
-                <Button variant="secondary" disabled>Checkout</Button>
-              }
-              <button onClick={() => handleClear()}>Borrar carrito</button>
-             </div> 
-            </div>
-          ) : (
+    <div className="flex items-center lg:flex-row flex-col justify-center">
+      <div className="lg:w-1/2 md:w-8/12 w-full lg:px-8 lg:py-14 md:px-6 px-4 md:py-8 py-4 bg-white lg:h-screen h-auto gap-1">
+        <h1 className="lg:text-4xl text-3xl font-black leading-10  mb-2 pt-3">
+          Sopping Cart
+        </h1>
+        {cartItem ? (
+          cartItem?.map((prod) => (
+            <CartCard
+              key={prod._id}
+              _id={prod._id}
+              userName={prod.userName}
+              title={prod.title}
+              price={prod.price}
+              img={prod.img}
+              deleteItem={deleteItem}
+              updateQuantity={updateQuantity}
+              quantity={prod.quantity}
+            />
+          ))
+        ) : (
+          <div>The CartItem list is empty</div>
+        )}
+      </div>
+      <div className="lg:w-96 md:w-8/12 w-full h-full">
+        <div className="flex flex-col lg:h-screen h-auto lg:px-8 md:px-7 px-4 lg:py-20 md:py-10 py-6 justify-between overflow-y-auto">
+          <div>
+            <p className="lg:text-4xl text-3xl font-black leading-9 ">
+              Checkout
+            </p>
             <div>
-              <h1>Tu carrito está vacío!</h1>
-              <a onClick={()=> navigate("/")}>
-                <h2>Regresar a la tienda</h2>
-              </a>
+              <div class="flex items-center pb-6 justify-between lg:pt-5 pt-20">
+                <p className="text-2xl leading-normal ">Total</p>
+                <p className="text-2xl font-bold leading-normal text-right ">${parseInt(totalPrice)}</p>
+              </div>
+                <Link to='/buy' className='rounded px-4 text-base leading-none w-full py-3 bg-black border-black border focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 text-white '>Continue shopping...</Link>
             </div>
-          )}
+          </div>
         </div>
       </div>
-      
-              
-    
-      <ToastContainer
-          position="top-right"
-          autoClose={1000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-      />
     </div>
   );
 }
-
-export default Cart;

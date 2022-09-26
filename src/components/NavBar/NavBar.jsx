@@ -16,11 +16,10 @@ import AccountMenu from "../AccountMenu/AccountMenu";
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 // Icons
-import { AiFillShopping } from "react-icons/ai";
-import { AiFillPushpin } from "react-icons/ai";
+
 import HomeIcon from '@mui/icons-material/Home';
 // Arterest Logo
-import art_logo from '../../pages/Assets/logoArterest.png'
+
 // Custom Styles
 import './NavBar.css';
 
