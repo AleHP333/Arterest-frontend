@@ -91,9 +91,12 @@ export function getUserById(id) {
 }
 
 export function getAllUsers(id) {
+  const token = localStorage.getItem("token")
   return async function (dispatch) {
     const res = await axios.get(
-      `http://localhost:3001/adminActions/getAllUsers`
+      `http://localhost:3001/adminActions/getAllUsers`, {
+        headers: { Authorization: "Bearer " + token }
+    }
     );
     dispatch({
       type: "GET_ALL_USERS",
