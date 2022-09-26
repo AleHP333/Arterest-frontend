@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from 'react-router-dom';
-import { getPaintById, updateProduct } from "../../../redux/actions/productActionsTest";
+import { cleanStateGetOnePaint, getPaintById, updateProduct } from "../../../redux/actions/productActionsTest";
 
 
 const EditProduct = () => {
@@ -16,28 +16,32 @@ const EditProduct = () => {
 
 
     useEffect(() => {
-      if(!artDetail.userName){
-        dispatch(getPaintById(id))
-      }
-      setInput({
-        ...input,
-      userName: artDetail.userName,
-      userImage: artDetail.userImage,
-      title: artDetail.title,
-      description: artDetail.description,
-      img: artDetail.img,
-      origin: artDetail.origin,
-      technique: artDetail.technique,
-      style: artDetail.style,
-      colors: artDetail.colors,
-      releaseDate: artDetail.releaseDate,
-      price: artDetail.price,
-      stock: artDetail.stock,
-      tags: artDetail.tags,
-      likes: artDetail.likes,
-      comments: artDetail.comments,
+       
+    dispatch(getPaintById(id)).then(() => {
+        setInput({
+          ...input,
+        userName: artDetail.userName,
+        userImage: artDetail.userImage,
+        title: artDetail.title,
+        description: artDetail.description,
+        img: artDetail.img,
+        origin: artDetail.origin,
+        technique: artDetail.technique,
+        style: artDetail.style,
+        colors: artDetail.colors,
+        releaseDate: artDetail.releaseDate,
+        price: artDetail.price,
+        stock: artDetail.stock,
+        tags: artDetail.tags,
+        likes: artDetail.likes,
+        comments: artDetail.comments,
+        })
+    })
 
-      })
+
+      return () => {
+        dispatch(cleanStateGetOnePaint())
+      }
     }, [artDetail])
     
     const [input, setInput] = useState({
@@ -132,7 +136,7 @@ const EditProduct = () => {
                                 className="border border-gray-400 block py-2 w-full rounded outline hover:outline-white"
                                 id="userName"
                                 type='text'
-                               value={input.userName}
+                                value={input.userName}
                                 name='userName'
                                 onChange={(e) => handleChange(e)}
                                  />
