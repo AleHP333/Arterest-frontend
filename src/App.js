@@ -45,8 +45,7 @@ function App() {
     }
   }, []);
 
-  const loggedUser = useSelector((store) => store.userSignReducer.userData);
-
+  
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -60,6 +59,8 @@ function App() {
   const handleNotAdded = () => {
     setNotAdded(true);
   };
+
+  const loggedUser = useSelector((store) => store.userSignReducer.userData);
 
   return (
     <>
@@ -81,15 +82,17 @@ function App() {
           <Route path="/contact" element={<ContactUs />} />
           <Route exact path="/detail/:id" element={<DetailProduct />} />
           <Route path="/artistprofile/:userName" element={<ArtistProfile />} />
-          <Route exact path="/admin" element={<Dashboard />} />
-          <Route exact path="/admin/artworks" element={<AllArtWork />} />
-          <Route exact path="/admin/users" element={<AllUsers />} />
-          <Route exact path="/admin/editproduct/:id" element={<EditProduct />} />
+          {loggedUser && loggedUser.isAdmin === true ? <>
+            <Route exact path="/admin" element={<Dashboard />} />
+            <Route exact path="/admin/artworks" element={<AllArtWork />} />
+            <Route exact path="/admin/users" element={<AllUsers />} />
+            <Route exact path="/admin/editproduct/:id" element={<EditProduct />} />
+            <Route exact path="/admin/artworks/artworkDetail/:id" element={<ProductDetail />} />
+          </> : null }
           <Route path="/cart" element={<Cart />} />
           <Route path="/signUp" element={<SignUp />} />
           <Route path="/signIn" element={<SignIn />} />
           <Route path="/verifyEmail/:id" element={<VerifyEmail />} />
-          <Route exact path="/admin/artworks/artworkDetail/:id" element={<ProductDetail />} />
           <Route exact path="/profile" element={<UserProfile />} />
 
         </Routes>
