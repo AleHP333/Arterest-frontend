@@ -31,7 +31,7 @@ export default function PostProduct() {
         tags: ""
     });
 
-    console.log(formData)
+  
     const [errors, setErrors] = useState({})
     //const [autocompleteInput, setAutocompleteInput] = useState({})
     //const dispatch = useDispatch()
@@ -40,7 +40,7 @@ export default function PostProduct() {
     //FUNCTIONS
 
     function handleChange(e){
-        console.log(e.target.value)
+     
         setFormData({
             ...formData,
             [e.target.name]: e.target.value

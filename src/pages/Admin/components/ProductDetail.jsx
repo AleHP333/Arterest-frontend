@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { getAllProducts, getPaintById, updateProduct } from '../../../redux/actions/productActionsTest';
+import { cleanStateGetOnePaint, getAllProducts, getPaintById, updateProduct } from '../../../redux/actions/productActionsTest';
 import '../../../components/DetailProduct/DetailProduct.css'
 import Button from '@mui/material/Button';
 
@@ -12,45 +12,39 @@ export default function ProductDetail() {
     const dispatch = useDispatch();
     const { id } = useParams();
     const paint = useSelector((state) => state.testReducer.allProducts);
-    const [thisPaint, setThisPaint] = useState({})
     const navigate = useNavigate()
-
     const artDetail = useSelector((state) => state.testReducer.paintDetail)
 
-    console.log(paint);
+    // useEffect(() => {
+    //     if (!paint) {
+    //         dispatch(getAllProducts());
+    //     }
+    //     setinput(paint.length ? paint.find(e => e._id === id) : {})
+    // }, [paint]);
 
     useEffect(() => {
-        if (!paint) {
-            dispatch(getAllProducts());
-        }
-        setThisPaint(paint.length ? paint.find(e => e._id === id) : {})
-
-    }, [paint]);
-
-
-    useEffect(() => {
-        if (!artDetail.userName) {
+        if (!artDetail) {
             dispatch(getPaintById(id))
         }
-        setInput({
-            ...input,
-            userName: artDetail.userName,
-            userImage: artDetail.userImage,
-            title: artDetail.title,
-            description: artDetail.description,
-            img: artDetail.img,
-            origin: artDetail.origin,
-            technique: artDetail.technique,
-            style: artDetail.style,
-            colors: artDetail.colors,
-            releaseDate: artDetail.releaseDate,
-            price: artDetail.price,
-            stock: artDetail.stock,
-            tags: artDetail.tags,
-            likes: artDetail.likes,
-            comments: artDetail.comments,
-
-        })
+        if (artDetail){
+            setInput({
+                userName: artDetail.userName,
+                userImage: artDetail.userImage,
+                title: artDetail.title,
+                description: artDetail.description,
+                img: artDetail.img,
+                origin: artDetail.origin,
+                technique: artDetail.technique,
+                style: artDetail.style,
+                colors: artDetail.colors,
+                releaseDate: artDetail.releaseDate,
+                price: artDetail.price,
+                stock: artDetail.stock,
+                tags: artDetail.tags,
+                likes: artDetail.likes,
+                comments: artDetail.comments,
+            })
+        }
     }, [artDetail])
 
     const [input, setInput] = useState({
@@ -69,21 +63,18 @@ export default function ProductDetail() {
         tags: '',
         likes: '',
         comments: ''
-
     })
 
     async function handleSubmit(e) {
         e.preventDefault();
-        dispatch(updateProduct({ _id: artDetail._id, ...input }));
+        await dispatch(updateProduct({ ...input, _id: artDetail._id }))
         navigate(`/admin/artworks`)
-        dispatch(getPaintById())
     }
 
-    async function handleDelete(e) {
+    function handleDelete(e) {
         e.preventDefault();
         // dispatch(deleteProduct())
         navigate(`/admin/artworks`)
-
     }
 
     function handleChange(e) {
@@ -92,12 +83,9 @@ export default function ProductDetail() {
             [e.target.name]: e.target.value,
         })
     }
-    if (!artDetail) {
-        return 'Loading...'
-    }
-
-
+    
     return (
+        !artDetail ? <p>'Loading...'</p> : 
         <div className="containerDetail mt-3 bg-white">
             <form
                 onSubmit={(e) => handleSubmit(e)} className="min-h-screen px-8 text-gray-600" >
@@ -105,7 +93,7 @@ export default function ProductDetail() {
                     <img
                         className="rounded-lg md:w-6/12 lg:w-4/12"
                         id="myimage"
-                        src={thisPaint.img}
+                        src={input.img}
                         alt=""
                         loading="lazy"
                     />
@@ -116,7 +104,7 @@ export default function ProductDetail() {
                             <input
                                 id="title"
                                 type='text'
-                                placeholder={thisPaint.title}
+                                placeholder={input.title}
                                 name='title'
                                 onChange={(e) => handleChange(e)}
                             />
@@ -124,20 +112,20 @@ export default function ProductDetail() {
                         <div className='flex m-2 gap-2'>
                             <img
                                 className="inline-block h-8 w-8 rounded-full ring-2 ring-white"
-                                src={`${thisPaint.userImage}`}
+                                src={`${input.userImage}`}
                                 alt=""
                             />
                             <Link
                                 className="self-center text-black-600 hover:text-black"
-                                to={`/artistprofile/${thisPaint.userName}`}
-                            > {thisPaint.userName}</Link>
+                                to={`/artistprofile/${input.userName}`}
+                            > {input.userName}</Link>
                         </div>
                         <div
                             className="my-4 leading-relaxed"
                             id="description">
                             <input
                                 type='text'
-                                placeholder={thisPaint.description}
+                                placeholder={input.description}
                                 name='description'
                                 onChange={(e) => handleChange(e)}
                             />
@@ -151,7 +139,7 @@ export default function ProductDetail() {
                                         <input
                                             id="colors"
                                             type='text'
-                                            placeholder={thisPaint.colors}
+                                            placeholder={input.colors}
                                             name='colors'
                                             onChange={(e) => handleChange(e)}
                                         />
@@ -163,7 +151,7 @@ export default function ProductDetail() {
                                         <input
                                             id="style"
                                             type='text'
-                                            placeholder={thisPaint.style}
+                                            placeholder={input.style}
                                             name='style'
                                             onChange={(e) => handleChange(e)}
                                         />
@@ -175,7 +163,7 @@ export default function ProductDetail() {
                                         <input
                                             id="technique"
                                             type='text'
-                                            placeholder={thisPaint.technique}
+                                            placeholder={input.technique}
                                             name='technique'
                                             onChange={(e) => handleChange(e)}
                                         />
@@ -187,7 +175,7 @@ export default function ProductDetail() {
                                         <input
                                             id="origin"
                                             type='text'
-                                            placeholder={thisPaint.origin}
+                                            placeholder={input.origin}
                                             name='origin'
                                             onChange={(e) => handleChange(e)}
                                         />
@@ -200,7 +188,7 @@ export default function ProductDetail() {
                                         <input
                                             id="price"
                                             type='text'
-                                            placeholder={thisPaint.price}
+                                            placeholder={input.price}
                                             name='price'
                                             onChange={(e) => handleChange(e)}
                                         />
@@ -213,7 +201,7 @@ export default function ProductDetail() {
                                         <input
                                             id="stock"
                                             type='text'
-                                            placeholder={thisPaint.stock}
+                                            placeholder={input.stock}
                                             name='stock'
                                             onChange={(e) => handleChange(e)}
                                         />

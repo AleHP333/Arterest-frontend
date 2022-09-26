@@ -5,20 +5,18 @@ const url = "http://localhost:3001"
 
 export function addComment(paintId, comment){
     const token = localStorage.getItem("token")
-    console.log(paintId, comment)
     return async function(dispatch){
-        console.log(paintId, comment)
         if(comment !== ""){
             const res = await axios.post(`${url}/likeComments/addComment`, {paintId: paintId, comment: comment}, {
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }
             })
-            dispatch({type: "MESSAGE" , payload: res.data })
+            dispatch({type: "aaaaaaaaa" , payload: res.data })
 
             return res.data.response.comments.reverse()
         } else {
-            dispatch({type: "MESSAGE" , payload: {msg: "Please write a message", success: "error"} })
+            dispatch({type: "aaaaaaaaa" , payload: {msg: "Please write a message", success: "error"} })
         }
     }
 }
@@ -31,7 +29,7 @@ export function modifyComment(commentId, comment){
                 "Authorization": `Bearer ${token}`
             }
         })
-        dispatch({type: "MESSAGE", payload: res.data})
+        dispatch({type: "aaaaaaaaa", payload: res.data})
 
         return res.data.response.comments.reverse()
     }
@@ -45,6 +43,6 @@ export function deleteComment(id){
                 "Authorization": `Bearer ${token}`
             }
         })
-        dispatch({type: "MESSAGE", payload: res.data})
+        dispatch({type: "aaaaaaaaa", payload: res.data})
     }
 }
