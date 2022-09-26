@@ -24,12 +24,14 @@ export function getPaintById(id) {
   };
 }
 
+export function cleanStateGetOnePaint(){
+  console.log("ENTRO EN CLEAN")
+  return { type: "CLEAN_GET_ONE_PAINT", payload: undefined }
+}
+
 export const getProductSearchbar = (input) => (dispatch) => {
-  console.log("hola entre a la accion");
   async function search(dispatch) {
-    console.log("hola entre al dispatch");
     const { data } = await axios.get(`${url}/paints/allpaints?art=${input}`);
-    console.log(data);
     dispatch({
       type: "GET_PRODUCT_SEARCHBAR",
       payload: data,
@@ -55,7 +57,6 @@ export function activeLoading() {
 export function getAnArtist(userName) {
   return async function (dispatch) {
     const res = await axios.get(`${url}/paints/allpaints?art=${userName}`);
-    console.log(res.data, "SOY EL USERNAME");
     dispatch({
       type: "GET_AN_ARTIST",
       payload: res.data,
@@ -81,7 +82,7 @@ export function artFilter(price) {
 }
 
 export function getUserById(id) {
-  console.log(id)
+
   return async function (dispatch) {
     const res = await axios.get(`http://localhost:3001/user/${id}`);
     dispatch({
@@ -120,14 +121,12 @@ export const updateProduct = (artwork) => {
 };
 
 export function banUser(user) {
-  console.log(user, "user antes del return");
   const token = localStorage.getItem("token");
   try {
     return async () => {
       const response = await axios.put(`${url}/adminActions/banUser`, user, {
         headers: { Authorization: "Bearer " + token },
       });
-      console.log(response.data, "response despues del return");
     };
   } catch (error) {
     console.error(error);

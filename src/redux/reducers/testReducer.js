@@ -4,7 +4,7 @@ const initialState = {
   products: [],
   allProducts: [],
   isLoading: true,
-  paintDetail: [],
+  paintDetail: undefined,
   getAnArtist: [],
   getUser: [],
   allUsers: [],
@@ -29,8 +29,6 @@ export default function testReducer(state = initialState, action) {
       };
     case "ART_FILTER":
       function filterPaints(state, action) {
-        console.log(action.payload)
-        console.log(state.allProducts)
         let paints = [...state.products]
         if (action.payload === "minValue") {
           paints = paints.sort((a, b) => a.price - b.price)
@@ -70,6 +68,11 @@ export default function testReducer(state = initialState, action) {
       return {
         ...state,
         paintDetail: action.payload,
+      }
+    case "CLEAN_GET_ONE_PAINT": 
+      return {
+        ...state,
+        paintDetail: action.payload
       }
     case 'GET_USER_BY_ID':
       return {

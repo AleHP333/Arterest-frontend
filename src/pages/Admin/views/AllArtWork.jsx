@@ -1,7 +1,7 @@
 import React from 'react'
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllProducts } from '../../../redux/actions/productActionsTest';
+import { cleanStateGetOnePaint, getAllProducts } from '../../../redux/actions/productActionsTest';
 import { Link } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
 import Sidebar from '../components/Sidebar';
@@ -15,6 +15,7 @@ const AllArtWork = () => {
   console.log(artwork, '0')
 
   useEffect(() => {
+    dispatch(cleanStateGetOnePaint())
     dispatch(getAllProducts());
   }, [dispatch]);
 
