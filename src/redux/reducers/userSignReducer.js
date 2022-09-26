@@ -1,6 +1,6 @@
 const initialState = {
     userData: undefined,
-    message: {}
+    message: undefined
 }
 
 
