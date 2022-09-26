@@ -1,11 +1,14 @@
 const { GET_PAINT_BY_ID } = require('../actions/productActionsTest');
 
 const initialState = {
-    products: [],
-    allProducts: [],
-    isLoading: true,
-    paintDetail: [],
-    getAnArtist: []
+  products: [],
+  allProducts: [],
+  isLoading: true,
+  paintDetail: undefined,
+  getAnArtist: [],
+  getUser: [],
+  allUsers: [],
+  paintComments: []
 }
 
 export default function testReducer(state = initialState, action) {
@@ -25,14 +28,12 @@ export default function testReducer(state = initialState, action) {
         isLoading: false,
       };
     case "ART_FILTER":
-      function filterPaints(state, action){
-        console.log(action.payload)
-        console.log(state.allProducts)
+      function filterPaints(state, action) {
         let paints = [...state.products]
-        if(action.payload === "minValue"){
+        if (action.payload === "minValue") {
           paints = paints.sort((a, b) => a.price - b.price)
         }
-        if(action.payload === "maxValue"){
+        if (action.payload === "maxValue") {
           paints = paints.sort((a, b) => a.price - b.price).reverse()
         }
         return paints
@@ -65,8 +66,41 @@ export default function testReducer(state = initialState, action) {
       };
     case GET_PAINT_BY_ID:
       return {
+        ...state,
+        paintDetail: action.payload,
+      }
+    case "CLEAN_GET_ONE_PAINT": 
+      return {
+        ...state,
+        paintDetail: action.payload
+      }
+    case 'GET_USER_BY_ID':
+      return {
+        ...state,
+        getUser: action.payload,
+      }
+      case 'GET_ALL_USERS':
+        return {
           ...state,
-          paintDetail: action.payload,
+          allUsers: action.payload,
+        }
+        case 'UPDATE_PRODUCT':
+          const allArtworkUpdated = state.allProducts.map(item =>
+              item._id === action.payload._id ? action.payload : item);
+
+          const artworkUpdated = state.products.map(item =>
+              item._id === action.payload._id ? action.payload : item);
+
+          return {
+              ...state,
+              allProducts: allArtworkUpdated,
+              products: artworkUpdated,
+              paintDetail: action.payload
+          }
+    case "GET_COMMENTS":
+      return {
+        ...state,
+        paintComments: action.payload
       }
     default:
       return state;

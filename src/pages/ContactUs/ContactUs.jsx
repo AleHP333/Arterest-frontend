@@ -1,6 +1,7 @@
 import { Alert, AlertTitle, Snackbar } from "@mui/material";
 import { useState } from "react"
 import { useDispatch } from "react-redux"
+import Footer from "../Footer/Footer";
 //import { createContact } from '../../redux/actions'
 
 import './ContactUs.css'
@@ -41,6 +42,9 @@ export default function ContactUs() {
   }
 
   return (
+    <div>
+
+    
     <div className="FormDiv">
       <h2>If you have any doubts, please let us know</h2>
       <form className="LogInForm" >
@@ -74,6 +78,10 @@ export default function ContactUs() {
           <strong>Your message was successfully sent</strong>
         </Alert>
       </Snackbar>
-    </div>
+
+  
+      </div>
+      <Footer/>
+      </div>
   )
 }

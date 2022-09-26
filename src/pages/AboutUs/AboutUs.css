@@ -66,22 +66,13 @@
 .PageTitle {
   margin-top: 2rem;
   text-align: center;
+  font-size: 32px;
+    font-weight: bold;
 }
 
 .textAboutUs {
-  font-size: 1.3em;
+  font-size: 24px;
+  color: gray;
+  font-weight: 600;
 }
 
-body.Dark .TeamCard {
-  background: #ff0000;
-  color: white;
-}
-
-body.Dark .CardIcon {
-  stroke: black;
-}
-
-body.Dark .CardIcon:hover {
-  stroke: black;
-  fill: black;
-}

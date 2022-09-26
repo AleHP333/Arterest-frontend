@@ -1,10 +1,60 @@
-.containerDetail .MuiButton-contained {
-    width: 8em !important;
-    background-color: rgb(255, 0, 0, .8) !important;
-    color: rgb(0, 0, 0, .8) !important;
-    border-radius: 1em !important;
+.MuiIconButton-sizeMedium:hover{
+    background-color: rgba(0, 0, 0, .07) !important;
 }
 
-.containerDetail .MuiButton-contained:hover {
-    background-color: rgb(255, 0, 0) !important;
+.img-zoom-container {
+    position: relative;
+}
+
+#container {
+    display: flex;
+}
+
+#myimage {
+    max-height: 81vh;
+    max-width: 35vw;
+}
+
+.img-zoom-lens {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    visibility: hidden;
+    cursor: zoom-in;
+    background-color: rgb(0, 0, 0, .5);
+}
+
+.img-zoom-result {
+    width: 440px;
+    height: 440px;
+    visibility: hidden;
+    position: absolute;
+    z-index: 49;
+    top: 1em;
+}
+
+.zoom {
+    visibility: visible;
+}
+
+.containerPrincipalData .css-1lauo1g-MuiRating-root {
+    color: rgba(255, 68, 68, 1);
+}
+
+.containerPrincipalData .MuiButton-contained {
+    background-color: rgba(255, 68, 68, 1);
+    margin-left: auto;
+    text-transform: none;
+}
+
+.containerPrincipalData .MuiButton-contained:hover {
+    background-color: rgba(255, 38, 38, 1);
+}
+
+.likeButton {
+    stroke: rgba(255, 38, 38, 1);
+}
+
+.iconButtonLike:hover {
+    background-color: white !important;
 }
