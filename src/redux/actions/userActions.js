@@ -55,7 +55,6 @@ export function likeDisplike(id){
                 "Authorization": `Bearer ${token}`
             }
         })
-        console.log("esto salio de la action", res.response)
         return res.data.response
     }
 }

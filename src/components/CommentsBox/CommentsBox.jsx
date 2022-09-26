@@ -25,7 +25,6 @@ import Avatar from '@mui/material/Avatar';
 export default function CommentsBox({paintId}) {
     
     const loggedUser = useSelector((state) => state.userSignReducer.userData)
-    console.log(loggedUser)
 
     //HOOKS
     const dispatch = useDispatch()
@@ -35,7 +34,6 @@ export default function CommentsBox({paintId}) {
     const [commentIdToDelete, setCommentIdToDelete] = useState("")
     const [reload, setReload] = useState(false)
     const [paintComments, setPaintComments] = useState()
-    console.log(paintComments)
     //ALERT FUNCTIONS
     const [open, setOpen] = React.useState(false);
 

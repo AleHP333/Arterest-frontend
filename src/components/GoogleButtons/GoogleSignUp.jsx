@@ -12,7 +12,6 @@ export default function GoogleSignUp() {
 
     async function handleResponse(response){
         let userObject = jwt_decode(response.credential);
-        console.log(userObject)
         let res = await dispatch( singUp({
             userName: userObject.given_name,
             email: userObject.email,
@@ -24,7 +23,6 @@ export default function GoogleSignUp() {
         if(res === "error"){
             //EN TEORIA ESTO SIRVE PARA DEVOLVER UN MENSAJE XD
         } else {
-            console.log("Acá no debe entrar")
             navigate("/signIn")
         }
     }

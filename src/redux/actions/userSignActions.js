@@ -5,7 +5,6 @@ const url = "http://localhost:3001"
 
 export function signIn(emailAndPass){
     return async function(dispatch){
-        console.log(emailAndPass)
         const response = await axios.post(`${url}/userSign/signIn`, emailAndPass, { validateStatus: false })
         if(response.status === 200){
             localStorage.setItem("token", response.data.token);
@@ -54,7 +53,6 @@ export function singUp(userData){
             dispatch({type: "MESSAGE", payload: { msgData: response.data.msgData }})
             return "success"
         } else {
-            console.log(response)
             dispatch({type: "MESSAGE", payload: { msgData: response.data.msgData }})
             return "error"
         }
