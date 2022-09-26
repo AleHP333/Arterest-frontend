@@ -44,19 +44,6 @@ export const addToCart = (userName,
             localStorage.setItem("cartList", JSON.stringify([...cart,{ userName, title, img, _id, price, quantity: 1}]))
         }
     }
-    // if (cart) {
-    //     if (cart.length >= 30) {
-    //         handleNotAdded()
-    //         return
-    //     }
-    //     if (!cart.some(item => item.id === _id)) {
-    //         cart.push({ userName, userImage, title, img, _id, price, quantity: 1 })
-    //     }
-    // } else {
-    //     cart = [{ userName, userImage, title, img, _id, price, quantity: 1 }]
-    // }
-    // localStorage.setItem('cartList', JSON.stringify(cart))
-    // handleAdded()
 }
 
 export const getPrice = () => {

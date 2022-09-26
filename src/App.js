@@ -25,6 +25,9 @@ import SignIn from "./components/SignIn/SignIn";
 import VerifyEmail from "./components/VerifyEmail/VerifyEmail";
 import Cart from "./components/Cart/Cart";
 import ProductDetail from "./pages/Admin/components/ProductDetail";
+import UserProfile from "./pages/UserProfile/UserProfile";
+
+import Alert from "./components/Alert/Alert";
 
 import Buy from "./components/Buy/Buy";
 
@@ -88,9 +91,11 @@ function App() {
           <Route path="/signIn" element={<SignIn />} />
           <Route path="/verifyEmail/:id" element={<VerifyEmail />} />
           <Route exact path="/admin/artworks/artworkDetail/:id" element={<ProductDetail />} />
+          <Route exact path="/profile" element={<UserProfile />} />
 
           <Route path="/buy" element={<Buy/>} />
         </Routes>
+        <Alert></Alert>
       </Router>
     </>
   );

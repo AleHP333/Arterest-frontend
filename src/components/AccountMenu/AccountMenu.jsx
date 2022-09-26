@@ -10,6 +10,7 @@ import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import { useDispatch } from 'react-redux';
 import { unLog } from '../../redux/actions/userSignActions';
+import { Link } from 'react-router-dom';
 
 export default function AccountMenu({img, userName}) {
     const dispatch = useDispatch()
@@ -73,7 +74,9 @@ export default function AccountMenu({img, userName}) {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <MenuItem>
+        <Link to='/profile'>
           <Avatar /> Profile
+        </Link>
         </MenuItem>
         <Divider />
         <MenuItem>

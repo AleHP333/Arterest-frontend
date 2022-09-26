@@ -13,17 +13,17 @@ const AllArtWork = () => {
 
   useEffect(() => {
     dispatch(getAllUsers());
-  }, [dispatch, reload]);
+  }, [reload]);
 
   function bannUser(e) {
-    console.log(e._id, e.isBanned
-, "e");
+    console.log(e._id, e.isBanned, "e");
     // if(users.isBloked === false){
     //   return users.isBloked === true
     // } 
     const user = {
         _id: e._id, isBanned: !e.isBanned
     }
+    console.log("ESTE ES EL USUARIO QUE SE BANEA", user)
     
     dispatch(banUser(user))
     .then(res=>setReload(!reload))
@@ -75,9 +75,9 @@ const AllArtWork = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {users.length ? users.map((us, _id) => {
+                      {users ? users?.map((us, index) => {
                         return (
-                          <tr id={_id}>
+                          <tr id={index}>
                             <th  className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
                               {us.userName}
                             </th>
@@ -85,7 +85,7 @@ const AllArtWork = () => {
                             {us.isBanned === false ? 'NO': 'YES'}
                             </td>
                             <td className="flex border-t-0 px-6 ml-4 text-xs whitespace-nowrap p-4 cursor-pointer">
-                            <BsFillPencilFill onClick={()=>bannUser(us)}/>
+                            <BsFillPencilFill onClick={()=>{bannUser(us)}}/>
                             </td>
                           </tr>
                         )
