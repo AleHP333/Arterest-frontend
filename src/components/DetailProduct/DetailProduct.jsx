@@ -245,8 +245,10 @@ export default function DetailProduct () {
                                     >Add to Cart
                                 </Button>
                                 <Tooltip title="Like">
-                                    <IconButton>
-                                        <FavoriteIcon className='text-red-500'/>
+                                    <IconButton className="iconButtonLike">
+                                        <FavoriteIcon 
+                                            className='likeButton text-white hover:text-red-500'
+                                        />
                                     </IconButton>
                                 </Tooltip>
                             </div>

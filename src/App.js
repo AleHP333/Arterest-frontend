@@ -26,6 +26,7 @@ import VerifyEmail from "./components/VerifyEmail/VerifyEmail";
 import Cart from "./components/Cart/Cart";
 import ProductDetail from "./pages/Admin/components/ProductDetail";
 import UserProfile from "./pages/UserProfile/UserProfile";
+import Footer from "./pages/Footer/Footer";
 
 import Alert from "./components/Alert/Alert";
 
@@ -93,6 +94,7 @@ function App() {
           <Route exact path="/profile" element={<UserProfile />} />
 
         </Routes>
+        <Footer />
         <Alert></Alert>
       </Router>
     </>
