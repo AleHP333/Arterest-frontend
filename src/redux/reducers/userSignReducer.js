@@ -23,6 +23,11 @@ const userSignReducer = (state = initialState, action) => {
                 userData: undefined,
                 message: action.payload.msgData
             }
+        case "CLEAN_MSG":
+            return {
+                ...state,
+                message: undefined
+            }
         default:
             return state
     }

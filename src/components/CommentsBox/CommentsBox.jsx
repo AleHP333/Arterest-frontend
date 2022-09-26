@@ -20,6 +20,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useEffect } from 'react';
 import { getComments } from '../../redux/actions/productActionsTest';
+import Avatar from '@mui/material/Avatar';
 
 export default function CommentsBox({paintId}) {
     
@@ -112,8 +113,9 @@ export default function CommentsBox({paintId}) {
             { loggedUser ? <div
                 className="flex-col w-full py-4 my-4 mx-auto mt-3 bg-white border-b-2 border-r-2 border-gray-200 sm:px-4 sm:py-4 md:px-4 sm:rounded-lg sm:shadow-sm md:w-2/3">
                     <div className="flex flex-row md-10">
-                        <img className="w-12 h-12 border-2 border-gray-300 rounded-full" alt="Anonymous's avatar"
-                            src={loggedUser.userImage ? loggedUser.userImage : "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"} />
+                            { loggedUser.userImage !== undefined ? 
+                            <img className="w-12 h-12 border-2 border-gray-300 rounded-full" alt="Anonymous's avatar" src={loggedUser.userImage !== undefined ? loggedUser.userImage : "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"} />
+                                : <Avatar sx={{ width: 40, height: 40 }}>{loggedUser.userName.substring(0, 1).toUpperCase()}</Avatar>}
                         <div className="flex-col mt-1">
                         <div className="flex items-center flex-1 px-4 font-bold leading-tight">{loggedUser.userName}
                             <span className="ml-2 text-xs font-normal text-gray-500">Write below</span>
@@ -148,8 +150,9 @@ export default function CommentsBox({paintId}) {
                     <div
                         className="flex-col w-full py-4 my-4 mx-auto mt-3 bg-white border-b-2 border-r-2 border-gray-200 sm:px-4 sm:py-4 md:px-4 sm:rounded-lg sm:shadow-sm md:w-2/3">
                         <div className="flex flex-row md-10">
-                            <img className="w-12 h-12 border-2 border-gray-300 rounded-full" alt="Anonymous's avatar"
+                            { loggedUser.userImage !== undefined ? <img className="w-12 h-12 border-2 border-gray-300 rounded-full" alt="Anonymous's avatar"
                                 src={loggedUser.userImage !== undefined ? loggedUser.userImage : "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"} />
+                                : <Avatar sx={{ width: 40, height: 40 }}>{loggedUser.userName.substring(0, 1).toUpperCase()}</Avatar>}
                             <div className="flex-col mt-1">
                                 <div className="flex items-center flex-1 px-4 font-bold leading-tight">{loggedUser.userName}
                                     <span className="ml-2 text-xs font-normal text-gray-500">3 days ago</span>

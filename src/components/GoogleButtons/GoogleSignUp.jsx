@@ -12,6 +12,7 @@ export default function GoogleSignUp() {
 
     async function handleResponse(response){
         let userObject = jwt_decode(response.credential);
+        console.log(userObject)
         let res = await dispatch( singUp({
             userName: userObject.given_name,
             email: userObject.email,

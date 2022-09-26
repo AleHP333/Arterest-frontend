@@ -12,11 +12,11 @@ export function addComment(paintId, comment){
                     "Authorization": `Bearer ${token}`
                 }
             })
-            dispatch({type: "aaaaaaaaa" , payload: res.data })
+            dispatch({type: "MESSAGE" , payload: res.data })
 
             return res.data.response.comments.reverse()
         } else {
-            dispatch({type: "aaaaaaaaa" , payload: {msg: "Please write a message", success: "error"} })
+            dispatch({type: "MESSAGE" , payload: {msg: "Please write a message", success: "error"} })
         }
     }
 }
@@ -29,7 +29,7 @@ export function modifyComment(commentId, comment){
                 "Authorization": `Bearer ${token}`
             }
         })
-        dispatch({type: "aaaaaaaaa", payload: res.data})
+        dispatch({type: "MESSAGE", payload: res.data})
 
         return res.data.response.comments.reverse()
     }
@@ -43,6 +43,23 @@ export function deleteComment(id){
                 "Authorization": `Bearer ${token}`
             }
         })
-        dispatch({type: "aaaaaaaaa", payload: res.data})
+        dispatch({type: "MESSAGE", payload: res.data})
     }
+}
+
+export function likeDisplike(id){
+    const token = localStorage.getItem("token")
+    return async function(dispatch){
+        const res = await axios.get(`${url}/likeComments/likeDislike/${id}`, {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        })
+        console.log("esto salio de la action", res.response)
+        return res.data.response
+    }
+}
+
+export function cleanMsg(){
+    return {type: "CLEAN_MSG", payload: undefined}
 }
