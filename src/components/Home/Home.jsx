@@ -151,6 +151,7 @@ export const Home = ({ handleAdded, handleNotAdded }) => {
                         img={e.img}
                         userName={e.userName}
                         userImage={e.userImage}
+                        stock={e.stock}
                         title={e.title}
                         price={e.price}
                         _id={e._id}

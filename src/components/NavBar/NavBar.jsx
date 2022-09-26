@@ -1,9 +1,14 @@
 // React Utilities
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import Searchbar from "../Searchbar/Searchbar";
+import { AiFillShopping } from "react-icons/ai";
+import { AiFillPushpin } from "react-icons/ai";
+import { AiFillHome, AiOutlineUser } from "react-icons/ai";
+import art_logo from '../../pages/Assets/logoArterest.png'
+import './NavBar.css';
 import { useSelector } from "react-redux";
 // Components
-import Searchbar from "../Searchbar/Searchbar";
 import Login from "../Login/Login";
 import Logout from "../Logout/Logout";
 import AccountMenu from "../AccountMenu/AccountMenu";
@@ -11,11 +16,10 @@ import AccountMenu from "../AccountMenu/AccountMenu";
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 // Icons
-import { AiFillShopping } from "react-icons/ai";
-import { AiFillPushpin } from "react-icons/ai";
+
 import HomeIcon from '@mui/icons-material/Home';
 // Arterest Logo
-import art_logo from '../../pages/Assets/logoArterest.png'
+
 // Custom Styles
 import './NavBar.css';
 

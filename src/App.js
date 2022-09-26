@@ -30,6 +30,7 @@ import Footer from "./pages/Footer/Footer";
 
 import Alert from "./components/Alert/Alert";
 
+import Buy from "./components/Buy/Buy";
 
 
 function App() {
@@ -93,6 +94,7 @@ function App() {
           <Route exact path="/admin/artworks/artworkDetail/:id" element={<ProductDetail />} />
           <Route exact path="/profile" element={<UserProfile />} />
 
+          <Route path="/buy" element={<Buy/>} />
         </Routes>
         <Footer />
         <Alert></Alert>
