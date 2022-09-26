@@ -81,7 +81,7 @@ export function artFilter(price) {
 }
 
 export function getUserById(id) {
-  console.log(id)
+  console.log(id);
   return async function (dispatch) {
     const res = await axios.get(`http://localhost:3001/user/${id}`);
     dispatch({
@@ -92,9 +92,13 @@ export function getUserById(id) {
 }
 
 export function getAllUsers(id) {
+  const token = localStorage.getItem("token");
   return async function (dispatch) {
     const res = await axios.get(
-      `http://localhost:3001/adminActions/getAllUsers`
+      `http://localhost:3001/adminActions/getAllUsers`,
+      {
+        headers: { Authorization: "Bearer " + token },
+      }
     );
     dispatch({
       type: "GET_ALL_USERS",
@@ -104,15 +108,19 @@ export function getAllUsers(id) {
 }
 
 export const updateProduct = (artwork) => {
-  const token = localStorage.getItem('token')
+  const token = localStorage.getItem("token");
   return async function (dispatch) {
-      const response = await axios.put('http://localhost:3001/adminActions/modifyProduct/', artwork,  {
-        headers: { Authorization: "Bearer " + token }
+    const response = await axios.put(
+      "http://localhost:3001/adminActions/modifyProduct/",
+      artwork,
+      {
+        headers: { Authorization: "Bearer " + token },
+      }
+    );
+    return dispatch({
+      type: "UPDATE_PRODUCT",
+      payload: response.data,
     });
-      return dispatch({
-          type: 'UPDATE_PRODUCT',
-          payload: response.data
-      });
   };
 };
 
