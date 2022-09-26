@@ -28,7 +28,7 @@ export default function NavBar() {
   }, [loggedUser])
 
   return (
-    <nav className="flex flex-row items-center w-full py-3 bg-white">
+    <nav className="flex flex-row sticky top-0 items-center w-full py-3 bg-white z-50">
       <div className="flex flex-row items-center mr-auto">
         <Link to="/" className="navbar-brand flex flex-row ml-8 gap-1 items-center">
           <div className="flex w-8 h-8">
