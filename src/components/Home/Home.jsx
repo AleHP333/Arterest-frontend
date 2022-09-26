@@ -5,7 +5,6 @@ import { Link, useSearchParams, useLocation, useNavigate } from 'react-router-do
 import { activeLoading, artFilterByBack, getAllProducts } from '../../redux/actions/productActionsTest';
 import  Card  from '../Card/Card';
 import FilterBar from '../FilterBar/FilterBar';
-import Footer from '../../pages/Footer/Footer.jsx';
 import './home.css'
 
 //MUI COMPONENTS
@@ -207,7 +206,6 @@ export const Home = ({ handleAdded, handleNotAdded }) => {
                 }
             </div> */}
       </div>
-      <Footer className="foo" />
     </div>
   );
 };

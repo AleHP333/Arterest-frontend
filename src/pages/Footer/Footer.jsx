@@ -1,48 +1,91 @@
 // React utilities
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-// // Files and extra code
-import Arterest from '../Assets/ArterestRed.png';
-
+// Mui
+import Fab from '@mui/material/Fab';
+import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
+import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 // Styles
-import Navbar from 'react-bootstrap/Navbar';
 import './Footer.css';
 
 export default function Footer() {
 
+    const [isOpen, setIsOpen] = useState(false);
+    const [styleButton, setStyleButton] = useState({
+        backgroundColor: ""
+    })
+
+    function handlerChange() {
+        isOpen ?  closeButton() : openButton();
+    }
+
+    function openButton () {
+        setIsOpen(true);
+        setStyleButton({
+            backgroundColor: "white"
+        })
+    }
+
+    function closeButton () {
+        setIsOpen(false);
+        setStyleButton({
+            backgroundColor: "#e0e0e0"
+        })
+    }
+
+    const tabsFooter = [
+        {
+            name: "Contact Us",
+            description: "If you want to tell us something",
+            link: "/contact"
+        },
+        {
+            name: "About Us",
+            description: "You wanna know more about us?",
+            link: "/about" 
+        },
+        {
+            name: "FAQ",
+            description: "FAQ",
+            link: "/faq"
+        },
+        {
+            name: "Terms",
+            description: "Terms",
+            link: "/terms"
+        },
+    ]
+
     return (
-        <div className= 'container'>
-        <Navbar className="p-16 " >
-            <Navbar.Brand className="p-8 bg-transparent mt-24 " >
-                <div className="grid ">
-                    <div className="grid text-center order-last md:order-first mt-20 md:mt-0">
-                        <img
-                            src={Arterest}
-                            className="w-48 h-18 mx-auto relative inset-x-0 top-0 rounded flex items-center justify-center pb-3"
-                            alt="Arterest"
-                             />
-                    </div>
+        <div className="fixed bottom-8 right-8">
+            <Fab 
+                style={styleButton}
+                onClick={() => handlerChange()}
+                aria-label="footer"
+            >
+                <QuestionMarkIcon />
+            </Fab>
+            {
+                !isOpen ? null :
+                <div 
+                    className="expandFooter fixed bottom-8 right-28 bg-white border rounded-lg font-semibold text-x1 text-black p-2"
+                >
+                    {
+                        tabsFooter.map(tab => {
+                            return (
+                                <Link to={tab.link} onClick={() => closeButton()}>
+                                    <div 
+                                        className="flex flex-row gap-10 rounded-lg p-2 hover:bg-gray-200"
+                                    >
+                                        {tab.description}
+                                        <ArrowOutwardIcon className="flex ml-auto"/>
+                                    </div>
+                                </Link>
+                            )
+                        })
+                    }
                 </div>
-            </Navbar.Brand>
-
-            <Navbar.Text className="grid  md:grid-cols-1">
-                <Link className='pepe' to='/terms'><div className="grid pb-4 pt-0
-                text-center order-last md:order-first mt-10 md:mt-0 font-bold">© Arterest, 2022. All rights reserved.</div></Link>
-            </Navbar.Text>
-
-            <div className="grid md:grid-cols-3">
-                <Navbar.Text>
-                    <Link className='pepe' to='/about'><div className="grid  text-center  md:order-first mt-10 md:mt-0 font-bold">About Us</div></Link>
-                </Navbar.Text>
-                <Navbar.Text>
-                    <Link className='pepe' to='/contact'><div className="grid  text-center  md:order-first mt-10 md:mt-0 font-bold">Contact us</div></Link>
-                </Navbar.Text>
-                <Navbar.Text>
-                    <Link className='pepe' to='/faq'><div className="grid  text-center  md:order-first mt-10 md:mt-0 font-bold">FAQ</div></Link>
-                </Navbar.Text>
-            </div>
-
-        </Navbar >
+            }
         </div>
     );
 }
