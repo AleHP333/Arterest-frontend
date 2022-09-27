@@ -75,7 +75,7 @@ export default function NavBar() {
 
         { 
           loggedUser ?
-          <AccountMenu img={loggedUser.userImage} userName={loggedUser.userName}/> : 
+          <AccountMenu img={loggedUser.userImage} userName={loggedUser.userName} isAdmin={loggedUser.isAdmin}/> : 
           <Link to="/signIn">
             <button type="button" className="text-white bg-red-500 hover:bg-red-600 focus:outline-none rounded-full text-center w-max px-4 py-2 font-bold">Log in</button>
           </Link>
