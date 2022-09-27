@@ -1,7 +1,7 @@
 import "./app.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState, useEffect } from 'react'
-import { unLog, verifyToken } from "./redux/actions/userSignActions";
+import { unLogFromApp, verifyToken } from "./redux/actions/userSignActions";
 import { useSelector, useDispatch } from "react-redux";
 
 //COMPONENTS//PAGES
@@ -41,7 +41,7 @@ function App() {
       const token = localStorage.getItem("token");
       dispatch(verifyToken(token));
     } else {
-      dispatch(unLog())
+      dispatch(unLogFromApp())
     }
   }, []);
 
