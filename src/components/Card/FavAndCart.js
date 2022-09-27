@@ -24,6 +24,7 @@ export const addToCart = (userName,
     userImage,
     title,
     img,
+    stock,
     _id,
     price,
     handleAdded,
@@ -34,14 +35,14 @@ export const addToCart = (userName,
     console.log('cart', cart)
     console.log('id', _id)
     if(cart === null || !cart.length){
-        localStorage.setItem("cartList", JSON.stringify([{ userName, title, img, _id, price, quantity: 1}]))
+        localStorage.setItem("cartList", JSON.stringify([{ stock, userName, title, img, _id, price, quantity: 1}]))
     } else {
         let found = cart.find(item => item._id === _id)
         if(found){
             let removed = cart.filter(item => item !== found)
             localStorage.setItem("cartList", JSON.stringify([...removed]))
         } else {
-            localStorage.setItem("cartList", JSON.stringify([...cart,{ userName, title, img, _id, price, quantity: 1}]))
+            localStorage.setItem("cartList", JSON.stringify([...cart,{ stock, userName, title, img, _id, price, quantity: 1}]))
         }
     }
 }
