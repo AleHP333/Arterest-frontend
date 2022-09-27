@@ -23,12 +23,12 @@ export default function Profile() {
   return (
     <>
       { Object.keys(allPaints).length !== 0 ? 
-      <div className="p-16">
+      <div className="py-3 px-16">
         <div className="p-8 bg-white shadow mt-24">
           <div className="grid grid-cols-1 md:grid-cols-3">
             <div className="grid grid-cols-3 text-center order-last md:order-first mt-20 md:mt-0">
               <div>
-                <p className="font-bold text-gray-700 text-xl">22</p>
+                <p className="font-bold text-gray-700 text-xl">{allPaints.map(paint => paint.likes).flat().length}</p>
                 <p className="text-gray-400">Likes</p>
               </div>
               <div>
@@ -36,7 +36,7 @@ export default function Profile() {
                 <p className="text-gray-400">ArtWork</p>
               </div>
               <div>
-                <p className="font-bold text-gray-700 text-xl">89</p>
+                <p className="font-bold text-gray-700 text-xl">{allPaints.map(paint => paint.comments).flat().length}</p>
                 <p className="text-gray-400">Comments</p>
               </div>
             </div>

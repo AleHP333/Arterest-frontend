@@ -22,6 +22,7 @@ export default function SignUp() {
         setGoogleSeen(true)
     }, [loggedUser])
 
+
     const formik = useFormik({
         initialValues: {
             userName: "",
@@ -118,8 +119,9 @@ export default function SignUp() {
                                                 class="flex items-center justify-center my-4 before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5">
                                                 <p class="text-center font-semibold mx-4 mb-0">OR</p>
                                             </div>
-
+                                            <div className="flex justify-center align-middle">
                                             {googleSeen ? <GoogleSignUp /> : null}
+                                            </div>
                                             <div className="flex items-center justify-left pb-6">Already have an account? <span className="inline-block px-6 py-2.5 bg-transparent text-blue-600 font-medium text-xs leading-tight uppercase rounded hover:bg-gray-100 focus:text-blue-700 focus:bg-gray-100 focus:outline-none focus:ring-0 active:bg-gray-200 active:text-blue-800 transition duration-300 ease-in-out"><Link to={"/signIn"} >Login here</Link></span></div>
 
                                         </form>
