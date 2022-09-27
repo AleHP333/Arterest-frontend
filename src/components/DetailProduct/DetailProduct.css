@@ -11,7 +11,7 @@
 }
 
 #myimage {
-    max-height: 85vh;
+    max-height: 81vh;
     max-width: 35vw;
 }
 
@@ -29,7 +29,7 @@
     height: 440px;
     visibility: hidden;
     position: absolute;
-    z-index: 100;
+    z-index: 49;
     top: 1em;
 }
 
@@ -49,4 +49,12 @@
 
 .containerPrincipalData .MuiButton-contained:hover {
     background-color: rgba(255, 38, 38, 1);
+}
+
+.likeButton {
+    stroke: rgba(255, 38, 38, 1);
+}
+
+.iconButtonLike:hover {
+    background-color: white !important;
 }

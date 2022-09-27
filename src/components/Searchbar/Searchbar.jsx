@@ -39,7 +39,7 @@ export default function Searchbar() {
         <form onSubmit={(e) => handleSubmit(e)} className='searchBar flex justify-start w-full overflow-hidden border-2 border-gray-300 rounded-full text-gray-500 items-center gap-2 px-4 py-1 mx-6 '>
                 <button className='my-1 text-2xl' type="submit"><AiOutlineSearch /></button>
                 <input className='self-center focus:outline-none w-full' type="text" name="search" value={input} 
-                placeholder="Search..." onChange={handleStateChanges} autocomplete="off"/>
+                placeholder="Search..." onChange={handleStateChanges} autoComplete="off"/>
                 {
                     (input.length > 0) ?
                     <IconButton onClick={() => deleteActualSearch()} size="small" aria-label="delete">
