@@ -31,11 +31,20 @@ export default function GoogleSignIn() {
             callback: handleResponse,
         });
 
-        google.accounts.id.renderButton(document.getElementById("buttonDiv"), {theme: "outline", size: "medium", margin: 0, locale: "en"})
+        google.accounts.id.renderButton(document.getElementById("buttonDiv"), {
+            theme: "outline", 
+            size: "large", 
+            locale: "en",
+            'scope': 'profile email',
+            'width': 240,
+            'height': 50,
+            'longtitle': true,
+            'theme': 'dark'
+        })
     }, [])
 
     return (
-        <div className="w-full">
+        <div className="flex justify-center transition-opacity w-full">
             <div id="buttonDiv"></div>
         </div>
     )

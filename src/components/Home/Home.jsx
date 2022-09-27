@@ -155,6 +155,7 @@ export const Home = ({ handleAdded, handleNotAdded }) => {
                         title={e.title}
                         price={e.price}
                         _id={e._id}
+                        cardLikes={e.likes.length}
                         handleAdded={handleAdded}
                         handleNotAdded={handleNotAdded}
                         >                     

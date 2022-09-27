@@ -63,3 +63,8 @@ export function unLog(){
     localStorage.removeItem("token")
     return {type: "USER_UNLOG", payload: { userData: {}, msgData: { msg: "Unlogged successfully", status: "info"}} }
 }
+
+export function unLogFromApp(){
+    localStorage.removeItem("token")
+    return {type: "USER_UNLOG_FROM_APP", payload: { userData: {}}}
+}
