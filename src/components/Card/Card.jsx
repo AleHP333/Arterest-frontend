@@ -6,6 +6,7 @@ import { AiFillPushpin } from "react-icons/ai";
 import { addToFav, addToCart } from "./FavAndCart";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 
 export default function Card({
   userName,
@@ -28,15 +29,15 @@ export default function Card({
         </Link>
         <div className="user-info">
           <button >
-            <FavoriteIcon/>
+            <FavoriteIcon className='text-red-500'/>
           </button>
           <h6>{cardLikes}</h6>
-          <h2>{title}</h2>
+          <h2 className="font-semibold">{title}</h2>
           <img src={userImage} alt="" />
           <Link to={"/artistprofile/" + userName}>
-            <h5>{userName}</h5>
+            <h5 className="mb-3">{userName}</h5>
           </Link>
-          <span>{price}</span>
+          <span className="font-medium"><MonetizationOnIcon className="text-green-500 mb-1"/>{price}</span>
         </div>
       </div>
       <ul className="social-media">
