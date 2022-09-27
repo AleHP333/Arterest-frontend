@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { getAnArtist } from "../../redux/actions/productActionsTest";
 import Card from "../../components/Card/Card";
 import Footer from "../Footer/Footer";
@@ -69,17 +69,17 @@ export default function Profile() {
           <div className='pin_container' >
                 {allPaints.length ? allPaints?.map((e, index) => {
                     return (
-                        <div  key={index}>
-                            {/* <Link> */}
+                        <div  key={index}>                         
                                 <Card  className='img'
                                     img={e.img}
                                     userName={e.userName}
                                     userImage={e.userImage}
                                     title={e.title}
                                     price={e.price}
+                                    cardLikes={e.likes.length}
+                                    _id={e._id}
                                     key={e._id}>
-                                </Card>
-                            {/* </Link> */}
+                                </Card>       
                         </div>
                     );
                 }) : <Box sx={{ display: 'flex' }}>
