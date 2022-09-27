@@ -1,6 +1,6 @@
 // React Utilities
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 // Components
 import Searchbar from "../Searchbar/Searchbar";
@@ -20,12 +20,16 @@ import art_logo from '../../pages/Assets/logoArterest.png'
 import './NavBar.css';
 
 export default function NavBar() {
-  
+  const location = useLocation()
   const loggedUser = useSelector((state) => state.userSignReducer.userData)
-
+  console.log(location.pathname)
   useEffect(() => {
 
   }, [loggedUser])
+
+  if(location.pathname === "/signUp" || location.pathname === "/signIn"){
+    return <></>
+  }
 
   return (
     <nav className="flex flex-row items-center w-full py-3 bg-white">

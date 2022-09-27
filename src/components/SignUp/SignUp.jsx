@@ -44,15 +44,13 @@ export default function SignUp() {
     });
     return (
         <div className="h-screen gradient-form bg-gray-200 md:h-screen">
-            <div className="container py-12 px-6 h-full">
+            <div className="py-3 px-1 h-full">
                 <div className="flex justify-center items-center flex-wrap h-3/6 g-6 text-gray-800">
                     <div className="xl:w-10/12">
                         <div className="block bg-white shadow-lg rounded-lg">
                             <div className="lg:flex lg:flex-wrap g-0">
-
-
                                 <div className="lg:w-6/12 px-4 md:px-0">
-                                    <div className="md:p-12 md:mx-6">
+                                    <div className="md:p-3 md:mx-6">
                                         <div class="text-center">
                                             <img class="mx-auto w-48"
                                                 src={logoArteres}
@@ -118,12 +116,9 @@ export default function SignUp() {
                                             <div
                                                 class="flex items-center justify-center my-4 before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5">
                                                 <p class="text-center font-semibold mx-4 mb-0">OR</p>
-                                            </div>
-                                            <div className="flex justify-center align-middle">
+                                            </div>                                        
                                             {googleSeen ? <GoogleSignUp /> : null}
-                                            </div>
                                             <div className="flex items-center justify-left pb-6">Already have an account? <span className="inline-block px-6 py-2.5 bg-transparent text-blue-600 font-medium text-xs leading-tight uppercase rounded hover:bg-gray-100 focus:text-blue-700 focus:bg-gray-100 focus:outline-none focus:ring-0 active:bg-gray-200 active:text-blue-800 transition duration-300 ease-in-out"><Link to={"/signIn"} >Login here</Link></span></div>
-
                                         </form>
                                     </div>
                                 </div>
