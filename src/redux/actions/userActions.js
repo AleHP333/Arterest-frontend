@@ -62,3 +62,15 @@ export function likeDisplike(id){
 export function cleanMsg(){
     return {type: "CLEAN_MSG", payload: undefined}
 }
+
+export function sendRequest(request){
+    const token = localStorage.getItem("token")
+    return async function(dispatch){
+        const res = await axios.post(`${url}/artist/artistRequest`, request, {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        })
+        dispatch({type: "MESSAGE", payload: res.data})
+    }
+}

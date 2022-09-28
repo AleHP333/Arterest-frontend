@@ -24,7 +24,6 @@ const AllArtWork = () => {
     <>
     <Sidebar />
       <div className="relative md:ml-64 bg-blueGray-100" >
-      <Navbar />
         {/* Header */}
         <div className="relative bg-red-600 rounded md:pt-32 pb-32 pt-12">
 
