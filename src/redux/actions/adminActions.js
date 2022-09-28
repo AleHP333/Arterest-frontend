@@ -34,6 +34,23 @@ export function banUser(user) {
   }
 }
 
+export function getRequests(){
+  const token = localStorage.getItem("token");
+  try {
+    return async () => {
+      const response = await axios.get(`${url}/adminActions/getArtistRequest`, {
+        headers: { Authorization: "Bearer " + token },
+      });
+      return response.data
+    };
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+
+
+
 // export function getAllUsers() {
 //   console.log("getAllUsers", "antes del return");
 //   return async function (dispatch) {

@@ -27,6 +27,7 @@ import Cart from "./components/Cart/Cart";
 import ProductDetail from "./pages/Admin/components/ProductDetail";
 import UserProfile from "./pages/UserProfile/UserProfile";
 import Footer from "./pages/Footer/Footer";
+import AllRequests from "./pages/Admin/views/AllRequests";
 
 import Alert from "./components/Alert/Alert";
 
@@ -86,6 +87,7 @@ function App() {
           {loggedUser && loggedUser.isAdmin === true ? <>
             <Route exact path="/admin" element={<Dashboard />} />
             <Route exact path="/admin/artworks" element={<AllArtWork />} />
+            <Route exact path="/admin/requests" element={<AllRequests />} />
             <Route exact path="/admin/users" element={<AllUsers />} />
             <Route exact path="/admin/editproduct/:id" element={<EditProduct />} />
             <Route exact path="/admin/artworks/artworkDetail/:id" element={<ProductDetail />} />
