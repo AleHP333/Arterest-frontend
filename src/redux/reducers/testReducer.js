@@ -102,6 +102,15 @@ export default function testReducer(state = initialState, action) {
         ...state,
         paintComments: action.payload
       }
+      case 'UPDATE_PROFILE':
+        const allUserUpdated = state.allUsers.map(item =>
+            item._id === action.payload._id ? action.payload : item);
+        return {
+            ...state,
+            allUsers: allUserUpdated,
+            getUser: action.payload
+        }
+
     default:
       return state;
   }

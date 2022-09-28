@@ -84,7 +84,7 @@ export function artFilter(price) {
 export function getUserById(id) {
 
   return async function (dispatch) {
-    const res = await axios.get(`${url}/user/${id}`);
+    const res = await axios.get(`${url}/users/${id}`);
     dispatch({
       type: "GET_USER_BY_ID",
       payload: res.data,
@@ -132,3 +132,13 @@ export function banUser(user) {
     console.error(error);
   }
 }
+export const updateProfile = (user) => {
+  
+  return async function (dispatch) {
+      const response = await axios.put(`${url}/users/modifyUserProfile/`, user);
+      return dispatch({
+          type: 'UPDATE_PROFILE',
+          payload: response.data
+      });
+  };
+};

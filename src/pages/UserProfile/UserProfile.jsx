@@ -14,13 +14,13 @@ import UserPhoto from './assets/NicePng_usuario-png_2022264.png'
 export default function Profile() {
 
   const dispatch = useDispatch()
-  const user = useSelector((state) => state.userSignReducer.userData)
+  const user = useSelector((state) => state.testReducer.getUser)
   const { userName } = useParams()
 
   useEffect(() => {
     dispatch(getUserById(userName))
   }, [dispatch, userName])
-  console.log(user.userName, 'one user')
+  console.log(user, 'one user')
 
   return (
     <>
