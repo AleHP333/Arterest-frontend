@@ -7,6 +7,7 @@ import Card from "../../components/Card/Card";
 import Footer from "../Footer/Footer";
 import { Box, CircularProgress } from "@mui/material";
 import UserPhoto from './assets/NicePng_usuario-png_2022264.png'
+import ArtistRequest from "../../components/ArtistRequest/ArtistRequest";
 
 
 
@@ -60,6 +61,9 @@ export default function Profile() {
               >
                 Edit Profile
               </button>
+              <div>
+              <ArtistRequest />
+              </div>
             </div>
           </div>
 
