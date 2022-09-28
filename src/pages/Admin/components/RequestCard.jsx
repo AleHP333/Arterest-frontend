@@ -3,8 +3,21 @@ import React from 'react'
 //MUI
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
+import { useDispatch } from 'react-redux';
+import { turnArtist } from '../../../redux/actions/adminActions';
 
-export default function RequestCard({img, userName, msg, url1, url2, url3}) {
+export default function RequestCard({img, _id, isArtist, userName, email, msg, url1, url2, url3}) {
+
+    const dispatch = useDispatch()
+
+    function handleApprove(e){
+        if(e.target.value === "yes"){
+            dispatch(turnArtist({_id: _id, isArtist: true, email: email}))
+        } else {
+            dispatch(turnArtist({_id: _id, isArtist: false}))
+        }
+    }
+
   return (
     <>
         <tr>
@@ -26,8 +39,8 @@ export default function RequestCard({img, userName, msg, url1, url2, url3}) {
             </td>
             <td className="border-t-0 px-6 ml-4 text-xs whitespace-nowrap p-4 cursor-pointer">
                 <div className='flex items-center justify-center'>
-                    <Button color="success" variant="contained">YES</Button>
-                    <Button color="error" variant="contained">NO</Button>
+                    <Button value="yes" onClick={(e) => {handleApprove(e)}} color="success" variant="contained">YES</Button>
+                    <Button value="no" onClick={(e) => {handleApprove(e)}} color="error" variant="contained">NO</Button>
                 </div>
             </td>
         </tr>

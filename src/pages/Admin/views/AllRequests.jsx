@@ -25,7 +25,7 @@ export default function AllRequests() {
 
         </div>
         <div className="px-4 md:px-10 mx-auto w-full -m-24 z-1">
-          <div className="flex flex-wrap mt-4">
+          <div className="flex flex-wrap mt-4 shadow-lg">
             <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 rounded">
               <div className="rounded-t mb-0 px-4 py-3 border-0">
                 <div className="flex flex-wrap items-center">
@@ -70,6 +70,8 @@ export default function AllRequests() {
                     {allRequests ? allRequests?.map((request, index) => {
                         return (<RequestCard 
                             key={index}
+                            _id={request.user._id}
+                            isArtist={request.user.isArtist}
                             img={request.user.userImage}
                             userName={request.user.userName}
                             email={request.user.email}

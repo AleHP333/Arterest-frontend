@@ -62,7 +62,7 @@ export default function Profile() {
                 Edit Profile
               </button>
               <div>
-              <ArtistRequest />
+              { user.isArtist ? null : <ArtistRequest />}
               </div>
             </div>
           </div>
