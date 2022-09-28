@@ -1,15 +1,14 @@
 import React, { useEffect } from 'react';
 import jwt_decode from "jwt-decode";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { singUp } from '../../redux/actions/userSignActions';
+import { signIn, singUp } from '../../redux/actions/userSignActions';
+import { useNavigate } from 'react-router-dom';
 //MUI
+
 
 export default function GoogleSignUp() {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
-
-
+    const navigate = useNavigate()
     async function handleResponse(response){
         let userObject = jwt_decode(response.credential);
         let res = await dispatch( singUp({
@@ -23,7 +22,13 @@ export default function GoogleSignUp() {
         if(res === "error"){
             //EN TEORIA ESTO SIRVE PARA DEVOLVER UN MENSAJE XD
         } else {
-            navigate("/signIn")
+            await dispatch(signIn({
+                email: userObject.email,
+                password: userObject.sub,
+                from: "google"
+            }))
+            navigate("/home")
+          
         }
     }
 

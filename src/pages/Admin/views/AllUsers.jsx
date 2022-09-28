@@ -35,14 +35,10 @@ const AllArtWork = () => {
       <div className="relative md:ml-64 bg-blueGray-100">
 
         {/* Header */}
-        <div className="relative center pl-0 bg-red-600 rounded md:pt-32 pb-32 pt-12">
+        <div className="relative center pl-0 bg-red-600 rounded md:pt-32 pb-32 pt-12 z-0">
 
         </div>
-        <div className="px-4 md:px-10 mx-auto w-full -m-24">
-          <div className="flex flex-wrap">
-            {/* <LineChart />
-            <BarChart /> */}
-          </div>
+        <div className="px-4 md:px-10 mx-auto w-full -m-24 z-1 ">
           <div className="flex flex-wrap mt-4">
             <div className="w-full xl:w-8/12 mb-12 xl:mb-0 px-4">
               <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
@@ -60,7 +56,7 @@ const AllArtWork = () => {
                   <table className="items-center w-full bg-transparent border-collapse">
                     <thead>
                       <tr>
-                        <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                        <th className="px-6 bg-blueGray-50 w-0 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                           User Name
                         </th>
                         <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">

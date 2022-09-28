@@ -143,10 +143,11 @@ export const Home = ({ handleAdded, handleNotAdded }) => {
                 </div>
             </div>
             <div className='pin_container'>
+            {/* grid overflow-hidden grid-cols-4 gap-3 auto-rows-auto */}
                 {typeof itemsToRender()[0]==="string"? <div >ERROR</div>:
                 itemsToRender().map((e) => {
                 return (
-                <div key={e._id}>
+                <div className='inner2' key={e._id}>
                     <Card  className='img'
                         img={e.img}
                         userName={e.userName}

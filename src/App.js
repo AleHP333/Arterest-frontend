@@ -1,5 +1,5 @@
 import "./app.css";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
 import { useState, useEffect } from 'react'
 import { unLogFromApp, verifyToken } from "./redux/actions/userSignActions";
 import { useSelector, useDispatch } from "react-redux";
@@ -27,7 +27,11 @@ import Cart from "./components/Cart/Cart";
 import ProductDetail from "./pages/Admin/components/ProductDetail";
 import UserProfile from "./pages/UserProfile/UserProfile";
 import Footer from "./pages/Footer/Footer";
+<<<<<<< HEAD
 import GiftCard from "./components/GiftCard/GiftCard";
+=======
+import AllRequests from "./pages/Admin/views/AllRequests";
+>>>>>>> d4aa3bb790a7d8fc390ab725e61fd5e9781b909b
 
 import Alert from "./components/Alert/Alert";
 
@@ -38,7 +42,6 @@ function App() {
   const [added, setAdded] = useState(false);
   const [notAdded, setNotAdded] = useState(false);
   const dispatch = useDispatch()
-
   useEffect(() => {
     if (localStorage.getItem("token") !== null) {
       const token = localStorage.getItem("token");
@@ -88,16 +91,21 @@ function App() {
           {loggedUser && loggedUser.isAdmin === true ? <>
             <Route exact path="/admin" element={<Dashboard />} />
             <Route exact path="/admin/artworks" element={<AllArtWork />} />
+            <Route exact path="/admin/requests" element={<AllRequests />} />
             <Route exact path="/admin/users" element={<AllUsers />} />
             <Route exact path="/admin/editproduct/:id" element={<EditProduct />} />
             <Route exact path="/admin/artworks/artworkDetail/:id" element={<ProductDetail />} />
-          </> : null }
+          </> : null}
+          {loggedUser !== undefined ? <Route exact path="/profile" element={<UserProfile />} /> : null}
           <Route path="/cart" element={<Cart />} />
           <Route path="/signUp" element={<SignUp />} />
           <Route path="/signIn" element={<SignIn />} />
           <Route path="/verifyEmail/:id" element={<VerifyEmail />} />
+<<<<<<< HEAD
           <Route exact path="/profile" element={<UserProfile />} />
           <Route path="/giftcard" element={<GiftCard />} />
+=======
+>>>>>>> d4aa3bb790a7d8fc390ab725e61fd5e9781b909b
 
           <Route path="/buy" element={<Buy/>} />
         </Routes>
