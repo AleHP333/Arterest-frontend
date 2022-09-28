@@ -23,7 +23,6 @@ export default function GoogleSignUp() {
         if(res === "error"){
             //EN TEORIA ESTO SIRVE PARA DEVOLVER UN MENSAJE XD
         } else {
-            console.log("Acá no debe entrar")
             navigate("/signIn")
         }
     }
@@ -35,12 +34,21 @@ export default function GoogleSignUp() {
             callback: handleResponse,
         });
 
-        google.accounts.id.renderButton(document.getElementById("buttonDiv"), {theme: "outline", size: "large", locale: "en"})
+        google.accounts.id.renderButton(document.getElementById("buttonDiv"), {
+            theme: "outline", 
+            size: "large", 
+            locale: "en",
+            'scope': 'profile email',
+            'width': 240,
+            'height': 50,
+            'longtitle': true,
+            'theme': 'dark'
+        })
     }, [])
 
     return (
-        <div>
-            <div style={{width: "100%", display: "inline-block"}} id="buttonDiv"></div>
+        <div className='flex justify-center transition-opacity '>
+            <div style={{display: "inline-block"}} id="buttonDiv"></div>
         </div>
     )
 }

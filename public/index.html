@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="https://accounts.google.com/gsi/client"></script>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -10,6 +10,7 @@
       name="description"
       content="Web site created using create-react-app"
     />
+    
     <!-- Metro UI Image magnifier -->
     <!-- <link rel="stylesheet" href="https://cdn.korzh.com/metroui/v4/css/metro-all.min.css"> -->
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
@@ -30,8 +31,14 @@
     <title>Arterest</title>
   </head>
   <body>
+    <script>$("body").on("contextmenu", "img", function(e) {
+      return false;
+    });</script>
+    
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+
+   
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
