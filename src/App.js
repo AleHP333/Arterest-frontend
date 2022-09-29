@@ -32,6 +32,7 @@ import AllRequests from "./pages/Admin/views/AllRequests";
 import Alert from "./components/Alert/Alert";
 
 import Buy from "./components/Buy/Buy";
+import ArtPost from "./pages/ArtRequest/ArtPost";
 
 
 function App() {
@@ -93,6 +94,9 @@ function App() {
             <Route exact path="/admin/artworks/artworkDetail/:id" element={<ProductDetail />} />
           </> : null}
           {loggedUser !== undefined ? <Route exact path="/profile" element={<UserProfile />} /> : null}
+          {/* {loggedUser && loggedUser.isArtist === true ? <> */}
+            <Route exact path="/artist/artRequest" element={<ArtPost />} />
+            {/* </> : null} */}
           <Route path="/cart" element={<Cart />} />
           <Route path="/signUp" element={<SignUp />} />
           <Route path="/signIn" element={<SignIn />} />

@@ -17,7 +17,7 @@ export default function Profile() {
   const dispatch = useDispatch()
   const user = useSelector((state) => state.userSignReducer.userData)
   const { userName } = useParams()
-
+  console.log(user)
   useEffect(() => {
     dispatch(getUserById(userName))
   }, [dispatch, userName])
