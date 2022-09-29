@@ -62,6 +62,20 @@ export function getRequests(){
   }
 }
 
+export function getArtRequests(){
+  const token = localStorage.getItem("token");
+  try {
+    return async () => {
+      const response = await axios.get(`${url}/adminActions/getArtRequest`, {
+        headers: { Authorization: "Bearer " + token },
+      });
+      console.log("artR", response.data)
+      return response.data
+    };
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 
 

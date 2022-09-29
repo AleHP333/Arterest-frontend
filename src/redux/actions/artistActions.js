@@ -5,7 +5,6 @@ const url = "http://localhost:3001"
 export function artRequest(formData) {
     const token = localStorage.getItem("token")
     return async function a(dispatch) {
-        console.log(formData, "form en el action despues del return");
         const res = await axios.post(`${url}/artist/productRequest`, formData, {
             headers: { Authorization: "Bearer " + token },
         }, { validateStatus: false });

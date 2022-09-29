@@ -15,6 +15,7 @@ import IconButton from '@mui/material/IconButton';
 
 //ARRAYS
 import { countries } from './countryList';
+import { useNavigate } from "react-router-dom";
 
 const technique = ["Oil", "Pastel", "Watercolor", "Digital-Art", "Microfiber", "Fiber", "Graphite", "Pen", "Color-pen", "Photography"]
 
@@ -23,6 +24,7 @@ const colors = ["Aquamarine", "Black", "Brown", "Crimson", "Fuscia", "Khaki", "R
 export default function CreateProduct(){
   
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const [errors, setErrors] = useState({})
 
@@ -116,6 +118,12 @@ export default function CreateProduct(){
             axios.post("https://api.cloudinary.com/v1_1/onlypan/upload", formData)
                 .then((resAxios) => {
                     dispatch(artRequest({...input, img: resAxios.data.secure_url}))
+                    .then((res) => {
+                        console.log(res)
+                        if(res === "success"){
+                            navigate("/profile")
+                        }
+                    })
                 })
                 .catch(error=>console.log(error))
         } catch (error) {

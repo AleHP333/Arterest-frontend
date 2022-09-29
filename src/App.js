@@ -33,6 +33,7 @@ import Alert from "./components/Alert/Alert";
 
 import Buy from "./components/Buy/Buy";
 import ArtPost from "./pages/ArtRequest/ArtPost";
+import SellRequests from "./pages/Admin/views/SellRequests";
 
 
 function App() {
@@ -89,6 +90,7 @@ function App() {
             <Route exact path="/admin" element={<Dashboard />} />
             <Route exact path="/admin/artworks" element={<AllArtWork />} />
             <Route exact path="/admin/requests" element={<AllRequests />} />
+            <Route exact path="/admin/sellRequests" element={<SellRequests />} />
             <Route exact path="/admin/users" element={<AllUsers />} />
             <Route exact path="/admin/editproduct/:id" element={<EditProduct />} />
             <Route exact path="/admin/artworks/artworkDetail/:id" element={<ProductDetail />} />
