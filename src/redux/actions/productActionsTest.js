@@ -81,10 +81,12 @@ export function artFilter(price) {
   return { type: "ART_FILTER", payload: price };
 }
 
-export function getUserById(id) {
-
+export function getUserById() {
+  const token = localStorage.getItem("token")
   return async function (dispatch) {
-    const res = await axios.get(`${url}/users/${id}`);
+    const res = await axios.get(`${url}/users/`, {
+      headers: { Authorization: "Bearer " + token }
+  });
     dispatch({
       type: "GET_USER_BY_ID",
       payload: res.data,
@@ -133,12 +135,12 @@ export function banUser(user) {
   }
 }
 export const updateProfile = (user) => {
-  
+  console.log('entré a la action')
+  const token = localStorage.getItem("token")
   return async function (dispatch) {
-      const response = await axios.put(`${url}/users/modifyUserProfile/`, user);
-      return dispatch({
-          type: 'UPDATE_PROFILE',
-          payload: response.data
+      const response = await axios.put(`${url}/users/modifyUserProfile/`, user, {
+        headers: { Authorization: "Bearer " + token },
       });
+      dispatch({type: "USER_STATUS", payload: { userData: response.data.userData, msgData: undefined }});
   };
 };

@@ -27,14 +27,9 @@ import Cart from "./components/Cart/Cart";
 import ProductDetail from "./pages/Admin/components/ProductDetail";
 import UserProfile from "./pages/UserProfile/UserProfile";
 import Footer from "./pages/Footer/Footer";
-<<<<<<< HEAD
 import GiftCard from "./components/GiftCard/GiftCard";
-=======
 import AllRequests from "./pages/Admin/views/AllRequests";
->>>>>>> d4aa3bb790a7d8fc390ab725e61fd5e9781b909b
-
 import Alert from "./components/Alert/Alert";
-
 import Buy from "./components/Buy/Buy";
 
 
@@ -101,13 +96,11 @@ function App() {
           <Route path="/signUp" element={<SignUp />} />
           <Route path="/signIn" element={<SignIn />} />
           <Route path="/verifyEmail/:id" element={<VerifyEmail />} />
-<<<<<<< HEAD
           <Route exact path="/profile" element={<UserProfile />} />
           <Route path="/giftcard" element={<GiftCard />} />
-=======
->>>>>>> d4aa3bb790a7d8fc390ab725e61fd5e9781b909b
 
           <Route path="/buy" element={<Buy/>} />
+
         </Routes>
         <Footer />
         <Alert></Alert>
