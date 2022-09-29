@@ -26,6 +26,7 @@ import VerifyEmail from "./components/VerifyEmail/VerifyEmail";
 import Cart from "./components/Cart/Cart";
 import ProductDetail from "./pages/Admin/components/ProductDetail";
 import Alert from "./components/Alert/Alert";
+import ShoppingHistory from "./components/ShoppingHistory/ShoppingHistory";
 
 
 
@@ -88,6 +89,7 @@ function App() {
           <Route path="/signIn" element={<SignIn />} />
           <Route path="/verifyEmail/:id" element={<VerifyEmail />} />
           <Route exact path="/admin/artworks/artworkDetail/:id" element={<ProductDetail />} />
+          <Route path="/history" element={<ShoppingHistory />} />
         </Routes>
         <Alert></Alert>
       </Router>

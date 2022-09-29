@@ -24,6 +24,20 @@ export function getPaintById(id) {
   };
 }
 
+export const getProductAutocomplete = (input) => (dispatch) => {
+  console.log("hola entre a la accion");
+  async function search(dispatch) {
+    console.log("hola entre al dispatch");
+    const { data } = await axios.get(`${url}/paints/autocomplete?art=${input}`);
+    console.log(data);
+    dispatch({
+      type: "GET_PRODUCT_AUTOCOMPLETE",
+      payload: data,
+    });
+  }
+  return search(dispatch);
+};
+
 export const getProductSearchbar = (input) => (dispatch) => {
   console.log("hola entre a la accion");
   async function search(dispatch) {
