@@ -24,9 +24,9 @@ export function getPaintById(id) {
   };
 }
 
-export function cleanStateGetOnePaint(){
-  console.log("ENTRO EN CLEAN")
-  return { type: "CLEAN_GET_ONE_PAINT", payload: undefined }
+export function cleanStateGetOnePaint() {
+  console.log("ENTRO EN CLEAN");
+  return { type: "CLEAN_GET_ONE_PAINT", payload: undefined };
 }
 
 export const getProductSearchbar = (input) => (dispatch) => {
@@ -95,13 +95,11 @@ export function getUserById() {
 }
 
 export function getAllUsers(id) {
-  const token = localStorage.getItem("token")
+  const token = localStorage.getItem("token");
   return async function (dispatch) {
-    const res = await axios.get(
-      `${url}/adminActions/getAllUsers`, {
-        headers: { Authorization: "Bearer " + token }
-    }
-    );
+    const res = await axios.get(`${url}/adminActions/getAllUsers`, {
+      headers: { Authorization: "Bearer " + token },
+    });
     dispatch({
       type: "GET_ALL_USERS",
       payload: res.data,
@@ -110,15 +108,19 @@ export function getAllUsers(id) {
 }
 
 export const updateProduct = (artwork) => {
-  const token = localStorage.getItem('token')
+  const token = localStorage.getItem("token");
   return async function (dispatch) {
-      const response = await axios.put(`${url}/adminActions/modifyProduct/`, artwork,  {
-        headers: { Authorization: "Bearer " + token }
+    const response = await axios.put(
+      `${url}/adminActions/modifyProduct/`,
+      artwork,
+      {
+        headers: { Authorization: "Bearer " + token },
+      }
+    );
+    return dispatch({
+      type: "UPDATE_PRODUCT",
+      payload: response.data,
     });
-      return dispatch({
-          type: 'UPDATE_PRODUCT',
-          payload: response.data
-      });
   };
 };
 
@@ -145,3 +147,17 @@ export const updateProfile = (user) => {
       dispatch({type: "USER_STATUS", payload: { userData: response.data.userData, msgData: undefined }});
   };
 };
+
+export function getOrders() {
+  const token = localStorage.getItem("token");
+  try {
+    return async (dispatch) => {
+      const response = await axios.get(`${url}/adminActions/getAllOrders`, {
+        headers: { Authorization: "Bearer " + token },
+      });
+      dispatch({ type: "GET_ALL_ORDERS", payload: response.data });
+    };
+  } catch (error) {
+    console.log(error);
+  }
+}
