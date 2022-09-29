@@ -32,22 +32,23 @@ import AllRequests from "./pages/Admin/views/AllRequests";
 import Alert from "./components/Alert/Alert";
 
 import Buy from "./components/Buy/Buy";
-
+import AllOrders from "./pages/Admin/views/AllOrders";
 
 function App() {
   const [added, setAdded] = useState(false);
   const [notAdded, setNotAdded] = useState(false);
+  
   const dispatch = useDispatch()
+
   useEffect(() => {
     if (localStorage.getItem("token") !== null) {
       const token = localStorage.getItem("token");
       dispatch(verifyToken(token));
     } else {
-      dispatch(unLogFromApp())
+      dispatch(unLogFromApp());
     }
   }, []);
 
-  
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -89,16 +90,18 @@ function App() {
             <Route exact path="/admin/artworks" element={<AllArtWork />} />
             <Route exact path="/admin/requests" element={<AllRequests />} />
             <Route exact path="/admin/users" element={<AllUsers />} />
+            <Route exact path="/admin/orders" element={<AllOrders />} />
             <Route exact path="/admin/editproduct/:id" element={<EditProduct />} />
             <Route exact path="/admin/artworks/artworkDetail/:id" element={<ProductDetail />} />
           </> : null}
           {loggedUser !== undefined ? <Route exact path="/profile" element={<UserProfile />} /> : null}
+
           <Route path="/cart" element={<Cart />} />
           <Route path="/signUp" element={<SignUp />} />
           <Route path="/signIn" element={<SignIn />} />
           <Route path="/verifyEmail/:id" element={<VerifyEmail />} />
 
-          <Route path="/buy" element={<Buy/>} />
+          <Route path="/buy" element={<Buy />} />
         </Routes>
         <Footer />
         <Alert></Alert>
