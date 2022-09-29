@@ -62,10 +62,9 @@ export default function Profile() {
           <div className="mt-4 text-center border-b pb-4">
             <h1 className="text-4xl font-medium text-gray-700">{user.userName}</h1>
           </div>
-
         </div>
         <div>
-          <div className="p-4 bg-white shadow mt-4">
+          <div className="p-4 bg-white mt-4">
             <section className="bg-gray-100  bg-opacity-50 h-screen">
               <div className="mx-auto max-w-xl md:w-3/4 shadow-md">
                 <div className="bg-gray-100  border-t-2 bg-opacity-5 border-red-400 rounded-t">
@@ -102,7 +101,6 @@ export default function Profile() {
                       </div>
                     </div>
                   </div>
-                  <hr />
                   <form onSubmit={(e) => handleSubmit(e)}>
                     <div className="md:inline-flex  space-y-4 md:space-y-0  w-full p-4 text-gray-500 items-center">
                       <h2 className="md:w-1/3 mx-auto max-w-sm">Personal info</h2>
@@ -145,7 +143,6 @@ export default function Profile() {
                           </div>
                           <label className="text-sm text-gray-400">Country</label>
                           <div className="w-full inline-flex border">
-
                             <input
                              value={input.country}
                               name='country'
@@ -159,7 +156,7 @@ export default function Profile() {
                       </div>
                     </div>
                   </form>
-                  <div className="md:w-3/12 text-center md:pl-6">
+                  <div className="flex items-center md:w-3/12 text-center md:pl-6">
                     <button
                       className="text-white w-full mx-auto max-w-sm rounded-md text-center bg-red-500  hover:bg-red-600 py-2 px-4 inline-flex items-center focus:outline-none md:float-right"
                       onClick={handleSubmit}>
@@ -169,9 +166,8 @@ export default function Profile() {
                       Update
                     </button>
                   </div>
-                  <hr />
-                  <div className="md:inline-flex w-full space-y-4 md:space-y-0 p-8 text-gray-500 items-center">
-                    <div className="md:w-5/12 w-full md:pl-9 max-w-sm mx-auto space-y-5 md:inline-flex pl-2">
+                  <div className="md:inline-flex space-y-4 md:space-y-0 w-full p-4 text-gray-500 items-center">
+                    <div className="md:inline-flex w-full  md:space-y-0 p-2 text-gray-500 items-center">
                       <div className="w-full inline-flex border-b">
                         <div>
                           {user.isArtist !== undefined && user.isArtist ? null : <ArtistRequest />}
@@ -179,40 +175,9 @@ export default function Profile() {
                       </div>
                     </div>
                   </div>
-                  <hr />
-                  <div className="w-full p-4 text-right text-gray-500">
-                    <button className="inline-flex items-center focus:outline-none mr-4">
-                      <svg fill="none" className="w-4 mr-2" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                      </svg>
-                      Delete account
-                    </button>
-                  </div>
-                </div>
-
+               </div>
               </div>
             </section>
-            <div className='pin_container' >
-              {/* {allPaints.length ? allPaints?.map((e, index) => {
-                    return (
-                        <div  key={index}>
-                           
-                                <Card  className='img'
-                                    img={e.img}
-                                    userName={e.userName}
-                                    userImage={e.userImage}
-                                    title={e.title}
-                                    price={e.price}
-                                    key={e._id}>
-                                </Card>
-                            
-                        </div>
-                    );
-                }) : <Box sx={{ display: 'flex' }}>
-                        <CircularProgress />
-                    </Box>
-                } */}
-            </div>
           </div>
         </div>
       </main>

@@ -65,15 +65,15 @@ export default function ArtistRequest() {
     return (
         <div>
             {open ? 
-            <div className='py-4 px-4 my-50% mx-50% bg-gray-400'> 
-                    <div className='flex'>
-                    <p>Become an Artist!</p>
-                    <IconButton onClick={() => {handleClose()}} sx={{ width: 60, height: 60, mr: "2rem"}} aria-label="send">
-                        <CloseIcon sx={{ width: 40, height: 40}}/>
+            <div className='py-4 px-4 my-50% mx-50%  bg-gray-100  border-t-2 bg-opacity-5 border-red-400 rounded-t'> 
+                    <IconButton onClick={() => {handleClose()}} sx={{ width: 20, height: 20, ml: "30rem", color: 'rgba(239, 68, 68)'}} aria-label="send">
+                        <CloseIcon sx={{ width: 20, height: 20}}/>
                     </IconButton>
+                    <div className='flex mb-4'>
+                    <p>Become an Artist!</p>
                     </div>
-                    <p>Complete the form with a descriptive message of you and your works, you can leave 3 paint URLS, that will let us know what kind of artist you are. You should know that if you don't meet the necessary requirements to be an artist on our website, your application will be denied. But don't give up, keep trying. We will be happy to see your progress! Thank you for choosing us! </p>
-                    <h2>Message:</h2>
+                    <p className='mb-4'>Complete the form with a descriptive message of you and your works, you can leave 3 paint URLS, that will let us know what kind of artist you are. You should know that if you don't meet the necessary requirements to be an artist on our website, your application will be denied. But don't give up, keep trying. We will be happy to see your progress! Thank you for choosing us! </p>
+                    <h2 className='mb-4'>Message:</h2>
                     <TextField
                             sx={{ mx: 2, width: "60vh"}}
                             id="outlined-multiline-static"
@@ -102,15 +102,19 @@ export default function ArtistRequest() {
                     />
                     <h3>URL-3</h3>
                     <input
-                        className="border border-gray-400 block py-2 w-full rounded focus:border-teal-500"
+                        className="border border-gray-400  block py-2 w-full rounded focus:border-teal-500"
                         id="title"
                         type="text"
                         onChange={(e) => setInputUrl3(e.target.value)}
                         value={inputUrl3}
                     />
-                <Button onClick={() => {handleSubmit()}} variant="contained">Send</Button>
+                <button 
+                 className="text-white text-center rounded-md mt-2 bg-red-500  hover:bg-red-600 py-2 px-4 inline-flex items-center focus:outline-none "
+                onClick={() => {handleSubmit()}} >Send</button>
                 </div> 
-            : <Button onClick={() => {setOpen(true)}} variant="contained">Become An Artist</Button> }
+            : <button 
+            className="text-white w-full mx-auto max-w-sm rounded-md text-center bg-red-500  hover:bg-red-600 py-2 px-4 inline-flex items-center focus:outline-none md:float-right"
+            onClick={() => {setOpen(true)}} >Become An Artist</button> }
         </div>
     )
 }
