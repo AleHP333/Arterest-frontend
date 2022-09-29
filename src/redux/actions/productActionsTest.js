@@ -133,3 +133,17 @@ export function banUser(user) {
     console.error(error);
   }
 }
+
+export function getOrders() {
+  const token = localStorage.getItem("token");
+  try {
+    return async (dispatch) => {
+      const response = await axios.get(`${url}/adminActions/getAllOrders`, {
+        headers: { Authorization: "Bearer " + token },
+      });
+      dispatch({ type: "GET_ALL_ORDERS", payload: response.data });
+    };
+  } catch (error) {
+    console.log(error);
+  }
+}

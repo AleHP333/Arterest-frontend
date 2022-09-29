@@ -1,6 +1,6 @@
 import "./app.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from "react";
 import { unLogFromApp, verifyToken } from "./redux/actions/userSignActions";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -31,23 +31,22 @@ import Footer from "./pages/Footer/Footer";
 import Alert from "./components/Alert/Alert";
 
 import Buy from "./components/Buy/Buy";
-
+import AllOrders from "./pages/Admin/views/AllOrders";
 
 function App() {
   const [added, setAdded] = useState(false);
   const [notAdded, setNotAdded] = useState(false);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (localStorage.getItem("token") !== null) {
       const token = localStorage.getItem("token");
       dispatch(verifyToken(token));
     } else {
-      dispatch(unLogFromApp())
+      dispatch(unLogFromApp());
     }
   }, []);
 
-  
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -84,20 +83,31 @@ function App() {
           <Route path="/contact" element={<ContactUs />} />
           <Route exact path="/detail/:id" element={<DetailProduct />} />
           <Route path="/artistprofile/:userName" element={<ArtistProfile />} />
-          {loggedUser && loggedUser.isAdmin === true ? <>
-            <Route exact path="/admin" element={<Dashboard />} />
-            <Route exact path="/admin/artworks" element={<AllArtWork />} />
-            <Route exact path="/admin/users" element={<AllUsers />} />
-            <Route exact path="/admin/editproduct/:id" element={<EditProduct />} />
-            <Route exact path="/admin/artworks/artworkDetail/:id" element={<ProductDetail />} />
-          </> : null }
+          {loggedUser && loggedUser.isAdmin === true ? (
+            <>
+              <Route exact path="/admin" element={<Dashboard />} />
+              <Route exact path="/admin/artworks" element={<AllArtWork />} />
+              <Route exact path="/admin/users" element={<AllUsers />} />
+              <Route exact path="/admin/orders" element={<AllOrders />} />
+              <Route
+                exact
+                path="/admin/editproduct/:id"
+                element={<EditProduct />}
+              />
+              <Route
+                exact
+                path="/admin/artworks/artworkDetail/:id"
+                element={<ProductDetail />}
+              />
+            </>
+          ) : null}
           <Route path="/cart" element={<Cart />} />
           <Route path="/signUp" element={<SignUp />} />
           <Route path="/signIn" element={<SignIn />} />
           <Route path="/verifyEmail/:id" element={<VerifyEmail />} />
           <Route exact path="/profile" element={<UserProfile />} />
 
-          <Route path="/buy" element={<Buy/>} />
+          <Route path="/buy" element={<Buy />} />
         </Routes>
         <Footer />
         <Alert></Alert>

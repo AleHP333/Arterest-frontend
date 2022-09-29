@@ -1,4 +1,4 @@
-const { GET_PAINT_BY_ID } = require('../actions/productActionsTest');
+const { GET_PAINT_BY_ID } = require("../actions/productActionsTest");
 
 const initialState = {
   products: [],
@@ -8,8 +8,9 @@ const initialState = {
   getAnArtist: [],
   getUser: [],
   allUsers: [],
-  paintComments: []
-}
+  paintComments: [],
+  orders: [],
+};
 
 export default function testReducer(state = initialState, action) {
   switch (action.type) {
@@ -29,19 +30,19 @@ export default function testReducer(state = initialState, action) {
       };
     case "ART_FILTER":
       function filterPaints(state, action) {
-        let paints = [...state.products]
+        let paints = [...state.products];
         if (action.payload === "minValue") {
-          paints = paints.sort((a, b) => a.price - b.price)
+          paints = paints.sort((a, b) => a.price - b.price);
         }
         if (action.payload === "maxValue") {
-          paints = paints.sort((a, b) => a.price - b.price).reverse()
+          paints = paints.sort((a, b) => a.price - b.price).reverse();
         }
-        return paints
+        return paints;
       }
       return {
         ...state,
-        allProducts: filterPaints(state, action)
-      }
+        allProducts: filterPaints(state, action),
+      };
     case "ACTIVE_LOADING":
       return {
         ...state,
@@ -68,40 +69,47 @@ export default function testReducer(state = initialState, action) {
       return {
         ...state,
         paintDetail: action.payload,
-      }
-    case "CLEAN_GET_ONE_PAINT": 
+      };
+    case "CLEAN_GET_ONE_PAINT":
       return {
         ...state,
-        paintDetail: action.payload
-      }
-    case 'GET_USER_BY_ID':
+        paintDetail: action.payload,
+      };
+    case "GET_USER_BY_ID":
       return {
         ...state,
         getUser: action.payload,
-      }
-      case 'GET_ALL_USERS':
-        return {
-          ...state,
-          allUsers: action.payload,
-        }
-        case 'UPDATE_PRODUCT':
-          const allArtworkUpdated = state.allProducts.map(item =>
-              item._id === action.payload._id ? action.payload : item);
+      };
+    case "GET_ALL_USERS":
+      return {
+        ...state,
+        allUsers: action.payload,
+      };
+    case "UPDATE_PRODUCT":
+      const allArtworkUpdated = state.allProducts.map((item) =>
+        item._id === action.payload._id ? action.payload : item
+      );
 
-          const artworkUpdated = state.products.map(item =>
-              item._id === action.payload._id ? action.payload : item);
+      const artworkUpdated = state.products.map((item) =>
+        item._id === action.payload._id ? action.payload : item
+      );
 
-          return {
-              ...state,
-              allProducts: allArtworkUpdated,
-              products: artworkUpdated,
-              paintDetail: action.payload
-          }
+      return {
+        ...state,
+        allProducts: allArtworkUpdated,
+        products: artworkUpdated,
+        paintDetail: action.payload,
+      };
     case "GET_COMMENTS":
       return {
         ...state,
-        paintComments: action.payload
-      }
+        paintComments: action.payload,
+      };
+    case "GET_ALL_ORDERS":
+      return {
+        ...state,
+        orders: action.payload,
+      };
     default:
       return state;
   }
