@@ -51,7 +51,7 @@ export function OrderSingleProduct(id,count){
 
 export async function sendOrder (id,data){
     let urls = ''
-    await axios.post(`/payment/create-order/`+id,data)
+    await axios.post(`http://localhost:3001/payment/create-order/`+id,data)
     .then(res =>  urls = res.data)
 }
 
