@@ -77,6 +77,21 @@ export function getArtRequests(){
   }
 }
 
+export function approveArtRequest(object){
+  const token = localStorage.getItem("token");
+  try {
+    return async (dispatch) => {
+      const response = await axios.post(`${url}/adminActions/approveArt`, object, {
+        headers: { Authorization: "Bearer " + token },
+      }, { validateStatus: false });
+      console.log("artR", response.data)
+      dispatch({type: "MESSAGE", payload: response.data.msgData})
+    };
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 
 
 // export function getAllUsers() {

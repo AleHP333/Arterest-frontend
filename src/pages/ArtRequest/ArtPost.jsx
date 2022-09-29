@@ -83,10 +83,10 @@ export default function CreateProduct(){
     }
 
     function handleSelect(e){
-        if(e.target.name === "technique" && input[e.target.name] > 2){
+        if(e.target.name === "technique" && input[e.target.name].length >= 2){
             return
         }
-        if(e.target.name === "colors" && input[e.target.name] > 3){
+        if(e.target.name === "colors" && input[e.target.name].length >= 3){
             return
         }
         const find = input[e.target.name].find(value => value === e.target.value)
@@ -99,7 +99,7 @@ export default function CreateProduct(){
     }
 
     function addTag(){
-        if(input.tags > 3){
+        if(input.tags.length >= 3){
             return
         }
         setInput({

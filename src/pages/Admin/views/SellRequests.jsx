@@ -62,6 +62,7 @@ export default function SellRequests() {
                         return (<ArtRequestCard 
                             key={index}
                             _id={request.user._id}
+                            requestId={request._id}
                             isArtist={request.user.isArtist}
                             userImage={request.user.userImage}
                             userName={request.user.userName}
@@ -76,6 +77,8 @@ export default function SellRequests() {
                             releaseDate = {request.releaseDate}
                             price = {request.price}
                             tags = {request.tags}
+                            setReload = {setReload}
+                            reload = {reload}
                         />)
                     }) : <div>No hay requests</div>}
                   </tbody>
