@@ -13,8 +13,8 @@ import ArtistRequest from "../../components/ArtistRequest/ArtistRequest";
 export default function Profile() {
   const dispatch = useDispatch()
   const user = useSelector((state) => state.userSignReducer.userData)
-  const { userName } = useParams()
-  const navigate = useNavigate()
+  // const { id } = useParams()
+  // const navigate = useNavigate()
   console.log(user, 'USER')
 
   const [input, setInput] = useState({
@@ -27,10 +27,7 @@ export default function Profile() {
   })
 
   useEffect(() => {
-    if (!user) {
-      dispatch(getUserById(userName))
-    }
-    if (user) {
+    if (user !== undefined) {
       setInput({
         userName: user.userName,
         userImage: user.userImage,
@@ -40,7 +37,7 @@ export default function Profile() {
         city: user.city,
       })
     }
-  }, [dispatch, userName])
+  }, [user])
 
   function handleChange(e) {
     setInput({
@@ -51,8 +48,7 @@ export default function Profile() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    dispatch(updateProfile({ ...input, userName: user.userName }))
-    // navigate(`/profile`)
+    dispatch(updateProfile({ ...input }))
   }
 
   return (
@@ -63,9 +59,9 @@ export default function Profile() {
           <img className="w-20 h-20 rounded-full" alt="User avatar" src={user.userImage || UserPhoto} />
         </div>
         <div>
-        <div className="mt-4 text-center border-b pb-4">
-          <h1 className="text-4xl font-medium text-gray-700">{user.userName}</h1>
-        </div>
+          <div className="mt-4 text-center border-b pb-4">
+            <h1 className="text-4xl font-medium text-gray-700">{user.userName}</h1>
+          </div>
 
         </div>
         <div>
@@ -108,52 +104,60 @@ export default function Profile() {
                   </div>
                   <hr />
                   <form onSubmit={(e) => handleSubmit(e)}>
-                  <div className="md:inline-flex  space-y-4 md:space-y-0  w-full p-4 text-gray-500 items-center">
-                    <h2 className="md:w-1/3 mx-auto max-w-sm">Personal info</h2>
-                    <div className="md:w-2/3 mx-auto max-w-sm space-y-5">
-                      <div>
-                        <label className="text-sm text-gray-400">Name</label>
-                        <div className="w-full inline-flex border">
-                          <div className="w-1/12 pt-2 bg-gray-100">
-                            <svg fill="none" className="w-6 text-gray-400 mx-auto" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                            </svg>
+                    <div className="md:inline-flex  space-y-4 md:space-y-0  w-full p-4 text-gray-500 items-center">
+                      <h2 className="md:w-1/3 mx-auto max-w-sm">Personal info</h2>
+                      <div className="md:w-2/3 mx-auto max-w-sm space-y-5">
+                        <div>
+                          <label className="text-sm text-gray-400">Name</label>
+                          <div className="w-full inline-flex border">
+                            <div className="w-1/12 pt-2 bg-gray-100">
+                              <svg fill="none" className="w-6 text-gray-400 mx-auto" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                              </svg>
+                            </div>
+                            <input
+                            value={input.names}
+                              name='names'
+                              type="text"
+                              className="w-11/12 focus:outline-none focus:text-gray-600 p-2"
+                              placeholder={user.names || ''}
+                              onChange={(e) => handleChange(e)} />
                           </div>
-                          <input
-                            type="text"
-                            className="w-11/12 focus:outline-none focus:text-gray-600 p-2"
-                            placeholder={user.names || ''}
-                            onChange={(e) => handleChange(e)} />
-                        </div>
-                        <label className="text-sm text-gray-400">Lastname</label>
-                        <div className="w-full inline-flex border">
-                          <input
-                            type="text"
-                            className="w-11/12 focus:outline-none focus:text-gray-600 p-2"
-                            placeholder={user.surnames || 'Lastname'}
-                            onChange={(e) => handleChange(e)} />
-                        </div>
-                        <label className="text-sm text-gray-400">City</label>
-                        <div className="w-full inline-flex border">
-                          <input
-                            type="text"
-                            className="w-11/12 focus:outline-none focus:text-gray-600 p-2"
-                            placeholder={user.city || 'City'}
-                            onChange={(e) => handleChange(e)} />
-                        </div>
-                        <label className="text-sm text-gray-400">Country</label>
-                        <div className="w-full inline-flex border">
+                          <label className="text-sm text-gray-400">Lastname</label>
+                          <div className="w-full inline-flex border">
+                            <input
+                            value={input.surnames}
+                              name='surnames'
+                              type="text"
+                              className="w-11/12 focus:outline-none focus:text-gray-600 p-2"
+                              placeholder={user.surnames || 'Lastname'}
+                              onChange={(e) => handleChange(e)} />
+                          </div>
+                          <label className="text-sm text-gray-400">City</label>
+                          <div className="w-full inline-flex border">
+                            <input
+                            value={input.city}
+                              name='city'
+                              type="text"
+                              className="w-11/12 focus:outline-none focus:text-gray-600 p-2"
+                              placeholder={user.city || 'City'}
+                              onChange={(e) => handleChange(e)} />
+                          </div>
+                          <label className="text-sm text-gray-400">Country</label>
+                          <div className="w-full inline-flex border">
 
-                          <input
-                            type="text"
-                            className="w-11/12 focus:outline-none focus:text-gray-600 p-2"
-                            placeholder={user.country || "Country"}
-                            onChange={(e) => handleChange(e)} />
+                            <input
+                             value={input.country}
+                              name='country'
+                              type="text"
+                              className="w-11/12 focus:outline-none focus:text-gray-600 p-2"
+                              placeholder={user.country || "Country"}
+                              onChange={(e) => handleChange(e)} />
 
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
                   </form>
                   <div className="md:w-3/12 text-center md:pl-6">
                     <button
