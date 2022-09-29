@@ -16,6 +16,8 @@ import LinearProgress from '@mui/material/LinearProgress';
 import Fade from '@mui/material/Fade';
 import Zoom from '@mui/material/Zoom';
 import ClearIcon from '@mui/icons-material/Clear';
+import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
+import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
 
 export default function FilterBar({setCurrentPage}) {
 
@@ -219,9 +221,9 @@ export default function FilterBar({setCurrentPage}) {
             {
             <>
                 <FormControl className='colorFilter'>
-                    <InputLabel id="selectSortPrice">Price</InputLabel>
+                    <InputLabel id="selectSort">Sort</InputLabel>
                     <Select
-                        id="selectSortPrice"
+                        id="selectSort"
                         sx={{ width: 150, mr: "0.5rem", }}
                         name="filter"
                         variant="filled"
@@ -230,8 +232,10 @@ export default function FilterBar({setCurrentPage}) {
                         size='small'
                         onChange={(e) => {setFilterPrice(e.target.value)}}
                     >    
-                    <MenuItem value="maxValue">Max Value</MenuItem>     
-                    <MenuItem value="minValue">Min Value</MenuItem>     
+                    <MenuItem value="maxValue"><ArrowCircleUpIcon  sx={{ width: 25, height: 25,}} className="mr-2 text-red-400" /> Value</MenuItem>     
+                    <MenuItem value="minValue"><ArrowCircleDownIcon  sx={{ width: 25, height: 25,}} className="mr-2 text-green-600" /> Min Value</MenuItem>
+                    <MenuItem value="maxLikes"><ArrowCircleUpIcon  sx={{ width: 25, height: 25,}} className="mr-2 text-blue-500" /> Likes</MenuItem>     
+                    <MenuItem value="minLikes"><ArrowCircleDownIcon  sx={{ width: 25, height: 25,}} className="mr-2 text-gray-500" /> Likes</MenuItem>
                     </Select>
                 </FormControl>
                 <IconButton sx={{ width: 40, height: 40,}} onClick={() => setFilterPrice("none")} aria-label="send">

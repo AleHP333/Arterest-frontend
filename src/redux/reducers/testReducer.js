@@ -12,6 +12,18 @@ const initialState = {
   orders: [],
 };
 
+function epicSliceXD(data){
+  const array = []
+  const sliceRounds = Math.floor(data.length / 4);
+  for (let i = 0; i < sliceRounds.length; i++) {
+      const element = array[i];
+      const indexOfLastPaint = i * 4
+      const indexOfFirstPaint = indexOfLastPaint - 4
+      array.push(data.slice(indexOfFirstPaint, indexOfLastPaint))
+  }
+  // wip xd
+}
+
 export default function testReducer(state = initialState, action) {
   switch (action.type) {
     case "GET_ALL_PRODUCTS":
@@ -29,6 +41,7 @@ export default function testReducer(state = initialState, action) {
         isLoading: false,
       };
     case "ART_FILTER":
+      console.log(action)
       function filterPaints(state, action) {
         let paints = [...state.products];
         if (action.payload === "minValue") {
@@ -37,7 +50,13 @@ export default function testReducer(state = initialState, action) {
         if (action.payload === "maxValue") {
           paints = paints.sort((a, b) => a.price - b.price).reverse();
         }
-        return paints;
+        if (action.payload === "minLikes") {
+          paints = paints.sort((a, b) => a.likes.length - b.likes.length)
+        }
+        if (action.payload === "maxLikes") {
+          paints = paints.sort((a, b) => a.likes.length - b.likes.length).reverse()
+        }
+        return paints
       }
       return {
         ...state,
@@ -79,27 +98,25 @@ export default function testReducer(state = initialState, action) {
       return {
         ...state,
         getUser: action.payload,
-      };
-    case "GET_ALL_USERS":
+      }
+    case 'GET_ALL_USERS':
       return {
         ...state,
         allUsers: action.payload,
-      };
-    case "UPDATE_PRODUCT":
-      const allArtworkUpdated = state.allProducts.map((item) =>
-        item._id === action.payload._id ? action.payload : item
-      );
+      }
+    case 'UPDATE_PRODUCT':
+      const allArtworkUpdated = state.allProducts.map(item =>
+        item._id === action.payload._id ? action.payload : item);
 
-      const artworkUpdated = state.products.map((item) =>
-        item._id === action.payload._id ? action.payload : item
-      );
+        const artworkUpdated = state.products.map(item =>
+        item._id === action.payload._id ? action.payload : item);
 
       return {
         ...state,
         allProducts: allArtworkUpdated,
         products: artworkUpdated,
-        paintDetail: action.payload,
-      };
+        paintDetail: action.payload
+      }
     case "GET_COMMENTS":
       return {
         ...state,

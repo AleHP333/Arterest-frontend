@@ -27,12 +27,43 @@ export function banUser(user) {
       const response = await axios.put(`${url}/adminActions/banUser`, user, {
         headers: { Authorization: "Bearer " + token },
       });
-      console.log(response.data, "response despues del return");
     };
   } catch (error) {
     console.error(error);
   }
 }
+
+export function turnArtist(user){
+  const token = localStorage.getItem("token");
+  try {
+    return async (dispatch) => {
+      const response = await axios.put(`${url}/adminActions/artistUser`, user, {
+        headers: { Authorization: "Bearer " + token },
+      });
+      return dispatch({type: "MESSAGE", payload: response.data})
+    };
+    
+  } catch (error) {
+    
+  }
+}
+
+export function getRequests(){
+  const token = localStorage.getItem("token");
+  try {
+    return async () => {
+      const response = await axios.get(`${url}/adminActions/getArtistRequest`, {
+        headers: { Authorization: "Bearer " + token },
+      });
+      return response.data
+    };
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+
+
 
 // export function getAllUsers() {
 //   console.log("getAllUsers", "antes del return");

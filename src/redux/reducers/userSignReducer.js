@@ -3,7 +3,6 @@ const initialState = {
     message: undefined
 }
 
-
 const userSignReducer = (state = initialState, action) => {
     switch (action.type) {
         case "USER_STATUS":
