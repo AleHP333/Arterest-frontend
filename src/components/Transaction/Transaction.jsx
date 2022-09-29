@@ -3,7 +3,7 @@ import swal from "sweetalert";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getTransaction } from "../../redux/actions/InteractionsActions";
-import { container_buttons, container } from "./Transaction.module.css";
+//import { container_buttons, container } from "./Tran.module.css";
 import { Button } from "react-bootstrap";
 
 
@@ -35,13 +35,13 @@ export default function Transaction() {
       {transaction ? (
         <h1>Loading</h1>
       ) : (
-        <div className={container}>
+        <div >
           <h1>Back to:</h1>
-          <div className={container_buttons}>
+          <div >
             <br />
             <br />
-            <Button onClick={() => navigate("/")}>Home</Button>
-            <Button onClick={() => navigate("/profile/buyHistory")}>
+            <Button onClick={() => navigate("/home")}>Home</Button>
+            <Button onClick={() => navigate("/profile/")}>
              Buy History
             </Button>
           </div>
