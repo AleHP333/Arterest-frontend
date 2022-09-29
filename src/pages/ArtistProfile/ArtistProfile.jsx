@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { getAnArtist } from "../../redux/actions/productActionsTest";
 import Card from "../../components/Card/Card";
 import Footer from "../Footer/Footer";
@@ -23,12 +23,12 @@ export default function Profile() {
   return (
     <>
       { Object.keys(allPaints).length !== 0 ? 
-      <div className="p-16">
+      <div className="py-3 px-16">
         <div className="p-8 bg-white shadow mt-24">
           <div className="grid grid-cols-1 md:grid-cols-3">
             <div className="grid grid-cols-3 text-center order-last md:order-first mt-20 md:mt-0">
               <div>
-                <p className="font-bold text-gray-700 text-xl">22</p>
+                <p className="font-bold text-gray-700 text-xl">{allPaints.map(paint => paint.likes).flat().length}</p>
                 <p className="text-gray-400">Likes</p>
               </div>
               <div>
@@ -36,7 +36,7 @@ export default function Profile() {
                 <p className="text-gray-400">ArtWork</p>
               </div>
               <div>
-                <p className="font-bold text-gray-700 text-xl">89</p>
+                <p className="font-bold text-gray-700 text-xl">{allPaints.map(paint => paint.comments).flat().length}</p>
                 <p className="text-gray-400">Comments</p>
               </div>
             </div>
@@ -69,17 +69,17 @@ export default function Profile() {
           <div className='pin_container' >
                 {allPaints.length ? allPaints?.map((e, index) => {
                     return (
-                        <div  key={index}>
-                            {/* <Link> */}
+                        <div  key={index}>                         
                                 <Card  className='img'
                                     img={e.img}
                                     userName={e.userName}
                                     userImage={e.userImage}
                                     title={e.title}
                                     price={e.price}
+                                    cardLikes={e.likes.length}
+                                    _id={e._id}
                                     key={e._id}>
-                                </Card>
-                            {/* </Link> */}
+                                </Card>       
                         </div>
                     );
                 }) : <Box sx={{ display: 'flex' }}>

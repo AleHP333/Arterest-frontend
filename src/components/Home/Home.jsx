@@ -5,7 +5,6 @@ import { Link, useSearchParams, useLocation, useNavigate } from 'react-router-do
 import { activeLoading, artFilterByBack, getAllProducts } from '../../redux/actions/productActionsTest';
 import  Card  from '../Card/Card';
 import FilterBar from '../FilterBar/FilterBar';
-import Footer from '../../pages/Footer/Footer.jsx';
 import './home.css'
 
 //MUI COMPONENTS
@@ -144,10 +143,11 @@ export const Home = ({ handleAdded, handleNotAdded }) => {
                 </div>
             </div>
             <div className='pin_container'>
+            {/* grid overflow-hidden grid-cols-4 gap-3 auto-rows-auto */}
                 {typeof itemsToRender()[0]==="string"? <div >ERROR</div>:
                 itemsToRender().map((e) => {
                 return (
-                <div key={e._id}>
+                <div className='inner2' key={e._id}>
                     <Card  className='img'
                         img={e.img}
                         userName={e.userName}
@@ -156,6 +156,7 @@ export const Home = ({ handleAdded, handleNotAdded }) => {
                         title={e.title}
                         price={e.price}
                         _id={e._id}
+                        cardLikes={e.likes.length}
                         handleAdded={handleAdded}
                         handleNotAdded={handleNotAdded}
                         >                     
@@ -208,7 +209,6 @@ export const Home = ({ handleAdded, handleNotAdded }) => {
                 }
             </div> */}
       </div>
-      <Footer className="foo" />
     </div>
   );
 };

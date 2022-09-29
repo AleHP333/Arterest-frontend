@@ -2,17 +2,17 @@ import React, { useState } from 'react'
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {BsFillPencilFill} from 'react-icons/bs'
-import { getAllUsers } from '../../../redux/actions/productActionsTest';
+import { getOrders } from '../../../redux/actions/productActionsTest';
 import { banUser } from '../../../redux/actions/adminActions';
 
 
-const AllArtWork = () => {
+const AllOrders = () => {
   const dispatch = useDispatch()
-  const users = useSelector((state) => state.testReducer.allUsers)
+  const orders = useSelector((state) => state.testReducer.orders)
   const [reload, setReload] = useState(false)
 
   useEffect(() => {
-    dispatch(getAllUsers());
+    dispatch(getOrders());
   }, [reload]);
 
   function bannUser(e) {
@@ -35,10 +35,14 @@ const AllArtWork = () => {
       <div className="relative md:ml-64 bg-blueGray-100">
 
         {/* Header */}
-        <div className="relative center pl-0 bg-red-600 rounded md:pt-32 pb-32 pt-12 z-0">
+        <div className="relative center pl-0 bg-red-600 rounded md:pt-32 pb-32 pt-12">
 
         </div>
-        <div className="px-4 md:px-10 mx-auto w-full -m-24 z-1 ">
+        <div className="px-4 md:px-10 mx-auto w-full -m-24">
+          <div className="flex flex-wrap">
+            {/* <LineChart />
+            <BarChart /> */}
+          </div>
           <div className="flex flex-wrap mt-4">
             <div className="w-full xl:w-8/12 mb-12 xl:mb-0 px-4">
               <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
@@ -46,7 +50,7 @@ const AllArtWork = () => {
                   <div className="flex flex-wrap items-center">
                     <div className="relative w-full px-4 max-w-full flex-grow flex-1">
                       <h3 className="font-semibold text-base text-blueGray-700">
-                        All Users
+                        All Orders
                       </h3>
                     </div>
                   </div>
@@ -56,36 +60,45 @@ const AllArtWork = () => {
                   <table className="items-center w-full bg-transparent border-collapse">
                     <thead>
                       <tr>
-                        <th className="px-6 bg-blueGray-50 w-0 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                          User Name
+                        <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                          Id
                         </th>
                         <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                          Is Banned
+                          Buyer
                         </th>
                         <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                          Modify
+                          Quantity
                         </th>
                         <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                          Ban
+                          Date
+                        </th>
+                        <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                          Status
                         </th>
                       </tr>
                     </thead>
                     <tbody>
-                      {users ? users?.map((us, index) => {
+                      {orders.length ? orders?.map((or, index) => {
                         return (
                           <tr id={index}>
                             <th  className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                              {us.userName}
+                              {or._id}
                             </th>
                             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                            {us.isBanned === false ? 'NO': 'YES'}
+                            {or.buyer}
                             </td>
-                            <td className="flex border-t-0 px-6 ml-4 text-xs whitespace-nowrap p-4 cursor-pointer">
-                            <BsFillPencilFill onClick={()=>{bannUser(us)}}/>
+                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                            {or.transaction.quantity}
+                            </td>
+                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                            {or.dateOfBuy}
+                            </td>
+                            <td className="fborder-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                            {or.transaction.status}
                             </td>
                           </tr>
                         )
-                      }) : 'hola'}
+                      }) : 'There are no orders'}
                     </tbody>
                   </table>
                 </div>
@@ -98,4 +111,4 @@ const AllArtWork = () => {
   );
 }
 
-export default AllArtWork;
+export default AllOrders;

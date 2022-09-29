@@ -174,11 +174,11 @@ const getPrice = () => {
                       </tr>
                     </thead>
                     <tbody>
-                    {users.length ? users.map((user, index) => {
+                    {users.length ? users?.map((user, index) => {
                       return (
                        <tr>
                         <th id= {index}className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                          {user.username}
+                          {user.userName}
                         </th>
                         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                           {user.isBanned === false ? 'NO': 'YES'}
