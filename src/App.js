@@ -27,11 +27,18 @@ import Cart from "./components/Cart/Cart";
 import ProductDetail from "./pages/Admin/components/ProductDetail";
 import UserProfile from "./pages/UserProfile/UserProfile";
 import Footer from "./pages/Footer/Footer";
+import GiftCard from "./components/GiftCard/GiftCard";
 import AllRequests from "./pages/Admin/views/AllRequests";
+import Transaction from "./components/Transaction/Transaction";
+
+
 
 import Alert from "./components/Alert/Alert";
+<<<<<<< HEAD
 import ShoppingHistory from "./components/ShoppingHistory/ShoppingHistory";
 
+=======
+>>>>>>> 78ca78c15dccbad5a2b89d5a47f2f0c01626b5b3
 import Buy from "./components/Buy/Buy";
 import AllOrders from "./pages/Admin/views/AllOrders";
 
@@ -101,10 +108,11 @@ function App() {
           <Route path="/signUp" element={<SignUp />} />
           <Route path="/signIn" element={<SignIn />} />
           <Route path="/verifyEmail/:id" element={<VerifyEmail />} />
-          <Route exact path="/admin/artworks/artworkDetail/:id" element={<ProductDetail />} />
-          <Route path="/history" element={<ShoppingHistory />} />
-
+          <Route exact path="/profile" element={<UserProfile />} />
+          <Route path="/giftcard" element={<GiftCard />} />
           <Route path="/buy" element={<Buy />} />
+          <Route path="/transaction" element={<Transaction />} />
+
         </Routes>
         <Footer />
         <Alert></Alert>
