@@ -36,6 +36,7 @@ import Transaction from "./components/Transaction/Transaction";
 import Alert from "./components/Alert/Alert";
 import Buy from "./components/Buy/Buy";
 import AllOrders from "./pages/Admin/views/AllOrders";
+import ShoppingHistory from "./components/ShoppingHistory/ShoppingHistory";
 
 function App() {
   const [added, setAdded] = useState(false);
@@ -97,7 +98,10 @@ function App() {
             <Route exact path="/admin/editproduct/:id" element={<EditProduct />} />
             <Route exact path="/admin/artworks/artworkDetail/:id" element={<ProductDetail />} />
           </> : null}
-          {loggedUser !== undefined ? <Route exact path="/profile" element={<UserProfile />} /> : null}
+          {loggedUser !== undefined ? <>
+          <Route exact path="/profile" element={<UserProfile />} />
+          <Route exact path="/history" element={<ShoppingHistory />} /> </>: null}
+          
 
           <Route path="/cart" element={<Cart />} />
           <Route path="/signUp" element={<SignUp />} />

@@ -9,6 +9,7 @@ const initialState = {
   getUser: [],
   allUsers: [],
   paintComments: [],
+  productsAutocomplete: [],
   orders: [],
 };
 
@@ -72,6 +73,11 @@ export default function testReducer(state = initialState, action) {
         ...state,
         products: action.payload,
         allProducts: action.payload,
+      };
+      case "GET_PRODUCT_AUTOCOMPLETE":
+      return {
+        ...state,
+        productsAutocomplete: action.payload,
       };
     case "GET_AN_ARTIST":
       return {

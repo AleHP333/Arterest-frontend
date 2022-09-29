@@ -60,7 +60,7 @@ export default function NavBar() {
         <Link to="/favorites">
           <Tooltip title="Pinned Favorites">
             <IconButton>
-              <AiFillPushpin className="text-2xl text-black"/>
+              <AiFillPushpin className="text-3xl text-black"/>
             </IconButton>
           </Tooltip>
         </Link>
@@ -68,7 +68,7 @@ export default function NavBar() {
         <Link to="/cart">
           <Tooltip title="Shopping Cart">
             <IconButton>
-              <AiFillShopping className="text-2xl text-black"/>
+              <AiFillShopping className="text-3xl text-black"/>
             </IconButton>
           </Tooltip>
         </Link>
