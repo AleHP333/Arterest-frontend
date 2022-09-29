@@ -1,9 +1,11 @@
 import React from 'react'
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllProducts } from '../../../redux/actions/productActionsTest';
+import { cleanStateGetOnePaint, getAllProducts } from '../../../redux/actions/productActionsTest';
 import { Link } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
+import Sidebar from '../components/Sidebar';
+import Navbar from '../components/Navbar';
 
 
 const AllArtWork = () => {
@@ -13,18 +15,20 @@ const AllArtWork = () => {
   console.log(artwork, '0')
 
   useEffect(() => {
+    dispatch(cleanStateGetOnePaint())
     dispatch(getAllProducts());
   }, [dispatch]);
 
 
   return (
     <>
-      <div className="relative" >
+    <Sidebar />
+      <div className="relative md:ml-64 bg-blueGray-100" >
         {/* Header */}
-        <div className="w-full h-48 bg-red-600 mx-auto rounded absolute inset-x-0 top-0 -mt-24 flex items-center justify-center">
+        <div className="relative bg-red-600 rounded md:pt-32 pb-32 pt-12">
 
         </div>
-        <div className="container  px-4  md:container md:px-10 mx-auto w-full -m-24">
+        <div className="px-4 md:px-10 mx-auto w-full -m-24">
           <div className="container absolute px-4  md:container md:px-10 mx-auto w-full -m-24">
 
             <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 rounded">

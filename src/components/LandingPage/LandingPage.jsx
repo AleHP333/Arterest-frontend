@@ -1,9 +1,9 @@
 import { React } from "react";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Footer from "../../pages/Footer/Footer";
 // import NavBar from "../NavBar/NavBar";
-// import { Carousel } from "react-responsive-carousel";
-// import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 import i1 from '../../assets/imagen1.jpeg'
 import i2 from '../../assets/imagen2.jpeg'
 import i3 from '../../assets/imagen3.jpeg'
@@ -23,7 +23,7 @@ export default function LandingPage() {
               style={{
                 backgroundImage: "url('https://images.unsplash.com/photo-1614812512458-29a3a834f5d0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80')"
               }}>
-            <span id="blackOverlay" className="w-full h-full absolute opacity-75 bg-black"></span>
+            <span id="blackOverlay" className="w-full h-full absolute opacity-50 bg-black"></span>
           </div>
           <div className="container relative mx-auto">
               <div className="items-center flex flex-wrap">
@@ -37,6 +37,13 @@ export default function LandingPage() {
                       Whether art is your passion or profession, you've come to the right place.
                     </p>
                   </div>
+                </div>
+                <div class="w-full  flex justify-center mt-4 mb-4">
+                   <button className="rounded-full px-5 py-5 bg-black text-white hover:bg-rojo">
+                     <Link to="/home" class="font-bold">
+                       DISCOVER
+                      </Link>
+                  </button>
                 </div>
 
               </div>
@@ -86,11 +93,22 @@ export default function LandingPage() {
           <div className="container mx-auto px-4">
             <div className="items-center flex flex-wrap">
               <div className="w-full md:w-4/12 ml-auto mr-auto px-4">
-                <img
+                  <Carousel autoPlay className="grid text-center " >
+                    <div >
+                      <img alt="" src={i1} />
+                   </div>
+                   <div >
+                      <img alt="" src={i2} />
+                    </div>
+                    <div >
+                      <img alt="" src={i3} />
+                    </div>
+                 </Carousel>
+                {/* <img
                   alt="..."
                   className="max-w-full rounded-lg shadow-lg"
                   src="https://images.unsplash.com/photo-1594136976553-38699ae9047c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=712&q=80"
-                />
+                /> */}
               </div>
               <div className="w-full md:w-5/12 ml-auto mr-auto px-4">
                 <div className="md:pr-12">

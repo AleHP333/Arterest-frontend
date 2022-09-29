@@ -1,15 +1,14 @@
 import React, { useEffect } from 'react';
 import jwt_decode from "jwt-decode";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { singUp } from '../../redux/actions/userSignActions';
+import { signIn, singUp } from '../../redux/actions/userSignActions';
+import { useNavigate } from 'react-router-dom';
 //MUI
+
 
 export default function GoogleSignUp() {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
-
-
+    const navigate = useNavigate()
     async function handleResponse(response){
         let userObject = jwt_decode(response.credential);
         let res = await dispatch( singUp({
@@ -23,8 +22,13 @@ export default function GoogleSignUp() {
         if(res === "error"){
             //EN TEORIA ESTO SIRVE PARA DEVOLVER UN MENSAJE XD
         } else {
-            console.log("Acá no debe entrar")
-            navigate("/signIn")
+            await dispatch(signIn({
+                email: userObject.email,
+                password: userObject.sub,
+                from: "google"
+            }))
+            navigate("/home")
+          
         }
     }
 
@@ -35,12 +39,21 @@ export default function GoogleSignUp() {
             callback: handleResponse,
         });
 
-        google.accounts.id.renderButton(document.getElementById("buttonDiv"), {theme: "outline", size: "large", locale: "en"})
+        google.accounts.id.renderButton(document.getElementById("buttonDiv"), {
+            theme: "outline", 
+            size: "large", 
+            locale: "en",
+            'scope': 'profile email',
+            'width': 240,
+            'height': 50,
+            'longtitle': true,
+            'theme': 'dark'
+        })
     }, [])
 
     return (
-        <div>
-            <div style={{width: "100%", display: "inline-block"}} id="buttonDiv"></div>
+        <div className='flex justify-center transition-opacity '>
+            <div style={{display: "inline-block"}} id="buttonDiv"></div>
         </div>
     )
 }

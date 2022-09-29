@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 // Actions
-import { getPaintById } from '../../redux/actions/productActionsTest';
+import { cleanStateGetOnePaint, getPaintById } from '../../redux/actions/productActionsTest';
 // Components
 import CommentsBox from '../CommentsBox/CommentsBox';
 // Styles
@@ -19,23 +19,28 @@ import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import Rating from '@mui/material/Rating';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import { likeDisplike } from '../../redux/actions/userActions';
 
 export default function DetailProduct () {
 
     const dispatch = useDispatch();
     const { id } = useParams();
     const paint = useSelector((state) => state.testReducer.paintDetail);
-
+    const loggedUser = useSelector((state) => state.userSignReducer.userData)
+    const [likes, setLikes] = useState([])
     useEffect(() => {
         window.scrollTo({
             top: 0, 
             behavior: 'smooth'
         });
         if (!paint || id !== paint._id) {
-            dispatch(getPaintById(id));
+            dispatch(getPaintById(id))
+        }
+        if(paint){
+            setLikes(paint.likes)
         }
     }, [dispatch, id, paint]);
-
     // Alert Logic 
     const [open, setOpen] = React.useState(false);
     const Alert = React.forwardRef(function Alert(props, ref) {
@@ -50,6 +55,12 @@ export default function DetailProduct () {
         }
         setOpen(false);
     };
+
+    // Like
+    function handleLike(paintId){
+        dispatch(likeDisplike(paintId))
+            .then((res) => setLikes(res))
+    }
 
     // Image Zoom's Logic
     const lensRef = useRef();
@@ -245,10 +256,16 @@ export default function DetailProduct () {
                                     >Add to Cart
                                 </Button>
                                 <Tooltip title="Like">
-                                    <IconButton>
+                                    {loggedUser !== undefined ? 
+                                    <IconButton onClick={() => handleLike(paint._id)}>
+                                        {likes !== undefined && likes.find(user => user === loggedUser._id) ? 
                                         <FavoriteIcon className='text-red-500'/>
-                                    </IconButton>
+                                        : <FavoriteBorderOutlinedIcon className='text-red-500' />
+                                    }
+                                    </IconButton> 
+                                    : <FavoriteIcon className='text-red-500'/>}
                                 </Tooltip>
+                                {likes !== undefined && <span>{likes.length}</span>}
                             </div>
                         </div>
                     </div>

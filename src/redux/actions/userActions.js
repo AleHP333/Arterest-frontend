@@ -5,9 +5,7 @@ const url = "http://localhost:3001"
 
 export function addComment(paintId, comment){
     const token = localStorage.getItem("token")
-    console.log(paintId, comment)
     return async function(dispatch){
-        console.log(paintId, comment)
         if(comment !== ""){
             const res = await axios.post(`${url}/likeComments/addComment`, {paintId: paintId, comment: comment}, {
                 headers: {
@@ -41,6 +39,34 @@ export function deleteComment(id){
     const token = localStorage.getItem("token")
     return async function(dispatch){
         const res = await axios.put(`${url}/likeComments/deleteComment`, {commentId: id}, {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        })
+        dispatch({type: "MESSAGE", payload: res.data})
+    }
+}
+
+export function likeDisplike(id){
+    const token = localStorage.getItem("token")
+    return async function(dispatch){
+        const res = await axios.get(`${url}/likeComments/likeDislike/${id}`, {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        })
+        return res.data.response
+    }
+}
+
+export function cleanMsg(){
+    return {type: "CLEAN_MSG", payload: undefined}
+}
+
+export function sendRequest(request){
+    const token = localStorage.getItem("token")
+    return async function(dispatch){
+        const res = await axios.post(`${url}/artist/artistRequest`, request, {
             headers: {
                 "Authorization": `Bearer ${token}`
             }

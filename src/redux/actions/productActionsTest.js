@@ -37,13 +37,14 @@ export const getProductAutocomplete = (input) => (dispatch) => {
   }
   return search(dispatch);
 };
+export function cleanStateGetOnePaint() {
+  console.log("ENTRO EN CLEAN");
+  return { type: "CLEAN_GET_ONE_PAINT", payload: undefined };
+}
 
 export const getProductSearchbar = (input) => (dispatch) => {
-  console.log("hola entre a la accion");
   async function search(dispatch) {
-    console.log("hola entre al dispatch");
     const { data } = await axios.get(`${url}/paints/allpaints?art=${input}`);
-    console.log(data);
     dispatch({
       type: "GET_PRODUCT_SEARCHBAR",
       payload: data,
@@ -69,7 +70,6 @@ export function activeLoading() {
 export function getAnArtist(userName) {
   return async function (dispatch) {
     const res = await axios.get(`${url}/paints/allpaints?art=${userName}`);
-    console.log(res.data, "SOY EL USERNAME");
     dispatch({
       type: "GET_AN_ARTIST",
       payload: res.data,
@@ -96,7 +96,7 @@ export function artFilter(price) {
 
 export function getUserById(id) {
   return async function (dispatch) {
-    const res = await axios.get(`http://localhost:3001/user/${id}`);
+    const res = await axios.get(`${url}/user/${id}`);
     dispatch({
       type: "GET_USER_BY_ID",
       payload: res.data,
@@ -105,10 +105,11 @@ export function getUserById(id) {
 }
 
 export function getAllUsers(id) {
+  const token = localStorage.getItem("token");
   return async function (dispatch) {
-    const res = await axios.get(
-      `http://localhost:3001/adminActions/getAllUsers`
-    );
+    const res = await axios.get(`${url}/adminActions/getAllUsers`, {
+      headers: { Authorization: "Bearer " + token },
+    });
     dispatch({
       type: "GET_ALL_USERS",
       payload: res.data,
@@ -117,29 +118,45 @@ export function getAllUsers(id) {
 }
 
 export const updateProduct = (artwork) => {
-  const token = localStorage.getItem('token')
+  const token = localStorage.getItem("token");
   return async function (dispatch) {
-      const response = await axios.put('http://localhost:3001/adminActions/modifyProduct/', artwork,  {
-        headers: { Authorization: "Bearer " + token }
+    const response = await axios.put(
+      `${url}/adminActions/modifyProduct/`,
+      artwork,
+      {
+        headers: { Authorization: "Bearer " + token },
+      }
+    );
+    return dispatch({
+      type: "UPDATE_PRODUCT",
+      payload: response.data,
     });
-      return dispatch({
-          type: 'UPDATE_PRODUCT',
-          payload: response.data
-      });
   };
 };
 
 export function banUser(user) {
-  console.log(user, "user antes del return");
   const token = localStorage.getItem("token");
   try {
     return async () => {
       const response = await axios.put(`${url}/adminActions/banUser`, user, {
         headers: { Authorization: "Bearer " + token },
       });
-      console.log(response.data, "response despues del return");
     };
   } catch (error) {
     console.error(error);
+  }
+}
+
+export function getOrders() {
+  const token = localStorage.getItem("token");
+  try {
+    return async (dispatch) => {
+      const response = await axios.get(`${url}/adminActions/getAllOrders`, {
+        headers: { Authorization: "Bearer " + token },
+      });
+      dispatch({ type: "GET_ALL_ORDERS", payload: response.data });
+    };
+  } catch (error) {
+    console.log(error);
   }
 }

@@ -19,6 +19,7 @@ ReactDOM.render(
   <React.StrictMode>
   <Auth0Provider domain={authCredentials.domain} clientId={authCredentials.clientId} audience={authCredentials.audience} redirectUri={window.location.origin}>
     <App />
+    
   </Auth0Provider>
   </React.StrictMode>
   </Provider>,
