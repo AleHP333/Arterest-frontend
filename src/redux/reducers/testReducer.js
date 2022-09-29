@@ -120,8 +120,16 @@ export default function testReducer(state = initialState, action) {
     case "GET_COMMENTS":
       return {
         ...state,
-        paintComments: action.payload,
-      };
+        paintComments: action.payload
+      }
+      case 'UPDATE_PROFILE':
+        const allUserUpdated = state.allUsers.map(item =>
+            item._id === action.payload._id ? action.payload : item);
+        return {
+            ...state,
+            allUsers: allUserUpdated,
+            getUser: action.payload
+        }
     case "GET_ALL_ORDERS":
       return {
         ...state,
