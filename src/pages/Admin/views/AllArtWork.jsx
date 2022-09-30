@@ -67,7 +67,7 @@ const AllArtWork = () => {
                       return (
                         <ProductCard 
                         key={art._id}
-                        userName={art.userName}
+                        userName={art.user.userName}
                         title={art.title}
                         _id={art._id}
                         img={art.img}/>

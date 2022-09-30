@@ -62,6 +62,35 @@ export function getRequests(){
   }
 }
 
+export function getArtRequests(){
+  const token = localStorage.getItem("token");
+  try {
+    return async () => {
+      const response = await axios.get(`${url}/adminActions/getArtRequest`, {
+        headers: { Authorization: "Bearer " + token },
+      });
+      console.log("artR", response.data)
+      return response.data
+    };
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export function approveArtRequest(object){
+  const token = localStorage.getItem("token");
+  try {
+    return async (dispatch) => {
+      const response = await axios.post(`${url}/adminActions/approveArt`, object, {
+        headers: { Authorization: "Bearer " + token },
+      }, { validateStatus: false });
+      console.log("artR", response.data)
+      dispatch({type: "MESSAGE", payload: response.data.msgData})
+    };
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 
 

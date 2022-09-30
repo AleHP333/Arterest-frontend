@@ -20,8 +20,8 @@ const EditProduct = () => {
     dispatch(getPaintById(id)).then(() => {
         setInput({
           ...input,
-        userName: artDetail.userName,
-        userImage: artDetail.userImage,
+        userName: artDetail.user.userName,
+        userImage: artDetail.user.userImage,
         title: artDetail.title,
         description: artDetail.description,
         img: artDetail.img,

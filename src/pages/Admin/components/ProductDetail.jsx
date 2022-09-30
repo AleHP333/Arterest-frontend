@@ -28,8 +28,8 @@ export default function ProductDetail() {
         }
         if (artDetail){
             setInput({
-                userName: artDetail.userName,
-                userImage: artDetail.userImage,
+                userName: artDetail.user.userName,
+                userImage: artDetail.user.userImage,
                 title: artDetail.title,
                 description: artDetail.description,
                 img: artDetail.img,
