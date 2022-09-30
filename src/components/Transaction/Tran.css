@@ -1,0 +1,16 @@
+.container{
+ text-align: center;
+}
+
+.container_buttons button{
+    margin-right: 5rem;
+}
+
+.butt{
+    font-size: 16px;
+    font-weight: bolder;
+    
+}
+.butt:hover{
+    font-size: 18px; 
+    color: grey;}

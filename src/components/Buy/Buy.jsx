@@ -78,11 +78,11 @@ export default function Buy() {
         </div>
         <div>
           <div>
-            <h1>Resumen de Orden</h1>
+            <h1>Resume</h1>
             <div variant="flush">
               <div>
                 <div>
-                  <h2>Valor Total</h2>
+                  <h2>Total value</h2>
                   <span>
                     <strong>${Number(totalPrice).toFixed(2)}</strong>
                   </span>
@@ -95,9 +95,9 @@ export default function Buy() {
                     className="rounded px-4 text-base leading-none w-full py-3 bg-black border-black border focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 text-white "
                     type="button"
                     onClick={buyHandler}
-                    //disabled={CartItem.length === 0 }
+                    disabled={CartItem.length === 0 }
                   >
-                    Comprar
+                    Go to pay!
                   </button>
                 </div>
               </div>

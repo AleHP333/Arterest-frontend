@@ -2,46 +2,53 @@ import React, { useEffect } from "react";
 import swal from "sweetalert";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getTransaction } from "../../redux/actions/InteractionsActions";
-//import { container_buttons, container } from "./Tran.module.css";
+import  "./Tran.css";
 import { Button } from "react-bootstrap";
+import axios from 'axios';
 
 
 export default function Transaction() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const transaction = useSelector(
-    (state) => state.interactionsReducer.transactionDetail
-  );
+  
+  // const transact = async () => {
+  //  let transaction = await axios(`http://localhost:3001/capture-order`);
+  //   return transaction.data.data
+    
+   
+       
+  // };
 
+  const transact = "success"
+
+  
   useEffect(() => {
-    if (transaction === "success") {
+    if (transact === "success") {
       swal({
-        title: `Transacción exitosa`,
+        title: `Succesfully transaction`,
         icon: "success",
       });
-      if (transaction === "fail") {
+      if (transact === "fail") {
         swal({
-          title: `Error en la transacción`,
+          title: `Failed transaction`,
           icon: "error",
         });
       }
-      dispatch({ type: "SET_TRANSACTION_DETAIL", payload: "none" });
+      
     }
-  }, [transaction]);
+  }, []);
 
   return (
     <div>
-      {transaction ? (
+      {!transact ? (
         <h1>Loading</h1>
       ) : (
-        <div >
+        <div className="container" >
           <h1>Back to:</h1>
-          <div >
+          <div className="container_buttons" >
             <br />
             <br />
-            <Button onClick={() => navigate("/home")}>Home</Button>
-            <Button onClick={() => navigate("/profile/")}>
+            <Button className="butt" onClick={() => navigate("/home")}>Home</Button>
+            <Button className="butt" onClick={() => navigate("/profile/history")}>
              Buy History
             </Button>
           </div>
