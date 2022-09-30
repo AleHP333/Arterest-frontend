@@ -16,6 +16,9 @@ function handleErrors({userImage, title, description, img, origin, technique, st
     if(description.length > 1000 && touched.description){
         errors.description = "Max description"
     }
+    if(!img && touched.img){
+        errors.img = "Add an image"
+    }
     //ORIGIN
     if(!origin && touched.origin){
         errors.origin = "Needs a country origin"
@@ -37,9 +40,20 @@ function handleErrors({userImage, title, description, img, origin, technique, st
     if(!regEx.test(releaseDate) && touched.releaseDate){
         errors.releaseDate = "Can't contain simbols"
     };
+    //TECHNIQUE
+    if(technique.length === 0 && touched.technique){
+        errors.technique = "Add one tag at least"
+    }
+    //STYLE
+    if(style.length < 3 && touched.style){
+        errors.style = "Add an style, e.g: Cubism"
+    }
     //TAGS
     if(tags.length > 3 && touched.tags){
         errors.tags = "Only 3 tags per picture"
+    }
+    if(tags.length === 0 && touched.tags){
+        errors.tags = "Add one tag at least"
     }
     //COLORS
     if(colors.length === 0 && touched.colors){

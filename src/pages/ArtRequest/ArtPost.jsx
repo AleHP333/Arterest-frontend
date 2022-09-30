@@ -58,8 +58,9 @@ export default function ArtPost(){
 
     useEffect(() => {
         setErrors(handleErrors(input, touched))
-    }, [input])
+    }, [input, touched])
 
+    console.log(input)
     function deleteChip(name, thing){
         setInput({
             ...input,
@@ -109,8 +110,26 @@ export default function ArtPost(){
         setTagHolder("")
     }
 
-    function handleSubmit(e){
+    async function handleSubmit(e){
         e.preventDefault()
+        setTouched({
+            title: true,
+            description: true,
+            img: true,
+            origin: true,
+            technique: true,
+            style: true,
+            colors: true,
+            releaseDate: true,
+            price: true,
+            tags: true
+        })
+        await setErrors(handleErrors(input, touched))
+
+        if(Object.keys(errors).length > 0){
+            return alert("Fix all input errors before submit")
+        }
+
         try {
             const formData = new FormData();
             formData.append("file", input.img);
@@ -266,6 +285,7 @@ export default function ArtPost(){
                         name="tags"
                         type="text"
                         onChange={(e) => {setTagHolder(e.target.value); handleTouch(e)}}
+                        value={tagHolder}
                     ></input>
                     <IconButton onClick={() => {addTag()}}><AddCircleIcon /></IconButton>
                     {errors.tags && (
