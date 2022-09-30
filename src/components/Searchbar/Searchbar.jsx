@@ -1,10 +1,10 @@
 // From React
 import React from "react";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 // Actions
-import { getProductSearchbar } from "../../redux/actions/productActionsTest";
+import { getProductSearchbar, getProductAutocomplete } from "../../redux/actions/productActionsTest";
 // Icons
 import { AiOutlineSearch} from 'react-icons/ai'
 import IconButton from '@mui/material/IconButton';
@@ -16,11 +16,17 @@ export default function Searchbar() {
     const [input, setInput] = useState('')
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const autocomplete = useSelector((state) => state.testReducer.productAutocomplete)
 
     function handleStateChanges(e){
         e.preventDefault()
         setInput(e.target.value);
     }
+
+    useEffect(() => {
+      dispatch(getProductAutocomplete(input))
+    }, [input, autocomplete])
+    
 
     function handleSubmit(e) {
         e.preventDefault();

@@ -71,6 +71,7 @@ export default function AllRequests() {
                         return (<RequestCard 
                             key={index}
                             _id={request.user._id}
+                            requestId={request._id}
                             isArtist={request.user.isArtist}
                             img={request.user.userImage}
                             userName={request.user.userName}

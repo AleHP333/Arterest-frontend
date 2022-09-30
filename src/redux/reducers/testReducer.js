@@ -1,4 +1,4 @@
-const { GET_PAINT_BY_ID } = require('../actions/productActionsTest');
+const { GET_PAINT_BY_ID } = require("../actions/productActionsTest");
 
 const initialState = {
   products: [],
@@ -8,8 +8,10 @@ const initialState = {
   getAnArtist: [],
   getUser: [],
   allUsers: [],
-  paintComments: []
-}
+  paintComments: [],
+  productsAutocomplete: [],
+  orders: [],
+};
 
 function epicSliceXD(data){
   const array = []
@@ -42,12 +44,12 @@ export default function testReducer(state = initialState, action) {
     case "ART_FILTER":
       console.log(action)
       function filterPaints(state, action) {
-        let paints = [...state.products]
+        let paints = [...state.products];
         if (action.payload === "minValue") {
-          paints = paints.sort((a, b) => a.price - b.price)
+          paints = paints.sort((a, b) => a.price - b.price);
         }
         if (action.payload === "maxValue") {
-          paints = paints.sort((a, b) => a.price - b.price).reverse()
+          paints = paints.sort((a, b) => a.price - b.price).reverse();
         }
         if (action.payload === "minLikes") {
           paints = paints.sort((a, b) => a.likes.length - b.likes.length)
@@ -59,8 +61,8 @@ export default function testReducer(state = initialState, action) {
       }
       return {
         ...state,
-        allProducts: filterPaints(state, action)
-      }
+        allProducts: filterPaints(state, action),
+      };
     case "ACTIVE_LOADING":
       return {
         ...state,
@@ -71,6 +73,11 @@ export default function testReducer(state = initialState, action) {
         ...state,
         products: action.payload,
         allProducts: action.payload,
+      };
+      case "GET_PRODUCT_AUTOCOMPLETE":
+      return {
+        ...state,
+        productsAutocomplete: action.payload,
       };
     case "GET_AN_ARTIST":
       return {
@@ -87,13 +94,13 @@ export default function testReducer(state = initialState, action) {
       return {
         ...state,
         paintDetail: action.payload,
-      }
-    case "CLEAN_GET_ONE_PAINT": 
+      };
+    case "CLEAN_GET_ONE_PAINT":
       return {
         ...state,
-        paintDetail: action.payload
-      }
-    case 'GET_USER_BY_ID':
+        paintDetail: action.payload,
+      };
+    case "GET_USER_BY_ID":
       return {
         ...state,
         getUser: action.payload,
@@ -121,6 +128,19 @@ export default function testReducer(state = initialState, action) {
         ...state,
         paintComments: action.payload
       }
+      case 'UPDATE_PROFILE':
+        const allUserUpdated = state.allUsers.map(item =>
+            item._id === action.payload._id ? action.payload : item);
+        return {
+            ...state,
+            allUsers: allUserUpdated,
+            getUser: action.payload
+        }
+    case "GET_ALL_ORDERS":
+      return {
+        ...state,
+        orders: action.payload,
+      };
     default:
       return state;
   }

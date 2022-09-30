@@ -21,7 +21,7 @@ const technique = ["Oil", "Pastel", "Watercolor", "Digital-Art", "Microfiber", "
 
 const colors = ["Aquamarine", "Black", "Brown", "Crimson", "Fuscia", "Khaki", "Red", "Turquoise", "Violet", "White", "Yellow", "Green", "Blue", "Maroon", "Pink"]
 
-export default function CreateProduct(){
+export default function ArtPost(){
   
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -138,22 +138,6 @@ export default function CreateProduct(){
         })
     }
 
-    console.log("este es el input", input)
-    // onSubmit: async (input) => {    
-    //   try {
-    //     formData.append("file", img);
-
-    //     formData.append("upload_preset", "images");
-    //     axios
-    //       .post("https://api.cloudinary.com/v1_1/onlypan/upload", formData)
-    //       .then((resAxios) => {
-    //         input.img = resAxios.data.secure_url;
-    //         productPost(input);
-    //       })
-    //     .catch(error=>console.log(error))
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
     return (
         <div className="flex w-full min-h-screen justify-center items-center shadow-lg p-2 bg-gradient-to-r from-red-600 via-red-400 to-red-600">
             <div className="flex justify-between flex-col shadow-lg bg-gray-100 rounded-xl my-1">
