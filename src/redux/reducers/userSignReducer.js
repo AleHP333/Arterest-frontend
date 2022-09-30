@@ -4,6 +4,7 @@ const initialState = {
 }
 
 const userSignReducer = (state = initialState, action) => {
+    console.log(action)
     switch (action.type) {
         case "USER_STATUS":
             return {
@@ -12,6 +13,7 @@ const userSignReducer = (state = initialState, action) => {
                 message: action.payload.msgData
             }  
         case "MESSAGE":
+            console.log("entro aca")
             return {
                 ...state,
                 message: action.payload.msgData

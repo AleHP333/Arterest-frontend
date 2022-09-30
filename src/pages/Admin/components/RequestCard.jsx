@@ -6,13 +6,13 @@ import Button from '@mui/material/Button';
 import { useDispatch } from 'react-redux';
 import { turnArtist } from '../../../redux/actions/adminActions';
 
-export default function RequestCard({img, _id, isArtist, userName, email, msg, url1, url2, url3}) {
+export default function RequestCard({img, _id, requestId, isArtist, userName, email, msg, url1, url2, url3}) {
 
     const dispatch = useDispatch()
 
     function handleApprove(e){
         if(e.target.value === "yes"){
-            dispatch(turnArtist({_id: _id, isArtist: true, email: email}))
+            dispatch(turnArtist({_id: _id, isArtist: true, email: email, requestId: requestId}))
         } else {
             dispatch(turnArtist({_id: _id, isArtist: false}))
         }

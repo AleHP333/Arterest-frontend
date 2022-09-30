@@ -32,11 +32,13 @@ import AllRequests from "./pages/Admin/views/AllRequests";
 import Transaction from "./components/Transaction/Transaction";
 
 
-
 import Alert from "./components/Alert/Alert";
 import Buy from "./components/Buy/Buy";
+import ArtPost from "./pages/ArtRequest/ArtPost";
+import SellRequests from "./pages/Admin/views/SellRequests";
 import AllOrders from "./pages/Admin/views/AllOrders";
 import ShoppingHistory from "./components/ShoppingHistory/ShoppingHistory";
+
 
 function App() {
   const [added, setAdded] = useState(false);
@@ -93,16 +95,14 @@ function App() {
             <Route exact path="/admin" element={<Dashboard />} />
             <Route exact path="/admin/artworks" element={<AllArtWork />} />
             <Route exact path="/admin/requests" element={<AllRequests />} />
+            <Route exact path="/admin/sellRequests" element={<SellRequests />} />
             <Route exact path="/admin/users" element={<AllUsers />} />
             <Route exact path="/admin/orders" element={<AllOrders />} />
             <Route exact path="/admin/editproduct/:id" element={<EditProduct />} />
             <Route exact path="/admin/artworks/artworkDetail/:id" element={<ProductDetail />} />
           </> : null}
-          {loggedUser !== undefined ? <>
-          <Route exact path="/profile" element={<UserProfile />} />
-          <Route exact path="/history" element={<ShoppingHistory />} /> </>: null}
-          
-
+          {loggedUser !== undefined ? <Route exact path="/profile" element={<UserProfile />} /> : null}
+          {loggedUser && loggedUser.isArtist ? <Route exact path="/artist/artRequest" element={<ArtPost />}></Route> : null}
           <Route path="/cart" element={<Cart />} />
           <Route path="/signUp" element={<SignUp />} />
           <Route path="/signIn" element={<SignIn />} />
