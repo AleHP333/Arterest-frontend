@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getRequests } from '../../../redux/actions/adminActions';
-import RequestCard from '../components/RequestCard';
+import { getArtRequests } from '../../../redux/actions/adminActions';
+import ArtRequestCard from '../components/ArtRequestCard';
 import Sidebar from '../components/Sidebar';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
 
-export default function AllRequests() {
+export default function SellRequests() {
 
     const dispatch = useDispatch()
     const [reload, setReload] = useState(false)
-    const [allRequests, setAllRequests] = useState(undefined)
-    console.log("soy las res", allRequests)
+    const [allArtRequests, setArtRequests] = useState(undefined)
+    console.log("soy las res", allArtRequests)
     useEffect(() => {
-        dispatch(getRequests())
-            .then((res) => setAllRequests(res))
+        dispatch(getArtRequests())
+            .then((res) => setArtRequests(res))
     }, [reload])
 
     return (
@@ -54,37 +54,34 @@ export default function AllRequests() {
                   <thead>
                     <tr>
                       <th className="w-1/4 px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold">
-                        User
-                      </th>
-                      <th className="w-1/4 px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold">
-                        Message
-                      </th>
-                      <th className="w-1/4 px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold">
-                        URL
-                      </th>
-                      <th className="w-1/4 px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold">
-                        APPROVE
+                        All Art Requests
                       </th>
                     </tr>
                   </thead>
                   <tbody>
-                    {allRequests && allRequests.length ? allRequests?.map((request, index) => {
-                        return (<RequestCard 
+                    {allArtRequests && allArtRequests.length ? allArtRequests?.map((request, index) => {
+                        return (<ArtRequestCard 
                             key={index}
                             _id={request.user._id}
                             requestId={request._id}
                             isArtist={request.user.isArtist}
-                            img={request.user.userImage}
+                            userImage={request.user.userImage}
                             userName={request.user.userName}
                             email={request.user.email}
-                            msg={request.message}
-                            url1={request.url1}
-                            url2={request.url2}
-                            url3={request.url3}
-                            setReload={setReload}
-                            reload={reload}
+                            title = {request.title}
+                            description = {request.description}
+                            img = {request.img}
+                            origin = {request.origin}
+                            technique = {request.technique}
+                            style = {request.style}
+                            colors = {request.colors}
+                            releaseDate = {request.releaseDate}
+                            price = {request.price}
+                            tags = {request.tags}
+                            setReload = {setReload}
+                            reload = {reload}
                         />)
-                    }) : <div className='ml-20 my-5 py-5 flex text-center justify-center items-center h-10 w-full text-2xl'>There's not pending requests <SentimentSatisfiedAltIcon sx={{height: "50px", width: "50px"}}/></div>}
+                    }) : <div className='ml-20 my-5 py-5 flex text-center justify-center items-center h-10 w-1/4 text-2xl'>There's not pending requests <SentimentSatisfiedAltIcon sx={{height: "50px", width: "50px"}}/></div>}
                   </tbody>
                 </table>
               </div>

@@ -150,8 +150,8 @@ export const Home = ({ handleAdded, handleNotAdded }) => {
                 <div className='inner2' key={e._id}>
                     <Card  className='img'
                         img={e.img}
-                        userName={e.userName}
-                        userImage={e.userImage}
+                        userName={e.user.userName}
+                        userImage={e.user.userImage}
                         stock={e.stock}
                         title={e.title}
                         price={e.price}

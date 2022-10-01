@@ -42,7 +42,7 @@ export default function Profile() {
             </div>
             <div className="relative">
               <div className="w-48 h-48 bg-indigo-100 mx-auto rounded-full shadow-2xl absolute inset-x-0 top-0 -mt-24 flex items-center justify-center text-indigo-500">
-                <img src={allPaints[0].userImage} className="h-24 w-24 rounded-full" viewBox="0 0 20 20" fill="currentColor">
+                <img src={allPaints[0].user.userImage} className="h-24 w-24 rounded-full" viewBox="0 0 20 20" fill="currentColor">
                 </img>
               </div>
             </div>
@@ -62,7 +62,7 @@ export default function Profile() {
           </div>
 
           <div className="mt-20 text-center border-b pb-12">
-            <h1 className="text-4xl font-medium text-gray-700">{allPaints[0].userName}</h1>
+            <h1 className="text-4xl font-medium text-gray-700">{allPaints[0].user.userName}</h1>
             <p className="font-light text-gray-600 mt-3">{allPaints[0].origin}</p>
           </div>
 
@@ -72,8 +72,8 @@ export default function Profile() {
                         <div  key={index}>                         
                                 <Card  className='img'
                                     img={e.img}
-                                    userName={e.userName}
-                                    userImage={e.userImage}
+                                    userName={e.user.userName}
+                                    userImage={e.user.userImage}
                                     title={e.title}
                                     price={e.price}
                                     cardLikes={e.likes.length}

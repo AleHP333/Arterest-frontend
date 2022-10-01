@@ -218,13 +218,13 @@ export default function DetailProduct () {
                             <div className='flex m-2 gap-2'>
                                 <img 
                                     className="inline-block h-8 w-8 rounded-full ring-2 ring-white" 
-                                    src={`${paint.userImage}`} 
+                                    src={`${paint.user.userImage}`} 
                                     alt=""
                                 />
                                 <Link 
                                     className="self-center text-black-600 hover:text-black"
-                                    to={`/artistprofile/${paint.userName}`}
-                                > {paint.userName}</Link>
+                                    to={`/artistprofile/${paint.user.userName}`}
+                                > {paint.user.userName}</Link>
                             </div>
                             <p className="my-4 leading-relaxed">{paint.description}</p>
                             <div className="border-b border-gray-200 mb-6 pb-0.5">
