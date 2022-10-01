@@ -40,20 +40,18 @@ export default function SignIn() {
     });
 
     return (
-        <div className="h-screen gradient-form bg-gray-200 md:h-screen ">
+        <div className=" h-screen gradient-form bg-white md:h-screen ">
             <div className="py-3 px-1 h-full">
-                <div className="flex justify-center items-center flex-wrap h-3/6 g-6 text-gray-800">
+                <div className="mt-8 flex justify-center items-center flex-wrap h-3/6 g-6 text-gray-800">
                     <div className="xl:w-10/12">
-                        <div className="block bg-white shadow-lg rounded-lg">
+                        <div className="block bg-white border-t-2 bg-opacity-10 border-red-400 shadow-lg rounded-lg">
                             <div className="lg:flex lg:flex-wrap g-0 h-5/6">
-                                <div class="lg:w-6/12 flex items-center lg:rounded-l-lg bg-gradient-to-r from-red-600 via-red-400 to-red-600 text-gray-100" >
-                                    <div class="text-white px-4 py-6 md:p-12 md:mx-6">
-                                        <h4 class="text-xl font-semibold mb-6">Fill up the form to have access to our whole list of artworks</h4>
-                                        <p class="text-sm">
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                            consequat.
+                                <div class="lg:w-6/12 flex items-center lg:rounded-l-lg  text-red-600" >
+                                    <div class=" px-4 py-6 md:p-12 md:mx-6">
+                                        <h4 class="text-2xl text-center font-semibold mb-6">Fill up the form to have access to our whole list of artworks</h4>
+                                        <p class="text-sm font-semibold text-gray-600">
+                                        Arterest is a site that was shaped with the goal of empowering artists and creating opportunities for success.
+                                        It’s the place for artists showcase their work to other people wideworld.
                                         </p>
                                     </div>
                                 </div>
@@ -66,7 +64,7 @@ export default function SignIn() {
                                            
                                         </div>
                                         <form action="" onSubmit={signForm.handleSubmit}>
-                                            <div className="text-4xl font-bold text-gray-500 m-5"><h1>Sign In</h1></div>
+                                            <div className="text-4xl font-bold text-gray-600 m-5"><h1>Sign In</h1></div>
                                             
                                             <div>
                                                 <label htmlFor="email" className="text-gray-500">Email</label>
