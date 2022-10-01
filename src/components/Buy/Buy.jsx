@@ -23,7 +23,13 @@ export default function Buy() {
       cartItem: CartItem,
     }, { validateStatus: false });
     window.location.href = res.data;
+    if(res.status === 200){
+      
+      localStorage.setItem('cartList', JSON.stringify([]))
+      }
     console.log(window.location.href);
+
+
   };
 
   return (
@@ -35,20 +41,20 @@ export default function Buy() {
       </div>
       <div className="lg:w-96 md:w-8/12 w-full h-full">
         <div className="flex flex-col lg:h-screen h-auto lg:px-8 md:px-7 px-4 lg:py-20 md:py-10 py-6 justify-between overflow-y-auto">
-          <h2>Buyer dates</h2>
+          <strong>Buyer dates</strong>
           <strong>Name:</strong> {userState?.userName} <br />
           <strong>Email: </strong> {userState?.email} <br />
           <strong>Country:</strong> {userState?.country} <br />
-          <strong>Profile:</strong> {userState?.userImage} <br />
+          <strong>Profile:</strong><img width= "45px" height="45px" src={userState?.userImage} ></img>  <br />
           <div>
-            <Link to="/editProfile">Editar</Link>
+            <Link to="/editProfile">Edit Profile</Link>
           </div>
         </div>
       </div>
 
       <div>
         <div>
-          <h1>Items</h1>
+          <strong>Items</strong>
         </div>
 
         <div>
@@ -58,8 +64,8 @@ export default function Buy() {
                 <div md={6}>
                   {item.img ? (
                     <img
-                      width="400px"
-                      height="400px"
+                      width="250px"
+                      height="350px"
                       src={item.img}
                       alt={item.title}
                     />
@@ -78,11 +84,11 @@ export default function Buy() {
         </div>
         <div>
           <div>
-            <h1>Resumen de Orden</h1>
+            <strong>Resume</strong>
             <div variant="flush">
               <div>
                 <div>
-                  <h2>Valor Total</h2>
+                  <strong>Total value </strong>
                   <span>
                     <strong>${Number(totalPrice).toFixed(2)}</strong>
                   </span>
@@ -95,9 +101,9 @@ export default function Buy() {
                     className="rounded px-4 text-base leading-none w-full py-3 bg-black border-black border focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 text-white "
                     type="button"
                     onClick={buyHandler}
-                    //disabled={CartItem.length === 0 }
+                    disabled={CartItem.length === 0 }
                   >
-                    Comprar
+                    Go to pay!
                   </button>
                 </div>
               </div>
