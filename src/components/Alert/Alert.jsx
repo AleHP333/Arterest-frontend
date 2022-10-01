@@ -21,7 +21,7 @@ export default function Alert() {
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
             dispatch(cleanMsg())
-          return;
+            return;
         }
         setOpen(false);
         dispatch(cleanMsg())
