@@ -4,7 +4,6 @@ const url = "http://localhost:3001";
 
 export function productPost(formData) {
   console.log(formData, "form en el action");
-  try {
     async function a(dispatch) {
       console.log(formData, "form en el action despues del return");
       const post = await axios
@@ -12,84 +11,57 @@ export function productPost(formData) {
         .then((response) => response.data)
         .catch((error) => console.log(error));
     }
-
     return a();
-  } catch (error) {
-    console.log(error);
-  }
 }
 
 export function banUser(user) {
-  console.log(user, "user antes del return");
   const token = localStorage.getItem("token");
-  try {
-    return async () => {
+    return async (dispatch) => {
       const response = await axios.put(`${url}/adminActions/banUser`, user, {
         headers: { Authorization: "Bearer " + token },
       });
+      return dispatch({type: "MESSAGE", payload: response.data})
     };
-  } catch (error) {
-    console.error(error);
-  }
 }
 
 export function turnArtist(user){
   const token = localStorage.getItem("token");
-  try {
     return async (dispatch) => {
       const response = await axios.put(`${url}/adminActions/artistUser`, user, {
         headers: { Authorization: "Bearer " + token },
       });
       return dispatch({type: "MESSAGE", payload: response.data})
     };
-    
-  } catch (error) {
-    
-  }
 }
 
 export function getRequests(){
   const token = localStorage.getItem("token");
-  try {
     return async () => {
       const response = await axios.get(`${url}/adminActions/getArtistRequest`, {
         headers: { Authorization: "Bearer " + token },
       });
       return response.data
     };
-  } catch (error) {
-    console.error(error);
-  }
 }
 
 export function getArtRequests(){
   const token = localStorage.getItem("token");
-  try {
     return async () => {
       const response = await axios.get(`${url}/adminActions/getArtRequest`, {
         headers: { Authorization: "Bearer " + token },
       });
-      console.log("artR", response.data)
       return response.data
     };
-  } catch (error) {
-    console.error(error);
-  }
 }
 
 export function approveArtRequest(object){
   const token = localStorage.getItem("token");
-  try {
     return async (dispatch) => {
       const response = await axios.post(`${url}/adminActions/approveArt`, object, {
         headers: { Authorization: "Bearer " + token },
       }, { validateStatus: false });
-      console.log("artR", response.data)
-      dispatch({type: "MESSAGE", payload: response.data.msgData})
+      dispatch({type: "MESSAGE", payload: response.data})
     };
-  } catch (error) {
-    console.error(error);
-  }
 }
 
 

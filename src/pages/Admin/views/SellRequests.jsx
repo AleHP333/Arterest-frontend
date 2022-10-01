@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { getArtRequests } from '../../../redux/actions/adminActions';
 import ArtRequestCard from '../components/ArtRequestCard';
 import Sidebar from '../components/Sidebar';
+import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
 
 export default function SellRequests() {
 
@@ -58,7 +59,7 @@ export default function SellRequests() {
                     </tr>
                   </thead>
                   <tbody>
-                    {allArtRequests ? allArtRequests?.map((request, index) => {
+                    {allArtRequests && allArtRequests.length ? allArtRequests?.map((request, index) => {
                         return (<ArtRequestCard 
                             key={index}
                             _id={request.user._id}
@@ -80,7 +81,7 @@ export default function SellRequests() {
                             setReload = {setReload}
                             reload = {reload}
                         />)
-                    }) : <div>No hay requests</div>}
+                    }) : <div className='ml-20 my-5 py-5 flex text-center justify-center items-center h-10 w-1/4 text-2xl'>There's not pending requests <SentimentSatisfiedAltIcon sx={{height: "50px", width: "50px"}}/></div>}
                   </tbody>
                 </table>
               </div>

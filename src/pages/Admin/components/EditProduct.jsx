@@ -3,6 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from 'react-router-dom';
 import { cleanStateGetOnePaint, getPaintById, updateProduct } from "../../../redux/actions/productActionsTest";
 
+//MUI
+import Chip from '@mui/material/Chip';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+
+
 
 const EditProduct = () => {
 
