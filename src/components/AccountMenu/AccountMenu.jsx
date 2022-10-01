@@ -86,12 +86,6 @@ export default function AccountMenu({img, userName, isAdmin}) {
         </Link> : null }
         </MenuItem>
         <Divider />
-        <MenuItem>
-          <ListItemIcon>
-            <Settings fontSize="small" />
-          </ListItemIcon>
-          Settings
-        </MenuItem>
         <MenuItem onClick={() => Loggout()}>
           <ListItemIcon>
             <Logout fontSize="small" />

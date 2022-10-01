@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { getRequests } from '../../../redux/actions/adminActions';
 import RequestCard from '../components/RequestCard';
 import Sidebar from '../components/Sidebar';
+import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
 
 export default function AllRequests() {
 
@@ -67,7 +68,7 @@ export default function AllRequests() {
                     </tr>
                   </thead>
                   <tbody>
-                    {allRequests ? allRequests?.map((request, index) => {
+                    {allRequests && allRequests.length ? allRequests?.map((request, index) => {
                         return (<RequestCard 
                             key={index}
                             _id={request.user._id}
@@ -80,8 +81,10 @@ export default function AllRequests() {
                             url1={request.url1}
                             url2={request.url2}
                             url3={request.url3}
+                            setReload={setReload}
+                            reload={reload}
                         />)
-                    }) : <div>No hay requests</div>}
+                    }) : <div className='ml-20 my-5 py-5 flex text-center justify-center items-center h-10 w-full text-2xl'>There's not pending requests <SentimentSatisfiedAltIcon sx={{height: "50px", width: "50px"}}/></div>}
                   </tbody>
                 </table>
               </div>

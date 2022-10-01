@@ -6,15 +6,17 @@ import Button from '@mui/material/Button';
 import { useDispatch } from 'react-redux';
 import { turnArtist } from '../../../redux/actions/adminActions';
 
-export default function RequestCard({img, _id, requestId, isArtist, userName, email, msg, url1, url2, url3}) {
+export default function RequestCard({img, _id, requestId, isArtist, userName, email, msg, url1, url2, url3, setReload, reload}) {
 
     const dispatch = useDispatch()
 
     function handleApprove(e){
         if(e.target.value === "yes"){
             dispatch(turnArtist({_id: _id, isArtist: true, email: email, requestId: requestId}))
+                .then(() => setReload(!reload))
         } else {
             dispatch(turnArtist({_id: _id, isArtist: false}))
+                .then(() => setReload(!reload))      
         }
     }
 
@@ -31,7 +33,7 @@ export default function RequestCard({img, _id, requestId, isArtist, userName, em
                 {msg}
             </td>
             <td className="border-t-0 px-6 w-0  text-xs whitespace-nowrap p-4 cursor-pointer">
-                <div className='flex flex-col items-center justify-center'>
+                <div className='flex flex-col items-center justify-evenly'>
                     <a className='text-sm' href={url1} target="_blank">URL 1</a>
                     <a className='text-sm' href={url2} target="_blank">URL 2</a>
                     <a className='text-sm' href={url3} target="_blank">URL 3</a>

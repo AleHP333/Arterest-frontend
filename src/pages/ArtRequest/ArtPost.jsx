@@ -17,7 +17,7 @@ import IconButton from '@mui/material/IconButton';
 import { countries } from './countryList';
 import { useNavigate } from "react-router-dom";
 
-const technique = ["Oil", "Pastel", "Watercolor", "Digital-Art", "Microfiber", "Fiber", "Graphite", "Pen", "Color-pen", "Photography"]
+const technique = ["Oil", "Pastel", "Drawing", "Watercolor", "Painting", "Digital-Art", "Microfiber", "Ink", "Fiber", "Graphite", "Pen", "Color-pen", "Photography"]
 
 const colors = ["Aquamarine", "Black", "Brown", "Crimson", "Fuscia", "Khaki", "Red", "Turquoise", "Violet", "White", "Yellow", "Green", "Blue", "Maroon", "Pink"]
 
