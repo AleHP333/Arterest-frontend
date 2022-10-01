@@ -9,10 +9,10 @@ export function artRequest(formData) {
             headers: { Authorization: "Bearer " + token },
         }, { validateStatus: false });
         if(res.status === 201){
-            dispatch({type: "MESSAGE", payload: res.data.msgData})
+            dispatch({type: "MESSAGE", payload: res.data})
             return "success"
         } else {
-            dispatch({type: "MESSAGE", payload: res.data.msgData})
+            dispatch({type: "MESSAGE", payload: res.data})
             return "error"
         }
     }

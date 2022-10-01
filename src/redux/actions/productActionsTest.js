@@ -131,24 +131,12 @@ export const updateProduct = (artwork) => {
       }
     );
     return dispatch({
-      type: "UPDATE_PRODUCT",
-      payload: response.data,
+      type: "MESSAGE",
+      payload: response.data
     });
   };
 };
 
-export function banUser(user) {
-  const token = localStorage.getItem("token");
-  try {
-    return async () => {
-      const response = await axios.put(`${url}/adminActions/banUser`, user, {
-        headers: { Authorization: "Bearer " + token },
-      });
-    };
-  } catch (error) {
-    console.error(error);
-  }
-}
 export const updateProfile = (user) => {
   console.log('entré a la action')
   const token = localStorage.getItem("token")
@@ -163,14 +151,10 @@ export const updateProfile = (user) => {
 
 export function getOrders() {
   const token = localStorage.getItem("token");
-  try {
     return async (dispatch) => {
       const response = await axios.get(`${url}/adminActions/getAllOrders`, {
         headers: { Authorization: "Bearer " + token },
       });
       dispatch({ type: "GET_ALL_ORDERS", payload: response.data });
     };
-  } catch (error) {
-    console.log(error);
-  }
 }
