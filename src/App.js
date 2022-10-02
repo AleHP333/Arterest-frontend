@@ -38,6 +38,8 @@ import ArtPost from "./pages/ArtRequest/ArtPost";
 import SellRequests from "./pages/Admin/views/SellRequests";
 import AllOrders from "./pages/Admin/views/AllOrders";
 import ShoppingHistory from "./components/ShoppingHistory/ShoppingHistory";
+import PasswordRecover from "./pages/PasswordRecover/PasswordRecover";
+import SetPass from "./pages/PasswordRecover/SetPass";
 
 
 function App() {
@@ -103,6 +105,8 @@ function App() {
           </> : null}
           {loggedUser !== undefined ? <Route exact path="/profile" element={<UserProfile />} /> : null}
           {loggedUser && loggedUser.isArtist ? <Route exact path="/artist/artRequest" element={<ArtPost />}></Route> : null}
+          <Route exact path="/passwordRecovery" element={<PasswordRecover />} />
+          <Route exact path="/password/:token" element={<SetPass />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/signUp" element={<SignUp />} />
           <Route path="/signIn" element={<SignIn />} />

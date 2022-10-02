@@ -68,3 +68,42 @@ export function unLogFromApp(){
     localStorage.removeItem("token")
     return {type: "USER_UNLOG_FROM_APP", payload: { userData: {}}}
 }
+
+export function passwordRecoverEmail(email){
+    return async function(dispatch){
+        const response = await axios.post(`${url}/userSign/passwordRecovery`, {email: email}, { validateStatus: false })
+        if(response.status === 201){
+            dispatch({type: "MESSAGE", payload: { msgData: response.data.msgData }})
+            return "success"
+        } else {
+            dispatch({type: "MESSAGE", payload: { msgData: response.data.msgData }})
+            return "error"
+        }
+    }
+}
+
+export function verifyCode(code){
+    return async function(dispatch){
+        const response = await axios.post(`${url}/userSign/verifyPassCode`, {code: code}, { validateStatus: false })
+        if(response.status === 200){
+            dispatch({type: "MESSAGE", payload: { msgData: response.data.msgData }})
+            return "success"
+        } else {
+            dispatch({type: "MESSAGE", payload: { msgData: response.data.msgData }})
+            return "error"
+        }
+    }
+}
+
+export function changePassword(data){
+    return async function(dispatch){
+        const response = await axios.put(`${url}/userSign/changePassword`, data, { validateStatus: false })
+        if(response.status === 201){
+            dispatch({type: "MESSAGE", payload: { msgData: response.data.msgData }})
+            return "success"
+        } else {
+            dispatch({type: "MESSAGE", payload: { msgData: response.data.msgData }})
+            return "error"
+        }
+    }
+}

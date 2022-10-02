@@ -263,8 +263,8 @@ export default function ArtPost(){
                 </div>
                 <div className="text-gray-500">
                     <label htmlFor="description">Description</label>
-                    <input
-                        className="border border-gray-400 block px-1 py-2 w-full rounded focus:border-teal-500"
+                    <textarea
+                        className="border border-gray-400 block px-1 h-32 py-2 w-full rounded focus:border-teal-500"
                         id="description"
                         name="description"
                         type="text"
