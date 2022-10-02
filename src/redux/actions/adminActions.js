@@ -19,7 +19,7 @@ export function banUser(user) {
     return async (dispatch) => {
       const response = await axios.put(`${url}/adminActions/banUser`, user, {
         headers: { Authorization: "Bearer " + token },
-      });
+      }, { validateStatus: false });
       return dispatch({type: "MESSAGE", payload: response.data})
     };
 }
@@ -29,7 +29,7 @@ export function turnArtist(user){
     return async (dispatch) => {
       const response = await axios.put(`${url}/adminActions/artistUser`, user, {
         headers: { Authorization: "Bearer " + token },
-      });
+      }, { validateStatus: false });
       return dispatch({type: "MESSAGE", payload: response.data})
     };
 }
@@ -62,6 +62,18 @@ export function approveArtRequest(object){
       }, { validateStatus: false });
       dispatch({type: "MESSAGE", payload: response.data})
     };
+}
+
+export function commentDeleteAdmin(id){
+  const token = localStorage.getItem("token")
+    return async function(dispatch){
+        const res = await axios.put(`${url}/adminActions/deleteCommentAdmin`, {commentId: id}, {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        }, { validateStatus: false })
+        dispatch({type: "MESSAGE", payload: res.data})
+    }
 }
 
 
