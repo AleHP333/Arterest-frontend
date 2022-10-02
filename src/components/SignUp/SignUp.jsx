@@ -43,11 +43,11 @@ export default function SignUp() {
         },
     });
     return (
-        <div className="h-screen gradient-form bg-gray-200 md:h-screen">
-            <div className="py-3 px-1 h-full">
+        <div className="mt-8 h-screen gradient-form bg-gray-100 md:h-screen">
+            <div className="py-10 px-1 h-full">
                 <div className="flex justify-center items-center flex-wrap h-3/6 g-6 text-gray-800">
                     <div className="xl:w-10/12">
-                        <div className="block bg-white border-t-2 bg-opacity-10 border-red-400 shadow-lg rounded-lg">
+                        <div className="block bg-white border-t-2  border-red-400 shadow-lg rounded-lg">
                             <div className="lg:flex lg:flex-wrap g-0">
                                 <div className="lg:w-6/12 px-4 md:px-0">
                                     <div className="md:p-3 md:mx-6">
@@ -122,7 +122,7 @@ export default function SignUp() {
                                         </form>
                                     </div>
                                 </div>
-                                <div class="lg:w-6/12 flex items-center lg:rounded-r-lg rounded-b-lg lg:rounded-bl-none bg-white border-t-2 bg-opacity-10 border-red-400 shadow-lg rounded-lg" >
+                                <div class="lg:w-6/12 flex items-center lg:rounded-r-lg rounded-b-lg lg:rounded-bl-none bg-white border-t-2  border-red-400 shadow-lg rounded-lg" >
                                     <div class="px-4 py-6 md:p-12 md:mx-6">
                                         <h4 class="text-2xl text-center font-semibold mb-6">Fill up the form to have access to our whole list of artworks</h4>
                                         <p class="text-sm font-semibold text-gray-600">

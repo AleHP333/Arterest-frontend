@@ -66,7 +66,7 @@ export default function Profile() {
               alt="User avatar"
               src={user.userImage || UserPhoto}
             />
-            <input
+            {/* <input
               className="text-sm font-small text-right text-gray-700"
               type="file"
               filename="userImage"
@@ -74,7 +74,7 @@ export default function Profile() {
               onChange={(e) => handleChange(e)}
               //   
             
-            /><BsPencil/>
+            /><BsPencil/> */}
           </div>
           <div className="mt-4 text-center border-b pb-4">
             <input
