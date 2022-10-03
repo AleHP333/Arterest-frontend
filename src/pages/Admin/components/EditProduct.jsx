@@ -17,9 +17,6 @@ const EditProduct = () => {
 
     const artDetail = useSelector((state) => state.testReducer.paintDetail)
   
-    console.log(artDetail, 'OBRAAA');
-
-
     useEffect(() => {
        
     dispatch(getPaintById(id)).then(() => {
@@ -44,9 +41,7 @@ const EditProduct = () => {
     })
 
 
-      return () => {
-        dispatch(cleanStateGetOnePaint())
-      }
+      
     }, [artDetail])
     
     const [input, setInput] = useState({
