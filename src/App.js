@@ -1,7 +1,7 @@
 import "./app.css";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
 import { useState, useEffect } from 'react'
-import { unLog, verifyToken } from "./redux/actions/userSignActions";
+import { unLogFromApp, verifyToken } from "./redux/actions/userSignActions";
 import { useSelector, useDispatch } from "react-redux";
 
 //COMPONENTS//PAGES
@@ -27,27 +27,40 @@ import Cart from "./components/Cart/Cart";
 import ProductDetail from "./pages/Admin/components/ProductDetail";
 import UserProfile from "./pages/UserProfile/UserProfile";
 import Footer from "./pages/Footer/Footer";
+import GiftCard from "./components/GiftCard/GiftCard";
+import AllRequests from "./pages/Admin/views/AllRequests";
+import Transaction from "./components/Transaction/Transaction";
+
 
 import Alert from "./components/Alert/Alert";
-
 import Buy from "./components/Buy/Buy";
+import ArtPost from "./pages/ArtRequest/ArtPost";
+import SellRequests from "./pages/Admin/views/SellRequests";
+import AllOrders from "./pages/Admin/views/AllOrders";
+import ShoppingHistory from "./components/ShoppingHistory/ShoppingHistory";
+import PasswordRecover from "./pages/PasswordRecover/PasswordRecover";
+import SetPass from "./pages/PasswordRecover/SetPass";
 
 
 function App() {
   const [added, setAdded] = useState(false);
   const [notAdded, setNotAdded] = useState(false);
+  
   const dispatch = useDispatch()
 
   useEffect(() => {
     if (localStorage.getItem("token") !== null) {
       const token = localStorage.getItem("token");
-      dispatch(verifyToken(token));
+      dispatch(verifyToken(token))
+        .then((res) => {
+          if(res === "error"){
+            dispatch(unLogFromApp())
+          }
+        });
     } else {
-      dispatch(unLog())
+      dispatch(unLogFromApp());
     }
   }, []);
-
-  const loggedUser = useSelector((store) => store.userSignReducer.userData);
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -62,6 +75,8 @@ function App() {
   const handleNotAdded = () => {
     setNotAdded(true);
   };
+
+  const loggedUser = useSelector((store) => store.userSignReducer.userData);
 
   return (
     <>
@@ -83,18 +98,29 @@ function App() {
           <Route path="/contact" element={<ContactUs />} />
           <Route exact path="/detail/:id" element={<DetailProduct />} />
           <Route path="/artistprofile/:userName" element={<ArtistProfile />} />
-          <Route exact path="/admin" element={<Dashboard />} />
-          <Route exact path="/admin/artworks" element={<AllArtWork />} />
-          <Route exact path="/admin/users" element={<AllUsers />} />
-          <Route exact path="/admin/editproduct/:id" element={<EditProduct />} />
+          {loggedUser && loggedUser.isAdmin === true ? <>
+            <Route exact path="/admin" element={<Dashboard />} />
+            <Route exact path="/admin/artworks" element={<AllArtWork />} />
+            <Route exact path="/admin/requests" element={<AllRequests />} />
+            <Route exact path="/admin/sellRequests" element={<SellRequests />} />
+            <Route exact path="/admin/users" element={<AllUsers />} />
+            <Route exact path="/admin/orders" element={<AllOrders />} />
+            <Route exact path="/admin/editproduct/:id" element={<EditProduct />} />
+            <Route exact path="/admin/artworks/artworkDetail/:id" element={<ProductDetail />} />
+          </> : null}
+          {loggedUser !== undefined ? <Route exact path="/profile" element={<UserProfile />} /> : null}
+          {loggedUser && loggedUser.isArtist ? <Route exact path="/artist/artRequest" element={<ArtPost />}></Route> : null}
+          <Route exact path="/passwordRecovery" element={<PasswordRecover />} />
+          <Route exact path="/password/:token" element={<SetPass />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/signUp" element={<SignUp />} />
           <Route path="/signIn" element={<SignIn />} />
           <Route path="/verifyEmail/:id" element={<VerifyEmail />} />
-          <Route exact path="/admin/artworks/artworkDetail/:id" element={<ProductDetail />} />
           <Route exact path="/profile" element={<UserProfile />} />
+          <Route path="/giftcard" element={<GiftCard />} />
+          <Route path="/buy" element={<Buy />} />
+          <Route path="/transaction" element={<Transaction />} />
 
-          <Route path="/buy" element={<Buy/>} />
         </Routes>
         <Footer />
         <Alert></Alert>

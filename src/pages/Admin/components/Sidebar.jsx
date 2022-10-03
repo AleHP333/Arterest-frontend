@@ -77,7 +77,7 @@ export default function Sidebar() {
               <li className="items-center">
                 <Link
                   className="text-red-500 hover:text-red-600 text-xs uppercase py-3 font-bold block"
-                  to="/dashboard"
+                  to="/admin"
                 >
                   <i className="fas fa-tv opacity-75 mr-2 text-sm"></i> Dashboard
                 </Link>
@@ -118,6 +118,23 @@ export default function Sidebar() {
                 >
                   <i className="fas fa-clipboard-list text-blueGray-300 mr-2 text-sm"></i> All Reviews
                 </a>
+              </li>
+              <li className="items-center">
+                <Link
+                  className="text-blueGray-300 text-xs uppercase py-3 font-bold block"
+                  to="/admin/requests"
+                  
+                >
+                  <i className="fas fa-clipboard-list text-blueGray-300 mr-2 text-sm"></i> Artist Requests
+                </Link>
+              </li>
+              <li className="items-center">
+                <Link
+                  className="text-blueGray-300 text-xs uppercase py-3 font-bold block"
+                  to="/admin/sellRequests"                
+                >
+                  <i className="fas fa-clipboard-list text-blueGray-300 mr-2 text-sm"></i> Sell Requests
+                </Link>
               </li>
               <li className="items-center">
                 <Link

@@ -18,24 +18,28 @@ import Tooltip from '@mui/material/Tooltip';
 import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
-import Rating from '@mui/material/Rating';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import { likeDisplike } from '../../redux/actions/userActions';
 
 export default function DetailProduct () {
 
     const dispatch = useDispatch();
     const { id } = useParams();
     const paint = useSelector((state) => state.testReducer.paintDetail);
-
+    const loggedUser = useSelector((state) => state.userSignReducer.userData)
+    const [likes, setLikes] = useState([])
     useEffect(() => {
         window.scrollTo({
             top: 0, 
             behavior: 'smooth'
         });
         if (!paint || id !== paint._id) {
-            dispatch(getPaintById(id));
+            dispatch(getPaintById(id))
+        }
+        if(paint){
+            setLikes(paint.likes)
         }
     }, [dispatch, id, paint]);
-
     // Alert Logic 
     const [open, setOpen] = React.useState(false);
     const Alert = React.forwardRef(function Alert(props, ref) {
@@ -50,6 +54,12 @@ export default function DetailProduct () {
         }
         setOpen(false);
     };
+
+    // Like
+    function handleLike(paintId){
+        dispatch(likeDisplike(paintId))
+            .then((res) => setLikes(res))
+    }
 
     // Image Zoom's Logic
     const lensRef = useRef();
@@ -133,10 +143,10 @@ export default function DetailProduct () {
 
     return (
         !paint || id !== paint._id ? 
-        <div data-placeholder className="h-52 w-full overflow-hidden relative bg-gray-200"></div> :
+        <div>Loading...</div> :
         <div className="containerDetail mt-3 bg-white">  
-            <div className="min-h-screen px-8 text-gray-600">
-                <div className="flex md:gap-6 lg:justify-center lg:gap-14">
+            <div className="mb-5 px-8 text-gray-600">
+                <div className="flex md:gap-6 lg:justify-center lg:gap-14 items-center">
                     <div className="img-zoom-container">
                         <div 
                             onMouseEnter={() => handleMouseEnter()} 
@@ -168,6 +178,27 @@ export default function DetailProduct () {
                     </div>
                     <div className="flex flex-col lg:w-6/12">
                         <div className='flex mr-4 ml-auto gap-5'>
+                            <div className='flex items-center gap-1'>
+                                {likes !== undefined && <span className="text-black relative bottom-0.5">{likes.length}</span>}
+                                <Tooltip title="Like">
+                                    {
+                                        loggedUser !== undefined ? 
+                                        <IconButton onClick={() => handleLike(paint._id)}>
+                                        {
+                                            likes !== undefined && likes.find(user => user === loggedUser._id) ? 
+                                            <FavoriteIcon className='text-red-500'/> :
+                                            <FavoriteBorderOutlinedIcon className='text-red-500' />
+                                        }
+                                        </IconButton> : 
+                                        <FavoriteIcon className='text-red-500'/>
+                                    }
+                                    {/* {
+                                        loggedUser ? 
+                                        <FavoriteIcon className='text-red-500' /> :
+                                        <FavoriteBorderOutlinedIcon className='text-black hover:text-gray-500'/>
+                                    } */}
+                                </Tooltip>
+                            </div>
                             <CopyToClipboard text={window.location.href}>
                                 <Tooltip 
                                     onClick={() => handleClickShare()} 
@@ -193,27 +224,18 @@ export default function DetailProduct () {
                             <h1 
                                 className="text-gray-900 text-4xl font-medium title-font mb-2"
                             >{paint.title}</h1>
-                            <div className="flex gap-1">
-                                <Rating
-                                    className='self-center'
-                                    value={3.5}
-                                    precision={0.5}
-                                    size="small"
-                                    readOnly 
-                                />
-                                {/* Aca deberia ir un conteo de las reviews que se han hecho */}
-                                <p className="text-2x1">4 Reviews</p>
-                            </div>
+                            
+                            
                             <div className='flex m-2 gap-2'>
                                 <img 
                                     className="inline-block h-8 w-8 rounded-full ring-2 ring-white" 
-                                    src={`${paint.userImage}`} 
+                                    src={`${paint.user.userImage}`} 
                                     alt=""
                                 />
                                 <Link 
                                     className="self-center text-black-600 hover:text-black"
-                                    to={`/artistprofile/${paint.userName}`}
-                                > {paint.userName}</Link>
+                                    to={`/artistprofile/${paint.user.userName}`}
+                                > {paint.user.userName}</Link>
                             </div>
                             <p className="my-4 leading-relaxed">{paint.description}</p>
                             <div className="border-b border-gray-200 mb-6 pb-0.5">
@@ -244,13 +266,6 @@ export default function DetailProduct () {
                                     startIcon={<ShoppingCartOutlinedIcon />}
                                     >Add to Cart
                                 </Button>
-                                <Tooltip title="Like">
-                                    <IconButton className="iconButtonLike">
-                                        <FavoriteIcon 
-                                            className='likeButton text-white hover:text-red-500'
-                                        />
-                                    </IconButton>
-                                </Tooltip>
                             </div>
                         </div>
                     </div>

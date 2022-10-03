@@ -1,10 +1,10 @@
 const initialState = {
     userData: undefined,
-    message: {}
+    message: undefined
 }
 
-
 const userSignReducer = (state = initialState, action) => {
+    console.log(action)
     switch (action.type) {
         case "USER_STATUS":
             return {
@@ -13,6 +13,7 @@ const userSignReducer = (state = initialState, action) => {
                 message: action.payload.msgData
             }  
         case "MESSAGE":
+            console.log("entro aca")
             return {
                 ...state,
                 message: action.payload.msgData
@@ -22,6 +23,16 @@ const userSignReducer = (state = initialState, action) => {
                 ...state,
                 userData: undefined,
                 message: action.payload.msgData
+            }
+        case "USER_UNLOG_FROM_APP":
+            return {
+                ...state,
+                userData: undefined
+            }
+        case "CLEAN_MSG":
+            return {
+                ...state,
+                message: undefined
             }
         default:
             return state

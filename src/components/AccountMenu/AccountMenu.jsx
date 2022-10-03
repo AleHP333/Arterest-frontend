@@ -10,10 +10,12 @@ import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import { useDispatch } from 'react-redux';
 import { unLog } from '../../redux/actions/userSignActions';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 
-export default function AccountMenu({img, userName}) {
-    const dispatch = useDispatch()
+export default function AccountMenu({img, userName, isAdmin}) {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -23,7 +25,7 @@ export default function AccountMenu({img, userName}) {
     setAnchorEl(null);
   };
   const Loggout = () => {
-    dispatch(unLog())
+    dispatch(unLog()).then(navigate("/home"))
   }
   return (
     <React.Fragment>
@@ -74,17 +76,17 @@ export default function AccountMenu({img, userName}) {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <MenuItem>
-        <Link to='/profile'>
+        <Link className='flex items-center' to='/profile'>
           <Avatar /> Profile
         </Link>
         </MenuItem>
-        <Divider />
         <MenuItem>
-          <ListItemIcon>
-            <Settings fontSize="small" />
-          </ListItemIcon>
-          Settings
+        {isAdmin ? 
+        <Link className='flex items-center' to='/admin'>
+          <Avatar><AdminPanelSettingsIcon/></Avatar> Admin
+        </Link> : null }
         </MenuItem>
+        <Divider />
         <MenuItem onClick={() => Loggout()}>
           <ListItemIcon>
             <Logout fontSize="small" />

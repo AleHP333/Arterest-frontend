@@ -3,6 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from 'react-router-dom';
 import { cleanStateGetOnePaint, getPaintById, updateProduct } from "../../../redux/actions/productActionsTest";
 
+//MUI
+import Chip from '@mui/material/Chip';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+
+
 
 const EditProduct = () => {
 
@@ -17,8 +22,8 @@ const EditProduct = () => {
     dispatch(getPaintById(id)).then(() => {
         setInput({
           ...input,
-        userName: artDetail.userName,
-        userImage: artDetail.userImage,
+        userName: artDetail.user.userName,
+        userImage: artDetail.user.userImage,
         title: artDetail.title,
         description: artDetail.description,
         img: artDetail.img,

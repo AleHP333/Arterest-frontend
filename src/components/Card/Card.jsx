@@ -1,11 +1,17 @@
+// From React
 import React from "react";
-import "./card.css";
-import { AiOutlineHeart } from "react-icons/ai";
+import { Link } from "react-router-dom";
+// Icons
 import { AiFillShopping } from "react-icons/ai";
 import { AiFillPushpin } from "react-icons/ai";
+// Favorites and cart Logic
 import { addToFav, addToCart } from "./FavAndCart";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+// Custom Styles
+import "./card.css";
+// Material UI
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
+import Skeleton from '@mui/material/Skeleton';
 
 export default function Card({
   userName,
@@ -15,36 +21,46 @@ export default function Card({
   stock,
   _id,
   price,
-  rating,
+  cardLikes,
   handleAdded,
   handleNotAdded,
   setFavProducts,
 }) {
-  const [likes, setLikes] = useState(0);
-  const [likeActive, setLikeActive] = useState(false);
 
   return (
-    <div className="container" key={_id}>
+    <div className="container rounded-lg mb-5" key={_id}>
       <div className="img-container">
-        <Link to={`/detail/${_id}`}>
-          <img src={img} alt="" />
-        </Link>
-        <div className="user-info">
-          <button onClick={() => setLikes(likes + 1)}>
-            <AiOutlineHeart
-              onClick={() => {
-                setLikeActive(true);
-              }}
-              fill={likeActive === true ? "red" : ""}
-            />
-          </button>
-          <h6>{likes}</h6>
-          <h2>{title}</h2>
-          <img src={userImage} alt="" />
-          <Link to={"/artistprofile/" + userName}>
-            <h5>{userName}</h5>
+        {
+          !img ? 
+          <Skeleton variant="circular" width={40} height={40} /> : 
+          <Link to={`/detail/${_id}`}>
+            <img className="w-full" src={img} alt="hola" />
           </Link>
-          <span>{price}</span>
+        }
+        
+        <div className="user-info bg-white p-3 flex flex-col gap-4">
+          <div className="flex justify-center items-center">
+            <h2 className="font-semibold text-xl">{title}</h2>
+            <div className="flex text-center justify-start gap-1 absolute left-4">
+              <FavoriteIcon className='text-red-500'/>
+              <span className="text-gray-600 relative bottom-0.5">{cardLikes}</span>
+            </div>
+          </div>
+
+          <div className="flex items-center">
+            <div className="flex items-center gap-2">
+              <img className="rounded-full h-10 w-10" src={userImage} alt="" />
+              <Link to={"/artistprofile/" + userName}>
+                <h5 className="text-gray-600 hover:text-black">By {userName}</h5>
+              </Link>
+            </div>
+            
+            <div className="font-medium flex items-center absolute right-6 text-xl">
+              <MonetizationOnIcon className="text-green-500"/>
+              <span className="relative bottom-0.5">{price}</span>
+            </div>
+          </div>
+          
         </div>
       </div>
       <ul className="social-media">
@@ -93,7 +109,6 @@ export default function Card({
           </a>
         </li>
       </ul>
-      <div></div>
     </div>
   );
 }

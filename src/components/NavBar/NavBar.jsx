@@ -1,6 +1,6 @@
 // React Utilities
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Searchbar from "../Searchbar/Searchbar";
 import { AiFillShopping } from "react-icons/ai";
 import { AiFillPushpin } from "react-icons/ai";
@@ -24,12 +24,16 @@ import HomeIcon from '@mui/icons-material/Home';
 import './NavBar.css';
 
 export default function NavBar() {
-  
+  const location = useLocation()
   const loggedUser = useSelector((state) => state.userSignReducer.userData)
-
+  console.log(location.pathname)
   useEffect(() => {
 
   }, [loggedUser])
+
+  if(location.pathname === "/signUp" || location.pathname === "/signIn"){
+    return <></>
+  }
 
   return (
     <nav className="flex flex-row sticky top-0 items-center w-full py-3 bg-white z-50">
@@ -56,7 +60,7 @@ export default function NavBar() {
         <Link to="/favorites">
           <Tooltip title="Pinned Favorites">
             <IconButton>
-              <AiFillPushpin className="text-2xl text-black"/>
+              <AiFillPushpin className="text-3xl text-black"/>
             </IconButton>
           </Tooltip>
         </Link>
@@ -64,14 +68,14 @@ export default function NavBar() {
         <Link to="/cart">
           <Tooltip title="Shopping Cart">
             <IconButton>
-              <AiFillShopping className="text-2xl text-black"/>
+              <AiFillShopping className="text-3xl text-black"/>
             </IconButton>
           </Tooltip>
         </Link>
 
         { 
           loggedUser ?
-          <AccountMenu img={loggedUser.userImage} userName={loggedUser.userName}/> : 
+          <AccountMenu img={loggedUser.userImage} userName={loggedUser.userName} isAdmin={loggedUser.isAdmin}/> : 
           <Link to="/signIn">
             <button type="button" className="text-white bg-red-500 hover:bg-red-600 focus:outline-none rounded-full text-center w-max px-4 py-2 font-bold">Log in</button>
           </Link>

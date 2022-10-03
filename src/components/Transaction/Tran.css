@@ -1,0 +1,25 @@
+
+.pepe2{
+    
+    width: 100%;
+    height: 850px;
+    margin-top: -550px;
+}
+
+.container1{
+    margin-top: 300px;
+    color:aliceblue
+}
+.container_buttons button{
+    text-align: center;
+    margin-right: 2rem;
+}
+
+.butt{
+    font-size: 16px;
+    font-weight: bolder;
+    
+}
+.butt:hover{
+    font-size: 16.5px; 
+    color: grey;}

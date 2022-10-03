@@ -24,9 +24,22 @@ export function getPaintById(id) {
   };
 }
 
-export function cleanStateGetOnePaint(){
-  console.log("ENTRO EN CLEAN")
-  return { type: "CLEAN_GET_ONE_PAINT", payload: undefined }
+export const getProductAutocomplete = (input) => (dispatch) => {
+  console.log("hola entre a la accion");
+  async function search(dispatch) {
+    console.log("hola entre al dispatch");
+    const { data } = await axios.get(`${url}/paints/autocomplete?art=${input}`);
+    console.log(data);
+    dispatch({
+      type: "GET_PRODUCT_AUTOCOMPLETE",
+      payload: data,
+    });
+  }
+  return search(dispatch);
+};
+export function cleanStateGetOnePaint() {
+  console.log("ENTRO EN CLEAN");
+  return { type: "CLEAN_GET_ONE_PAINT", payload: undefined };
 }
 
 export const getProductSearchbar = (input) => (dispatch) => {
@@ -81,10 +94,12 @@ export function artFilter(price) {
   return { type: "ART_FILTER", payload: price };
 }
 
-export function getUserById(id) {
-
+export function getUserById() {
+  const token = localStorage.getItem("token")
   return async function (dispatch) {
-    const res = await axios.get(`http://localhost:3001/user/${id}`);
+    const res = await axios.get(`${url}/users/`, {
+      headers: { Authorization: "Bearer " + token }
+  });
     dispatch({
       type: "GET_USER_BY_ID",
       payload: res.data,
@@ -93,13 +108,11 @@ export function getUserById(id) {
 }
 
 export function getAllUsers(id) {
-  const token = localStorage.getItem("token")
+  const token = localStorage.getItem("token");
   return async function (dispatch) {
-    const res = await axios.get(
-      `http://localhost:3001/adminActions/getAllUsers`, {
-        headers: { Authorization: "Bearer " + token }
-    }
-    );
+    const res = await axios.get(`${url}/adminActions/getAllUsers`, {
+      headers: { Authorization: "Bearer " + token },
+    });
     dispatch({
       type: "GET_ALL_USERS",
       payload: res.data,
@@ -108,27 +121,40 @@ export function getAllUsers(id) {
 }
 
 export const updateProduct = (artwork) => {
-  const token = localStorage.getItem('token')
+  const token = localStorage.getItem("token");
   return async function (dispatch) {
-      const response = await axios.put('http://localhost:3001/adminActions/modifyProduct/', artwork,  {
-        headers: { Authorization: "Bearer " + token }
+    const response = await axios.put(
+      `${url}/adminActions/modifyProduct/`,
+      artwork,
+      {
+        headers: { Authorization: "Bearer " + token },
+      }
+    );
+    return dispatch({
+      type: "MESSAGE",
+      payload: response.data
     });
-      return dispatch({
-          type: 'UPDATE_PRODUCT',
-          payload: response.data
-      });
   };
 };
 
-export function banUser(user) {
-  const token = localStorage.getItem("token");
-  try {
-    return async () => {
-      const response = await axios.put(`${url}/adminActions/banUser`, user, {
+export const updateProfile = (user) => {
+  console.log('entré a la action')
+  const token = localStorage.getItem("token")
+  return async function (dispatch) {
+      const response = await axios.put(`${url}/users/modifyUserProfile/`, user, {
         headers: { Authorization: "Bearer " + token },
       });
+      console.log(response, 'HOLA')
+      dispatch({type: "USER_STATUS", payload: { userData: response.data.userData, msgData: undefined }});
+  };
+};
+
+export function getOrders() {
+  const token = localStorage.getItem("token");
+    return async (dispatch) => {
+      const response = await axios.get(`${url}/adminActions/getAllOrders`, {
+        headers: { Authorization: "Bearer " + token },
+      });
+      dispatch({ type: "GET_ALL_ORDERS", payload: response.data });
     };
-  } catch (error) {
-    console.error(error);
-  }
 }
