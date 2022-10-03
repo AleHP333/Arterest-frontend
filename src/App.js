@@ -51,7 +51,12 @@ function App() {
   useEffect(() => {
     if (localStorage.getItem("token") !== null) {
       const token = localStorage.getItem("token");
-      dispatch(verifyToken(token));
+      dispatch(verifyToken(token))
+        .then((res) => {
+          if(res === "error"){
+            dispatch(unLogFromApp())
+          }
+        });
     } else {
       dispatch(unLogFromApp());
     }

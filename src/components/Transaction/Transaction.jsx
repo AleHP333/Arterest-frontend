@@ -38,7 +38,7 @@ export default function Transaction() {
       {!transact ? (
         <h1>Loading</h1>
         ) : (
-          <div className="container" >
+          <div className="container1" >
           <div>
             <h1 className="container_buttons">Back to:</h1>
             <div className="container_buttons">
