@@ -26,8 +26,11 @@ export function verifyToken(token){
         });
         if(response.status === 200){
             dispatch({type: "USER_STATUS", payload: { userData: response.data.userData, msgData: undefined }});
-        } else {
+        } else if(response.status === 401){
             localStorage.removeItem("token");
+            dispatch({type: "MESSAGE", payload: { msgData: {status: "warning", msg: "Token has expired, login again"}}});
+            return "error"
+        } else {
             dispatch({type: "MESSAGE", payload: { msgData: response.data.msgData }});
         }
     }
@@ -41,6 +44,7 @@ export function verifyEmail(id){
             dispatch({type: "MESSAGE", payload: { msgData: response.data.msgData }})
         } else {
             dispatch({type: "MESSAGE", payload: { msgData: response.data.msgData }})
+            return "error"
         }
     }
 }
