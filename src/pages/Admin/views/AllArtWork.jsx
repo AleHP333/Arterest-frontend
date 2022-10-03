@@ -1,24 +1,31 @@
 import React from 'react'
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { cleanStateGetOnePaint, getAllProducts } from '../../../redux/actions/productActionsTest';
+import { cleanStateGetOnePaint, getAllProducts, getProductSearchbar } from '../../../redux/actions/productActionsTest';
 import { Link } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
 import Sidebar from '../components/Sidebar';
+import IconButton from '@mui/material/IconButton';
+import SearchIcon from '@mui/icons-material/Search';
 import Navbar from '../components/Navbar';
+import { useState } from 'react';
 
 
 const AllArtWork = () => {
 
   const dispatch = useDispatch()
   const artwork = useSelector((state) => state.testReducer.allProducts)
-  console.log(artwork, '0')
 
   useEffect(() => {
     dispatch(cleanStateGetOnePaint())
     dispatch(getAllProducts());
   }, [dispatch]);
 
+  const [search, setSearch] = useState("")
+
+  function handleSearch(){
+    dispatch(getProductSearchbar(search))
+  }
 
   return (
     <>
@@ -28,16 +35,17 @@ const AllArtWork = () => {
         <div className="relative bg-red-600 rounded md:pt-32 pb-32 pt-12">
 
         </div>
-        <div className="px-4 md:px-10 mx-auto w-full -m-24">
-          <div className="container absolute px-4  md:container md:px-10 mx-auto w-full -m-24">
-
+        <div className="px-4 md:px-10 mx-auto w-full -m-24 z-1">
+          <div className="flex flex-wrap mt-4 shadow-lg">
             <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 rounded">
               <div className="rounded-t mb-0 px-4 py-3 border-0">
                 <div className="flex flex-wrap items-center">
-                  <div className="relative w-full px-4 max-w-full flex-grow flex-1">
-                    <h3 className="font-semibold text-base text-blueGray-700">
+                  <div className="relative w-full items-center px-4 max-w-full flex-grow flex-1">
+                    <h3 className="font-semibold inline-block text-base text-blueGray-700">
                       All Artworks
                     </h3>
+                    <input onChange={(e) => setSearch(e.target.value)} placeholder='Search' className='p-1 ml-3' type="text" ></input>
+                    <IconButton onClick={() => {handleSearch()}} sx={{width: "30px", height: "30px", ml: 1, mb: "3px"}}><SearchIcon /></IconButton>
                   </div>
                   <div className="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
                     <Link to='/admin'>
@@ -63,6 +71,7 @@ const AllArtWork = () => {
                     </tr>
                   </thead>
                   <tbody>
+                    <div className='flex justify-evenly flex-wrap'>
                     {artwork.length ? artwork.map((art) => {
                       return (
                         <ProductCard 
@@ -119,6 +128,7 @@ const AllArtWork = () => {
                         // </tr>
                       )
                     }) : 'hola'}
+                    </div>
                   </tbody>
                 </table>
               </div>
