@@ -24,6 +24,26 @@ export function banUser(user) {
     };
 }
 
+export function giveAdmin(user) {
+  const token = localStorage.getItem("token");
+    return async (dispatch) => {
+      const response = await axios.put(`${url}/adminActions/giveAdmin`, user, {
+        headers: { Authorization: "Bearer " + token },
+      }, { validateStatus: false });
+      return dispatch({type: "MESSAGE", payload: response.data})
+    };
+}
+
+export function giveArtist(user) {
+  const token = localStorage.getItem("token");
+    return async (dispatch) => {
+      const response = await axios.put(`${url}/adminActions/giveArtist`, user, {
+        headers: { Authorization: "Bearer " + token },
+      }, { validateStatus: false });
+      return dispatch({type: "MESSAGE", payload: response.data})
+    };
+}
+
 export function turnArtist(user){
   const token = localStorage.getItem("token");
     return async (dispatch) => {
