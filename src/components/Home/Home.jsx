@@ -1,14 +1,22 @@
+// From React
 import React from 'react'
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useSearchParams, useLocation, useNavigate } from 'react-router-dom';
-import { activeLoading, artFilterByBack, getAllProducts } from '../../redux/actions/productActionsTest';
+import { useSearchParams, useLocation, useNavigate } from 'react-router-dom';
+// Components
 import  Card  from '../Card/Card';
 import FilterBar from '../FilterBar/FilterBar';
+// Actions
+import { 
+    activeLoading, 
+    artFilterByBack, 
+    getAllProducts 
+} from '../../redux/actions/productActionsTest';
+// Custom Styles
 import './home.css'
-
 //MUI COMPONENTS
-import Chip from "@mui/material/Chip"
+import Chip from "@mui/material/Chip";
+import LinearProgress from '@mui/material/LinearProgress';
 
 function tagPrice(tagPrices){
     return tagPrices.split("/").map(tag => "$" + tag).join("/")
@@ -22,6 +30,7 @@ export const Home = ({ handleAdded, handleNotAdded }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const allPaints = useSelector((state) => state.testReducer.allProducts);
+    const isLoading = useSelector((state) => state.testReducer.isLoading);
     console.log(allPaints)
     //SEARCH PARAMS
     const [searchParams] = useSearchParams();
@@ -30,19 +39,23 @@ export const Home = ({ handleAdded, handleNotAdded }) => {
     searchParams.forEach((value, key) => {
         filters.push([key, value]);
     });
+
     useEffect(() =>{
+        dispatch(activeLoading());
+
         window.scrollTo({
             top: 0, 
             behavior: 'smooth'
         });
+
         if (searchParams.toString()) {
                 dispatch(artFilterByBack(searchParams.toString()));
                 setCurrentPage(1)
-            } else {
-                dispatch(getAllProducts());
-            }
-        dispatch(activeLoading());
+        } else {
+            dispatch(getAllProducts());
+        }
     }, [dispatch, searchParams])
+
     //Clear filters
     function clearFilter(filter) {
         if(filter === "price"){
@@ -54,45 +67,47 @@ export const Home = ({ handleAdded, handleNotAdded }) => {
         navigate(location);
     }
 
+    //Paginate functions----------------------------------------------------------------------------------
+    const itemsToRender = () => {
+        const start = currentPage * 12 - 12;
+        let end = start + 12;
+        if (start + 12 > allPaints.length) end = allPaints.length;
+        return allPaints.slice(start, end);
+    };
 
-  //Paginate functions---------------------------------------------------------------------------------------
-  const itemsToRender = () => {
-    const start = currentPage * 12 - 12;
-    let end = start + 12;
-    if (start + 12 > allPaints.length) end = allPaints.length;
-    return allPaints.slice(start, end);
-  };
-  const listOfNumbers = () => {
-    let list = [];
-    let done = Math.ceil(allPaints.length / 12);
-    for (let i = 0; i < done; i++) {
-      list.push(i + 1);
-    }
-    return list;
-  };
+    const listOfNumbers = () => {
+        let list = [];
+        let done = Math.ceil(allPaints.length / 12);
+        for (let i = 0; i < done; i++) {
+            list.push(i + 1);
+        }
+        return list;
+    };
 
-  function nextPage() {
-    if (
-      listOfNumbers().length !== currentPage &&
-      listOfNumbers().length > currentPage
-    ) {
-      setCurrentPage(currentPage + 1);
+    function nextPage() {
+        if (
+            listOfNumbers().length !== currentPage &&
+            listOfNumbers().length > currentPage
+        ) {
+            setCurrentPage(currentPage + 1);
+        }
+        window.scrollTo(0, 0);
     }
-    window.scrollTo(0, 0);
-  }
-  function prevPage() {
-    if (currentPage !== 1 && currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-      window.scrollTo(0, 0);
-    }
-  }
-  const changePage = (e) => {
-    setCurrentPage(Number(e.target.value));
-    window.scrollTo(0, 0);
-  };
 
-  return (
-    <div>
+    function prevPage() {
+        if (currentPage !== 1 && currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+            window.scrollTo(0, 0);
+        }
+    }
+
+    const changePage = (e) => {
+        setCurrentPage(Number(e.target.value));
+        window.scrollTo(0, 0);
+    };
+
+    return (
+    <div className="min-h-full">
         <div>
             <div className='w-full bg-white mb-5 shadow-md'>
                 <FilterBar setCurrentPage={setCurrentPage}></FilterBar>
@@ -119,96 +134,87 @@ export const Home = ({ handleAdded, handleNotAdded }) => {
                 }
             </div>
         {/* CARLOS-------------------------------------------------------------------------------------------- */}
-            
-            <div className="flex justify-center my-3">
-                <div>
-                    <button
-                        onClick={prevPage}
-                        className="page-link relative block py-1.5 px-3  border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
-                    >
-                        <span>&laquo;</span>
-                    </button>
-                </div>
-                {listOfNumbers().map((number, i) => {
-                    return (
-                    <button id={i} value={number} onClick={(e) => changePage(e)} className={`page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-100  text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none ${currentPage===number? 'bg-red-600' : ""}`}>
-                        {number}
-                    </button>
-                );
-                })}
-                <div>
-                    <button onClick={nextPage} className="page-link relative block py-1.5 px-3  border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none">
-                        <span>&raquo;</span>
-                    </button>
-                </div>
-            </div>
-            <div className='pin_container'>
-            {/* grid overflow-hidden grid-cols-4 gap-3 auto-rows-auto */}
-                {typeof itemsToRender()[0]==="string"? <div >ERROR</div>:
-                itemsToRender().map((e) => {
-                return (
-                <div className='inner2' key={e._id}>
-                    <Card  className='img'
-                        img={e.img}
-                        userName={e.user.userName}
-                        userImage={e.user.userImage}
-                        stock={e.stock}
-                        title={e.title}
-                        price={e.price}
-                        _id={e._id}
-                        cardLikes={e.likes.length}
-                        handleAdded={handleAdded}
-                        handleNotAdded={handleNotAdded}
-                        >                     
-                    </Card>
-                </div>
-                );
-                })}
-            </div>
-            <div className="flex justify-center my-3">
-                <div>
-                    <button
-                        onClick={prevPage}
-                        className="page-link relative block py-1.5 px-3  border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
-                    >
-                        <span>&laquo;</span>
-                    </button>
-                </div>
-                {listOfNumbers().map((number, i) => {
-                    return (
-                    <button id={i} value={number} onClick={(e) => changePage(e)} className={`page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-100  text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none ${currentPage===number? 'bg-red-600' : ""}`}>
-                        {number}
-                    </button>
-                );
-                })}
-                <div>
-                    <button onClick={nextPage} className="page-link relative block py-1.5 px-3  border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none">
-                        <span>&raquo;</span>
-                    </button>
-                </div>
-            </div>
-            {/* <div className='pin_container' >
-                {allPaints.length ? allPaints?.map((e, index) => {
-                    return (
-                        <div  key={index}>
-                            
-                                <Card  className='img'
-                                    img={e.img}
-                                    userName={e.userName}
-                                    userImage={e.userImage}
-                                    title={e.title}
-                                    price={e.price}
-                                    key={e._id}>
-                                </Card>
-                            
+            {
+                isLoading ? 
+                    <LinearProgress className='flex mt-auto' /> :
+                <>
+                    <div className="flex justify-center my-3">
+                        <div>
+                            <button
+                                onClick={prevPage}
+                                className="page-link relative block py-1.5 px-3  border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none">
+                                <span>&laquo;</span>
+                            </button>
                         </div>
-                    );
-                }) : <Box sx={{ display: 'flex' }}>
-                        <CircularProgress />
-                    </Box>
-                }
-            </div> */}
-      </div>
+                        {
+                            listOfNumbers().map((number, i) => {
+                                return (
+                                    <button id={i} value={number} onClick={(e) => changePage(e)} className={`page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-100  text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none ${currentPage===number? 'bg-red-600' : ""}`}>
+                                        {number}
+                                    </button>
+                                );
+                            })
+                        }
+                        <div>
+                            <button onClick={nextPage} className="page-link relative block py-1.5 px-3  border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none">
+                                <span>&raquo;</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div className='pin_container'>
+                        {
+                            typeof itemsToRender()[0]==="string"? <div >ERROR</div> :
+                            itemsToRender().map((e) => {
+                                return (
+                                    <div className='inner2' key={e._id}>
+                                        <Card  
+                                            className='img'
+                                            img={e.img}
+                                            userName={e.user.userName}
+                                            userImage={e.user.userImage}
+                                            stock={e.stock}
+                                            title={e.title}
+                                            price={e.price}
+                                            _id={e._id}
+                                            cardLikes={e.likes.length}
+                                            handleAdded={handleAdded}
+                                            handleNotAdded={handleNotAdded}
+                                            >                     
+                                        </Card>
+                                    </div>
+                                );
+                            })
+                        }
+                    </div>
+
+                    <div className="flex justify-center my-3">
+                        <div>
+                            <button
+                                onClick={prevPage}
+                                className="page-link relative block py-1.5 px-3  border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none" >
+                                <span>&laquo;</span>
+                            </button>
+                        </div>
+                        {
+                            listOfNumbers().map((number, i) => {
+                                return (
+                                    <button id={i} value={number} onClick={(e) => changePage(e)} className={`page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-100  text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none ${currentPage===number? 'bg-red-600' : ""}`}>
+                                        {number}
+                                    </button>
+                                );
+                            })
+                        }
+
+                        <div>
+                            <button onClick={nextPage} className="page-link relative block py-1.5 px-3  border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none">
+                                <span>&raquo;</span>
+                            </button>
+                        </div>
+                    </div>
+                </>
+            }
+        </div>
     </div>
-  );
+    );
 };

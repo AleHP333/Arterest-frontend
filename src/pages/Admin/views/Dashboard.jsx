@@ -145,7 +145,7 @@ const getPrice = () => {
                       </h3>
                     </div>
                     <div className="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
-                      <Link to='/users'>
+                      <Link to='/admin/users'>
                       <button
                         className="bg-red-500 text-white active:bg-red-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1"
                         type="button"

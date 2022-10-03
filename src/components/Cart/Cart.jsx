@@ -61,7 +61,7 @@ export default function ShoppingCart() {
                 <p className="text-2xl font-bold leading-normal text-right ">${parseInt(totalPrice)}</p>
               </div>
                 <Link to='/home' className='rounded px-4 text-base leading-none w-full py-3 bg-black border-black border focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 text-white '>Continue shopping...</Link><br/><br/><br/>
-                <Link to='/buy' className='rounded px-4 text-base leading-none w-full py-3 bg-black border-black border focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 text-white '>BUY</Link>
+                <Link to='/buy' className='rounded px-4 text-base leading-none w-full py-3 bg-black border-black border focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 text-white '>Buy now!</Link>
             </div>
               
             </div>
