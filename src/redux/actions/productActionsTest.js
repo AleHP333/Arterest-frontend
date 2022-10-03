@@ -29,7 +29,7 @@ export const getProductAutocomplete = (input) => (dispatch) => {
   async function search(dispatch) {
     console.log("hola entre al dispatch");
     const { data } = await axios.get(`${url}/paints/autocomplete?art=${input}`);
-    console.log(data);
+    console.log('action', data);
     dispatch({
       type: "GET_PRODUCT_AUTOCOMPLETE",
       payload: data,
