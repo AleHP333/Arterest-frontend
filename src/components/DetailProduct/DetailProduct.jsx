@@ -20,6 +20,8 @@ import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import { likeDisplike } from '../../redux/actions/userActions';
+import EditIcon from '@mui/icons-material/Edit';
+import LocalPoliceIcon from '@mui/icons-material/LocalPolice';
 
 export default function DetailProduct () {
 
@@ -178,6 +180,7 @@ export default function DetailProduct () {
                     </div>
                     <div className="flex flex-col lg:w-6/12">
                         <div className='flex mr-4 ml-auto gap-5'>
+                            {loggedUser && loggedUser.isAdmin ? <Link to={`/admin/artworks/artworkDetail/${paint._id}`}><Button variant="contained"><LocalPoliceIcon className='mr-3' /> EDIT </Button></Link> : null}
                             <div className='flex items-center gap-1'>
                                 {likes !== undefined && <span className="text-black relative bottom-0.5">{likes.length}</span>}
                                 <Tooltip title="Like">

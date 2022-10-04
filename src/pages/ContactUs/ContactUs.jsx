@@ -1,6 +1,7 @@
 import { Alert, AlertTitle, Snackbar } from "@mui/material";
 import { useState } from "react"
 import { useDispatch } from "react-redux"
+import { contactUs } from "../../redux/actions/userActions";
 import Footer from "../Footer/Footer";
 //import { createContact } from '../../redux/actions'
 
@@ -31,7 +32,7 @@ export default function ContactUs() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    //dispatch(createContact(input))
+    dispatch(contactUs(input))
     setInput({
       subject: "",
       name: "",

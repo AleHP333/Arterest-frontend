@@ -9,6 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import Navbar from '../components/Navbar';
 import { useState } from 'react';
+import { getAllProductsAdmin, getProductSearchbarAdmin } from '../../../redux/actions/adminActions';
 
 
 const AllArtWork = () => {
@@ -18,13 +19,13 @@ const AllArtWork = () => {
 
   useEffect(() => {
     dispatch(cleanStateGetOnePaint())
-    dispatch(getAllProducts());
+    dispatch(getAllProductsAdmin());
   }, [dispatch]);
 
   const [search, setSearch] = useState("")
 
   function handleSearch(){
-    dispatch(getProductSearchbar(search))
+    dispatch(getProductSearchbarAdmin(search))
   }
 
   return (
@@ -79,7 +80,10 @@ const AllArtWork = () => {
                         userName={art.user.userName}
                         title={art.title}
                         _id={art._id}
-                        img={art.img}/>
+                        img={art.img}
+                        seen={art.seen}
+                        lastCheck={art.lastCheck}                 
+                        />
                         // <tr>
                         //   <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
                         //     {art.title}
