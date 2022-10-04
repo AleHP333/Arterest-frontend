@@ -2,11 +2,12 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 // Actions
 import {
   getProductSearchbar,
   getProductAutocomplete,
+  emptyAutocomplete,
 } from "../../redux/actions/productActionsTest";
 // Icons
 import { AiOutlineSearch } from "react-icons/ai";
@@ -19,18 +20,28 @@ export default function Searchbar() {
   const [input, setInput] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const autocomplete = useSelector(
+  let autocomplete = useSelector(
     (state) => state.testReducer.productsAutocomplete
   );
 
+  console.log("cosa", autocomplete);
   function handleStateChanges(e) {
     e.preventDefault();
     setInput(e.target.value);
   }
 
+  function clearAutocomplete() {
+    setInput("");
+    dispatch(emptyAutocomplete());
+  }
+
   useEffect(() => {
-    dispatch(getProductAutocomplete(input));
-  }, []);
+    if (input !== "") {
+      dispatch(getProductAutocomplete(input));
+    } else {
+      dispatch(emptyAutocomplete());
+    }
+  }, [input, setInput]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -46,13 +57,19 @@ export default function Searchbar() {
   }
 
   return (
-    <div className="flex flex-col w-full">
-      <form onSubmit={(e) => handleSubmit(e)} className="flex w-full">
+    <div className="flex flex-col w-1/3">
+      <form
+        onSubmit={(e) => handleSubmit(e)}
+        onBlur={() => {
+          clearAutocomplete();
+        }}
+        className=" flex justify-start w-full overflow-hidden border-2 border-gray-300 rounded-full text-gray-500 items-center px-4 py-1"
+      >
         <button className="" type="submit">
           <AiOutlineSearch />
         </button>
         <input
-          className=""
+          className="self-center focus:outline-none w-full"
           type="text"
           name="search"
           value={input}
@@ -70,19 +87,33 @@ export default function Searchbar() {
           </IconButton>
         ) : null}
       </form>
-      <div className="flex w-full">
-        <div className="flex flex-col border-solid border-2 bg-white border-gray-100 absolute w-2/3">
-          {autocomplete?.slice(0, 5).map((e) => {
-            return (
-              <div className="cursor-pointer text-start my-1 mx-0 hover:bg-gray-100">
-                <div></div>
-                <div>{e.title}</div>
-                <div></div>
-              </div>
-            );
-          })}
+      {autocomplete.length && input !== "" ? (
+        <div className="flex w-full relative justify-center mt-1 border-none">
+          <div className="flex flex-col border-solid border-1 bg-white border-gray-300 absolute w-full rounded-3xl overflow-hidden">
+            {autocomplete?.slice(0, 5).map((e) => {
+              return (
+                <Link
+                  to={`/detail/${e._id}`}
+                  onMouseDown={() => navigate(`/detail/${e._id}`)}
+                  className="flex cursor-pointer text-start  hover:bg-gray-100 border-b"
+                >
+                  <div className="flex center h-5/6 w-1/6">
+                    <img
+                      src={e.img}
+                      alt=""
+                      className="h-full object-center object-cover"
+                    />
+                  </div>
+                  <div className="flex flex-col justify-start ml-1 my-auto gap-1">
+                    <div className="font-bold">{e.title}</div>
+                    <div className="text-gray-500">by {e.user.userName}</div>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
         </div>
-      </div>
+      ) : null}
     </div>
   );
 }

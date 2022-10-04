@@ -108,7 +108,12 @@ function App() {
             <Route exact path="/admin/editproduct/:id" element={<EditProduct />} />
             <Route exact path="/admin/artworks/artworkDetail/:id" element={<ProductDetail />} />
           </> : null}
-          {loggedUser !== undefined ? <Route exact path="/profile" element={<UserProfile />} /> : null}
+          {loggedUser !== undefined ? <>
+            <Route exact path="/profile" element={<UserProfile />} />
+            <Route exact path="/history" element={<ShoppingHistory />} />
+            </> : null}
+          
+          
           {loggedUser && loggedUser.isArtist ? <Route exact path="/artist/artRequest" element={<ArtPost />}></Route> : null}
           <Route exact path="/passwordRecovery" element={<PasswordRecover />} />
           <Route exact path="/password/:token" element={<SetPass />} />

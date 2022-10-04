@@ -24,6 +24,10 @@ export function getPaintById(id) {
   };
 }
 
+export function emptyAutocomplete() {
+  return { type:"GET_PRODUCT_AUTOCOMPLETE", payload: []}
+}
+
 export const getProductAutocomplete = (input) => (dispatch) => {
   console.log("hola entre a la accion");
   async function search(dispatch) {
