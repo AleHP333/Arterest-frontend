@@ -12,6 +12,9 @@ import { Box, CircularProgress } from "@mui/material";
 import UserPhoto from "./assets/NicePng_usuario-png_2022264.png";
 import ArtistRequest from "../../components/ArtistRequest/ArtistRequest";
 import { BsPencil } from 'react-icons/bs'
+import axios from "axios"
+import { productPost } from "../../redux/actions/adminActions";
+import PreviewImage from "../../components/CreateProduct/ReusableFunctions/PreviewImage";
 
 export default function Profile() {
   const dispatch = useDispatch();
@@ -33,7 +36,7 @@ export default function Profile() {
     if (user !== undefined) {
       setInput({
         userName: user.userName,
-        userImage: user.userImage,
+        
         names: user.names,
         surnames: user.surnames,
         country: user.country,
@@ -51,29 +54,58 @@ export default function Profile() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    dispatch(updateProfile({ ...input }));
+
+      try {
+        const formData = new FormData();
+            formData.append("file", input.userImage);
+            formData.append("upload_preset", "images");
+            axios.post("https://api.cloudinary.com/v1_1/onlypan/upload", formData)
+              .then((resAxios) => {
+                  console.log(resAxios.data.secure_url);
+                    dispatch(updateProfile({...input, userImage: resAxios.data.secure_url}))
+                    
+                })
+                .catch(error=>console.log(error))
+      } catch (error) {
+        console.log(error);
+      }
+
+    // dispatch(updateProfile({ ...input }));
   }
 
+  function imageChange(userImage, data){
+        setInput({
+          ...input,
+          userImage: data
+        })
+  }
+  
+
+  
   return (
     <>
       <main className="profile-page">
         <form onSubmit={(e) => handleSubmit(e)}>
           <div>
-          <input type="file" accept="image/*" style={{display: 'none'}} />
+          
           <div className="w-30 h-30 pt-4 flex items-center justify-center ">
             <img
               name='userImage'
               // type='file'
               className="w-20 h-20 rounded-full"
               alt="User avatar"
-              src={user.userImage || UserPhoto}
+              src={(user && user.userImage)|| UserPhoto}
             />
+              <PreviewImage file={input.userImage} />
             <input
-            style={{display: 'none'}}
+            
               // className="text-sm font-small text-right text-gray-700"
               type="file"
+              className="w-20 h-20 rounded-full"
               accept="image/*"
-              onChange={(e) => handleChange(e)}
+              onChange={(e) => {
+                          imageChange("userImage", e.target.files[0]);
+                        }}
             /> <BsPencil/>
             
           </div>
