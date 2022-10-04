@@ -162,3 +162,7 @@ export function getOrders() {
       dispatch({ type: "GET_ALL_ORDERS", payload: response.data });
     };
 }
+
+export function booleano() {
+  return {type: 'BOOLEANO', payload:null}
+}
