@@ -110,7 +110,7 @@ export default function SignUp() {
                                                 ) : null}
                                             </div>
 
-                                            <div className="text-center pt-1 mb-5 pb-1"><button type="submit" className="inline-block px-6 py-2.5  font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full mb-3 bg-gradient-to-r from-red-600 via-red-400 to-red-200 text-gray-100">Sign Up</button></div>
+                                            <div className="text-center pt-1 mb-5 pb-1"><button type="submit" className="inline-block px-6 py-2.5 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full mb-3 bg-gradient-to-r from-red-600 via-red-400 to-red-200 text-gray-100">Sign Up</button></div>
 
 
                                             <div
@@ -126,8 +126,10 @@ export default function SignUp() {
                                     <div class="text-white px-4 py-6 md:p-12 md:mx-6">
                                         <h4 class="text-xl font-semibold mb-6">Fill up the form to have access to our whole list of artworks</h4>
                                         <p class="text-sm">
-                                        Arterest is a site that was shaped with the goal of empowering artists and creating opportunities for success.
-                                        It’s the place for artists showcase their work to other people wideworld.
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                            consequat.
                                         </p>
                                     </div>
                                 </div>

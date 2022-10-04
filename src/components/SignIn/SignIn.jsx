@@ -50,8 +50,10 @@ export default function SignIn() {
                                     <div class="text-white px-4 py-6 md:p-12 md:mx-6">
                                         <h4 class="text-xl font-semibold mb-6">Fill up the form to have access to our whole list of artworks</h4>
                                         <p class="text-sm">
-                                        Arterest is a site that was shaped with the goal of empowering artists and creating opportunities for success.
-                                        It’s the place for artists showcase their work to other people wideworld.
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                            consequat.
                                         </p>
                                     </div>
                                 </div>
