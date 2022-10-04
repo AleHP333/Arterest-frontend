@@ -24,12 +24,16 @@ export function getPaintById(id) {
   };
 }
 
+export function emptyAutocomplete() {
+  return { type:"GET_PRODUCT_AUTOCOMPLETE", payload: []}
+}
+
 export const getProductAutocomplete = (input) => (dispatch) => {
   console.log("hola entre a la accion");
   async function search(dispatch) {
     console.log("hola entre al dispatch");
     const { data } = await axios.get(`${url}/paints/autocomplete?art=${input}`);
-    console.log(data);
+    console.log('action', data);
     dispatch({
       type: "GET_PRODUCT_AUTOCOMPLETE",
       payload: data,
@@ -157,4 +161,8 @@ export function getOrders() {
       });
       dispatch({ type: "GET_ALL_ORDERS", payload: response.data });
     };
+}
+
+export function booleano() {
+  return {type: 'BOOLEANO', payload:null}
 }

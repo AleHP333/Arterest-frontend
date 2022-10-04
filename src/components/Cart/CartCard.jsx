@@ -7,6 +7,8 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import { getPrice } from "../Card/FavAndCart";
 import Tooltip from "@mui/material/Tooltip";
+import { useDispatch } from "react-redux";
+import { booleano } from "../../redux/actions/productActionsTest";
 // userName,
 // userImage,
 // title,
@@ -29,6 +31,7 @@ export default function CartCard({
   updateQuantity,
 }) {
   const [qua, setQua] = useState(quantity);
+  const dispatch = useDispatch()
 
   const plus = (_id) => {
     const cartList = JSON.parse(localStorage.getItem("cartList"));
@@ -69,7 +72,7 @@ export default function CartCard({
           <p className="text-base font-black leading-none ">{title}</p>
           <div className="py-2 px-1 border-none border-gray-200 mr-6 focus:outline-none">
             <Tooltip title="Remove">
-              <button onClick={() => deleteItem(_id)}>
+              <button onClick={() => {deleteItem(_id); dispatch(booleano())}}>
                 <DeleteIcon />
               </button>
             </Tooltip>
