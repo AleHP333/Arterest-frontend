@@ -58,23 +58,25 @@ export default function Profile() {
     <>
       <main className="profile-page">
         <form onSubmit={(e) => handleSubmit(e)}>
+          <div>
+          <input type="file" accept="image/*" style={{display: 'none'}} />
           <div className="w-30 h-30 pt-4 flex items-center justify-center ">
             <img
               name='userImage'
-              type='file'
+              // type='file'
               className="w-20 h-20 rounded-full"
               alt="User avatar"
               src={user.userImage || UserPhoto}
             />
-            {/* <input
-              className="text-sm font-small text-right text-gray-700"
+            <input
+            style={{display: 'none'}}
+              // className="text-sm font-small text-right text-gray-700"
               type="file"
-              filename="userImage"
-              // value={user.userImage}
+              accept="image/*"
               onChange={(e) => handleChange(e)}
-              //   
+            /> <BsPencil/>
             
-            /><BsPencil/> */}
+          </div>
           </div>
           <div className="mt-4 text-center border-b pb-4">
             <input
