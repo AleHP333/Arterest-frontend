@@ -1,5 +1,6 @@
 const initialState = {
-    postMsg: {}
+    postMsg: {},
+    unChecked: []
 }
 
 export default function adminReducer(state = initialState, action){
@@ -8,6 +9,11 @@ export default function adminReducer(state = initialState, action){
             return {
                 ...state,
                 postMsg: action.payload
+            }
+        case "GET_UNCHECKED":
+            return {
+                ...state,
+                unChecked: action.payload
             }
         default: return state
     }

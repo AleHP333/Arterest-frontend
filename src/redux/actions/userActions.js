@@ -74,3 +74,11 @@ export function sendRequest(request){
         dispatch({type: "MESSAGE", payload: res.data})
     }
 }
+
+//GUEST AND USER
+export function contactUs(data){
+    return async function(dispatch){
+        const res = await axios.post(`${url}/users/contactUs`, data, { validateStatus: false })
+        dispatch({type: "MESSAGE", payload: res.data})
+    }
+}

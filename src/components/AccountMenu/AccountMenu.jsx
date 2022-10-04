@@ -80,12 +80,13 @@ export default function AccountMenu({img, userName, isAdmin}) {
           <Avatar /> Profile
         </Link>
         </MenuItem>
-        <MenuItem>
         {isAdmin ? 
+        <MenuItem>
         <Link className='flex items-center' to='/admin'>
           <Avatar><AdminPanelSettingsIcon/></Avatar> Admin
-        </Link> : null }
+        </Link> 
         </MenuItem>
+        : null }
         <Divider />
         <MenuItem onClick={() => Loggout()}>
           <ListItemIcon>

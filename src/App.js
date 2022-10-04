@@ -40,6 +40,7 @@ import AllOrders from "./pages/Admin/views/AllOrders";
 import ShoppingHistory from "./components/ShoppingHistory/ShoppingHistory";
 import PasswordRecover from "./pages/PasswordRecover/PasswordRecover";
 import SetPass from "./pages/PasswordRecover/SetPass";
+import LastCheck from "./pages/Admin/views/NotChecked";
 
 
 function App() {
@@ -103,17 +104,17 @@ function App() {
             <Route exact path="/admin/artworks" element={<AllArtWork />} />
             <Route exact path="/admin/requests" element={<AllRequests />} />
             <Route exact path="/admin/sellRequests" element={<SellRequests />} />
+            <Route exact path="/admin/allUnchecked" element={<LastCheck />} />
             <Route exact path="/admin/users" element={<AllUsers />} />
             <Route exact path="/admin/orders" element={<AllOrders />} />
             <Route exact path="/admin/editproduct/:id" element={<EditProduct />} />
             <Route exact path="/admin/artworks/artworkDetail/:id" element={<ProductDetail />} />
           </> : null}
-          {loggedUser !== undefined ? <>
+          {loggedUser !== undefined ? 
+          <>
             <Route exact path="/profile" element={<UserProfile />} />
             <Route exact path="/history" element={<ShoppingHistory />} />
-            </> : null}
-          
-          
+          </> : null}
           {loggedUser && loggedUser.isArtist ? <Route exact path="/artist/artRequest" element={<ArtPost />}></Route> : null}
           <Route exact path="/passwordRecovery" element={<PasswordRecover />} />
           <Route exact path="/password/:token" element={<SetPass />} />
