@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllProducts, getAllUsers } from "../../../redux/actions/productActionsTest";
 import {BsFillPencilFill} from 'react-icons/bs'
 import { Link } from "react-router-dom";
+import { getAllProductsAdmin } from "../../../redux/actions/adminActions";
 
 
 export default function Dashboard() {
@@ -18,7 +19,7 @@ const [reload, setReload] = useState(false)
 
 useEffect(() =>{
   dispatch(getAllUsers());
-  dispatch(getAllProducts())
+  dispatch(getAllProductsAdmin())
 }, [dispatch])
 
 function bannUser(){
@@ -36,9 +37,12 @@ const getPrice = () => {
   return '$ ' + total.toFixed(2)
 }
 
+const toCheck = artwork.filter(art => art.lastCheck !== true)
+console.log(toCheck)
+
   return (
     <>
-      <Sidebar />
+      <Sidebar toCheck={toCheck && toCheck.length} />
       <div className="relative md:ml-64 bg-blueGray-100">
         <Navbar />
         {/* Header */}

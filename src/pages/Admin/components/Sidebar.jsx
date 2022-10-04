@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import NotificationDropdown from "./NotificationDropdown.jsx";
 import UserDropdown from "./UserDropdown.jsx";
 
-export default function Sidebar() {
+export default function Sidebar({toCheck}) {
   const [collapseShow, setCollapseShow] = React.useState("hidden");
   return (
     <>
@@ -134,6 +134,14 @@ export default function Sidebar() {
                   to="/admin/sellRequests"                
                 >
                   <i className="fas fa-clipboard-list text-blueGray-300 mr-2 text-sm"></i> Sell Requests
+                </Link>
+              </li>
+              <li className="items-center">
+                <Link
+                  className="text-blueGray-300 text-xs uppercase py-3 font-bold block"
+                  to="/admin/allUnchecked"                
+                >
+                  <i className="fas fa-clipboard-list text-blueGray-300 mr-2 text-sm"></i> Art Last Check {toCheck !== 0 && <div className="text-white ml-2 py-1 px-2 inline-block rounded-full bg-red-600 font-semibold">{toCheck}</div>}
                 </Link>
               </li>
               <li className="items-center">

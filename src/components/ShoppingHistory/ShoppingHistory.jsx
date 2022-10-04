@@ -6,8 +6,9 @@ function ShoppingHistory() {
   const user = useSelector((state) => state.userSignReducer.userData);
   const history = user.history;
 
-  console.log(history);
+  console.log("soy el history", history);
   console.log(history[0]._id);
+  console.log("soy el user",user)
   return (
     <section className="relative py-16 bg-white">
       <div className="w-full mb-12 px-4">
