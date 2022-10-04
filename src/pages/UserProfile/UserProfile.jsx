@@ -11,6 +11,7 @@ import Footer from "../Footer/Footer";
 import { Box, CircularProgress } from "@mui/material";
 import UserPhoto from "./assets/NicePng_usuario-png_2022264.png";
 import ArtistRequest from "../../components/ArtistRequest/ArtistRequest";
+import { BsPencil } from 'react-icons/bs'
 
 export default function Profile() {
   const dispatch = useDispatch();
@@ -56,20 +57,39 @@ export default function Profile() {
   return (
     <>
       <main className="profile-page">
-        <div className="w-30 h-30 pt-4 flex items-center justify-center ">
-          <img
-            className="w-20 h-20 rounded-full"
-            alt="User avatar"
-            src={user.userImage || UserPhoto}
-          />
-        </div>
-        <div>
-          <div className="mt-4 text-center border-b pb-4">
-            <h1 className="text-4xl font-medium text-gray-700">
-              {user.userName}
-            </h1>
+        <form onSubmit={(e) => handleSubmit(e)}>
+          <div>
+          <input type="file" accept="image/*" style={{display: 'none'}} />
+          <div className="w-30 h-30 pt-4 flex items-center justify-center ">
+            <img
+              name='userImage'
+              // type='file'
+              className="w-20 h-20 rounded-full"
+              alt="User avatar"
+              src={user.userImage || UserPhoto}
+            />
+            <input
+            style={{display: 'none'}}
+              // className="text-sm font-small text-right text-gray-700"
+              type="file"
+              accept="image/*"
+              onChange={(e) => handleChange(e)}
+            /> <BsPencil/>
+            
           </div>
-        </div>
+          </div>
+          <div className="mt-4 text-center border-b pb-4">
+            <input
+              value={input.userName}
+              name="userName"
+              type="userName"
+              className="text-4xl font-medium text-center text-gray-700 border"
+              placeholder={user.userName || ""}
+              onChange={(e) => handleChange(e)}
+
+            />
+          </div>
+        </form>
         <div>
           <div className="p-4 bg-white mt-4">
             <section className="bg-gray-100  bg-opacity-50 h-screen">
@@ -224,7 +244,7 @@ export default function Profile() {
                       <div className="w-full inline-flex border-b">
                         <div>
                           {user.isArtist !== undefined &&
-                          user.isArtist ? null : (
+                            user.isArtist ? null : (
                             <ArtistRequest />
                           )}
                         </div>
