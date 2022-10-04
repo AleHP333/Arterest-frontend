@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { cleanStateGetOnePaint, getAllProducts, getPaintById, updateProduct } from '../../../redux/actions/productActionsTest';
 import '../../../components/DetailProduct/DetailProduct.css'
-import { checkArtwork } from '../../../redux/actions/adminActions';
+import { checkArtwork, getPaintByIdAdmin } from '../../../redux/actions/adminActions';
 
 //MUI
 import Chip from '@mui/material/Chip';
@@ -35,7 +35,7 @@ export default function ProductDetail() {
 
     useEffect(() => {
         if (!artDetail) {
-            dispatch(getPaintById(id))
+            dispatch(getPaintByIdAdmin(id))
         }
         if (artDetail){
             setInput({
@@ -149,7 +149,6 @@ export default function ProductDetail() {
     function handleCheck(){
         dispatch(checkArtwork(artDetail._id))
     }
-    console.log(input)
     return (
         !artDetail ? <p>'Loading...'</p> : 
         <div className="containerDetail mt-3 bg-white">
@@ -345,29 +344,21 @@ export default function ProductDetail() {
                         </div>
                     </div>
                     <div className='flex items-center justify-between'>
-                        <div className='flex gap-2 mt-2 '>
+                        <div className='flex gap-3 mt-3 '>
                             <Button
                                 onClick={() => {handleSubmit()}}
                                 type="Submit"
                                 variant="contained">
-                                EDIT
+                                FINISH EDIT
                             </Button>
                         </div>
-                        <div className='flex gap-2 mt-2 '>
+                        <div className='flex gap-3 mt-3 '>
                             {artDetail.lastCheck === false ? <Button
                                 onClick={() => {handleCheck()}}
                                 type="button"
                                 variant="contained">
                                 LAST CHECK
                             </Button> : null }
-                        </div>
-                        <div className='flex gap-2 mt-2 '>
-                            <Button
-                                onClick={() => {handleDelete()}}
-                                type="button"
-                                variant="contained">
-                                SEEN
-                            </Button>
                         </div>
                     </div>
 

@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { getUnchecked } from "../../../redux/actions/adminActions.js";
 import NotificationDropdown from "./NotificationDropdown.jsx";
 import UserDropdown from "./UserDropdown.jsx";
 
-export default function Sidebar({toCheck}) {
+export default function Sidebar() {
+  const dispatch = useDispatch()
   const [collapseShow, setCollapseShow] = React.useState("hidden");
+  const toCheck = useSelector((state) => state.adminReducer.unChecked)
+
+  useEffect(() => {
+    dispatch(getUnchecked())
+  }, [])
+
   return (
     <>
       <nav className="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6">
@@ -141,7 +150,7 @@ export default function Sidebar({toCheck}) {
                   className="text-blueGray-300 text-xs uppercase py-3 font-bold block"
                   to="/admin/allUnchecked"                
                 >
-                  <i className="fas fa-clipboard-list text-blueGray-300 mr-2 text-sm"></i> Art Last Check {toCheck !== 0 && <div className="text-white ml-2 py-1 px-2 inline-block rounded-full bg-red-600 font-semibold">{toCheck}</div>}
+                  <i className="fas fa-clipboard-list text-blueGray-300 mr-2 text-sm"></i> Art Last Check {toCheck && toCheck.length && <div className="text-white ml-2 py-1 px-2 inline-block rounded-full bg-red-600 font-semibold">{toCheck.length}</div>}
                 </Link>
               </li>
               <li className="items-center">
