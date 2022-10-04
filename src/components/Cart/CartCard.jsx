@@ -29,6 +29,7 @@ export default function CartCard({
   quantity,
   deleteItem,
   updateQuantity,
+  stock
 }) {
   const [qua, setQua] = useState(quantity);
   const dispatch = useDispatch()
@@ -95,7 +96,7 @@ export default function CartCard({
             </Tooltip>
             <p>{parseInt(qua)}</p>
             <Tooltip title="Increase">
-              <button className="mx-1" onClick={() => plus(_id)}>
+              <button disabled={qua === stock} className="mx-1" onClick={() => plus(_id)}>
                 <AddCircleIcon />
               </button>
             </Tooltip>

@@ -46,6 +46,7 @@ export default function ShoppingCart() {
               deleteItem={deleteItem}
               updateQuantity={updateQuantity}
               quantity={prod.quantity}
+              stock={prod.stock}
             />
           ))
         ) : (
