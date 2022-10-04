@@ -5,7 +5,7 @@ import Sidebar from "../components/Sidebar";
 // import BarChart from "../components/BarChart.js";
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllProducts, getAllUsers } from "../../../redux/actions/productActionsTest";
+import { getAllProducts, getAllUsers, getOrders } from "../../../redux/actions/productActionsTest";
 import {BsFillPencilFill} from 'react-icons/bs'
 import { Link } from "react-router-dom";
 import { getAllProductsAdmin } from "../../../redux/actions/adminActions";
@@ -15,11 +15,13 @@ export default function Dashboard() {
 const dispatch = useDispatch()
 const users = useSelector((state) => state.testReducer.allUsers )
 const artwork = useSelector((state) => state.testReducer.allProducts )
+const orders = useSelector((state) => state.testReducer.orders )
 const [reload, setReload] = useState(false)
 
 useEffect(() =>{
   dispatch(getAllUsers());
   dispatch(getAllProductsAdmin())
+  dispatch(getOrders())
 }, [dispatch])
 
 function bannUser(){
@@ -31,9 +33,10 @@ function bannUser(){
 }
 const getPrice = () => {
   let total = 0
-  artwork.forEach(e => {
-      total += e.price
+  orders.forEach(e => {
+    if(!!e.transaction.total_money) total += e.transaction.total_money
   })
+  console.log('$ ' + total.toFixed(2), "getprice");
   return '$ ' + total.toFixed(2)
 }
 
@@ -233,21 +236,21 @@ console.log(toCheck)
                       </tr>
                     </thead>
                     <tbody>
-                      {artwork.length ? artwork.map((art, index) => {
+                      {orders.length ? orders.map((art, index) => {
                         return (
                       <tr>
                         <th id={index} className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                          {art.title}
+                          {art.transaction.product}
                         </th>
                         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                          Pending
+                          {art.transaction.status}
                         </td>
                         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                          {'U$D ' + art.price}
+                          USD  {art.transaction.total_money? art.transaction.total_money: 0}
                         </td>
                       </tr>
                         )
-                      }) : 'hola'}
+                      }) : 'There are no orders'}
                     </tbody>
                   </table>
                 </div>
