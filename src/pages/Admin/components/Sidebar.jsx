@@ -1,11 +1,14 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { getUnchecked } from "../../../redux/actions/adminActions.js";
 import NotificationDropdown from "./NotificationDropdown.jsx";
 import UserDropdown from "./UserDropdown.jsx";
 
+
 export default function Sidebar() {
+  const location = useLocation()
+  console.log(location.pathname)
   const dispatch = useDispatch()
   const [collapseShow, setCollapseShow] = React.useState("hidden");
   const toCheck = useSelector((state) => state.adminReducer.unChecked)
@@ -85,81 +88,62 @@ export default function Sidebar() {
             <ul className="md:flex-col md:min-w-full flex flex-col list-none">
               <li className="items-center">
                 <Link
-                  className="text-red-500 hover:text-red-600 text-xs uppercase py-3 font-bold block"
+                  className={`text-red-500 hover:text-red-600 text-xs uppercase py-3 font-bold block ${location.pathname === "/admin" ? "underline" : null}`}
                   to="/admin"
                 >
-                  <i className="fas fa-tv opacity-75 mr-2 text-sm"></i> Dashboard
+                  <i className={`fas fa-tv opacity-75 mr-2 text-sm`}></i> Dashboard
                 </Link>
               </li>
 
               <li className="items-center">
                 <Link
-                  className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                  className={`text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block ${location.pathname === "/admin/artworks" ? "underline" : null} `}
                   to="/admin/artworks"
                 >
-                  <i className="fas fa-newspaper text-blueGray-400 mr-2 text-sm"></i> All Artwork
+                  <i className={`fas fa-newspaper text-blueGray-400 mr-2 text-sm`}></i> All Artwork
                 </Link>
               </li>
 
               <li className="items-center">
                 <Link
-                  className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                  className={`text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block ${location.pathname === "/admin/users" ? "underline" : null}`}
                   to="/admin/users"
                 >
-                  <i className="fas fa-user-circle text-blueGray-400 mr-2 text-sm"></i> All Users
+                  <i className={`fas fa-user-circle text-blueGray-400 mr-2 text-sm ${location.pathname == "/admin/orders" ? "underline" : null}`}></i> All Users
                 </Link>
               </li>
 
               <li className="items-center">
                 <Link
-                  className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                  className={`text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block ${location.pathname === "/admin/orders" ? "underline" : null}`}
                   to="/admin/orders"
                 >
-                  <i className="fas fa-fingerprint text-blueGray-400 mr-2 text-sm"></i> All Orders
+                  <i className={`fas fa-fingerprint text-blueGray-400 mr-2 text-sm`}></i> All Orders
                 </Link>
-              </li>
-
-              <li className="items-center">
-                <a
-                  className="text-blueGray-300 text-xs uppercase py-3 font-bold block"
-                  href="#pablo"
-                  onClick={e => e.preventDefault()}
-                >
-                  <i className="fas fa-clipboard-list text-blueGray-300 mr-2 text-sm"></i> All Reviews
-                </a>
               </li>
               <li className="items-center">
                 <Link
-                  className="text-blueGray-300 text-xs uppercase py-3 font-bold block"
+                  className={`text-blueGray-300 text-xs uppercase py-3 font-bold block ${location.pathname === "/admin/requests" ? "underline" : null}`}
                   to="/admin/requests"
                   
                 >
-                  <i className="fas fa-clipboard-list text-blueGray-300 mr-2 text-sm"></i> Artist Requests
+                  <i className={`fas fa-clipboard-list text-blueGray-300 mr-2 text-sm`}></i> Artist Requests
                 </Link>
               </li>
               <li className="items-center">
                 <Link
-                  className="text-blueGray-300 text-xs uppercase py-3 font-bold block"
+                  className={`text-blueGray-300 text-xs uppercase py-3 font-bold block ${location.pathname === "/admin/sellRequests" ? "underline" : null}`}
                   to="/admin/sellRequests"                
                 >
-                  <i className="fas fa-clipboard-list text-blueGray-300 mr-2 text-sm"></i> Sell Requests
+                  <i className={`fas fa-clipboard-list text-blueGray-300 mr-2 text-sm`}></i> Sell Requests
                 </Link>
               </li>
               <li className="items-center">
                 <Link
-                  className="text-blueGray-300 text-xs uppercase py-3 font-bold block"
+                  className={`text-blueGray-300 text-xs uppercase py-3 font-bold block ${location.pathname === "/admin/allUnchecked" ? "underline" : null}`}
                   to="/admin/allUnchecked"                
                 >
-                  <i className="fas fa-clipboard-list text-blueGray-300 mr-2 text-sm"></i> Art Last Check {toCheck && toCheck.length && <div className="text-white ml-2 py-1 px-2 inline-block rounded-full bg-red-600 font-semibold">{toCheck.length}</div>}
-                </Link>
-              </li>
-              <li className="items-center">
-                <Link
-                  className="text-blueGray-300 text-xs uppercase py-3 font-bold block"
-                  to="/creation"
-                  
-                >
-                  <i className="fas fa-clipboard-list text-blueGray-300 mr-2 text-sm"></i> Create Artwork
+                  <i className={`fas fa-clipboard-list text-blueGray-300 mr-2 text-sm`}></i> Art Last Check {toCheck && toCheck.length && <div className="text-white ml-2 py-1 px-2 inline-block rounded-full bg-red-600 font-semibold">{toCheck.length}</div>}
                 </Link>
               </li>
             </ul>
