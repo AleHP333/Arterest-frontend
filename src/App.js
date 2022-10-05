@@ -43,6 +43,7 @@ import SetPass from "./pages/PasswordRecover/SetPass";
 import LastCheck from "./pages/Admin/views/NotChecked";
 import CuatroOCuatro from "./pages/404/404"
 
+
 function App() {
   const [added, setAdded] = useState(false);
   const [notAdded, setNotAdded] = useState(false);
@@ -127,6 +128,7 @@ function App() {
           <Route path="/giftcard" element={<GiftCard />} />
           <Route path="/buy" element={<Buy />} />
           <Route path="/transaction" element={<Transaction />} />
+          <Route path="*" element={<CuatroOCuatro />} />
 
         </Routes>
         <Footer />

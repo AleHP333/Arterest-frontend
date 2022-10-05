@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import EmptyShopH from "../../pages/Empty/emptyShopH";
 import SHcard from "./SHcard";
 
 function ShoppingHistory() {
@@ -67,10 +68,7 @@ function ShoppingHistory() {
       </div>
     </section>
   ) : (
-    <div className="flex flex-col items-center font-bold my-auto">
-      <a>Your shopping history is empty!</a>
-      <Link to='/home' className="bg-red-500 hover:bg-red-300 hover:shadow-sm hover:shadow-gray-900 rounded-full px-1">Home</Link>
-    </div>
+    <EmptyShopH/>
   );
 }
 

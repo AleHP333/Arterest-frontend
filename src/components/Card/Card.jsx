@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 // Icons
 import { AiFillShopping } from "react-icons/ai";
 import { AiFillPushpin } from "react-icons/ai";
+import RemoveShoppingCartIcon from '@mui/icons-material/RemoveShoppingCart';
 // Favorites and cart Logic
 import { addToFav, addToCart } from "./FavAndCart";
 // Custom Styles
@@ -30,19 +31,24 @@ export default function Card({
 }) {
 
 
-const dispatch = useDispatch()
-const [isImageLoaded, setImageIsLoaded] = useState(false);
+  const dispatch = useDispatch()
+  const [isImageLoaded, setImageIsLoaded] = useState(false);
+  
 
-  const handleFavState = (e) => {
-  dispatch({type: "SET_FAV_STATE"})
-  }
+ 
   
   const handleFavoritesState = (e) => {
     let favs = JSON.parse(localStorage.getItem("favList"));
     let answer = favs.map(fav => fav._id === _id)
-    console.log(answer, "answer");
     return answer
   }
+
+  function outOfStock(e){
+    e.preventDefault()
+    dispatch({type:"MESSAGE", payload: {msgData: {status: "warning", msg: "Product out of stock"}}})
+  }
+
+  
 
   return (
     <div className="container rounded-lg mb-5" key={_id}>
@@ -106,7 +112,6 @@ const [isImageLoaded, setImageIsLoaded] = useState(false);
                     handleNotAdded,
                     e,
                     setFavProducts,
-                    handleFavState,
                   );
                   handleFavoritesState()}
                 }
@@ -117,7 +122,7 @@ const [isImageLoaded, setImageIsLoaded] = useState(false);
         <li>
           <a href="#">
             <i className="gr gr-bag">
-              <AiFillShopping
+              {stock > 0 ? <AiFillShopping
                 onClick={(e) =>
                   {addToCart(
                     userName,
@@ -131,12 +136,11 @@ const [isImageLoaded, setImageIsLoaded] = useState(false);
                     handleNotAdded,
                     e
                   );
-                  dispatch(booleano())
-                  
+                  dispatch(booleano())                 
                 }
                 }
                 disabled={stock === 0 }
-              />
+              /> : <RemoveShoppingCartIcon onClick={(e) => {outOfStock(e)}} className={"text-red-500"}/>}
             </i>
           </a>
         </li>
