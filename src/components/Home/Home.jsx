@@ -34,7 +34,6 @@ export const Home = ({ handleAdded, handleNotAdded }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const allPaints = useSelector((state) => state.testReducer.allProducts);
-
     const [paint, setPaint] = useState([])
     const [hasMore, setHasMore] = useState(true)
     console.log(currentPage, 'PAG')

@@ -310,6 +310,10 @@ export default function DetailProduct () {
                                         <p className="items-center justify-center text-sm leading-none text-gray-600">{paint.technique}</p>
                                     </div>
                                     <div className="py-3 border-t border-gray-200 flex items-center justify-between">
+                                        <p className="text-base leading-4 text-gray-800">Stock</p>
+                                        <p className="items-center justify-center text-sm leading-none text-gray-600">{paint.stock}</p>
+                                    </div>
+                                    <div className="py-3 border-t border-gray-200 flex items-center justify-between">
                                         <p className="text-base leading-4 text-gray-800">Country of origin</p>
                                         <p className="items-center justify-center text-sm leading-none text-gray-600">{paint.origin}</p>
                                     </div>
