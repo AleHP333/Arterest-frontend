@@ -42,7 +42,7 @@ import PasswordRecover from "./pages/PasswordRecover/PasswordRecover";
 import SetPass from "./pages/PasswordRecover/SetPass";
 import LastCheck from "./pages/Admin/views/NotChecked";
 import CuatroOCuatro from "./pages/404/404"
-import EmptyCart from "./pages/Empty/emptyCart";
+
 
 function App() {
   const [added, setAdded] = useState(false);
@@ -86,7 +86,6 @@ function App() {
         <NavBar />
         <Routes>
           <Route path="/favorites" element={<Favorites />} />
-          <Route path="/empty" element={<EmptyCart />} />
           <Route exact path="/" element={<LandingPage />} />
           <Route exact path="/creation" element={<CreateProduct />} />
           <Route
