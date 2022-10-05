@@ -12,6 +12,8 @@ import axios from "axios"
 import { Alert, IconButton, Snackbar } from "@mui/material";
 import MuiAlert from '@mui/material/Alert';
 import PreviewImage2 from "./PreviewImage2";
+import BrushIcon from '@mui/icons-material/Brush';
+import LocalPoliceIcon from '@mui/icons-material/LocalPolice';
 
 
 export default function Profile() {
@@ -55,17 +57,17 @@ export default function Profile() {
     e.preventDefault();
 
     try {
-      if(input.userImage){
+      if (input.userImage) {
         handleClickShare()
         const formData = new FormData();
-      formData.append("file", input.userImage);
-      formData.append("upload_preset", "images");
-      axios.post("https://api.cloudinary.com/v1_1/onlypan/upload", formData)
-        .then((resAxios) => {
-          console.log(resAxios.data.secure_url);
-          dispatch(updateProfile({ ...input, userImage: resAxios.data.secure_url }))
-        })
-        .catch(error => console.log(error))
+        formData.append("file", input.userImage);
+        formData.append("upload_preset", "images");
+        axios.post("https://api.cloudinary.com/v1_1/onlypan/upload", formData)
+          .then((resAxios) => {
+            console.log(resAxios.data.secure_url);
+            dispatch(updateProfile({ ...input, userImage: resAxios.data.secure_url }))
+          })
+          .catch(error => console.log(error))
       } else {
         dispatch(updateProfile({ userName: input.userName, names: input.names, surnames: input.surnames, country: input.country, city: input.city, userImage: user.userImage }))
       }
@@ -97,7 +99,7 @@ export default function Profile() {
 
   return (
     <>
-      { !loading ? <><main className="profile-page">
+      {!loading ? <><main className="profile-page">
         <form onSubmit={(e) => handleSubmit(e)}>
           <div>
             <div className="w-30 h-30 pt-4 flex items-center justify-center ">
@@ -128,6 +130,10 @@ export default function Profile() {
               onChange={(e) => handleChange(e)}
 
             />
+          <div className='mt-4'>
+            {user.isArtist ? <BrushIcon className='text-green-400 ml-2' /> : null}
+            {user.isAdmin ? <LocalPoliceIcon className='text-blue-500 ml-2' /> : null}
+          </div>
           </div>
         </form>
         <div>
@@ -237,7 +243,7 @@ export default function Profile() {
                               name="city"
                               type="text"
                               className="w-11/12 focus:outline-none focus:text-gray-600 p-2"
-                              placeholder={ input.city || "City" }
+                              placeholder={input.city || "City"}
                               onChange={(e) => handleChange(e)}
                             />
                           </div>
@@ -259,25 +265,25 @@ export default function Profile() {
                     </div>
                   </form>
                   <div className="flex items-center md:w-3/12 text-center md:pl-6">
-   
+
                     <button
                       className="text-white w-full mx-auto max-w-sm rounded-md text-center bg-red-500  hover:bg-red-600 py-2 px-4 inline-flex items-center focus:outline-none md:float-right"
                       onClick={handleSubmit}
                     >
-                      
-                        <svg
-                          fill="none"
-                          className="w-4 text-white mr-2"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-                          />
-                        </svg>
+
+                      <svg
+                        fill="none"
+                        className="w-4 text-white mr-2"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                        />
+                      </svg>
                       Update
                     </button>
                   </div>
@@ -296,7 +302,7 @@ export default function Profile() {
                   </div>
                 </div>
               </div>
-              <Snackbar open={open} autoHideDuration={4000} onClose={handleCloseSnackbar} anchorOrigin={{ vertical: "top", horizontal:"center" }}>
+              <Snackbar open={open} autoHideDuration={4000} onClose={handleCloseSnackbar} anchorOrigin={{ vertical: "top", horizontal: "center" }}>
                 <Alert onClose={handleCloseSnackbar} severity="warning" sx={{ width: '100%' }}>
                   Await... - Updating Profile
                 </Alert>
@@ -305,7 +311,7 @@ export default function Profile() {
           </div>
         </div>
       </main>
-      <Footer /></> : <div>Loading...</div>}
+        <Footer /></> : <div>Loading...</div>}
     </>
   );
 }

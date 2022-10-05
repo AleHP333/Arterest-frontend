@@ -24,7 +24,6 @@ export default function Searchbar() {
     (state) => state.testReducer.productsAutocomplete
   );
 
-  console.log("cosa", autocomplete);
   function handleStateChanges(e) {
     e.preventDefault();
     setInput(e.target.value);
@@ -57,17 +56,23 @@ export default function Searchbar() {
   }
 
   return (
-    <div className="flex flex-col w-1/3">
+    <div className="flex flex-col md:w-1/3 w-full">
       <form
         onSubmit={(e) => handleSubmit(e)}
         onBlur={() => {
           clearAutocomplete();
         }}
-        className=" flex justify-start w-full overflow-hidden border-2 border-gray-300 rounded-full text-gray-500 items-center px-4 py-1"
+        className="flex justify-start w-full overflow-hidden border-2 border-gray-300 rounded-full text-gray-500 items-center px-4 py-1"
       >
-        <button className="" type="submit">
-          <AiOutlineSearch />
+        <button>
+          <AiOutlineSearch
+            onMouseDown={() => {
+              navigate(`/home?art=${input}`);
+              console.log("mouse", input);
+            }}
+          />
         </button>
+
         <input
           className="self-center focus:outline-none w-full"
           type="text"

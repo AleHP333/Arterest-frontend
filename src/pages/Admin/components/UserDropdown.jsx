@@ -64,16 +64,6 @@ const UserDropdown = () => {
           All Users
         </a>
         <a
-          href="reviews"
-          className={
-            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-          }
-          onClick={e => e.preventDefault()}
-        >
-          All Reviews
-        </a>
-        <div className="h-0 my-2 border border-solid border-blueGray-100" />
-        <a
           href="orders"
           className={
             "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
@@ -81,6 +71,34 @@ const UserDropdown = () => {
           onClick={e => e.preventDefault()}
         >
           All Orders
+        </a>
+        {/* <div className="h-0 my-2 border border-solid border-blueGray-100" /> */}
+        <a
+          href="requests"
+          className={
+            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+          }
+          onClick={e => e.preventDefault()}
+        >
+          Artist Requests
+        </a>
+        <a
+          href="sellrequests"
+          className={
+            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+          }
+          onClick={e => e.preventDefault()}
+        >
+          Sell Requests
+        </a>
+        <a
+          href="allUnchecked"
+          className={
+            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+          }
+          onClick={e => e.preventDefault()}
+        >
+          Art Last Check
         </a>
       </div>
     </>
