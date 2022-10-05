@@ -33,6 +33,7 @@ export default function Card({
   const dispatch = useDispatch()
   const [isImageLoaded, setImageIsLoaded] = useState(false);
   
+
   const handleFavState = (e) => {
   dispatch({type: "SET_FAV_STATE"})
   }
