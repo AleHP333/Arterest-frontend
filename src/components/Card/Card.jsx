@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 // Icons
 import { AiFillShopping } from "react-icons/ai";
 import { AiFillPushpin } from "react-icons/ai";
+import RemoveShoppingCartIcon from '@mui/icons-material/RemoveShoppingCart';
 // Favorites and cart Logic
 import { addToFav, addToCart } from "./FavAndCart";
 // Custom Styles
@@ -39,8 +40,12 @@ export default function Card({
   const handleFavoritesState = (e) => {
     let favs = JSON.parse(localStorage.getItem("favList"));
     let answer = favs.map(fav => fav._id === _id)
-    console.log(answer, "answer");
     return answer
+  }
+
+  function outOfStock(e){
+    e.preventDefault()
+    dispatch({type:"MESSAGE", payload: {msgData: {status: "warning", msg: "Product out of stock"}}})
   }
 
   
@@ -117,7 +122,7 @@ export default function Card({
         <li>
           <a href="#">
             <i className="gr gr-bag">
-              <AiFillShopping
+              {stock > 0 ? <AiFillShopping
                 onClick={(e) =>
                   {addToCart(
                     userName,
@@ -131,12 +136,11 @@ export default function Card({
                     handleNotAdded,
                     e
                   );
-                  dispatch(booleano())
-                  
+                  dispatch(booleano())                 
                 }
-              }
-        
-              />
+                }
+                disabled={stock === 0 }
+              /> : <RemoveShoppingCartIcon onClick={(e) => {outOfStock(e)}} className={"text-red-500"}/>}
             </i>
           </a>
         </li>
