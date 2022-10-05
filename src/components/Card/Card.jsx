@@ -104,6 +104,7 @@ export default function Card({
                     e
                   )
                 }
+                disabled={stock === 0 }
               />
             </i>
           </a>
