@@ -12,7 +12,7 @@ import "./card.css";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import Skeleton from '@mui/material/Skeleton';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { booleano } from "../../redux/actions/productActionsTest";
 
 export default function Card({
@@ -28,8 +28,21 @@ export default function Card({
   handleNotAdded,
   setFavProducts,
 }) {
-  const dispatch = useDispatch()
-  const [isImageLoaded, setImageIsLoaded] = useState(false);
+
+
+const dispatch = useDispatch()
+const [isImageLoaded, setImageIsLoaded] = useState(false);
+
+  const handleFavState = (e) => {
+  dispatch({type: "SET_FAV_STATE"})
+  }
+  
+  const handleFavoritesState = (e) => {
+    let favs = JSON.parse(localStorage.getItem("favList"));
+    let answer = favs.map(fav => fav._id === _id)
+    console.log(answer, "answer");
+    return answer
+  }
 
   
 
@@ -81,9 +94,9 @@ export default function Card({
       <ul className="social-media">
         <li>
           <a href="#">
-            <i className="gr gr-pin">
+            <i className="gr gr-pin" id={handleFavoritesState().includes(true) && "fav"}>
               <AiFillPushpin
-                onClick={(e) =>
+                onClick={(e) =>{
                   addToFav(
                     userName,
                     userImage,
@@ -94,8 +107,10 @@ export default function Card({
                     handleAdded,
                     handleNotAdded,
                     e,
-                    setFavProducts
-                  )
+                    setFavProducts,
+                    handleFavState,
+                  );
+                  handleFavoritesState()}
                 }
               />
             </i>
@@ -119,6 +134,7 @@ export default function Card({
                     e
                   );
                   dispatch(booleano())
+                  
                 }
               }
         
