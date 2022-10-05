@@ -29,7 +29,11 @@ const getPrice = () => {
     if(!!e.transaction.total_money) total += e.transaction.total_money
   })
   console.log('$ ' + total.toFixed(2), "getprice");
-  return '$ ' + total.toFixed(2)
+  return total.toFixed(2)
+}
+
+const getProfit = () => {
+  return (getPrice() * 0.012).toFixed(2)
 }
 
 const toCheck = artwork.filter(art => art.lastCheck !== true)
@@ -63,14 +67,7 @@ console.log(toCheck)
                           </span>
                         </div>
                       </div>
-                      <p className="text-sm text-blueGray-400 mt-4">
-                        <span className="text-red-500 mr-2">
-                          <i className="fas fa-arrow-down"></i> 3.48%
-                        </span>
-                        <span className="whitespace-nowrap">
-                          Since last week
-                        </span>
-                      </p>
+
                     </div>
                   </div>
                 </div>
@@ -83,19 +80,12 @@ console.log(toCheck)
                             Sales
                           </h5>
                           <span className="font-semibold text-xl text-blueGray-700">
-                            {getPrice()}
+                            $ {getPrice()}
                           </span>
                         </div>
 
                       </div>
-                      <p className="text-sm text-blueGray-400 mt-4">
-                        <span className="text-orange-500 mr-2">
-                          <i className="fas fa-arrow-down"></i> 1.10%
-                        </span>
-                        <span className="whitespace-nowrap">
-                          Since yesterday
-                        </span>
-                      </p>
+                      
                     </div>
                   </div>
                 </div>
@@ -105,22 +95,15 @@ console.log(toCheck)
                       <div className="flex flex-wrap">
                         <div className="relative w-full pr-4 max-w-full flex-grow flex-1">
                           <h5 className="text-blueGray-400 uppercase font-bold text-xs">
-                            Performance
+                            Profit
                           </h5>
                           <span className="font-semibold text-xl text-blueGray-700">
-                            49,65%
+                           $ {getProfit()}
                           </span>
                         </div>
 
                       </div>
-                      <p className="text-sm text-blueGray-400 mt-4">
-                        <span className="text-emerald-500 mr-2">
-                          <i className="fas fa-arrow-up"></i> 12%
-                        </span>
-                        <span className="whitespace-nowrap">
-                          Since last month
-                        </span>
-                      </p>
+                      
                     </div>
                   </div>
                 </div>
