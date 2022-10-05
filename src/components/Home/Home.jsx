@@ -25,6 +25,9 @@ function tagPrice(tagPrices) {
 
 export const Home = ({ handleAdded, handleNotAdded }) => {
 
+    const [favProducts, setFavProducts] = useState(
+        JSON.parse(localStorage.getItem("favList"))
+      );
     //HOOKS
     const [currentPage, setCurrentPage] = useState(1)
     const location = useLocation();
@@ -32,6 +35,12 @@ export const Home = ({ handleAdded, handleNotAdded }) => {
     const dispatch = useDispatch();
     const allPaints = useSelector((state) => state.testReducer.allProducts);
     const isLoading = useSelector((state) => state.testReducer.isLoading);
+    console.log(allPaints)
+   
+    const [paint, setPaint] = useState([])
+    const [hasMore, setHasMore] = useState(true)
+    console.log(currentPage, 'PAG')
+
     //SEARCH PARAMS
     const [searchParams] = useSearchParams();
     const searchName = searchParams.get('name');
@@ -53,9 +62,18 @@ export const Home = ({ handleAdded, handleNotAdded }) => {
             setCurrentPage(1)
         } else {
             dispatch(getAllProducts())
+            // .then(()=> {
+            //     setPaint(() => itemsToRender() )
+            //     setHasMore(paint.length < allPaints.length)
+
+            //     console.log(hasMore, 'HAS MORE')
+            //     console.log(allPaints.length, 'LENGTH ALL Paints')
+            //     console.log(itemsToRender(), 'RENDER')
+            //     console.log(dispatch(getAllProducts()), 'DISPATCH')
+            // })
         }
     }, [dispatch, searchParams])
-
+    console.log(paint, 'PAINT')
     //Clear filters
     function clearFilter(filter) {
         if (filter === "price") {
@@ -66,9 +84,6 @@ export const Home = ({ handleAdded, handleNotAdded }) => {
         setCurrentPage(1)
         navigate(location);
     }
-    function hasMore () {
-        if (itemsToRender().length >= allPaints.length) { return false } return true
-    }
 
     //Paginate functions----------------------------------------------------------------------------------
     const itemsToRender = () => {
@@ -78,36 +93,36 @@ export const Home = ({ handleAdded, handleNotAdded }) => {
         return allPaints.slice(start, end);
     };
 
-    // const listOfNumbers = () => {
-    //     let list = [];
-    //     let done = Math.ceil(allPaints.length / 15);
-    //     for (let i = 0; i < done; i++) {
-    //         list.push(i + 1);
-    //     }
-    //     return list;
-    // };
+    const listOfNumbers = () => {
+        let list = [];
+        let done = Math.ceil(allPaints.length / 15);
+        for (let i = 0; i < done; i++) {
+            list.push(i + 1);
+        }
+        return list;
+    };
 
-    // function nextPage() {
-    //     // if (
-    //     //     listOfNumbers().length !== currentPage &&
-    //     //     listOfNumbers().length > currentPage
-    //     // ) {
-    //     setCurrentPage(currentPage + 1);
-    //     // }
-    //     window.scrollTo(0, 0);
-    // }
+    function nextPage() {
+        // if (
+        //     listOfNumbers().length !== currentPage &&
+        //     listOfNumbers().length > currentPage
+        // ) {
+            setCurrentPage(currentPage + 1);
+        // }
+        window.scrollTo(0, 0);
+    }
 
-    // function prevPage() {
-    //     if (currentPage !== 1 && currentPage > 1) {
-    //         setCurrentPage(currentPage - 1);
-    //         window.scrollTo(0, 0);
-    //     }
-    // }
+    function prevPage() {
+        if (currentPage !== 1 && currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+            window.scrollTo(0, 0);
+        }
+    }
 
-    // const changePage = (e) => {
-    //     setCurrentPage(Number(e.target.value));
-    //     window.scrollTo(0, 0);
-    // };
+    const changePage = (e) => {
+        setCurrentPage(Number(e.target.value));
+        window.scrollTo(0, 0);
+    };
 
 
 
@@ -207,7 +222,7 @@ export const Home = ({ handleAdded, handleNotAdded }) => {
                                 </div>
                                 </InfiniteScroll>
                             </div>
-                            {/* <div className="flex justify-center my-3">
+                                {/* <div className="flex justify-center my-3">
                                     <div>
                                         <button
                                             onClick={prevPage}
@@ -224,16 +239,15 @@ export const Home = ({ handleAdded, handleNotAdded }) => {
                                             );
                                         })
                                     }
-
                                     <div>
                                         <button onClick={nextPage} className="page-link relative block py-1.5 px-3  border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none">
                                             <span>&raquo;</span>
                                         </button>
                                     </div>
                                 </div> */}
-                        </>
+                            </>
                 }
-            </div>
+                        </div>
         </div>
-    );
+            );
 };
