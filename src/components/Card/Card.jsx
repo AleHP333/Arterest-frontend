@@ -31,12 +31,11 @@ export default function Card({
 }) {
 
 
-const dispatch = useDispatch()
-const [isImageLoaded, setImageIsLoaded] = useState(false);
+  const dispatch = useDispatch()
+  const [isImageLoaded, setImageIsLoaded] = useState(false);
+  
 
-  const handleFavState = (e) => {
-  dispatch({type: "SET_FAV_STATE"})
-  }
+ 
   
   const handleFavoritesState = (e) => {
     let favs = JSON.parse(localStorage.getItem("favList"));
@@ -113,7 +112,6 @@ const [isImageLoaded, setImageIsLoaded] = useState(false);
                     handleNotAdded,
                     e,
                     setFavProducts,
-                    handleFavState,
                   );
                   handleFavoritesState()}
                 }
