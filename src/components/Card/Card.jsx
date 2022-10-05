@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 // Icons
 import { AiFillShopping } from "react-icons/ai";
 import { AiFillPushpin } from "react-icons/ai";
+import RemoveShoppingCartIcon from '@mui/icons-material/RemoveShoppingCart';
 // Favorites and cart Logic
 import { addToFav, addToCart } from "./FavAndCart";
 // Custom Styles
@@ -40,7 +41,6 @@ const [isImageLoaded, setImageIsLoaded] = useState(false);
   const handleFavoritesState = (e) => {
     let favs = JSON.parse(localStorage.getItem("favList"));
     let answer = favs.map(fav => fav._id === _id)
-    console.log(answer, "answer");
     return answer
   }
 
@@ -117,7 +117,7 @@ const [isImageLoaded, setImageIsLoaded] = useState(false);
         <li>
           <a href="#">
             <i className="gr gr-bag">
-              <AiFillShopping
+              {stock > 0 ? <AiFillShopping
                 onClick={(e) =>
                   {addToCart(
                     userName,
@@ -136,7 +136,7 @@ const [isImageLoaded, setImageIsLoaded] = useState(false);
                 }
                 }
                 disabled={stock === 0 }
-              />
+              /> : <RemoveShoppingCartIcon className={"text-red-500"}/>}
             </i>
           </a>
         </li>

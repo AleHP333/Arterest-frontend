@@ -35,6 +35,9 @@ export const addToCart = (userName,
   let cart = JSON.parse(localStorage.getItem('cartList'))
   console.log('cart', cart)
   console.log('id', _id)
+  if(stock === 0){
+    return 
+  }
   if(cart === null || !cart.length){
       localStorage.setItem("cartList", JSON.stringify([{ stock, userName, title, img, _id, price, quantity: 1}]))
   } else {

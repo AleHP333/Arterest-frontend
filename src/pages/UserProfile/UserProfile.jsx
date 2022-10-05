@@ -14,6 +14,7 @@ import MuiAlert from '@mui/material/Alert';
 import PreviewImage2 from "./PreviewImage2";
 import BrushIcon from '@mui/icons-material/Brush';
 import LocalPoliceIcon from '@mui/icons-material/LocalPolice';
+import ColorLensIcon from '@mui/icons-material/ColorLens';
 
 
 export default function Profile() {
@@ -150,13 +151,13 @@ export default function Profile() {
                           </button>
                         </Link>
                       </div>
-                      <div className="inline-flex items-center ml-3 space-x-4 md:mt-0 md:justify-center">
+                      { user && user.isArtist ? <div className="inline-flex items-center ml-20 space-x-4 md:mt-0 md:justify-center">
                         <Link to="/artist/artRequest">
-                          <button className="text-white w-auto h-auto py-1.5 px-1.5 uppercase rounded bg-red-500 hover:bg-red-600 shadow hover:shadow-lg font-light">
-                            SELL ARTWORK
+                          <button className="text-white w-auto h-auto py-1.5 px-1.5 uppercase rounded bg-green-500 hover:bg-red-600 shadow hover:shadow-lg font-light">
+                            <ColorLensIcon />SELL ARTWORK
                           </button>
                         </Link>
-                      </div>
+                      </div> : null }
                     </div>
                   </div>
                 </div>

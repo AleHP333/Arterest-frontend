@@ -87,6 +87,7 @@ export default function NavBar() {
             img={loggedUser.userImage}
             userName={loggedUser.userName}
             isAdmin={loggedUser.isAdmin}
+            isArtist={loggedUser.isArtist}
           />
         ) : (
           <Link to="/signIn">
