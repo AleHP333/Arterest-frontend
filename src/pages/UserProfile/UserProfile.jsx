@@ -1,27 +1,21 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
-  getUserById,
   updateProfile,
 } from "../../redux/actions/productActionsTest";
-import Card from "../../components/Card/Card";
 import Footer from "../Footer/Footer";
-import { Box, CircularProgress } from "@mui/material";
 import UserPhoto from "./assets/NicePng_usuario-png_2022264.png";
 import ArtistRequest from "../../components/ArtistRequest/ArtistRequest";
-import { BsPencil } from 'react-icons/bs'
 import axios from "axios"
-import { productPost } from "../../redux/actions/adminActions";
-import PreviewImage from "../../components/CreateProduct/ReusableFunctions/PreviewImage";
+import { Alert, IconButton, Snackbar } from "@mui/material";
+import MuiAlert from '@mui/material/Alert';
+
 
 export default function Profile() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.userSignReducer.userData);
-  // const { id } = useParams()
-  // const navigate = useNavigate()
-  console.log(user, "USER");
 
   const [input, setInput] = useState({
     userName: "",
@@ -36,7 +30,6 @@ export default function Profile() {
     if (user !== undefined) {
       setInput({
         userName: user.userName,
-        
         names: user.names,
         surnames: user.surnames,
         country: user.country,
@@ -55,60 +48,64 @@ export default function Profile() {
   async function handleSubmit(e) {
     e.preventDefault();
 
-      try {
-        const formData = new FormData();
-            formData.append("file", input.userImage);
-            formData.append("upload_preset", "images");
-            axios.post("https://api.cloudinary.com/v1_1/onlypan/upload", formData)
-              .then((resAxios) => {
-                  console.log(resAxios.data.secure_url);
-                    dispatch(updateProfile({...input, userImage: resAxios.data.secure_url}))
-                    
-                })
-                .catch(error=>console.log(error))
-      } catch (error) {
-        console.log(error);
-      }
+    try {
+      const formData = new FormData();
+      formData.append("file", input.userImage);
+      formData.append("upload_preset", "images");
+      axios.post("https://api.cloudinary.com/v1_1/onlypan/upload", formData)
+        .then((resAxios) => {
+          console.log(resAxios.data.secure_url);
+          dispatch(updateProfile({ ...input, userImage: resAxios.data.secure_url }))
 
-    // dispatch(updateProfile({ ...input }));
-  }
-
-  function imageChange(userImage, data){
-        setInput({
-          ...input,
-          userImage: data
         })
-  }
-  
+        .catch(error => console.log(error))
+    } catch (error) {
+      console.log(error);
+    }
 
-  
+  }
+
+  function imageChange(userImage, data) {
+    setInput({
+      ...input,
+      userImage: data
+    })
+  }
+  const [open, setOpen] = React.useState(false);
+  const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
+  const handleClickShare = () => {
+    setOpen(true);
+  };
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
+
   return (
     <>
       <main className="profile-page">
         <form onSubmit={(e) => handleSubmit(e)}>
           <div>
-          
-          <div className="w-30 h-30 pt-4 flex items-center justify-center ">
-            <img
-              name='userImage'
-              // type='file'
-              className="w-20 h-20 rounded-full"
-              alt="User avatar"
-              src={(user && user.userImage)|| UserPhoto}
-            />
-              <PreviewImage file={input.userImage} />
-            <input
-            
-              // className="text-sm font-small text-right text-gray-700"
-              type="file"
-              className="w-20 h-20 rounded-full"
-              accept="image/*"
-              onChange={(e) => {
-                          imageChange("userImage", e.target.files[0]);
-                        }}
-            /> <BsPencil/>
-            
-          </div>
+            <div className="w-30 h-30 pt-4 flex items-center justify-center ">
+              <label
+                className='border-2 hover:shadow-xl hover:opacity-20 hover:border-red-500'
+                style={{ backgroundImage: `url(${(user && user.userImage) || UserPhoto})`, width: '100px', height: '100px', backgroundSize: 'cover', borderRadius: '50%', cursor: 'pointer', opacity: '2', filter: 'alpha(opacity=100)' }}>
+                <span class="sr-only">Choose profile photo</span>
+                <input
+                  type="file"
+                  style={{ display: 'none' }}
+                  accept="image/*"
+                  onChange={(e) => {
+                    imageChange("userImage", e.target.files[0]);
+                  }}
+                />
+              </label>
+            </div>
+
           </div>
           <div className="mt-4 text-center border-b pb-4">
             <input
@@ -251,26 +248,31 @@ export default function Profile() {
                     </div>
                   </form>
                   <div className="flex items-center md:w-3/12 text-center md:pl-6">
+                  <IconButton onClick={() => handleClickShare()} >
                     <button
                       className="text-white w-full mx-auto max-w-sm rounded-md text-center bg-red-500  hover:bg-red-600 py-2 px-4 inline-flex items-center focus:outline-none md:float-right"
                       onClick={handleSubmit}
+
                     >
-                      <svg
-                        fill="none"
-                        className="w-4 text-white mr-2"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-                        />
-                      </svg>
+                      
+                        <svg
+                          fill="none"
+                          className="w-4 text-white mr-2"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                          />
+                        </svg>
                       Update
                     </button>
+                      </IconButton>
                   </div>
+
                   <div className="md:inline-flex space-y-4 md:space-y-0 w-full p-4 text-gray-500 items-center">
                     <div className="md:inline-flex w-full  md:space-y-0 p-2 text-gray-500 items-center">
                       <div className="w-full inline-flex border-b">
@@ -285,6 +287,11 @@ export default function Profile() {
                   </div>
                 </div>
               </div>
+              <Snackbar open={open} autoHideDuration={4000} onClose={handleCloseSnackbar}>
+                <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
+                  Profile Updated!
+                </Alert>
+              </Snackbar>
             </section>
           </div>
         </div>
