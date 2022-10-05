@@ -9,14 +9,13 @@ import { getAllProducts, getAllUsers, getOrders } from "../../../redux/actions/p
 import {BsFillPencilFill} from 'react-icons/bs'
 import { Link } from "react-router-dom";
 import { getAllProductsAdmin } from "../../../redux/actions/adminActions";
-
+import Avatar from '@mui/material/Avatar';
 
 export default function Dashboard() {
 const dispatch = useDispatch()
 const users = useSelector((state) => state.testReducer.allUsers )
 const artwork = useSelector((state) => state.testReducer.allProducts )
 const orders = useSelector((state) => state.testReducer.orders )
-const [reload, setReload] = useState(false)
 
 useEffect(() =>{
   dispatch(getAllUsers());
@@ -24,13 +23,6 @@ useEffect(() =>{
   dispatch(getOrders())
 }, [dispatch])
 
-function bannUser(){
-  setReload(!reload)
-  if(users.isBloked === false){
-    return users.isBloked === true
-  } 
-  console.log('entré')
-}
 const getPrice = () => {
   let total = 0
   orders.forEach(e => {
@@ -173,30 +165,41 @@ console.log(toCheck)
                           User Name
                         </th>
                         <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                          Is Artist
+                        </th>
+                        <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                          Is Admin
+                        </th>
+                        <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                           Is Banned
                         </th>
                         <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                          Modify
+                          Is Verified
                         </th>
                       </tr>
                     </thead>
                     <tbody>
-                    {users.length ? users?.map((user, index) => {
+                    {users.length ? users?.map((us, index) => {
                       return (
                        <tr>
-                        <th id= {index}className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                          {user.userName}
-                        </th>
-                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                          {user.isBanned === false ? 'NO': 'YES'}
-                        </td>
-                        <td className="flex border-t-0 px-6 ml-4 text-xs whitespace-nowrap p-4 cursor-pointer">
-                          <BsFillPencilFill onClick={()=>bannUser()}/>
-                          {/* <FaTrashAlt/> */}
-                        </td>
+                        <th  className="border-t-0 px-6 align-middle flex flex-col justify-center items-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
+                                { us.userImage ? <Avatar src={us.userImage} sx={{ width: 40, height: 40 }} /> : <Avatar sx={{ width: 40, height: 40 }}>{us.userName.substring(0, 1).toUpperCase()}</Avatar>}{us.userName}                       
+                            </th>
+                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                            <span className={`${us.isArtist ? "text-green-500" : "text-red-600"} font-semibold text-base`}>{us.isArtist === false ? 'NO': 'YES'}</span>
+                            </td>
+                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                            <span className={`${us.isAdmin ? "text-green-500" : "text-red-600"} font-semibold text-base`}>{us.isAdmin === false ? 'NO': 'YES'}</span>                           
+                            </td>
+                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                            <span className={`${us.isBanned ? "text-green-500" : "text-red-600"} font-semibold text-base`}>{us.isBanned === false ? 'NO': 'YES'}</span>                            
+                            </td>
+                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                              <span className={`${us.verification ? "text-green-500" : "text-red-600"} font-semibold text-base`}>{us.verification === false ? 'NO': 'YES'}</span>
+                            </td>
                       </tr>
                       )
-                    }) : 'hola'}
+                    }) : null }
                     </tbody>
                   </table>
                 </div>
@@ -208,7 +211,7 @@ console.log(toCheck)
                   <div className="flex flex-wrap items-center">
                     <div className="relative w-full px-4 max-w-full flex-grow flex-1">
                       <h3 className="font-semibold text-base text-blueGray-700">
-                        Orders
+                        Gains
                       </h3>
                     </div>
                     <div className="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
@@ -221,13 +224,13 @@ console.log(toCheck)
                     <thead className="thead-light">
                       <tr>
                         <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                          Artwork
+                          Day
                         </th>
                         <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                           Status
                         </th>
                        <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                          Total
+                          USD
                         </th>
                         <th
                           className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
@@ -240,13 +243,13 @@ console.log(toCheck)
                         return (
                       <tr>
                         <th id={index} className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                          {art.transaction.product}
+                          Day{art.dateOfBuy.substring(0, 10)}<br /> - {art.dateOfBuy.substring(11, 19)} H.S
                         </th>
                         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                           {art.transaction.status}
                         </td>
                         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                          USD  {art.transaction.total_money? art.transaction.total_money: 0}
+                          $ {art.transaction.total_money? art.transaction.total_money: 0}
                         </td>
                       </tr>
                         )

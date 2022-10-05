@@ -55,6 +55,9 @@ export default function ProductDetail() {
                 seen: artDetail.seen
             })
         }
+        return () => {
+            cleanStateGetOnePaint()
+        }
     }, [artDetail])
 
     const [input, setInput] = useState({
@@ -350,6 +353,13 @@ export default function ProductDetail() {
                                 variant="contained">
                                 FINISH EDIT
                             </Button>
+                        </div>
+                        <div className='flex gap-3 mt-3 '>
+                            <Link to={"/admin"}>
+                                <Button variant="contained" color="error">
+                                    CANCEL CHANGES
+                                </Button>
+                            </Link>
                         </div>
                         <div className='flex gap-3 mt-3 '>
                             {artDetail.lastCheck === false ? <Button
