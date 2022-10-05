@@ -3,14 +3,14 @@ import swal from "sweetalert";
 import { useNavigate } from "react-router-dom";
 import "./Tran.css";
 import { Button } from "react-bootstrap";
-import i from "../../assets/thanks.png"
+import f from "../../assets/fail.png"
 
 
-export default function Transaction() {
+export default function TransF() {
   const navigate = useNavigate();
 
 
-  const transact = "success";
+  const transact = "error";
 
   useEffect(() => {
     if (transact === "success") {
@@ -43,15 +43,15 @@ export default function Transaction() {
               </Button>
               <Button
                 className="butt"
-                onClick={() => navigate("/profile/history")}
+                onClick={() => navigate("/cart")}
               >
-                Buy History
+                Cart
               </Button>
             </div>
           </div>
         </div>
       )}
-          <img className="img" src= {i}>
+          <img className="img" src= {f}>
 
           </img>
     </div>

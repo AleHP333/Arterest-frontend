@@ -30,6 +30,7 @@ import Footer from "./pages/Footer/Footer";
 import GiftCard from "./components/GiftCard/GiftCard";
 import AllRequests from "./pages/Admin/views/AllRequests";
 import Transaction from "./components/Transaction/Transaction";
+import TransF from "./components/Transaction/TransF";
 
 
 import Alert from "./components/Alert/Alert";
@@ -128,6 +129,7 @@ function App() {
           <Route path="/giftcard" element={<GiftCard />} />
           <Route path="/buy" element={<Buy />} />
           <Route path="/transaction" element={<Transaction />} />
+          <Route path="/fail" element={<TransF />} />
           <Route path="*" element={<CuatroOCuatro />} />
 
         </Routes>
