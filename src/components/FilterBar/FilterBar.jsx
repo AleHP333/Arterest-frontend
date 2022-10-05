@@ -100,7 +100,7 @@ export default function FilterBar({setCurrentPage}) {
     }, [filterPrice])
 
     return (
-        <div className="py-4 px-3 flex">
+        <div className="py-4 px-3 flex md:flex-row flex-col">
             {
             <>
                 <FormControl className='colorFilter'>

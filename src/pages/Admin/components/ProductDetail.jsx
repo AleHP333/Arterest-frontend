@@ -332,7 +332,6 @@ export default function ProductDetail() {
                                         YES
                                     <Switch
                                         name="seen"
-                                        checked={input.seen}
                                         value={input.seen}
                                         onChange={(e) => {handleChange(e)}}
                                         inputProps={{ 'aria-label': 'controlled' }}

@@ -1,3 +1,4 @@
+
 export const addToFav = (userName, userImage, title, img, _id, price, handleAdded, handleNotAdded, e, setFavProducts) => {
     e.preventDefault()
     let favs = JSON.parse(localStorage.getItem('favList'))

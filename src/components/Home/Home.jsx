@@ -169,41 +169,42 @@ export const Home = ({ handleAdded, handleNotAdded }) => {
                             </div> */}
                             <div id='scrollableDiv'>
 
-                                <InfiniteScroll
-                                    dataLength={itemsToRender().length}
-                                    next={() => setCurrentPage((prevPage) => prevPage + 1)}
-                                    hasMore={hasMore()}
-                                    loader={<LinearProgress className='flex mt-auto' />}
-                                    // scrollableTarget="scrollableDiv"
-                                    endMessage={
-                                        <p className='text-bold text-center text-lg'>
-                                            <b>Yay! You have seen it all</b>
-                                        </p>
+                            <InfiniteScroll
+                                dataLength={itemsToRender().length}
+                                next={() => setCurrentPage((prevPage) => prevPage + 1)}
+                                hasMore={hasMore}
+                                loader={<LinearProgress className='flex mt-auto' />}
+                                // scrollableTarget="scrollableDiv"
+                                endMessage={
+                                  <p className='text-bold text-center text-lg'>
+                                    <b>Yay! You have seen it all</b>
+                                  </p>
+                                }
+                            >
+                                <div className='pin_container'>
+                                    {(itemsToRender()).map((e) => {
+                                                return (
+                                                    <div className='inner2' key={e._id}>
+                                                        <Card
+                                                            className='img'
+                                                            img={e.img}
+                                                            userName={e.user.userName}
+                                                            userImage={e.user.userImage}
+                                                            stock={e.stock}
+                                                            title={e.title}
+                                                            price={e.price}
+                                                            _id={e._id}
+                                                            cardLikes={e.likes.length}
+                                                            handleAdded={handleAdded}
+                                                            handleNotAdded={handleNotAdded}
+                                                            setFavProducts={setFavProducts}
+                                                        >
+                                                        </Card>
+                                                    </div>
+                                                );
+                                            })
                                     }
-                                >
-                                    <div className='pin_container'>
-                                        {(itemsToRender()).map((e) => {
-                                            return (
-                                                <div className='inner2' key={e._id}>
-                                                    <Card
-                                                        className='img'
-                                                        img={e.img}
-                                                        userName={e.user.userName}
-                                                        userImage={e.user.userImage}
-                                                        stock={e.stock}
-                                                        title={e.title}
-                                                        price={e.price}
-                                                        _id={e._id}
-                                                        cardLikes={e.likes.length}
-                                                        handleAdded={handleAdded}
-                                                        handleNotAdded={handleNotAdded}
-                                                    >
-                                                    </Card>
-                                                </div>
-                                            );
-                                        })
-                                        }
-                                    </div>
+                                </div>
                                 </InfiniteScroll>
                             </div>
                             {/* <div className="flex justify-center my-3">

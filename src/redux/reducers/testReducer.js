@@ -11,6 +11,7 @@ const initialState = {
   paintComments: [],
   productsAutocomplete: [],
   orders: [],
+  booleano: false
 };
 
 function epicSliceXD(data){
@@ -141,6 +142,11 @@ export default function testReducer(state = initialState, action) {
         ...state,
         orders: action.payload,
       };
+      case 'BOOLEANO': 
+      return {
+        ...state,
+        booleano: !state.booleano
+      }
     default:
       return state;
   }
