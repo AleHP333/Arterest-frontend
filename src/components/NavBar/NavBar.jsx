@@ -42,8 +42,8 @@ export default function NavBar() {
   }
 
   return (
-    <nav className="flex flex-row sticky top-0 items-center w-full py-3 bg-white z-50">
-      <div className="flex flex-row items-center justify-start w-1/3 gap-8 pl-5">
+    <nav className="flex md:flex-row flex-col sticky top-0 items-center w-full py-3 bg-white z-50">
+      <div className="flex flex-row justify-around items-center md:justify-start w-full md:w-1/3 gap-8 md:pl-5">
         <Link to="/" className="navbar-brand flex flex-row gap-1 items-center">
           <div className="flex w-8 h-8">
             <img alt="" src={art_logo} />
@@ -62,7 +62,7 @@ export default function NavBar() {
 
       <Searchbar />
 
-      <div className="flex gap-8 ml-auto items-center w-1/3 justify-end pr-5">
+      <div className="flex gap-8 md:ml-auto items-center md:w-1/3 w-full md:justify-end justify-around md:pr-5">
         <Link to="/favorites">
           <Tooltip title="Pinned Favorites">
             <IconButton>
