@@ -31,6 +31,8 @@ export default function Card({
   const dispatch = useDispatch()
   const [isImageLoaded, setImageIsLoaded] = useState(false);
 
+  
+
   return (
     <div className="container rounded-lg mb-5" key={_id}>
       <div className="img-container">
@@ -118,8 +120,8 @@ export default function Card({
                   );
                   dispatch(booleano())
                 }
-                }
-                disabled={stock === 0 }
+              }
+        
               />
             </i>
           </a>
