@@ -27,6 +27,9 @@ export default function Buy() {
       
       localStorage.setItem('cartList', JSON.stringify([]))
       }
+      else{
+        navigate("/home")
+      }
     console.log(window.location.href);
 
 

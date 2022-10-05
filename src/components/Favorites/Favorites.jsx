@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import EmptyFav from "../../pages/Empty/emptyFav";
 import Card from "../Card/Card";
 import "./fav.css";
 
@@ -14,12 +15,7 @@ export default function Favorites() {
   const renderProducts = () => {
     if (!favProducts || favProducts.length === 0) {
       return (
-        <div>
-          <h4>Your favorite list is empty!</h4>
-          <Link to="/home">
-            <div>Go back to the Homepage</div>
-          </Link>
-        </div>
+        <EmptyFav/>
       );
     }
 
