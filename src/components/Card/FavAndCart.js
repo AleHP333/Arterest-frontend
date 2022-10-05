@@ -44,6 +44,7 @@ export const addToCart = (userName,
       let found = cart.find(item => item._id === _id)
       if(found){
           let removed = cart.filter(item => item !== found)
+        
           localStorage.setItem("cartList", JSON.stringify([...removed]))
       } else {
           localStorage.setItem("cartList", JSON.stringify([...cart,{ stock, userName, title, img, _id, price, quantity: 1}]))

@@ -44,6 +44,13 @@ const [isImageLoaded, setImageIsLoaded] = useState(false);
     return answer
   }
 
+  function outOfStock(e){
+    e.preventDefault()
+    dispatch({type:"MESSAGE", payload: {msgData: {status: "warning", msg: "Product out of stock"}}})
+  }
+
+  
+
   return (
     <div className="container rounded-lg mb-5" key={_id}>
       <div className="img-container">
@@ -131,12 +138,11 @@ const [isImageLoaded, setImageIsLoaded] = useState(false);
                     handleNotAdded,
                     e
                   );
-                  dispatch(booleano())
-                  
+                  dispatch(booleano())                 
                 }
                 }
                 disabled={stock === 0 }
-              /> : <RemoveShoppingCartIcon className={"text-red-500"}/>}
+              /> : <RemoveShoppingCartIcon onClick={(e) => {outOfStock(e)}} className={"text-red-500"}/>}
             </i>
           </a>
         </li>
