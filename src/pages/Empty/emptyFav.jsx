@@ -8,7 +8,7 @@ export default function EmptyFav(){
   return (
     <div className="div">
       <h1 className="h1">The favs list is empty!</h1>
-      <img className="img" src = {f}></img>
+      <img className="imgC" src = {f}></img>
       <Link className="notFoundLink" to="/home">Back to <span className="span">Homepage</span></Link>
     </div>
   )
