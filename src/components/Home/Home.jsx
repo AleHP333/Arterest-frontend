@@ -34,9 +34,7 @@ export const Home = ({ handleAdded, handleNotAdded }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const allPaints = useSelector((state) => state.testReducer.allProducts);
-    const isLoading = useSelector((state) => state.testReducer.isLoading);
-    console.log(allPaints)
-   
+
     const [paint, setPaint] = useState([])
     const [hasMore, setHasMore] = useState(true)
     console.log(currentPage, 'PAG')
@@ -61,19 +59,10 @@ export const Home = ({ handleAdded, handleNotAdded }) => {
             dispatch(artFilterByBack(searchParams.toString()));
             setCurrentPage(1)
         } else {
-            dispatch(getAllProducts())
-            // .then(()=> {
-            //     setPaint(() => itemsToRender() )
-            //     setHasMore(paint.length < allPaints.length)
-
-            //     console.log(hasMore, 'HAS MORE')
-            //     console.log(allPaints.length, 'LENGTH ALL Paints')
-            //     console.log(itemsToRender(), 'RENDER')
-            //     console.log(dispatch(getAllProducts()), 'DISPATCH')
-            // })
+            dispatch(getAllProducts());
         }
     }, [dispatch, searchParams])
-    console.log(paint, 'PAINT')
+
     //Clear filters
     function clearFilter(filter) {
         if (filter === "price") {
@@ -93,162 +82,72 @@ export const Home = ({ handleAdded, handleNotAdded }) => {
         return allPaints.slice(start, end);
     };
 
-    const listOfNumbers = () => {
-        let list = [];
-        let done = Math.ceil(allPaints.length / 15);
-        for (let i = 0; i < done; i++) {
-            list.push(i + 1);
-        }
-        return list;
-    };
-
-    function nextPage() {
-        // if (
-        //     listOfNumbers().length !== currentPage &&
-        //     listOfNumbers().length > currentPage
-        // ) {
-            setCurrentPage(currentPage + 1);
-        // }
-        window.scrollTo(0, 0);
-    }
-
-    function prevPage() {
-        if (currentPage !== 1 && currentPage > 1) {
-            setCurrentPage(currentPage - 1);
-            window.scrollTo(0, 0);
-        }
-    }
-
-    const changePage = (e) => {
-        setCurrentPage(Number(e.target.value));
-        window.scrollTo(0, 0);
-    };
-
-
-
-
     return (
         <div className="min-h-full">
-            <div>
-                <div className='w-full bg-white mb-5 shadow-md'>
-                    <FilterBar setCurrentPage={setCurrentPage}></FilterBar>
-                    {
-                        filters.length ? searchName && filters.length === 1 ? null :
-                            <div className="w-full h-10 bg-red-200 flex flex-initial items-center ">
-                                {
-                                    filters.length ? searchName && filters.length === 1 ? null :
-                                        <>
-                                            {
-                                                filters.map(filter => {
-                                                    return filter[0] === 'name' ?
-                                                        null :
-                                                        (
-                                                            <div className='inline-block ml-2' key={filter[0]} >
-                                                                <Chip label={filter && (filter[0] === "price" ? tagPrice(filter[1]) : filter[1])} onDelete={() => { clearFilter(filter[0]) }} />
-                                                            </div>
-                                                        )
-                                                })
-                                            }
-                                        </> : null
-                                }
-                            </div> : null
-                    }
-                </div>
-                {/* CARLOS-------------------------------------------------------------------------------------------- */}
+            <div className='w-full bg-white mb-5 shadow-md'>
+                <FilterBar setCurrentPage={setCurrentPage}></FilterBar>
                 {
-                    isLoading ?
-                        <LinearProgress className='flex mt-auto' /> :
-                        <>
-                            {/* <div className="flex justify-center my-3">
-                                <div>
-                                    <button
-                                        onClick={prevPage}
-                                        className="page-link relative block py-1.5 px-3  border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none">
-                                        <span>&laquo;</span>
-                                    </button>
-                                </div>
-                                {
-                                    listOfNumbers().map((number, i) => {
-                                        return (
-                                            <button id={i} value={number} onClick={(e) => changePage(e)} className={`page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-100  text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none ${currentPage === number ? 'bg-red-600' : ""}`}>
-                                                {number}
-                                            </button>
-                                        );
-                                    })
-                                }
-                                <div>
-                                    <button onClick={nextPage} className="page-link relative block py-1.5 px-3  border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none">
-                                        <span>&raquo;</span>
-                                    </button>
-                                </div>
-                            </div> */}
-                            <div id='scrollableDiv'>
-
-                            <InfiniteScroll
-                                dataLength={itemsToRender().length}
-                                next={() => setCurrentPage((prevPage) => prevPage + 1)}
-                                hasMore={hasMore}
-                                loader={<LinearProgress className='flex mt-auto' />}
-                                // scrollableTarget="scrollableDiv"
-                                endMessage={
-                                  <p className='text-bold text-center text-lg'>
-                                    <b>Yay! You have seen it all</b>
-                                  </p>
-                                }
-                            >
-                                <div className='pin_container'>
-                                    {(itemsToRender()).map((e) => {
-                                                return (
-                                                    <div className='inner2' key={e._id}>
-                                                        <Card
-                                                            className='img'
-                                                            img={e.img}
-                                                            userName={e.user.userName}
-                                                            userImage={e.user.userImage}
-                                                            stock={e.stock}
-                                                            title={e.title}
-                                                            price={e.price}
-                                                            _id={e._id}
-                                                            cardLikes={e.likes.length}
-                                                            handleAdded={handleAdded}
-                                                            handleNotAdded={handleNotAdded}
-                                                            setFavProducts={setFavProducts}
-                                                        >
-                                                        </Card>
-                                                    </div>
-                                                );
+                    filters.length ? searchName && filters.length === 1 ? null :
+                        <div className="w-full h-10 bg-red-200 flex flex-initial items-center ">
+                            {
+                                filters.length ? searchName && filters.length === 1 ? null :
+                                    <>
+                                        {
+                                            filters.map(filter => {
+                                                return filter[0] === 'name' ?
+                                                    null :
+                                                    (
+                                                        <div className='inline-block ml-2' key={filter[0]} >
+                                                            <Chip label={filter && (filter[0] === "price" ? tagPrice(filter[1]) : filter[1])} onDelete={() => { clearFilter(filter[0]) }} />
+                                                        </div>
+                                                    )
                                             })
-                                    }
-                                </div>
-                                </InfiniteScroll>
-                            </div>
-                                {/* <div className="flex justify-center my-3">
-                                    <div>
-                                        <button
-                                            onClick={prevPage}
-                                            className="page-link relative block py-1.5 px-3  border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none" >
-                                            <span>&laquo;</span>
-                                        </button>
-                                    </div>
-                                    {
-                                        listOfNumbers().map((number, i) => {
-                                            return (
-                                                <button id={i} value={number} onClick={(e) => changePage(e)} className={`page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-100  text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none ${currentPage === number ? 'bg-red-600' : ""}`}>
-                                                    {number}
-                                                </button>
-                                            );
-                                        })
-                                    }
-
-                                    <div>
-                                        <button onClick={nextPage} className="page-link relative block py-1.5 px-3  border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none">
-                                            <span>&raquo;</span>
-                                        </button>
-                                    </div>
-                                </div> */}
-                            </>
+                                        }
+                                    </> : null
+                            }
+                        </div> : null
                 }
-                        </div>
+            </div>
+
+            <div id='scrollableDiv'>
+                <InfiniteScroll
+                    className='mx-4'
+                    dataLength={itemsToRender().length}
+                    next={() => setCurrentPage((prevPage) => prevPage + 1)}
+                    hasMore={hasMore}
+                    loader={<LinearProgress className='flex mt-auto' />}
+                    endMessage={
+                        <p className='text-bold text-center text-lg'>
+                            <b>Yay! You have seen it all</b>
+                        </p>
+                    }
+                >
+                    <div className='pin_container'>
+                        {(itemsToRender()).map((e) => {
+                                    return (
+                                        <div className='inner2' key={e._id}>
+                                            <Card
+                                                className='img'
+                                                img={e.img}
+                                                userName={e.user.userName}
+                                                userImage={e.user.userImage}
+                                                stock={e.stock}
+                                                title={e.title}
+                                                price={e.price}
+                                                _id={e._id}
+                                                cardLikes={e.likes.length}
+                                                handleAdded={handleAdded}
+                                                handleNotAdded={handleNotAdded}
+                                                setFavProducts={setFavProducts}
+                                            >
+                                            </Card>
+                                        </div>
+                                    );
+                                })
+                        }
+                    </div>
+                </InfiniteScroll>
+            </div>
         </div>
-            );
+    );
 };

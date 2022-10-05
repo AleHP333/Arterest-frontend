@@ -4,6 +4,7 @@ import { useParams, Link } from 'react-router-dom';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 // Actions
 import { getPaintById } from '../../redux/actions/productActionsTest';
+import { likeDisplike } from '../../redux/actions/userActions';
 // Components
 import CommentsBox from '../CommentsBox/CommentsBox';
 // Styles
@@ -19,9 +20,9 @@ import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-import { likeDisplike } from '../../redux/actions/userActions';
 import EditIcon from '@mui/icons-material/Edit';
 import LocalPoliceIcon from '@mui/icons-material/LocalPolice';
+import Skeleton from '@mui/material/Skeleton';
 
 export default function DetailProduct () {
 
@@ -42,6 +43,7 @@ export default function DetailProduct () {
             setLikes(paint.likes)
         }
     }, [dispatch, id, paint]);
+    
     // Alert Logic 
     const [open, setOpen] = React.useState(false);
     const Alert = React.forwardRef(function Alert(props, ref) {
@@ -143,9 +145,62 @@ export default function DetailProduct () {
         };
     }
 
+    // Placeholder Detail
+    const PlaceholderDetail = () => (
+        <div className='flex justify-center gap-12 pt-4'>
+            {/* Image Skeleton */}
+            <Skeleton
+                variant="rounded" 
+                width="30%" 
+                height={380} 
+            />
+                
+            <div className='w-5/12 flex flex-col mt-6'>
+                {/* Buttons Skeleton */}
+                <Skeleton 
+                    className="flex ml-auto"
+                    variant="text" 
+                    sx={{ fontSize: '1.5rem' }} 
+                    width="30%" 
+                />
+                {/* Title Skeleton */}
+                <Skeleton 
+                    variant="text" 
+                    sx={{ fontSize: '2rem' }} 
+                    width="70%"    
+                />
+                {/* Artist Skeleton */}
+                <div className="flex gap-4 items-center">
+                    <Skeleton 
+                        variant="circular" 
+                        width={40} 
+                        height={40} 
+                    />
+                    <Skeleton 
+                        variant="text" 
+                        sx={{ fontSize: '1rem' }} 
+                        width="30%"    
+                    />
+                </div>
+                {/* Description Skeleton */}
+                <Skeleton
+                    className="my-3"
+                    variant="rounded"
+                    width="100%"
+                    height={200}
+                />
+                {/* Payment Skeleton */}
+                <Skeleton 
+                    variant="text" 
+                    sx={{ fontSize: '1.5rem' }} 
+                />
+            </div>
+        </div>
+    )
+
     return (
         !paint || id !== paint._id ? 
-        <div>Loading...</div> :
+        PlaceholderDetail() :
         <div className="containerDetail mt-3 bg-white">  
             <div className="mb-5 px-8 text-gray-600">
                 <div className="flex md:gap-6 lg:justify-center lg:gap-14 items-center">
@@ -154,8 +209,7 @@ export default function DetailProduct () {
                             onMouseEnter={() => handleMouseEnter()} 
                             onMouseLeave={() => handlerMouseLeave()}
                             onMouseMove={(e) => handlerMouseMove(e)}
-                            id="container"
-                        >
+                            id="container" >
                             <div 
                                 ref={lensRef} 
                                 className={`${openZoom ? "zoom" : ""} img-zoom-lens`}
@@ -167,8 +221,7 @@ export default function DetailProduct () {
                                 id="myimage" 
                                 src={paint.img} 
                                 alt=""
-                                loading="lazy"
-                            />
+                                loading="lazy" />
                             <div
                                 onMouseEnter={() => handlerMouseLeave()}
                                 style={styleResult}
@@ -176,8 +229,9 @@ export default function DetailProduct () {
                                 id="myresult"
                                 className={`${openZoom ? "zoom" : ""} img-zoom-result rounded-lg`}
                             ></div>
-                        </div> 
+                        </div>
                     </div>
+
                     <div className="flex flex-col lg:w-6/12">
                         <div className='flex mr-4 ml-auto gap-5'>
                             {loggedUser && loggedUser.isAdmin ? <Link to={`/admin/artworks/artworkDetail/${paint._id}`}><Button variant="contained"><LocalPoliceIcon className='mr-3' /> EDIT </Button></Link> : null}

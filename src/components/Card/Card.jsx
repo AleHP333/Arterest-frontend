@@ -29,9 +29,9 @@ export default function Card({
   setFavProducts,
 }) {
 
-// const [favState, setFavState] = useState(false)
-const favState = useSelector(state=>state.testReducer.favState)
+
 const dispatch = useDispatch()
+const [isImageLoaded, setImageIsLoaded] = useState(false);
 
   const handleFavState = (e) => {
   dispatch({type: "SET_FAV_STATE"})
@@ -43,20 +43,30 @@ const dispatch = useDispatch()
     console.log(answer, "answer");
     return answer
   }
+
   return (
     <div className="container rounded-lg mb-5" key={_id}>
       <div className="img-container">
-        {
-          !img ? 
-          <Skeleton variant="circular" width={40} height={40} /> : 
-          <Link to={`/detail/${_id}`}>
-            <img className="w-full" src={img} alt="hola" />
-          </Link>
-        }
+
+        <Link to={`/detail/${_id}`}>
+            { !isImageLoaded && 
+              <Skeleton 
+                animation="wave" 
+                variant="rounded" 
+                width="100%"
+                height={300} 
+              /> }
+            <img 
+              className={`w-full ${isImageLoaded ? "flex" : "hidden"}`} 
+              src={img} 
+              alt={title}
+              onLoad={() => setTimeout(() => setImageIsLoaded(true), 2000)}
+            />
+        </Link>
         
         <div className="user-info bg-white p-3 flex flex-col gap-4">
           <div className="flex justify-center items-center">
-            <h2 className="font-semibold text-xl">{title}</h2>
+            <h2 className="font-semibold text-xl w-52 ">{title}</h2>
             <div className="flex text-center justify-start gap-1 absolute left-4">
               <FavoriteIcon className='text-red-500'/>
               <span className="text-gray-600 relative bottom-0.5">{cardLikes}</span>
@@ -125,6 +135,7 @@ const dispatch = useDispatch()
                   
                 }
                 }
+                disabled={stock === 0 }
               />
             </i>
           </a>
