@@ -44,6 +44,8 @@ const [isImageLoaded, setImageIsLoaded] = useState(false);
     return answer
   }
 
+  
+
   return (
     <div className="container rounded-lg mb-5" key={_id}>
       <div className="img-container">
@@ -134,8 +136,8 @@ const [isImageLoaded, setImageIsLoaded] = useState(false);
                   dispatch(booleano())
                   
                 }
-                }
-                disabled={stock === 0 }
+              }
+        
               />
             </i>
           </a>
