@@ -149,7 +149,7 @@ export const updateProfile = (user) => {
         headers: { Authorization: "Bearer " + token },
       });
       console.log(response, 'HOLA')
-      dispatch({type: "USER_STATUS", payload: { userData: response.data.userData, msgData: undefined }});
+      dispatch({type: "USER_STATUS", payload: { userData: response.data.userData, msgData: response.data.msgData }});
   };
 };
 

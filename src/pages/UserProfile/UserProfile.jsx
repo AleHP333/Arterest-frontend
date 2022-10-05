@@ -11,13 +11,16 @@ import ArtistRequest from "../../components/ArtistRequest/ArtistRequest";
 import axios from "axios"
 import { Alert, IconButton, Snackbar } from "@mui/material";
 import MuiAlert from '@mui/material/Alert';
+import PreviewImage2 from "./PreviewImage2";
 
 
 export default function Profile() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.userSignReducer.userData);
+  const [loading, setLoading] = useState(false);
 
   const [input, setInput] = useState({
+    email: "",
     userName: "",
     userImage: "",
     names: "",
@@ -27,8 +30,10 @@ export default function Profile() {
   });
 
   useEffect(() => {
+    setLoading(true)
     if (user !== undefined) {
       setInput({
+        email: user.email,
         userName: user.userName,
         names: user.names,
         surnames: user.surnames,
@@ -36,6 +41,7 @@ export default function Profile() {
         city: user.city,
       });
     }
+    setLoading(false)
   }, [user]);
 
   function handleChange(e) {
@@ -49,16 +55,20 @@ export default function Profile() {
     e.preventDefault();
 
     try {
-      const formData = new FormData();
+      if(input.userImage){
+        handleClickShare()
+        const formData = new FormData();
       formData.append("file", input.userImage);
       formData.append("upload_preset", "images");
       axios.post("https://api.cloudinary.com/v1_1/onlypan/upload", formData)
         .then((resAxios) => {
           console.log(resAxios.data.secure_url);
           dispatch(updateProfile({ ...input, userImage: resAxios.data.secure_url }))
-
         })
         .catch(error => console.log(error))
+      } else {
+        dispatch(updateProfile({ userName: input.userName, names: input.names, surnames: input.surnames, country: input.country, city: input.city, userImage: user.userImage }))
+      }
     } catch (error) {
       console.log(error);
     }
@@ -73,7 +83,7 @@ export default function Profile() {
   }
   const [open, setOpen] = React.useState(false);
   const Alert = React.forwardRef(function Alert(props, ref) {
-    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+    return <MuiAlert severity="warning" elevation={6} ref={ref} variant="filled" {...props} />;
   });
   const handleClickShare = () => {
     setOpen(true);
@@ -87,7 +97,7 @@ export default function Profile() {
 
   return (
     <>
-      <main className="profile-page">
+      { !loading ? <><main className="profile-page">
         <form onSubmit={(e) => handleSubmit(e)}>
           <div>
             <div className="w-30 h-30 pt-4 flex items-center justify-center ">
@@ -103,6 +113,7 @@ export default function Profile() {
                     imageChange("userImage", e.target.files[0]);
                   }}
                 />
+                {input.userImage && <PreviewImage2 file={input.userImage} />}
               </label>
             </div>
 
@@ -113,7 +124,7 @@ export default function Profile() {
               name="userName"
               type="userName"
               className="text-4xl font-medium text-center text-gray-700 border"
-              placeholder={user.userName || ""}
+              placeholder={input.userName}
               onChange={(e) => handleChange(e)}
 
             />
@@ -167,7 +178,7 @@ export default function Profile() {
                         <input
                           type="email"
                           className="w-11/12 focus:outline-none focus:text-gray-600 p-2"
-                          placeholder={user.email}
+                          placeholder={input.email}
                           disabled
                         />
                       </div>
@@ -202,7 +213,7 @@ export default function Profile() {
                               name="names"
                               type="text"
                               className="w-11/12 focus:outline-none focus:text-gray-600 p-2"
-                              placeholder={user.names || ""}
+                              placeholder={input.names || "Name"}
                               onChange={(e) => handleChange(e)}
                             />
                           </div>
@@ -215,7 +226,7 @@ export default function Profile() {
                               name="surnames"
                               type="text"
                               className="w-11/12 focus:outline-none focus:text-gray-600 p-2"
-                              placeholder={user.surnames || "Lastname"}
+                              placeholder={input.surnames || "Lastname"}
                               onChange={(e) => handleChange(e)}
                             />
                           </div>
@@ -226,7 +237,7 @@ export default function Profile() {
                               name="city"
                               type="text"
                               className="w-11/12 focus:outline-none focus:text-gray-600 p-2"
-                              placeholder={user.city || "City"}
+                              placeholder={ input.city || "City" }
                               onChange={(e) => handleChange(e)}
                             />
                           </div>
@@ -239,7 +250,7 @@ export default function Profile() {
                               name="country"
                               type="text"
                               className="w-11/12 focus:outline-none focus:text-gray-600 p-2"
-                              placeholder={user.country || "Country"}
+                              placeholder={input.country || "Country"}
                               onChange={(e) => handleChange(e)}
                             />
                           </div>
@@ -248,11 +259,10 @@ export default function Profile() {
                     </div>
                   </form>
                   <div className="flex items-center md:w-3/12 text-center md:pl-6">
-                  <IconButton onClick={() => handleClickShare()} >
+   
                     <button
                       className="text-white w-full mx-auto max-w-sm rounded-md text-center bg-red-500  hover:bg-red-600 py-2 px-4 inline-flex items-center focus:outline-none md:float-right"
                       onClick={handleSubmit}
-
                     >
                       
                         <svg
@@ -270,14 +280,13 @@ export default function Profile() {
                         </svg>
                       Update
                     </button>
-                      </IconButton>
                   </div>
 
                   <div className="md:inline-flex space-y-4 md:space-y-0 w-full p-4 text-gray-500 items-center">
                     <div className="md:inline-flex w-full  md:space-y-0 p-2 text-gray-500 items-center">
                       <div className="w-full inline-flex border-b">
                         <div>
-                          {user.isArtist !== undefined &&
+                          {user !== undefined &&
                             user.isArtist ? null : (
                             <ArtistRequest />
                           )}
@@ -287,16 +296,16 @@ export default function Profile() {
                   </div>
                 </div>
               </div>
-              <Snackbar open={open} autoHideDuration={4000} onClose={handleCloseSnackbar}>
-                <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
-                  Profile Updated!
+              <Snackbar open={open} autoHideDuration={4000} onClose={handleCloseSnackbar} anchorOrigin={{ vertical: "top", horizontal:"center" }}>
+                <Alert onClose={handleCloseSnackbar} severity="warning" sx={{ width: '100%' }}>
+                  Await... - Updating Profile
                 </Alert>
               </Snackbar>
             </section>
           </div>
         </div>
       </main>
-      <Footer />
+      <Footer /></> : <div>Loading...</div>}
     </>
   );
 }
