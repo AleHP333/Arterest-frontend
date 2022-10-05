@@ -41,7 +41,7 @@ import ShoppingHistory from "./components/ShoppingHistory/ShoppingHistory";
 import PasswordRecover from "./pages/PasswordRecover/PasswordRecover";
 import SetPass from "./pages/PasswordRecover/SetPass";
 import LastCheck from "./pages/Admin/views/NotChecked";
-
+import CuatroOCuatro from "./pages/404/404"
 
 function App() {
   const [added, setAdded] = useState(false);
@@ -94,6 +94,7 @@ function App() {
             }
           />
           <Route path="/terms" element={<Terms />} />
+          
           <Route path="/faq" element={<Faq />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/contact" element={<ContactUs />} />
@@ -109,13 +110,13 @@ function App() {
             <Route exact path="/admin/orders" element={<AllOrders />} />
             <Route exact path="/admin/editproduct/:id" element={<EditProduct />} />
             <Route exact path="/admin/artworks/artworkDetail/:id" element={<ProductDetail />} />
-          </> : null}
+          </> : <Route path="/404" element={<CuatroOCuatro />} />}
           {loggedUser !== undefined ? 
           <>
             <Route exact path="/profile" element={<UserProfile />} />
             <Route exact path="/history" element={<ShoppingHistory />} />
-          </> : null}
-          {loggedUser && loggedUser.isArtist ? <Route exact path="/artist/artRequest" element={<ArtPost />}></Route> : null}
+          </> : <Route path="/404" element={<CuatroOCuatro />} />}
+          {loggedUser && loggedUser.isArtist ? <Route exact path="/artist/artRequest" element={<ArtPost />}></Route> : <Route path="/404" element={<CuatroOCuatro />} />}
           <Route exact path="/passwordRecovery" element={<PasswordRecover />} />
           <Route exact path="/password/:token" element={<SetPass />} />
           <Route path="/cart" element={<Cart />} />

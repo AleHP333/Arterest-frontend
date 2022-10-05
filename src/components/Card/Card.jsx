@@ -119,6 +119,7 @@ export default function Card({
                   dispatch(booleano())
                 }
                 }
+                disabled={stock === 0 }
               />
             </i>
           </a>
