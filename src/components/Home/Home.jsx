@@ -32,12 +32,6 @@ export const Home = ({ handleAdded, handleNotAdded }) => {
     const dispatch = useDispatch();
     const allPaints = useSelector((state) => state.testReducer.allProducts);
     const isLoading = useSelector((state) => state.testReducer.isLoading);
-    console.log(allPaints)
-   
-    const [paint, setPaint] = useState([])
-    const [hasMore, setHasMore] = useState(true)
-    console.log(currentPage, 'PAG')
-
     //SEARCH PARAMS
     const [searchParams] = useSearchParams();
     const searchName = searchParams.get('name');
@@ -59,18 +53,9 @@ export const Home = ({ handleAdded, handleNotAdded }) => {
             setCurrentPage(1)
         } else {
             dispatch(getAllProducts())
-            // .then(()=> {
-            //     setPaint(() => itemsToRender() )
-            //     setHasMore(paint.length < allPaints.length)
-
-            //     console.log(hasMore, 'HAS MORE')
-            //     console.log(allPaints.length, 'LENGTH ALL Paints')
-            //     console.log(itemsToRender(), 'RENDER')
-            //     console.log(dispatch(getAllProducts()), 'DISPATCH')
-            // })
         }
     }, [dispatch, searchParams])
-    console.log(paint, 'PAINT')
+
     //Clear filters
     function clearFilter(filter) {
         if (filter === "price") {
@@ -81,6 +66,9 @@ export const Home = ({ handleAdded, handleNotAdded }) => {
         setCurrentPage(1)
         navigate(location);
     }
+    function hasMore () {
+        if (itemsToRender().length >= allPaints.length) { return false } return true
+    }
 
     //Paginate functions----------------------------------------------------------------------------------
     const itemsToRender = () => {
@@ -90,36 +78,36 @@ export const Home = ({ handleAdded, handleNotAdded }) => {
         return allPaints.slice(start, end);
     };
 
-    const listOfNumbers = () => {
-        let list = [];
-        let done = Math.ceil(allPaints.length / 15);
-        for (let i = 0; i < done; i++) {
-            list.push(i + 1);
-        }
-        return list;
-    };
+    // const listOfNumbers = () => {
+    //     let list = [];
+    //     let done = Math.ceil(allPaints.length / 15);
+    //     for (let i = 0; i < done; i++) {
+    //         list.push(i + 1);
+    //     }
+    //     return list;
+    // };
 
-    function nextPage() {
-        // if (
-        //     listOfNumbers().length !== currentPage &&
-        //     listOfNumbers().length > currentPage
-        // ) {
-            setCurrentPage(currentPage + 1);
-        // }
-        window.scrollTo(0, 0);
-    }
+    // function nextPage() {
+    //     // if (
+    //     //     listOfNumbers().length !== currentPage &&
+    //     //     listOfNumbers().length > currentPage
+    //     // ) {
+    //     setCurrentPage(currentPage + 1);
+    //     // }
+    //     window.scrollTo(0, 0);
+    // }
 
-    function prevPage() {
-        if (currentPage !== 1 && currentPage > 1) {
-            setCurrentPage(currentPage - 1);
-            window.scrollTo(0, 0);
-        }
-    }
+    // function prevPage() {
+    //     if (currentPage !== 1 && currentPage > 1) {
+    //         setCurrentPage(currentPage - 1);
+    //         window.scrollTo(0, 0);
+    //     }
+    // }
 
-    const changePage = (e) => {
-        setCurrentPage(Number(e.target.value));
-        window.scrollTo(0, 0);
-    };
+    // const changePage = (e) => {
+    //     setCurrentPage(Number(e.target.value));
+    //     window.scrollTo(0, 0);
+    // };
 
 
 
@@ -181,44 +169,44 @@ export const Home = ({ handleAdded, handleNotAdded }) => {
                             </div> */}
                             <div id='scrollableDiv'>
 
-                            <InfiniteScroll
-                                dataLength={itemsToRender().length}
-                                next={() => setCurrentPage((prevPage) => prevPage + 1)}
-                                hasMore={hasMore}
-                                loader={<LinearProgress className='flex mt-auto' />}
-                                // scrollableTarget="scrollableDiv"
-                                endMessage={
-                                  <p className='text-bold text-center text-lg'>
-                                    <b>Yay! You have seen it all</b>
-                                  </p>
-                                }
-                            >
-                                <div className='pin_container'>
-                                    {(itemsToRender()).map((e) => {
-                                                return (
-                                                    <div className='inner2' key={e._id}>
-                                                        <Card
-                                                            className='img'
-                                                            img={e.img}
-                                                            userName={e.user.userName}
-                                                            userImage={e.user.userImage}
-                                                            stock={e.stock}
-                                                            title={e.title}
-                                                            price={e.price}
-                                                            _id={e._id}
-                                                            cardLikes={e.likes.length}
-                                                            handleAdded={handleAdded}
-                                                            handleNotAdded={handleNotAdded}
-                                                        >
-                                                        </Card>
-                                                    </div>
-                                                );
-                                            })
+                                <InfiniteScroll
+                                    dataLength={itemsToRender().length}
+                                    next={() => setCurrentPage((prevPage) => prevPage + 1)}
+                                    hasMore={hasMore()}
+                                    loader={<LinearProgress className='flex mt-auto' />}
+                                    // scrollableTarget="scrollableDiv"
+                                    endMessage={
+                                        <p className='text-bold text-center text-lg'>
+                                            <b>Yay! You have seen it all</b>
+                                        </p>
                                     }
-                                </div>
+                                >
+                                    <div className='pin_container'>
+                                        {(itemsToRender()).map((e) => {
+                                            return (
+                                                <div className='inner2' key={e._id}>
+                                                    <Card
+                                                        className='img'
+                                                        img={e.img}
+                                                        userName={e.user.userName}
+                                                        userImage={e.user.userImage}
+                                                        stock={e.stock}
+                                                        title={e.title}
+                                                        price={e.price}
+                                                        _id={e._id}
+                                                        cardLikes={e.likes.length}
+                                                        handleAdded={handleAdded}
+                                                        handleNotAdded={handleNotAdded}
+                                                    >
+                                                    </Card>
+                                                </div>
+                                            );
+                                        })
+                                        }
+                                    </div>
                                 </InfiniteScroll>
                             </div>
-                                {/* <div className="flex justify-center my-3">
+                            {/* <div className="flex justify-center my-3">
                                     <div>
                                         <button
                                             onClick={prevPage}
@@ -242,9 +230,9 @@ export const Home = ({ handleAdded, handleNotAdded }) => {
                                         </button>
                                     </div>
                                 </div> */}
-                            </>
+                        </>
                 }
-                        </div>
+            </div>
         </div>
-            );
+    );
 };
