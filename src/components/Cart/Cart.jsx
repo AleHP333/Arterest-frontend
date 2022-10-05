@@ -1,13 +1,14 @@
 // React utilities
 import React, { useEffect, useState } from "react";
+import {  useSelector } from 'react-redux';
 // Actions
 import { getPrice } from "../Card/FavAndCart";
 // Components
 import CartCard from "./CartCard";
 // Styles
 import { Link } from "react-router-dom";
-import EmptyCart from "../../pages/Empty/emptyCart";
 export default function ShoppingCart() {
+  const loggedUser = useSelector((state) => state.userSignReducer.userData)
   const [cartItem, setCartItem] = useState(
     JSON.parse(localStorage.getItem("cartList"))
   );
@@ -28,9 +29,7 @@ export default function ShoppingCart() {
     setTotalPrice(getPrice());
   };
   // userName, title, _id, price, image, quantity, deleteItem, updateQuantity
-const cartContain = () =>{
-  if (!cartItem || cartItem.length === 0 || cartItem === []){return (<EmptyCart/>) }
-} 
+
   return (
     <div className="flex items-center lg:flex-row flex-col justify-center">
       <div className="lg:w-1/2 md:w-8/12 w-full lg:px-8 lg:py-14 md:px-6 px-4 md:py-8 py-4 bg-white lg:h-screen h-auto gap-1">
@@ -65,7 +64,11 @@ const cartContain = () =>{
                 <p className="text-2xl font-bold leading-normal text-right ">${parseInt(totalPrice)}</p>
               </div>
                 <Link to='/home' className='rounded px-4 text-base leading-none w-full py-3 bg-black border-black border focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 text-white '>Continue shopping...</Link><br/><br/><br/>
+                
+                {loggedUser?<button>
                 <Link to='/buy' className='rounded px-4 text-base leading-none w-full py-3 bg-black border-black border focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 text-white '>Buy now!</Link>
+                </button> : <span className= "span">Login for buy</span>}
+                
             </div>
               
             </div>
@@ -74,5 +77,4 @@ const cartContain = () =>{
       </div>
     </div>
   );
-  return cartContain();
 }
