@@ -85,3 +85,7 @@
 .container:hover .social-media li:nth-child(2) a {
   transition-delay: 0.1s;
 }
+
+#fav{
+  filter: invert(80%) sepia(100%) saturate(7215%) hue-rotate(356deg) brightness(102%) contrast(119%)
+}
