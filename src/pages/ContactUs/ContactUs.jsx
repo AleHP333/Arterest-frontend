@@ -17,7 +17,9 @@ export default function ContactUs() {
     message: "",
   })
 
-  const [warning, setWarning] = useState(true);
+  console.log(input)
+
+  const [warning, setWarning] = useState(false);
   const [success, setSuccess] = useState(false);
 
 
@@ -88,6 +90,7 @@ function handleSelect(e) {
       message: "",
     })
     setSuccess(true)
+    ("/home")
   }else{
     setWarning(true)
   }
@@ -138,7 +141,7 @@ function handleSelect(e) {
         <label className="FormLabel">Message</label>
         <textarea className="FormInput FormTextArea" type="textarea" name="message" value={input.message} onChange={(e) => handleChange(e)} cols="30" rows="10"></textarea>{error.name && (
             <p>{error.name}</p>)}
-        <button className="SubmitBtn" type="submit" onClick={handleSubmit}>Send</button>
+        <button className="SubmitBtn" type="submit" onClick={handleSubmit} > Send</button>
       </form>
       <Snackbar open={success} autoHideDuration={2000} onClose={handleClose}>
         <Alert onClose={() => handleClose()} severity="success" sx={{ width: '100%' }}>
