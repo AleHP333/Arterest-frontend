@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams, useLocation, useNavigate } from 'react-router-dom';
 // Components
 import Card2 from '../Card/Card2';
+import Card from "../Card/Card"
 import FilterBar from '../FilterBar/FilterBar';
 // Actions
 import {
@@ -34,7 +35,10 @@ export const Home = ({ handleAdded, handleNotAdded }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const allPaints = useSelector((state) => state.testReducer.allProducts);
-    const [hasMore] = useState(true);
+    const classic = useSelector((state) => state.testReducer.classic);
+    const [paint, setPaint] = useState([])
+    const [hasMore, setHasMore] = useState(true)
+    console.log(currentPage, 'PAG')
 
     //SEARCH PARAMS
     const [searchParams] = useSearchParams();
@@ -119,12 +123,13 @@ export const Home = ({ handleAdded, handleNotAdded }) => {
                         </p>
                     }
                 >
-                    <div className='flex flex-wrap justify-evenly w-full'>
+                    
+                    { classic ? <div className='pin_container'>
                         {(itemsToRender()).map((e) => {
                                     return (
-                                        <div className='inner2 w-80 h-100 my-2 ' key={e._id}>
-                                            <Card2
-                                                className=""
+                                        <div className='inner2 my-2 ' key={e._id}>
+                                            <Card
+                                                className="img"
                                                 img={e.img}
                                                 userName={e.user.userName}
                                                 userImage={e.user.userImage}
@@ -137,12 +142,36 @@ export const Home = ({ handleAdded, handleNotAdded }) => {
                                                 handleNotAdded={handleNotAdded}
                                                 setFavProducts={setFavProducts}
                                             >
-                                            </Card2>
+                                            </Card>
                                         </div>
                                     );
                                 })
                         }
-                    </div>
+                    </div> : 
+                    <div className='flex flex-wrap justify-evenly w-full'>
+                    {(itemsToRender()).map((e) => {
+                                return (
+                                    <div className='inner2 w-80 h-100 my-2 ' key={e._id}>
+                                        <Card2
+                                            className=""
+                                            img={e.img}
+                                            userName={e.user.userName}
+                                            userImage={e.user.userImage}
+                                            stock={e.stock}
+                                            title={e.title}
+                                            price={e.price}
+                                            _id={e._id}
+                                            cardLikes={e.likes.length}
+                                            handleAdded={handleAdded}
+                                            handleNotAdded={handleNotAdded}
+                                            setFavProducts={setFavProducts}
+                                        >
+                                        </Card2>
+                                    </div>
+                                );
+                            })
+                    }
+                </div>}
                 </InfiniteScroll>
             </div>
         </div>
