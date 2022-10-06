@@ -124,12 +124,9 @@ export default function SignUp() {
                                 </div>
                                 <div class="lg:w-6/12 flex items-center lg:rounded-r-lg rounded-b-lg lg:rounded-bl-none bg-gradient-to-r from-red-600 via-red-400 to-red-600 text-gray-100" >
                                     <div class="text-white px-4 py-6 md:p-12 md:mx-6">
-                                        <h4 class="text-xl font-semibold mb-6">Fill up the form to have access to our whole list of artworks</h4>
-                                        <p class="text-sm">
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                            consequat.
+                                    <h4 class="text-2xl font-semibold mb-6">Fill up the form to have access to our whole list of artworks</h4>
+                                        <p class="text-x1">
+                                            Arterest is a website that was shaped with the goal of empowering artists and creating opportunities for success. It’s the place for artists to showcase their work with others.
                                         </p>
                                     </div>
                                 </div>

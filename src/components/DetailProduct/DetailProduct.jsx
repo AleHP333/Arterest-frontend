@@ -2,8 +2,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+// Favs and cart
+import { addToFav, addToCart } from "../Card/FavAndCart";
 // Actions
-import { getPaintById } from '../../redux/actions/productActionsTest';
+import { getPaintById, booleano } from '../../redux/actions/productActionsTest';
+import { likeDisplike } from '../../redux/actions/userActions';
 // Components
 import CommentsBox from '../CommentsBox/CommentsBox';
 // Styles
@@ -19,7 +22,8 @@ import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-import { likeDisplike } from '../../redux/actions/userActions';
+import LocalPoliceIcon from '@mui/icons-material/LocalPolice';
+import Skeleton from '@mui/material/Skeleton';
 
 export default function DetailProduct () {
 
@@ -40,12 +44,15 @@ export default function DetailProduct () {
             setLikes(paint.likes)
         }
     }, [dispatch, id, paint]);
+    
     // Alert Logic 
     const [open, setOpen] = React.useState(false);
+    const [messageAlert, setMessageAlert] = useState("");
     const Alert = React.forwardRef(function Alert(props, ref) {
         return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
     });
-    const handleClickShare = () => {
+    const handleClickShare = (message) => {
+        setMessageAlert(message);
         setOpen(true);
     };
     const handleCloseSnackbar = (event, reason) => {
@@ -141,9 +148,79 @@ export default function DetailProduct () {
         };
     }
 
+    // Placeholder Detail
+    const PlaceholderDetail = () => (
+        <div className='flex justify-center gap-12 pt-4'>
+            {/* Image Skeleton */}
+            <Skeleton
+                variant="rounded" 
+                width="30%" 
+                height={380} 
+            />
+                
+            <div className='w-5/12 flex flex-col mt-6'>
+                {/* Buttons Skeleton */}
+                <Skeleton 
+                    className="flex ml-auto"
+                    variant="text" 
+                    sx={{ fontSize: '1.5rem' }} 
+                    width="30%" 
+                />
+                {/* Title Skeleton */}
+                <Skeleton 
+                    variant="text" 
+                    sx={{ fontSize: '2rem' }} 
+                    width="70%"    
+                />
+                {/* Artist Skeleton */}
+                <div className="flex gap-4 items-center">
+                    <Skeleton 
+                        variant="circular" 
+                        width={40} 
+                        height={40} 
+                    />
+                    <Skeleton 
+                        variant="text" 
+                        sx={{ fontSize: '1rem' }} 
+                        width="30%"    
+                    />
+                </div>
+                {/* Description Skeleton */}
+                <Skeleton
+                    className="my-3"
+                    variant="rounded"
+                    width="100%"
+                    height={200}
+                />
+                {/* Payment Skeleton */}
+                <Skeleton 
+                    variant="text" 
+                    sx={{ fontSize: '1.5rem' }} 
+                />
+            </div>
+        </div>
+    )
+
+    // Favs and cart
+    const [favProducts, setFavProducts] = useState(
+        JSON.parse(localStorage.getItem("favList"))
+    );
+
+    const handleFavoritesState = () => {
+        let favs = JSON.parse(localStorage.getItem("favList"));
+        let answer = favs.map(fav => fav === paint._id);
+        return answer;
+    }
+
+    const handleCartState = () => {
+        let cart = JSON.parse(localStorage.getItem("cartList"));
+        let answer = cart.map(cart => cart === paint._id);
+        return answer;
+    }
+
     return (
         !paint || id !== paint._id ? 
-        <div>Loading...</div> :
+        PlaceholderDetail() :
         <div className="containerDetail mt-3 bg-white">  
             <div className="mb-5 px-8 text-gray-600">
                 <div className="flex md:gap-6 lg:justify-center lg:gap-14 items-center">
@@ -152,8 +229,7 @@ export default function DetailProduct () {
                             onMouseEnter={() => handleMouseEnter()} 
                             onMouseLeave={() => handlerMouseLeave()}
                             onMouseMove={(e) => handlerMouseMove(e)}
-                            id="container"
-                        >
+                            id="container" >
                             <div 
                                 ref={lensRef} 
                                 className={`${openZoom ? "zoom" : ""} img-zoom-lens`}
@@ -165,8 +241,7 @@ export default function DetailProduct () {
                                 id="myimage" 
                                 src={paint.img} 
                                 alt=""
-                                loading="lazy"
-                            />
+                                loading="lazy" />
                             <div
                                 onMouseEnter={() => handlerMouseLeave()}
                                 style={styleResult}
@@ -174,10 +249,12 @@ export default function DetailProduct () {
                                 id="myresult"
                                 className={`${openZoom ? "zoom" : ""} img-zoom-result rounded-lg`}
                             ></div>
-                        </div> 
+                        </div>
                     </div>
+
                     <div className="flex flex-col lg:w-6/12">
                         <div className='flex mr-4 ml-auto gap-5'>
+                            {loggedUser && loggedUser.isAdmin ? <Link to={`/admin/artworks/artworkDetail/${paint._id}`}><Button variant="contained"><LocalPoliceIcon className='mr-3' /> EDIT </Button></Link> : null}
                             <div className='flex items-center gap-1'>
                                 {likes !== undefined && <span className="text-black relative bottom-0.5">{likes.length}</span>}
                                 <Tooltip title="Like">
@@ -201,7 +278,13 @@ export default function DetailProduct () {
                             </div>
                             <CopyToClipboard text={window.location.href}>
                                 <Tooltip 
-                                    onClick={() => handleClickShare()} 
+                                    onClick={() => {
+                                        setOpen(false);
+                                        setTimeout(() => {
+                                            handleClickShare("Link copied to clipboard");
+                                        }, open ? 100 : 0);
+                                        
+                                    }} 
                                     title="Share"
                                 >
                                     <IconButton>
@@ -210,14 +293,34 @@ export default function DetailProduct () {
                                 </Tooltip>
                             </CopyToClipboard>
                             <Tooltip title="Pin to favorites">
-                                <IconButton>
-                                    <PushPinIcon className='text-black'/>
+                                <IconButton 
+                                    onClick={(e) =>{
+                                        setOpen(false);
+                                        setTimeout(() => {
+                                            addToFav(
+                                                paint.userName,
+                                                paint.userImage,
+                                                paint.title,
+                                                paint.img,
+                                                paint._id,
+                                                paint.price,
+                                                null,
+                                                null,
+                                                e,
+                                                setFavProducts,
+                                                paint.stock
+                                            );
+                                            handleFavoritesState();
+                                            handleClickShare(handleFavoritesState().length ? "Added to favorites": "Removed from favorites");
+                                        }, open ? 100 : 0);
+                                    }}>
+                                    <PushPinIcon className='text-black' />
                                 </IconButton>
                             </Tooltip>
                         </div>
                         <Snackbar open={open} autoHideDuration={4000} onClose={handleCloseSnackbar}>
                             <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
-                                Link copied to clipboard 
+                                {messageAlert} 
                             </Alert>
                         </Snackbar>
                         <div className="containerPrincipalData">
@@ -253,6 +356,10 @@ export default function DetailProduct () {
                                         <p className="items-center justify-center text-sm leading-none text-gray-600">{paint.technique}</p>
                                     </div>
                                     <div className="py-3 border-t border-gray-200 flex items-center justify-between">
+                                        <p className="text-base leading-4 text-gray-800">Stock</p>
+                                        <p className="items-center justify-center text-sm leading-none text-gray-600">{paint.stock}</p>
+                                    </div>
+                                    <div className="py-3 border-t border-gray-200 flex items-center justify-between">
                                         <p className="text-base leading-4 text-gray-800">Country of origin</p>
                                         <p className="items-center justify-center text-sm leading-none text-gray-600">{paint.origin}</p>
                                     </div>
@@ -262,6 +369,25 @@ export default function DetailProduct () {
                             <div className="flex gap-4">
                                 <span className="title-font font-medium text-2xl text-gray-900">${paint.price}</span>
                                 <Button
+                                    onClick={(e) => {
+                                        setOpen(false);
+                                        setTimeout(() => {
+                                            addToCart(
+                                                paint.userName,
+                                                paint.userImage,
+                                                paint.title,
+                                                paint.img,
+                                                paint.stock,
+                                                paint._id,
+                                                paint.price,
+                                                null,
+                                                null,
+                                                e,
+                                            );
+                                            dispatch(booleano());
+                                            handleClickShare(handleCartState().length ? "Added to shopping cart": "Removed from shopping cart");
+                                        }, open ? 100 : 0);
+                                    }}
                                     variant="contained" 
                                     startIcon={<ShoppingCartOutlinedIcon />}
                                     >Add to Cart

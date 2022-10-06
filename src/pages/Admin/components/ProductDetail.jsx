@@ -3,12 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { cleanStateGetOnePaint, getAllProducts, getPaintById, updateProduct } from '../../../redux/actions/productActionsTest';
 import '../../../components/DetailProduct/DetailProduct.css'
+import { checkArtwork, getPaintByIdAdmin } from '../../../redux/actions/adminActions';
 
 //MUI
 import Chip from '@mui/material/Chip';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
+import Switch from '@mui/material/Switch';
 
 import { countries } from '../../ArtRequest/countryList';
 
@@ -33,7 +35,7 @@ export default function ProductDetail() {
 
     useEffect(() => {
         if (!artDetail) {
-            dispatch(getPaintById(id))
+            dispatch(getPaintByIdAdmin(id))
         }
         if (artDetail){
             setInput({
@@ -50,7 +52,11 @@ export default function ProductDetail() {
                 price: artDetail.price,
                 stock: artDetail.stock,
                 tags: artDetail.tags,
+                seen: artDetail.seen
             })
+        }
+        return () => {
+            cleanStateGetOnePaint()
         }
     }, [artDetail])
 
@@ -68,6 +74,7 @@ export default function ProductDetail() {
         price: '',
         stock: '',
         tags: '',
+        seen: ''
     })
 
     console.log(input.description)
@@ -123,10 +130,16 @@ export default function ProductDetail() {
     }
 
     function handleChange(e) {
+        console.log(e)
         if(e.target.id === "description"){
              setInput({
                 ...input,
                 [e.target.id]: e.target.innerText
+            })
+        } else if(e.target.name === "seen"){
+            setInput({
+                ...input,
+                [e.target.name]: !e.target.value,
             })
         } else {
             setInput({
@@ -135,7 +148,10 @@ export default function ProductDetail() {
             })
         }
     }
-    
+
+    function handleCheck(){
+        dispatch(checkArtwork(artDetail._id))
+    }
     return (
         !artDetail ? <p>'Loading...'</p> : 
         <div className="containerDetail mt-3 bg-white">
@@ -313,25 +329,45 @@ export default function ProductDetail() {
                                         />
                                     </div>
                                 </div>
+                                <div className="py-3 border-t border-gray-200 flex items-center justify-between">
+                                    <p className="text-base leading-4 text-gray-800">REMOVED:</p>
+                                    <div className="items-center justify-center text-sm leading-none text-gray-600">
+                                        YES
+                                    <Switch
+                                        name="seen"
+                                        value={input.seen}
+                                        onChange={(e) => {handleChange(e)}}
+                                        inputProps={{ 'aria-label': 'controlled' }}
+                                        />
+                                        NO
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div className='flex items-center justify-between'>
-                        <div className='flex gap-6 mt-6 '>
+                        <div className='flex gap-3 mt-3 '>
                             <Button
-                                onClick={handleSubmit}
+                                onClick={() => {handleSubmit()}}
                                 type="Submit"
                                 variant="contained">
-                                EDIT
+                                FINISH EDIT
                             </Button>
                         </div>
-                        <div className='flex gap-6 mt-6 '>
-                            <Button
-                                onClick={handleDelete}
-                                type="Submit"
+                        <div className='flex gap-3 mt-3 '>
+                            <Link to={"/admin"}>
+                                <Button variant="contained" color="error">
+                                    CANCEL CHANGES
+                                </Button>
+                            </Link>
+                        </div>
+                        <div className='flex gap-3 mt-3 '>
+                            {artDetail.lastCheck === false ? <Button
+                                onClick={() => {handleCheck()}}
+                                type="button"
                                 variant="contained">
-                                REMOVE
-                            </Button>
+                                LAST CHECK
+                            </Button> : null }
                         </div>
                     </div>
 

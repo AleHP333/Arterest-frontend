@@ -18,7 +18,6 @@
   width: 100%;
   height: 100%;
   border-radius: 12px;
-  background-color: #000;
   transition: transform 0.3s ease-out;
 }
 
@@ -64,11 +63,11 @@
 }
 
 .img-container a {
-  transition: opacity ease-in .5s ;
+  transition: filter ease-in .5s ;
 }
 
-.container:hover>.img-container>a {
-  opacity: .4;
+.container:hover>.img-container>a{
+  filter: brightness(50%);
 }
 
 .social-media>li>a> .gr {
@@ -84,4 +83,8 @@
 
 .container:hover .social-media li:nth-child(2) a {
   transition-delay: 0.1s;
+}
+
+#fav{
+  filter: invert(80%) sepia(100%) saturate(7215%) hue-rotate(356deg) brightness(102%) contrast(119%)
 }

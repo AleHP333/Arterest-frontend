@@ -1,25 +1,29 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
-  getUserById,
   updateProfile,
 } from "../../redux/actions/productActionsTest";
-import Card from "../../components/Card/Card";
 import Footer from "../Footer/Footer";
-import { Box, CircularProgress } from "@mui/material";
 import UserPhoto from "./assets/NicePng_usuario-png_2022264.png";
 import ArtistRequest from "../../components/ArtistRequest/ArtistRequest";
+import axios from "axios"
+import { Alert, IconButton, Snackbar } from "@mui/material";
+import MuiAlert from '@mui/material/Alert';
+import PreviewImage2 from "./PreviewImage2";
+import BrushIcon from '@mui/icons-material/Brush';
+import LocalPoliceIcon from '@mui/icons-material/LocalPolice';
+import ColorLensIcon from '@mui/icons-material/ColorLens';
+
 
 export default function Profile() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.userSignReducer.userData);
-  // const { id } = useParams()
-  // const navigate = useNavigate()
-  console.log(user, "USER");
+  const [loading, setLoading] = useState(false);
 
   const [input, setInput] = useState({
+    email: "",
     userName: "",
     userImage: "",
     names: "",
@@ -29,16 +33,18 @@ export default function Profile() {
   });
 
   useEffect(() => {
+    setLoading(true)
     if (user !== undefined) {
       setInput({
+        email: user.email,
         userName: user.userName,
-        userImage: user.userImage,
         names: user.names,
         surnames: user.surnames,
         country: user.country,
         city: user.city,
       });
     }
+    setLoading(false)
   }, [user]);
 
   function handleChange(e) {
@@ -50,26 +56,87 @@ export default function Profile() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    dispatch(updateProfile({ ...input }));
+
+    try {
+      if (input.userImage) {
+        handleClickShare()
+        const formData = new FormData();
+        formData.append("file", input.userImage);
+        formData.append("upload_preset", "images");
+        axios.post("https://api.cloudinary.com/v1_1/onlypan/upload", formData)
+          .then((resAxios) => {
+            console.log(resAxios.data.secure_url);
+            dispatch(updateProfile({ ...input, userImage: resAxios.data.secure_url }))
+          })
+          .catch(error => console.log(error))
+      } else {
+        dispatch(updateProfile({ userName: input.userName, names: input.names, surnames: input.surnames, country: input.country, city: input.city, userImage: user.userImage }))
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
   }
+
+  function imageChange(userImage, data) {
+    setInput({
+      ...input,
+      userImage: data
+    })
+  }
+  const [open, setOpen] = React.useState(false);
+  const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert severity="warning" elevation={6} ref={ref} variant="filled" {...props} />;
+  });
+  const handleClickShare = () => {
+    setOpen(true);
+  };
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
 
   return (
     <>
-      <main className="profile-page">
-        <div className="w-30 h-30 pt-4 flex items-center justify-center ">
-          <img
-            className="w-20 h-20 rounded-full"
-            alt="User avatar"
-            src={user.userImage || UserPhoto}
-          />
-        </div>
-        <div>
-          <div className="mt-4 text-center border-b pb-4">
-            <h1 className="text-4xl font-medium text-gray-700">
-              {user.userName}
-            </h1>
+      {!loading ? <><main className="profile-page">
+        <form onSubmit={(e) => handleSubmit(e)}>
+          <div>
+            <div className="w-30 h-30 pt-4 flex items-center justify-center ">
+              <label
+                className='border-2 hover:shadow-xl hover:opacity-20 hover:border-red-500'
+                style={{ backgroundImage: `url(${(user && user.userImage) || UserPhoto})`, width: '100px', height: '100px', backgroundSize: 'cover', borderRadius: '50%', cursor: 'pointer', opacity: '2', filter: 'alpha(opacity=100)' }}>
+                <span class="sr-only">Choose profile photo</span>
+                <input
+                  type="file"
+                  style={{ display: 'none' }}
+                  accept="image/*"
+                  onChange={(e) => {
+                    imageChange("userImage", e.target.files[0]);
+                  }}
+                />
+                {input.userImage && <PreviewImage2 file={input.userImage} />}
+              </label>
+            </div>
+
           </div>
-        </div>
+          <div className="mt-4 text-center border-b pb-4">
+            <input
+              value={input.userName}
+              name="userName"
+              type="userName"
+              className="text-4xl font-medium text-center text-gray-700 border"
+              placeholder={input.userName}
+              onChange={(e) => handleChange(e)}
+
+            />
+          <div className='mt-4'>
+            {user.isArtist ? <BrushIcon className='text-green-400 ml-2' /> : null}
+            {user.isAdmin ? <LocalPoliceIcon className='text-blue-500 ml-2' /> : null}
+          </div>
+          </div>
+        </form>
         <div>
           <div className="p-4 bg-white mt-4">
             <section className="bg-gray-100  bg-opacity-50 h-screen">
@@ -84,13 +151,13 @@ export default function Profile() {
                           </button>
                         </Link>
                       </div>
-                      <div className="inline-flex items-center ml-3 space-x-4 md:mt-0 md:justify-center">
+                      { user && user.isArtist ? <div className="inline-flex items-center ml-20 space-x-4 md:mt-0 md:justify-center">
                         <Link to="/artist/artRequest">
-                          <button className="text-white w-auto h-auto py-1.5 px-1.5 uppercase rounded bg-red-500 hover:bg-red-600 shadow hover:shadow-lg font-light">
-                            SELL ARTWORK
+                          <button className="text-white w-auto h-auto py-1.5 px-1.5 uppercase rounded bg-green-500 hover:bg-red-600 shadow hover:shadow-lg font-light">
+                            <ColorLensIcon />SELL ARTWORK
                           </button>
                         </Link>
-                      </div>
+                      </div> : null }
                     </div>
                   </div>
                 </div>
@@ -118,7 +185,7 @@ export default function Profile() {
                         <input
                           type="email"
                           className="w-11/12 focus:outline-none focus:text-gray-600 p-2"
-                          placeholder={user.email}
+                          placeholder={input.email}
                           disabled
                         />
                       </div>
@@ -153,7 +220,7 @@ export default function Profile() {
                               name="names"
                               type="text"
                               className="w-11/12 focus:outline-none focus:text-gray-600 p-2"
-                              placeholder={user.names || ""}
+                              placeholder={input.names || "Name"}
                               onChange={(e) => handleChange(e)}
                             />
                           </div>
@@ -166,7 +233,7 @@ export default function Profile() {
                               name="surnames"
                               type="text"
                               className="w-11/12 focus:outline-none focus:text-gray-600 p-2"
-                              placeholder={user.surnames || "Lastname"}
+                              placeholder={input.surnames || "Lastname"}
                               onChange={(e) => handleChange(e)}
                             />
                           </div>
@@ -177,7 +244,7 @@ export default function Profile() {
                               name="city"
                               type="text"
                               className="w-11/12 focus:outline-none focus:text-gray-600 p-2"
-                              placeholder={user.city || "City"}
+                              placeholder={input.city || "City"}
                               onChange={(e) => handleChange(e)}
                             />
                           </div>
@@ -190,7 +257,7 @@ export default function Profile() {
                               name="country"
                               type="text"
                               className="w-11/12 focus:outline-none focus:text-gray-600 p-2"
-                              placeholder={user.country || "Country"}
+                              placeholder={input.country || "Country"}
                               onChange={(e) => handleChange(e)}
                             />
                           </div>
@@ -199,10 +266,12 @@ export default function Profile() {
                     </div>
                   </form>
                   <div className="flex items-center md:w-3/12 text-center md:pl-6">
+
                     <button
                       className="text-white w-full mx-auto max-w-sm rounded-md text-center bg-red-500  hover:bg-red-600 py-2 px-4 inline-flex items-center focus:outline-none md:float-right"
                       onClick={handleSubmit}
                     >
+
                       <svg
                         fill="none"
                         className="w-4 text-white mr-2"
@@ -219,12 +288,13 @@ export default function Profile() {
                       Update
                     </button>
                   </div>
+
                   <div className="md:inline-flex space-y-4 md:space-y-0 w-full p-4 text-gray-500 items-center">
                     <div className="md:inline-flex w-full  md:space-y-0 p-2 text-gray-500 items-center">
                       <div className="w-full inline-flex border-b">
                         <div>
-                          {user.isArtist !== undefined &&
-                          user.isArtist ? null : (
+                          {user !== undefined &&
+                            user.isArtist ? null : (
                             <ArtistRequest />
                           )}
                         </div>
@@ -233,11 +303,16 @@ export default function Profile() {
                   </div>
                 </div>
               </div>
+              <Snackbar open={open} autoHideDuration={4000} onClose={handleCloseSnackbar} anchorOrigin={{ vertical: "top", horizontal: "center" }}>
+                <Alert onClose={handleCloseSnackbar} severity="warning" sx={{ width: '100%' }}>
+                  Await... - Updating Profile
+                </Alert>
+              </Snackbar>
             </section>
           </div>
         </div>
       </main>
-      <Footer />
+        <Footer /></> : <div>Loading...</div>}
     </>
   );
 }

@@ -1,14 +1,16 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import EmptyShopH from "../../pages/Empty/emptyShopH";
 import SHcard from "./SHcard";
 
 function ShoppingHistory() {
   const user = useSelector((state) => state.userSignReducer.userData);
   const history = user.history;
 
-  console.log(history);
-  console.log(history[0]._id);
-  return (
+  console.log("user", user);
+
+  return history.length ? (
     <section className="relative py-16 bg-white">
       <div className="w-full mb-12 px-4">
         <div
@@ -44,29 +46,29 @@ function ShoppingHistory() {
                 </tr>
               </thead>
               <tbody>
-                {history
-                  ? history.map((e) => {
-                      return (
-                        <SHcard
-                          detail={e.transaction.product._id}
-                          key={e._id}
-                          _id={e._id}
-                          img={e.transaction.product.img}
-                          title={e.transaction.product.title}
-                          userName={e.transaction.product.userName}
-                          dateOfBuy={e.dateOfBuy.slice(0, 10)}
-                          total_money={e.transaction.total_money}
-                          quantity={e.transaction.quantity}
-                        />
-                      );
-                    })
-                  : null}
+                {history?.map((e) => {
+                  return (
+                    <SHcard
+                      detail={e.transaction.product._id}
+                      key={e._id}
+                      _id={e._id}
+                      img={e.transaction.product.img}
+                      title={e.transaction.product.title}
+                      userName={e.transaction.product.userName}
+                      dateOfBuy={e.dateOfBuy.slice(0, 10)}
+                      total_money={e.transaction.total_money}
+                      quantity={e.transaction.quantity}
+                    />
+                  );
+                })}
               </tbody>
             </table>
           </div>
         </div>
       </div>
     </section>
+  ) : (
+    <EmptyShopH/>
   );
 }
 

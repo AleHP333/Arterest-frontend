@@ -1,6 +1,10 @@
 import axios from "axios";
 
+
+const GET_PAINT_BY_ID = "GET_PAINT_BY_ID";
+
 const url = "https://arterest-back.herokuapp.com";
+
 
 export function productPost(formData) {
   console.log(formData, "form en el action");
@@ -95,6 +99,60 @@ export function commentDeleteAdmin(id){
         dispatch({type: "MESSAGE", payload: res.data})
     }
 }
+
+export function checkArtwork(id){
+  const token = localStorage.getItem("token")
+  return async function(dispatch){
+    const res = await axios.put(`${url}/adminActions/checkProduct/${id}`, {}, {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    }, { validateStatus: false })
+  dispatch({type: "MESSAGE", payload: res.data})
+}
+}
+
+export function getUnchecked(){
+  const token = localStorage.getItem("token")
+  return async function(dispatch){
+    const res = await axios.get(`${url}/adminActions/getUnchecked`, {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    }, { validateStatus: false })
+  dispatch({type: "GET_UNCHECKED", payload: res.data})
+}
+}
+
+export function getAllProductsAdmin() {
+  return async function (dispatch) {
+    const res = await axios.get(`${url}/adminActions/allpaintsAdmin`);
+    dispatch({
+      type: "GET_ALL_PRODUCTS",
+      payload: res.data,
+    });
+  };
+}
+
+export function getPaintByIdAdmin(id) {
+  return async function (dispatch) {
+    const res = await axios.get(`${url}/adminActions/getOnePaintAdmin/${id}`);
+    dispatch({
+      type: GET_PAINT_BY_ID,
+      payload: res.data,
+    });
+  };
+}
+
+export function getProductSearchbarAdmin(input){
+  return async function (dispatch) {
+    const res = await axios.get(`${url}/adminActions/allpaintsAdmin?art=${input}`);
+    dispatch({
+      type: "GET_PRODUCT_SEARCHBAR",
+      payload: res.data,
+    });
+  }
+};
 
 
 

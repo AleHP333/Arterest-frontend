@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
-import { artFilter } from '../../redux/actions/productActionsTest';
+import { arterestClassic, artFilter } from '../../redux/actions/productActionsTest';
 
 //MUI COMPONENTS
 import MenuItem from '@mui/material/MenuItem';
@@ -18,6 +18,7 @@ import Zoom from '@mui/material/Zoom';
 import ClearIcon from '@mui/icons-material/Clear';
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
+import Switch from '@mui/material/Switch';
 
 export default function FilterBar({setCurrentPage}) {
 
@@ -27,6 +28,7 @@ export default function FilterBar({setCurrentPage}) {
     const dispatch = useDispatch();
     const loading = useSelector((state) => state.testReducer.isLoading)
     const productsAll = useSelector((state) => state.testReducer.allProducts);
+    const classic = useSelector((state ) => state.testReducer.classic)
     const [searchParams, setSearchParams] = useSearchParams()
     const [filterPrice, setFilterPrice] = useState("none");
     const colors = searchParams.get('colors');
@@ -99,8 +101,13 @@ export default function FilterBar({setCurrentPage}) {
         setCurrentPage(1)
     }, [filterPrice])
 
+    function slide(e){
+        e.preventDefault()
+        dispatch(arterestClassic(!classic))
+    }
+
     return (
-        <div className="py-4 px-3 flex">
+        <div className="py-4 px-3 flex md:flex-row flex-col z-1">
             {
             <>
                 <FormControl className='colorFilter'>
@@ -194,7 +201,7 @@ export default function FilterBar({setCurrentPage}) {
                 <Fade style={{ transitionDelay: true ? '200ms' : '0ms' }} in={true} >
                     <FormControl className='filterPrice'>
                         <Slider
-                            sx={{ width: 150, mr: "2rem" }}
+                            sx={{ width: 150, mr: "2rem", zIndex:20 }}
                             min={Math.floor(Math.min(...pricesAll))}
                             max={Math.ceil(Math.max(...pricesAll))}
                             valueLabelDisplay="auto"
@@ -241,6 +248,20 @@ export default function FilterBar({setCurrentPage}) {
                 <IconButton sx={{ width: 40, height: 40,}} onClick={() => setFilterPrice("none")} aria-label="send">
                     <ClearIcon/>
                 </IconButton>
+            </>
+            }
+            {
+            <>
+                <div className="ml-20 items-center justify-center text-sm leading-none text-gray-600">
+                        Classic
+                    <Switch
+                        name="seen"
+                        value={classic}
+                        onChange={(e) => {slide(e)}}
+                        inputProps={{ 'aria-label': 'controlled' }}
+                        />
+                        Alpha
+                </div>
             </>
             }
         </div>

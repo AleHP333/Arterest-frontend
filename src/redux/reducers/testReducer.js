@@ -1,3 +1,4 @@
+
 const { GET_PAINT_BY_ID } = require("../actions/productActionsTest");
 
 const initialState = {
@@ -11,6 +12,10 @@ const initialState = {
   paintComments: [],
   productsAutocomplete: [],
   orders: [],
+  booleano: false,
+  favorites: [],
+  cart: [],
+  classic: true
 };
 
 function epicSliceXD(data){
@@ -42,7 +47,6 @@ export default function testReducer(state = initialState, action) {
         isLoading: false,
       };
     case "ART_FILTER":
-      console.log(action)
       function filterPaints(state, action) {
         let paints = [...state.products];
         if (action.payload === "minValue") {
@@ -141,6 +145,26 @@ export default function testReducer(state = initialState, action) {
         ...state,
         orders: action.payload,
       };
+      case 'BOOLEANO': 
+      return {
+        ...state,
+        booleano: !state.booleano
+      }
+      case "FAVORITES":
+        return {
+          ...state,
+          favorites: action.payload
+        }
+      case "CARRITOO":
+        return {
+          ...state,
+          cart: action.payload
+        }
+      case "ARTEREST":
+        return {
+          ...state,
+          classic: action.payload
+        }
     default:
       return state;
   }

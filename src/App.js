@@ -30,6 +30,7 @@ import Footer from "./pages/Footer/Footer";
 import GiftCard from "./components/GiftCard/GiftCard";
 import AllRequests from "./pages/Admin/views/AllRequests";
 import Transaction from "./components/Transaction/Transaction";
+import TransF from "./components/Transaction/TransF";
 
 
 import Alert from "./components/Alert/Alert";
@@ -40,6 +41,8 @@ import AllOrders from "./pages/Admin/views/AllOrders";
 import ShoppingHistory from "./components/ShoppingHistory/ShoppingHistory";
 import PasswordRecover from "./pages/PasswordRecover/PasswordRecover";
 import SetPass from "./pages/PasswordRecover/SetPass";
+import LastCheck from "./pages/Admin/views/NotChecked";
+import CuatroOCuatro from "./pages/404/404"
 
 
 function App() {
@@ -93,6 +96,7 @@ function App() {
             }
           />
           <Route path="/terms" element={<Terms />} />
+          
           <Route path="/faq" element={<Faq />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/contact" element={<ContactUs />} />
@@ -103,17 +107,18 @@ function App() {
             <Route exact path="/admin/artworks" element={<AllArtWork />} />
             <Route exact path="/admin/requests" element={<AllRequests />} />
             <Route exact path="/admin/sellRequests" element={<SellRequests />} />
+            <Route exact path="/admin/allUnchecked" element={<LastCheck />} />
             <Route exact path="/admin/users" element={<AllUsers />} />
             <Route exact path="/admin/orders" element={<AllOrders />} />
             <Route exact path="/admin/editproduct/:id" element={<EditProduct />} />
             <Route exact path="/admin/artworks/artworkDetail/:id" element={<ProductDetail />} />
-          </> : null}
+          </> : <Route path="/404" element={<CuatroOCuatro />} />}
           {loggedUser !== undefined ? 
           <>
             <Route exact path="/profile" element={<UserProfile />} />
             <Route exact path="/history" element={<ShoppingHistory />} />
-          </> : null}
-          {loggedUser && loggedUser.isArtist ? <Route exact path="/artist/artRequest" element={<ArtPost />}></Route> : null}
+          </> : <Route path="/404" element={<CuatroOCuatro />} />}
+          {loggedUser && loggedUser.isArtist ? <Route exact path="/artist/artRequest" element={<ArtPost />}></Route> : <Route path="/404" element={<CuatroOCuatro />} />}
           <Route exact path="/passwordRecovery" element={<PasswordRecover />} />
           <Route exact path="/password/:token" element={<SetPass />} />
           <Route path="/cart" element={<Cart />} />
@@ -124,6 +129,8 @@ function App() {
           <Route path="/giftcard" element={<GiftCard />} />
           <Route path="/buy" element={<Buy />} />
           <Route path="/transaction" element={<Transaction />} />
+          <Route path="/fail" element={<TransF />} />
+          <Route path="*" element={<CuatroOCuatro />} />
 
         </Routes>
         <Footer />
@@ -132,4 +139,5 @@ function App() {
     </>
   );
 }
+
 export default App;

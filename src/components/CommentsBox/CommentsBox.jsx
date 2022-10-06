@@ -20,8 +20,6 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 //ALERT
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useEffect } from 'react';
 import { getComments } from '../../redux/actions/productActionsTest';
@@ -49,8 +47,6 @@ export default function CommentsBox({paintId}) {
     const [paintComments, setPaintComments] = useState()
     //ALERT FUNCTIONS
     const [open, setOpen] = React.useState(false);
-
-    console.log(paintComments)
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -105,7 +101,7 @@ export default function CommentsBox({paintId}) {
     }, [reload])
 
     return (
-    <div>
+    <div >
         {
         <>
             <div>
@@ -115,16 +111,16 @@ export default function CommentsBox({paintId}) {
                     aria-labelledby="alert-dialog-title"
                     aria-describedby="alert-dialog-description"
                 >
-                <DialogTitle id="alert-dialog-title">
-                    {"Are you sure to delete the comment?"}
-                </DialogTitle>
-                <DialogActions>
-                    <Button onClick={() => handleCloseDisagree()}>Cancel</Button>
-                    <Button onClick={() => handleCloseAgree()} autoFocus>
-                        Accept
-                    </Button>
-                </DialogActions>
-                 </Dialog>
+                    <DialogTitle id="alert-dialog-title">
+                        {"Are you sure to delete the comment?"}
+                    </DialogTitle>
+                    <DialogActions>
+                        <Button onClick={() => handleCloseDisagree()}>Cancel</Button>
+                        <Button onClick={() => handleCloseAgree()} autoFocus>
+                            Accept
+                        </Button>
+                    </DialogActions>
+                </Dialog>
             </div>        
         </>
         }
@@ -156,9 +152,9 @@ export default function CommentsBox({paintId}) {
                     </div>
                 </div>
             </div> : 
-            <div className="flex justify-center w-full py-4 my-4 mx-auto mt-3 bg-gray-300 border-b-2 border-r-2 border-gray-200 sm:px-4 sm:py-4 md:px-4 sm:rounded-lg sm:shadow-sm md:w-2/3">
+            <div className="flex justify-center w-full py-4 my-4 mx-auto mt-3  sm:px-4 sm:py-4 md:px-4 sm:rounded-lg sm:shadow-sm md:w-2/3">
                 <Link to={"/signIn"}>
-                    <Button sx={{ fontWeight: 600, fontSize: '2.4rem', width: "2rem"}} disableElevation variant="contained" size="large">Login<SmsIcon /></Button>
+                    <Button sx={{ fontWeight: 600, fontSize: '2.4rem', width: "300px" ,backgroundColor: "rgba(248, 113, 113)"}} disableElevation variant="contained" size="large">Login<SmsIcon /></Button>
                 </Link>
             </div>
             }
@@ -168,7 +164,7 @@ export default function CommentsBox({paintId}) {
             {paintComments && paintComments?.map((comment) => {
                 return (
                     loggedUser && comment.userId._id === loggedUser._id ?
-                    <div
+                    <div key={comment._id}
                         className="flex-col w-full py-4 my-4 mx-auto mt-3 bg-white border-b-2 border-r-2 border-gray-200 sm:px-4 sm:py-4 md:px-4 sm:rounded-lg sm:shadow-sm md:w-2/3">
                         <div className="flex flex-row md-10">
                             { loggedUser.userImage !== undefined ? <img className="w-12 h-12 border-2 border-gray-300 rounded-full" alt=""
@@ -212,7 +208,7 @@ export default function CommentsBox({paintId}) {
                             </div>
                         </div>
                     </div> : 
-                    <div className={`flex-col w-full py-4 my-4 mx-auto mt-3 ${comment.userId.isBanned ? "bg-red-200" : "bg-white"} border-b-2 border-r-2 border-gray-200 sm:px-4 sm:py-4 md:px-4 sm:rounded-lg sm:shadow-sm md:w-2/3`} >
+                    <div key={comment._id} className={`flex-col w-full py-4 my-4 mx-auto mt-3 ${comment.userId.isBanned && (loggedUser && loggedUser.isAdmin) ? "bg-red-200" : "bg-white"} border-b-2 border-r-2 border-gray-200 sm:px-4 sm:py-4 md:px-4 sm:rounded-lg sm:shadow-sm md:w-2/3`} >
                         <div className="flex flex-row md-10">
                             <img className="w-12 h-12 border-2 border-gray-300 rounded-full" alt=""
                                 src={comment.userId.userImage ? comment.userId.userImage : "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg" } />
@@ -221,7 +217,7 @@ export default function CommentsBox({paintId}) {
                                     {comment.userId.isArtist ? <BrushIcon className='text-green-400 ml-2'/> : null}
                                     {comment.userId.isAdmin ? <LocalPoliceIcon className='text-blue-500 ml-2' /> : null}
                                     <span className="ml-2 text-xs font-normal mr-10 text-gray-500">{dateTransform(comment.date)}</span>
-                                    {loggedUser.isAdmin ? <>
+                                    {loggedUser && loggedUser.isAdmin ? <>
                                         {comment.userId.isBanned ? <IconButton onClick={() => {userBan(comment.userId)}}><RemoveCircleIcon className='text-red-400' /></IconButton>
                                             :   <IconButton onClick={() => {userBan(comment.userId)}}><RemoveCircleOutlineIcon /></IconButton>
                                         }

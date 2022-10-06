@@ -12,8 +12,9 @@ import { useDispatch } from 'react-redux';
 import { unLog } from '../../redux/actions/userSignActions';
 import { Link, useNavigate } from 'react-router-dom';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import ColorLensIcon from '@mui/icons-material/ColorLens';
 
-export default function AccountMenu({img, userName, isAdmin}) {
+export default function AccountMenu({img, userName, isAdmin, isArtist}) {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -80,12 +81,20 @@ export default function AccountMenu({img, userName, isAdmin}) {
           <Avatar /> Profile
         </Link>
         </MenuItem>
-        <MenuItem>
         {isAdmin ? 
+        <MenuItem>
         <Link className='flex items-center' to='/admin'>
           <Avatar><AdminPanelSettingsIcon/></Avatar> Admin
-        </Link> : null }
+        </Link> 
         </MenuItem>
+        : null }
+        {isArtist ? 
+        <MenuItem>
+        <Link className='flex items-center' to='/artist/artRequest'>
+          <Avatar><ColorLensIcon/></Avatar> Sell Art
+        </Link> 
+        </MenuItem>
+        : null }
         <Divider />
         <MenuItem onClick={() => Loggout()}>
           <ListItemIcon>
