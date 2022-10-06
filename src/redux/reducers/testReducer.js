@@ -47,7 +47,6 @@ export default function testReducer(state = initialState, action) {
         isLoading: false,
       };
     case "ART_FILTER":
-      console.log(action)
       function filterPaints(state, action) {
         let paints = [...state.products];
         if (action.payload === "minValue") {

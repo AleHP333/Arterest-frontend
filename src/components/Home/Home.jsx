@@ -28,7 +28,7 @@ export const Home = ({ handleAdded, handleNotAdded }) => {
 
     const [favProducts, setFavProducts] = useState(
         JSON.parse(localStorage.getItem("favList"))
-      );
+    );
     //HOOKS
     const [currentPage, setCurrentPage] = useState(1)
     const location = useLocation();
