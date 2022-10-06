@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams, useLocation, useNavigate } from 'react-router-dom';
 // Components
-import Card from '../Card/Card';
+import Card2 from '../Card/Card2';
 import FilterBar from '../FilterBar/FilterBar';
 // Actions
 import {
@@ -121,12 +121,12 @@ export const Home = ({ handleAdded, handleNotAdded }) => {
                         </p>
                     }
                 >
-                    <div className='pin_container'>
+                    <div className='flex flex-wrap justify-evenly w-full'>
                         {(itemsToRender()).map((e) => {
                                     return (
-                                        <div className='inner2' key={e._id}>
-                                            <Card
-                                                className='img'
+                                        <div className='inner2 w-80 h-100 my-2 ' key={e._id}>
+                                            <Card2
+                                                className=""
                                                 img={e.img}
                                                 userName={e.user.userName}
                                                 userImage={e.user.userImage}
@@ -139,7 +139,7 @@ export const Home = ({ handleAdded, handleNotAdded }) => {
                                                 handleNotAdded={handleNotAdded}
                                                 setFavProducts={setFavProducts}
                                             >
-                                            </Card>
+                                            </Card2>
                                         </div>
                                     );
                                 })

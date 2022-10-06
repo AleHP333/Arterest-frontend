@@ -78,7 +78,10 @@ export default function Profile() {
                                     price={e.price}
                                     cardLikes={e.likes.length}
                                     _id={e._id}
-                                    key={e._id}>
+                                    key={e._id}
+                                    stock={e.stock}
+                                    >
+                                    
                                 </Card>       
                         </div>
                     );

@@ -16,7 +16,7 @@ import Skeleton from '@mui/material/Skeleton';
 import { useDispatch, useSelector } from "react-redux";
 import { booleano } from "../../redux/actions/productActionsTest";
 
-export default function Card({
+export default function Card2({
   userName,
   userImage,
   title,
@@ -51,8 +51,8 @@ export default function Card({
   
 
   return (
-    <div className="container rounded-lg mb-5" key={_id}>
-      <div className="img-container">
+    <div className="container w-80 h-100 text-center relative overflow-hidden rounded-lg mb-5" key={_id}>
+      <div className="relative img-container">
 
         <Link to={`/detail/${_id}`}>
             { !isImageLoaded && 
@@ -60,26 +60,26 @@ export default function Card({
                 animation="wave" 
                 variant="rounded" 
                 width="100%"
-                height={300} 
+                height={368} 
               /> }
             <img 
-              className={`w-full ${isImageLoaded ? "flex" : "hidden"}`} 
+              className={`w-80 h-82 ${isImageLoaded ? "flex" : "hidden"} object-cover`} 
               src={img} 
               alt={title}
               onLoad={() => setTimeout(() => setImageIsLoaded(true), 2000)}
             />
         </Link>
         
-        <div className="user-info bg-white p-3 flex flex-col gap-4">
+        <div className="user-info h-20 bg-white p-3 flex flex-col gap-4">
           <div className="flex justify-center items-center">
-            <h2 className="font-semibold text-xl w-52 ">{title}</h2>
+            <h2 className="font-semibold text-lg w-52 ">{title}</h2>
             <div className="flex text-center justify-start gap-1 absolute left-4">
               <FavoriteIcon className='text-red-500'/>
               <span className="text-gray-600 relative bottom-0.5">{cardLikes}</span>
             </div>
           </div>
 
-          <div className="flex items-center">
+          <div className="flex items-center absolute bottom-4 w-full">
             <div className="flex items-center gap-2">
               <img className="rounded-full h-10 w-10" src={userImage} alt="" />
               <Link to={"/artistprofile/" + userName}>
@@ -112,6 +112,7 @@ export default function Card({
                     handleNotAdded,
                     e,
                     setFavProducts,
+                    stock
                   );
                   handleFavoritesState()}
                 }
