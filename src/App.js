@@ -51,6 +51,9 @@ function App() {
   
   const dispatch = useDispatch()
 
+  let favs = JSON.parse(localStorage.getItem('favList'))
+  let cart = JSON.parse(localStorage.getItem('cartList'))
+
   useEffect(() => {
     if (localStorage.getItem("token") !== null) {
       const token = localStorage.getItem("token");
@@ -63,6 +66,11 @@ function App() {
     } else {
       dispatch(unLogFromApp());
     }
+  
+    if(favs === null || !favs.length){
+      localStorage.setItem("favList", JSON.stringify([]))}
+    if(cart === null || !cart.length){
+      localStorage.setItem("cartList", JSON.stringify([]))}
   }, []);
 
   const handleClose = (event, reason) => {
