@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = "http://localhost:3001"
+const url = "https://arterest-back.herokuapp.com"
 
 
 export function addComment(paintId, comment){
@@ -75,6 +75,7 @@ export function sendRequest(request){
     }
 }
 
+
 //GUEST AND USER
 export function contactUs(data){
     return async function(dispatch){
@@ -82,3 +83,4 @@ export function contactUs(data){
         dispatch({type: "MESSAGE", payload: res.data})
     }
 }
+

@@ -12,7 +12,7 @@ export default function Buy() {
   const CartItem = JSON.parse(localStorage.getItem("cartList"));
   
 
-  const url = "http://localhost:3001";
+  const url = "https://arterest-back.herokuapp.com";
 
   console.log(CartItem);
 

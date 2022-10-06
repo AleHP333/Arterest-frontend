@@ -1,8 +1,10 @@
 import axios from "axios";
 
+
 const GET_PAINT_BY_ID = "GET_PAINT_BY_ID";
 
-const url = "http://localhost:3001";
+const url = "https://arterest-back.herokuapp.com";
+
 
 export function productPost(formData) {
   console.log(formData, "form en el action");
