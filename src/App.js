@@ -30,6 +30,7 @@ import Footer from "./pages/Footer/Footer";
 import GiftCard from "./components/GiftCard/GiftCard";
 import AllRequests from "./pages/Admin/views/AllRequests";
 import Transaction from "./components/Transaction/Transaction";
+import TransF from "./components/Transaction/TransF";
 
 
 import Alert from "./components/Alert/Alert";
@@ -42,7 +43,7 @@ import PasswordRecover from "./pages/PasswordRecover/PasswordRecover";
 import SetPass from "./pages/PasswordRecover/SetPass";
 import LastCheck from "./pages/Admin/views/NotChecked";
 import CuatroOCuatro from "./pages/404/404"
-import EmptyCart from "./pages/Empty/emptyCart";
+
 
 function App() {
   const [added, setAdded] = useState(false);
@@ -86,7 +87,6 @@ function App() {
         <NavBar />
         <Routes>
           <Route path="/favorites" element={<Favorites />} />
-          <Route path="/empty" element={<EmptyCart />} />
           <Route exact path="/" element={<LandingPage />} />
           <Route exact path="/creation" element={<CreateProduct />} />
           <Route
@@ -129,6 +129,7 @@ function App() {
           <Route path="/giftcard" element={<GiftCard />} />
           <Route path="/buy" element={<Buy />} />
           <Route path="/transaction" element={<Transaction />} />
+          <Route path="/fail" element={<TransF />} />
           <Route path="*" element={<CuatroOCuatro />} />
 
         </Routes>

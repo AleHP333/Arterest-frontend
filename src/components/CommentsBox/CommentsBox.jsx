@@ -156,9 +156,9 @@ export default function CommentsBox({paintId}) {
                     </div>
                 </div>
             </div> : 
-            <div className="flex justify-center w-full py-4 my-4 mx-auto mt-3 bg-gray-300 border-b-2 border-r-2 border-gray-200 sm:px-4 sm:py-4 md:px-4 sm:rounded-lg sm:shadow-sm md:w-2/3">
+            <div className="flex justify-center w-full py-4 my-4 mx-auto mt-3  sm:px-4 sm:py-4 md:px-4 sm:rounded-lg sm:shadow-sm md:w-2/3">
                 <Link to={"/signIn"}>
-                    <Button sx={{ fontWeight: 600, fontSize: '2.4rem', width: "2rem"}} disableElevation variant="contained" size="large">Login<SmsIcon /></Button>
+                    <Button sx={{ fontWeight: 600, fontSize: '2.4rem', width: "300px" ,backgroundColor: "rgba(248, 113, 113)"}} disableElevation variant="contained" size="large">Login<SmsIcon /></Button>
                 </Link>
             </div>
             }
