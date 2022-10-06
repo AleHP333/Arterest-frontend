@@ -31,8 +31,6 @@ export default function NavBar() {
     JSON.parse(localStorage.getItem("cartList"))
   );
 
-  console.log(location.pathname);
-
   useEffect(() => {
     setCartItem(JSON.parse(localStorage.getItem("cartList")));
   }, [loggedUser, booleano]);

@@ -71,9 +71,9 @@ export default function Footer() {
                     className="expandFooter fixed bottom-8 right-28 bg-white border rounded-lg font-semibold text-x1 text-black p-2"
                 >
                     {
-                        tabsFooter.map(tab => {
+                        tabsFooter.map((tab, i) => {
                             return (
-                                <Link to={tab.link} onClick={() => closeButton()}>
+                                <Link key={i} to={tab.link} onClick={() => closeButton()}>
                                     <div 
                                         className="flex flex-row gap-10 rounded-lg p-2 hover:bg-gray-200"
                                     >

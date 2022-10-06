@@ -2,8 +2,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+// Favs and cart
+import { addToFav, addToCart } from "../Card/FavAndCart";
 // Actions
-import { getPaintById } from '../../redux/actions/productActionsTest';
+import { getPaintById, booleano } from '../../redux/actions/productActionsTest';
 import { likeDisplike } from '../../redux/actions/userActions';
 // Components
 import CommentsBox from '../CommentsBox/CommentsBox';
@@ -20,7 +22,6 @@ import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-import EditIcon from '@mui/icons-material/Edit';
 import LocalPoliceIcon from '@mui/icons-material/LocalPolice';
 import Skeleton from '@mui/material/Skeleton';
 
@@ -46,10 +47,12 @@ export default function DetailProduct () {
     
     // Alert Logic 
     const [open, setOpen] = React.useState(false);
+    const [messageAlert, setMessageAlert] = useState("");
     const Alert = React.forwardRef(function Alert(props, ref) {
         return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
     });
-    const handleClickShare = () => {
+    const handleClickShare = (message) => {
+        setMessageAlert(message);
         setOpen(true);
     };
     const handleCloseSnackbar = (event, reason) => {
@@ -198,6 +201,23 @@ export default function DetailProduct () {
         </div>
     )
 
+    // Favs and cart
+    const [favProducts, setFavProducts] = useState(
+        JSON.parse(localStorage.getItem("favList"))
+    );
+
+    const handleFavoritesState = () => {
+        let favs = JSON.parse(localStorage.getItem("favList"));
+        let answer = favs.map(fav => fav === paint._id);
+        return answer;
+    }
+
+    const handleCartState = () => {
+        let cart = JSON.parse(localStorage.getItem("cartList"));
+        let answer = cart.map(cart => cart === paint._id);
+        return answer;
+    }
+
     return (
         !paint || id !== paint._id ? 
         PlaceholderDetail() :
@@ -258,7 +278,13 @@ export default function DetailProduct () {
                             </div>
                             <CopyToClipboard text={window.location.href}>
                                 <Tooltip 
-                                    onClick={() => handleClickShare()} 
+                                    onClick={() => {
+                                        setOpen(false);
+                                        setTimeout(() => {
+                                            handleClickShare("Link copied to clipboard");
+                                        }, open ? 100 : 0);
+                                        
+                                    }} 
                                     title="Share"
                                 >
                                     <IconButton>
@@ -267,14 +293,34 @@ export default function DetailProduct () {
                                 </Tooltip>
                             </CopyToClipboard>
                             <Tooltip title="Pin to favorites">
-                                <IconButton>
-                                    <PushPinIcon className='text-black'/>
+                                <IconButton 
+                                    onClick={(e) =>{
+                                        setOpen(false);
+                                        setTimeout(() => {
+                                            addToFav(
+                                                paint.userName,
+                                                paint.userImage,
+                                                paint.title,
+                                                paint.img,
+                                                paint._id,
+                                                paint.price,
+                                                null,
+                                                null,
+                                                e,
+                                                setFavProducts,
+                                                paint.stock
+                                            );
+                                            handleFavoritesState();
+                                            handleClickShare(handleFavoritesState().length ? "Added to favorites": "Removed from favorites");
+                                        }, open ? 100 : 0);
+                                    }}>
+                                    <PushPinIcon className='text-black' />
                                 </IconButton>
                             </Tooltip>
                         </div>
                         <Snackbar open={open} autoHideDuration={4000} onClose={handleCloseSnackbar}>
                             <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
-                                Link copied to clipboard 
+                                {messageAlert} 
                             </Alert>
                         </Snackbar>
                         <div className="containerPrincipalData">
@@ -323,6 +369,25 @@ export default function DetailProduct () {
                             <div className="flex gap-4">
                                 <span className="title-font font-medium text-2xl text-gray-900">${paint.price}</span>
                                 <Button
+                                    onClick={(e) => {
+                                        setOpen(false);
+                                        setTimeout(() => {
+                                            addToCart(
+                                                paint.userName,
+                                                paint.userImage,
+                                                paint.title,
+                                                paint.img,
+                                                paint.stock,
+                                                paint._id,
+                                                paint.price,
+                                                null,
+                                                null,
+                                                e,
+                                            );
+                                            dispatch(booleano());
+                                            handleClickShare(handleCartState().length ? "Added to shopping cart": "Removed from shopping cart");
+                                        }, open ? 100 : 0);
+                                    }}
                                     variant="contained" 
                                     startIcon={<ShoppingCartOutlinedIcon />}
                                     >Add to Cart

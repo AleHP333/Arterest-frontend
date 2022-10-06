@@ -19,7 +19,6 @@ export default function ShoppingCart() {
   // }, [setCartItem])
 
   const deleteItem = (_id) => {
-    console.log(_id);
     let arr = cartItem.filter((product) => product._id !== _id);
     localStorage.setItem("cartList", JSON.stringify(arr));
     setCartItem(arr);
@@ -57,7 +56,7 @@ export default function ShoppingCart() {
       <div className="lg:w-96 md:w-8/12 w-full h-full">
         <div className="flex flex-col lg:h-screen h-auto lg:px-8 md:px-7 px-4 lg:py-20 md:py-10 py-6 justify-between overflow-y-auto">
           <div>
-            <div class="flex items-center pb-6 justify-between lg:pt-5 pt-20">
+            <div className="flex items-center pb-6 justify-between lg:pt-5 pt-20">
               <p className="text-2xl leading-normal ">Total</p>
               <p className="text-2xl font-bold leading-normal text-right ">
                 ${parseInt(totalPrice)}
