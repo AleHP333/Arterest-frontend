@@ -1,20 +1,21 @@
 
-export const addToFav = (userName, userImage, title, img, _id, price, handleAdded, handleNotAdded, e, setFavProducts) => {
+export const addToFav = (userName, userImage, title, img, _id, price, handleAdded, handleNotAdded, e, setFavProducts, stock) => {
   e.preventDefault()
   let favs = JSON.parse(localStorage.getItem('favList'))
-  console.log('favs', favs)
-  console.log("id", _id)
   if(favs === null || !favs.length){
-      localStorage.setItem("favList", JSON.stringify([{ userName, userImage, title, img, _id, price}]))
+    //   localStorage.setItem("favList", JSON.stringify([{ userName, userImage, title, img, _id, price, stock: stock}]))
+    localStorage.setItem("favList", JSON.stringify([_id]))
       setFavProducts(JSON.parse(localStorage.getItem("favList")))
   } else {
-      let found = favs.find(item => item._id === _id)
+    //   let found = favs.find(item => item._id === _id)
+      let found = favs.find(item => item === _id)
       if(found){
           let removed = favs.filter(item => item !== found)
           localStorage.setItem("favList", JSON.stringify([...removed]))
           setFavProducts(JSON.parse(localStorage.getItem("favList")))
       } else {
-          localStorage.setItem("favList", JSON.stringify([...favs,{ userName, userImage, title, img, _id, price}]))
+        //   localStorage.setItem("favList", JSON.stringify([...favs,{ userName, userImage, title, img, _id, price, stock: stock}]))
+          localStorage.setItem("favList", JSON.stringify([...favs, _id]))
           setFavProducts(JSON.parse(localStorage.getItem("favList")))
       }
   }

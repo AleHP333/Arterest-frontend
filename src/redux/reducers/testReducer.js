@@ -1,3 +1,4 @@
+
 const { GET_PAINT_BY_ID } = require("../actions/productActionsTest");
 
 const initialState = {
@@ -11,7 +12,9 @@ const initialState = {
   paintComments: [],
   productsAutocomplete: [],
   orders: [],
-  booleano: false
+  booleano: false,
+  favorites: [],
+  cart: []
 };
 
 function epicSliceXD(data){
@@ -147,6 +150,16 @@ export default function testReducer(state = initialState, action) {
         ...state,
         booleano: !state.booleano
       }
+      case "FAVORITES":
+        return {
+          ...state,
+          favorites: action.payload
+        }
+      case "CARRITOO":
+        return {
+          ...state,
+          cart: action.payload
+        }
     default:
       return state;
   }

@@ -166,3 +166,19 @@ export function getOrders() {
 export function booleano() {
   return {type: 'BOOLEANO', payload:null}
 }
+
+export function getFavorites(){
+  const favs = JSON.parse(localStorage.getItem("favList"))
+  return async function (dispatch){
+    const response = await axios.post(`${url}/paints/favProducts`, { fav: favs })
+    dispatch({ type: "FAVORITES", payload: response.data})
+  }
+}
+
+export function getCart(){
+  const carts = JSON.parse(localStorage.getItem("cartList"))
+  return async function (dispatch){
+    const response = await axios.post(`${url}/paints/cartProducts`, { cart: carts })
+    dispatch({ type: "CARRITOO", payload: response.data})
+  }
+}
