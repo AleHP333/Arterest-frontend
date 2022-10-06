@@ -27,16 +27,14 @@ export const Home = ({ handleAdded, handleNotAdded }) => {
 
     const [favProducts, setFavProducts] = useState(
         JSON.parse(localStorage.getItem("favList"))
-      );
+    );
     //HOOKS
     const [currentPage, setCurrentPage] = useState(1)
     const location = useLocation();
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const allPaints = useSelector((state) => state.testReducer.allProducts);
-    const [paint, setPaint] = useState([])
-    const [hasMore, setHasMore] = useState(true)
-    console.log(currentPage, 'PAG')
+    const [hasMore] = useState(true);
 
     //SEARCH PARAMS
     const [searchParams] = useSearchParams();

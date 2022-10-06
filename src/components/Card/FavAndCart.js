@@ -33,9 +33,7 @@ export const addToCart = (userName,
   handleNotAdded,
   e) => {
       e.preventDefault()
-  let cart = JSON.parse(localStorage.getItem('cartList'))
-  console.log('cart', cart)
-  console.log('id', _id)
+  let cart = JSON.parse(localStorage.getItem('cartList'));
   if(stock === 0){
     return 
   }

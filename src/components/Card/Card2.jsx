@@ -13,7 +13,7 @@ import "./card.css";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import Skeleton from '@mui/material/Skeleton';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { booleano } from "../../redux/actions/productActionsTest";
 
 export default function Card2({

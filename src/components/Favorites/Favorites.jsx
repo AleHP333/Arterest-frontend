@@ -13,15 +13,12 @@ export default function Favorites() {
     JSON.parse(localStorage.getItem("favList"))
   );
 
-  console.log(favorites)
-
   useEffect(() => {
     if(favProducts !== undefined){
       dispatch(getFavorites(favProducts))
     }
   }, [favProducts]);
 
-  console.log(favProducts);
   const renderProducts = () => {
     if (!favProducts || favProducts.length === 0) {
       return (
