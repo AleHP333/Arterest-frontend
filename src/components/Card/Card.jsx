@@ -39,8 +39,8 @@ export default function Card({
   
   const handleFavoritesState = (e) => {
     let favs = JSON.parse(localStorage.getItem("favList"));
-    let answer = favs.map(fav => fav === _id)
-    return answer
+      let answer = favs?.map(fav => fav === _id)
+      return answer
   }
 
   function outOfStock(e){
