@@ -3,12 +3,14 @@ import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { contactUs } from "../../redux/actions/userActions";
 import Footer from "../Footer/Footer";
+import {useNavigate } from "react-router-dom";
 //import { createContact } from '../../redux/actions'
 
 import './ContactUs.css'
 
 export default function ContactUs() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [error, setError] = useState({})
   const [input, setInput] = useState({
     subject: "",
@@ -90,7 +92,7 @@ function handleSelect(e) {
       message: "",
     })
     setSuccess(true)
-    ("/home")
+    navigate("/home")
   }else{
     setWarning(true)
   }
