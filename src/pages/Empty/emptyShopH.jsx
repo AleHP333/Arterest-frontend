@@ -8,6 +8,6 @@ export default function EmptyShopH(){
       <h1 className="h1">The Shopping history is empty!</h1>
       <img className="imgC" src = {s} ></img>
       <Link className="notFoundLink" to="/home">Back to <span className="span">Homepage</span></Link>
-    </div>
+    </div> 
   )
 }
