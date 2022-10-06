@@ -14,7 +14,8 @@ const initialState = {
   orders: [],
   booleano: false,
   favorites: [],
-  cart: []
+  cart: [],
+  classic: true
 };
 
 function epicSliceXD(data){
@@ -159,6 +160,11 @@ export default function testReducer(state = initialState, action) {
         return {
           ...state,
           cart: action.payload
+        }
+      case "ARTEREST":
+        return {
+          ...state,
+          classic: action.payload
         }
     default:
       return state;

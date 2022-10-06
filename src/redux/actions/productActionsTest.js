@@ -182,3 +182,7 @@ export function getCart(){
     dispatch({ type: "CARRITOO", payload: response.data})
   }
 }
+
+export function arterestClassic(boolean){
+  return {type: "ARTEREST", payload: boolean}
+}
