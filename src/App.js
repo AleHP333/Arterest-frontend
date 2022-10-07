@@ -96,7 +96,6 @@ function App() {
         <Routes>
           <Route path="/favorites" element={<Favorites />} />
           <Route exact path="/" element={<LandingPage />} />
-          <Route exact path="/creation" element={<CreateProduct />} />
           <Route
             path="/home"
             element={
