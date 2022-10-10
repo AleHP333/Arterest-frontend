@@ -1,70 +1,22 @@
-# Getting Started with Create React App
+# Arterest - Pagina web sobre arte!
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Resumen
 
-## Available Scripts
+ Arterest es una aplicación web destinada a la venta y adquicición de obras de artes. La idea de este proyecto fué lograr
+una página web donde la experiencia del usuario sea de lo mejor posible, logrando un layout similar a Pinterest donde el
+usuario tenga disponible el avistamiento de obras de artes de verdaderos artista seleccionados incluyendo sus detalles.
 
-In the project directory, you can run:
+👤 Como invitado se podrá acceder a visualizar todo el contenido de la pagina, desde las obras de arte de nuestra pagina
+principal hasta los detalles de las mismas, tambien podrá añadir obras a favoritos o al carrito.
 
-### `npm start`
+ Como usuario registrado podrás editar tu perfil, puntuar y comentar obras, comprar todo lo que exista en el carrito y
+ademas, si estás interesado en vender tu arte podrás solicitar mediante un formulario un rol de artista que te permitirá
+vender tu obras y obtenér una ganancia de ellas!
+ 
+ Como administrador se podrá tenér control absoluto del contenido de la pagina, siendo los administradores los encargados
+de revisar cada producto antes de ser enviados a la vista del publico, pudiendo editar cada detalle de las obras e incluso
+inhabilitarlas.
+ Se podrán manipular los roles de todos los usuarios existentes, ver historiales de compras y visualizar ganancias y usuarios
+totales y tambien aceptar las solicitudes para los roles de artista, ya que son los administradores quienes deciden quienes
+tendrán la posibilidad de poder vender en la página.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
