@@ -9,11 +9,11 @@ usuario tenga disponible el avistamiento de obras de artes de verdaderos artista
 👤 Como invitado se podrá acceder a visualizar todo el contenido de la pagina, desde las obras de arte de nuestra pagina
 principal hasta los detalles de las mismas, tambien podrá añadir obras a favoritos o al carrito.
 
- Como usuario registrado podrás editar tu perfil, puntuar y comentar obras, comprar todo lo que exista en el carrito y
+🎨 Como usuario registrado podrás editar tu perfil, puntuar y comentar obras, comprar todo lo que exista en el carrito y
 ademas, si estás interesado en vender tu arte podrás solicitar mediante un formulario un rol de artista que te permitirá
 vender tu obras y obtenér una ganancia de ellas!
  
- Como administrador se podrá tenér control absoluto del contenido de la pagina, siendo los administradores los encargados
+👮 Como administrador se podrá tenér control absoluto del contenido de la pagina, siendo los administradores los encargados
 de revisar cada producto antes de ser enviados a la vista del publico, pudiendo editar cada detalle de las obras e incluso
 inhabilitarlas.
  Se podrán manipular los roles de todos los usuarios existentes, ver historiales de compras y visualizar ganancias y usuarios
