@@ -1,8 +1,8 @@
-# Arterest - Pagina web sobre arte!
+# 🎨 Arterest - Pagina web sobre arte!
 
-## Resumen
+## 📄 Resumen
 
- Arterest es una aplicación web destinada a la venta y adquicición de obras de artes. La idea de este proyecto fué lograr
+🎨 Arterest es una aplicación web destinada a la venta y adquicición de obras de artes. La idea de este proyecto fué lograr
 una página web donde la experiencia del usuario sea de lo mejor posible, logrando un layout similar a Pinterest donde el
 usuario tenga disponible el avistamiento de obras de artes de verdaderos artista seleccionados incluyendo sus detalles.
 
