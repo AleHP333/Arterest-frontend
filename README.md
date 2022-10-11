@@ -20,3 +20,17 @@ inhabilitarlas.
 totales y tambien aceptar las solicitudes para los roles de artista, ya que son los administradores quienes deciden quienes
 tendrán la posibilidad de poder vender en la página.
 
+## 🛠️ Objetivos Tech
+
+ - Registro de usuarios
+ - Autorización por terceros (Google SignIn)
+ - Pasarela de Pagos
+ - Dashboard de Administrador
+ - Borrado Lógico (Manipulación de actividades de usuario)
+ - Multifiltros de busqueda
+ - Podér subir imagenes desde el ordenador
+ - Comentarios y reviews de usuarios
+ - Deploy
+ - Notificaciones de página a e-mail de usuario
+
+
