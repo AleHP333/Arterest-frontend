@@ -38,6 +38,13 @@ tendrán la posibilidad de poder vender en la página.
   ReactJS, JavaScript, Redux, React-Router, Axios, TailwindCSS, Material UI, CSS3, HTML5
   
  ## 👨‍👦‍👦 Integrantes del proyecto:
+ 
+ - [Alejandro Palavecino](https://github.com/AleHP333)  
+ - [Mariana Stocco](https://github.com/MarianaStocco)  
+ - [Martín Araujo](https://github.com/MNAHEAVY)
+ - [Carlos Mamani](https://github.com/Carlos7847)
+ - [Anibal Alvarez](https://github.com/1alvrz)
+ - [David Gonzales](https://github.com/David-G18)
   
  
  
