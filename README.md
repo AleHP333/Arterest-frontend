@@ -1,4 +1,4 @@
-# 🎨 Arterest - Pagina web sobre arte!
+# 🎨 Arterest - Pagina web sobre arte! (FRONT-END)
 
 ## 📄 Resumen
 
@@ -32,5 +32,15 @@ tendrán la posibilidad de poder vender en la página.
  - Comentarios y reviews de usuarios
  - Deploy
  - Notificaciones de página a e-mail de usuario
+ 
+ ## ⚙️ Tecnologías Utilizadas:
+ 
+  ReactJS, JavaScript, Redux, React-Router, Axios, TailwindCSS, Material UI, CSS3, HTML5
+  
+ ## 👨‍👦‍👦 Integrantes del proyecto:
+  
+ 
+ 
+
 
 
